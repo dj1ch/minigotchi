@@ -1,4 +1,4 @@
-# to do: add nodemcu firmware, add adafruit stuff 
+# to do: add nodemcu firmware, add adafruit stuff, add luapico for firmware to work
 import board
 import busio
 from digitalio import DigitalInOut
