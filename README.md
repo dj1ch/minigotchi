@@ -13,5 +13,5 @@ Overall, this project started as a thought. I wanted to try to install pwnagotch
 
 ### How it operates
 ###
-The minigotchi relies on the IDE connected to the pico. The pico will attempt to associate to a local access point, then send packets through that network on a random channel. The logs will be put through the IDE(preferably thonny in this case). 
+The minigotchi relies on the IDE connected to the pico. The pico will attempt to associate to a local access point, then send packets through that network on a random channel. The logs will be put through the IDE(preferably thonny in this case). NodeMCU firmware is needed to do this. 
 ###
