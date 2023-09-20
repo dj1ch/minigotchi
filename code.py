@@ -2,12 +2,14 @@
 # Imports here
 import board
 import network
+import socket
+
 # Start
 print("Minigotchi by dj1ch")
 # Starts wifi card and monitor mode
 try:
     wlan = network.WLAN(network.STA_IF)
-    wlan.active(False)  
+    wlan.active(False)
     wlan.config(mode=network.WLAN.MODE_MONITOR)
     wlan.active(True)
     print("Wi-Fi interface in monitor mode")
