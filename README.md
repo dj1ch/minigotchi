@@ -8,7 +8,7 @@ Overall, this project started as a thought. I wanted to try to install pwnagotch
 ###
 ### Prerequisites (as of right now)
 - Raspberry pi pico (not the pico w)
-- Esp8266 wifi adapter (or any supported by nodemcu)
+- Esp8266 wifi adapter (or any supported by firmware)
 - Breadboard
 - A supported IDE
 - A seperate computer capable of transferring files
