@@ -1,3 +1,5 @@
+## Not ready to be used yet(do not clone and install yet)
+See the _To do_ section
 # minigotchi
 ###
 ### an even smaller pwnagotchi.
