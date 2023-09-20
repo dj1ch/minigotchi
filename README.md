@@ -16,12 +16,10 @@ Overall, this project started as a thought. I wanted to try to install pwnagotch
 ###
 ### How it operates/works
 ###
-The minigotchi relies on the IDE connected to the pico. The pico will attempt to associate to a local access point, then send packets through that network on a random channel. The logs will be put through the IDE(preferably thonny in this case). NodeMCU firmware is needed to do this. However, in order for this to work, we will need picolua, a project that will help the firmware work correctly.
+The minigotchi relies on the IDE connected to the pico. The pico will attempt to associate to a local access point, then send packets through that network on a random channel. The logs will be put through the IDE(preferably thonny in this case).
 ###
 ### To do
 - Get hardware(esp8266, breadboard, more disk space)
-- Install luapico(a dependancy to nodemcu)
-- Install NodeMCU
-- Use the firmware to start everything
+- Find the firmware to start everything
 - Make repo public
 ###
