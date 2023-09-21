@@ -25,10 +25,13 @@ The minigotchi relies on the IDE connected to the pico. The pico will attempt to
 ### Last but not least... Some thank yous!
 #### Thanks to these projects for making this a little bit more possible for me:
 - picolua, a project that allows lua to be run on a raspberry pi pico
+
 https://github.com/kevinboone/luapico
 
 - uf2, the creator of the uf2 files, but also allowing us to convert .bin files to .uf2
+
 https://github.com/microsoft/uf2
 
 - nodeMCU, the firmware which helps the esp card enter monitor mode and inject packets.
+
 https://github.com/nodemcu/nodemcu-firmware
