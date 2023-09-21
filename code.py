@@ -1,21 +1,11 @@
-# As of right now, this is just a template for the code. Waiting for actual hardware so I can test.
-# Imports here
-import board
-import network
-import socket
+# Turns on light to indicate it is on
+from machine import Pin, Timer
+led = Pin(25, Pin.OUT)
+light=Light()
 
-# Start
+def blink(light)
+    led.toggle()
+
+# Startup
 print("Minigotchi by dj1ch")
-# Starts wifi card and monitor mode
-try:
-    wlan = network.WLAN(network.STA_IF)
-    wlan.active(False)
-    wlan.config(mode=network.WLAN.MODE_MONITOR)
-    wlan.active(True)
-    print("Wi-Fi interface in monitor mode")
-except Exception as e:
-    print("Error:", e)
-
-# Associates and sends packets along network
-
-#
+print("\nRun the script by typing 'lua <filename here>'.")
