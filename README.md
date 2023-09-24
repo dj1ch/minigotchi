@@ -6,7 +6,7 @@
 ![Raspberry Pi](https://img.shields.io/badge/-RaspberryPi-C51A4A?style=for-the-badge&logo=Raspberry-Pi)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Lua](https://img.shields.io/badge/lua-%232C2D72.svg?style=for-the-badge&logo=lua&logoColor=white)
-![RaspberryPi](https://github.com/dj1ch/minigotchi/images/ra1ux5gj17u91.png)
+![RaspberryPi](/images/ra1ux5gj17u91.png)
 ###
 #### Intro
 Overall, this project started as a thought. A pwnagotchi on a raspberry pi pico. Crazy, right? Anyway, this project may make it a little bit more possible. Instead of pwning, it will be a friend to a local pwnagotchi(Most likely one of yours).
