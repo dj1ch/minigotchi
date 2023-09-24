@@ -11,6 +11,9 @@
 #### Intro
 Overall, this project started as a thought. A pwnagotchi on a raspberry pi pico. Crazy, right? Anyway, this project may make it a little bit more possible. Instead of pwning, it will be a friend to a local pwnagotchi(Most likely one of yours).
 ####
+#### Install?
+When I get everything fully working, the install guide will be ![here](INSTALL.md)
+####
 #### Prerequisites
 - Raspberry pi pico (not the pico w, no support for it YET.)
 - Esp8266 wifi adapter (or any supported by the firmware)
