@@ -10,3 +10,4 @@ def blink(light)
 # Startup
 print("Minigotchi by dj1ch")
 print("\nRun the script by typing 'lua <filename here>'.")
+print("\nYou can turn off the light on the pico by running 'led.toggle()' in the terminal here.")
