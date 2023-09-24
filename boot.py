@@ -1,4 +1,5 @@
 # Turns on light to indicate it is on
+import picolua
 import board
 from machine import Pin, Timer
 led = Pin(25, Pin.OUT)
