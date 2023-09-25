@@ -18,7 +18,7 @@ When I get everything fully working, the install guide will be ![here](INSTALL.m
 - Raspberry pi pico (not the pico w, no support for it YET.)
 - Esp8266 wifi adapter (or any supported by the firmware)
 - Breadboard
-- A supported IDE
+- A supported IDE(although you can get away with a serial shell, that will still work just fine. rshell, minicom, etc are good examples)
 - A seperate computer capable of transferring files
 - Internet connection
 ###
@@ -28,6 +28,7 @@ The minigotchi relies on the IDE connected to the pico. The pico will attempt to
 ###
 #### To do
 - Get hardware(esp8266, maybe breadboard?)
+- Figure out the memory issue, get files to copy into pico
 - LEARN LUA ASAP!!!!
 #### Last but not least... Some thank yous!
 ##### Thanks to these projects for making this a little bit more possible for me:
