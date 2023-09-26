@@ -21,11 +21,11 @@ When I get everything fully working, the install guide will be ![here](INSTALL.m
 - A supported IDE(although you can get away with a serial shell, that will still work just fine. rshell, minicom, etc are good examples)
 - A seperate computer capable of transferring files
 - Internet connection
-###
 #### How it operates/works
-###
 The minigotchi relies on the IDE connected to the pico. The pico will attempt to associate to a local access point, then send packets through that network on a random channel. The logs will be put through the IDE(preferably thonny in this case).
-###
+#### Something that you should know
+The thing is, the drive that mounts onto your computer is essentially a dummy drive. Everything you put into that drive gets copied to ram. Unfortunatly, the firmware that I need is not all going to fit on that drive alongside the circuitpython firmware. Finding a solution. 
+####
 #### To do
 - Get hardware(esp8266, maybe breadboard?)
 - Figure out the memory issue, get files to copy into pico
