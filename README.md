@@ -27,6 +27,7 @@ The minigotchi relies on the IDE connected to the pico. The pico will attempt to
 The thing is, the drive that mounts onto your computer is essentially a dummy drive. Everything you put into that drive gets copied to ram. Unfortunatly, the firmware that I need is not all going to fit on that drive alongside the circuitpython firmware. Finding a solution. 
 ####
 #### To do
+- I should crop that image...
 - Get hardware(esp8266, maybe breadboard?)
 - Figure out the memory issue, get files to copy into pico
 - LEARN LUA ASAP!!!!
