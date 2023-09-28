@@ -15,7 +15,7 @@ Overall, this project started as a thought. A pwnagotchi on a raspberry pi pico.
 When I get everything fully working, the install guide will be ![here](INSTALL.md)
 ####
 #### Prerequisites
-- Raspberry pi pico (not the pico w, no support for it YET.)
+- Raspberry pi pico (not the w, here is a project that does support it [https://github.com/BoxC4T/Pwnagotchi-Pico](url))
 - Esp8266 wifi adapter (or any supported by the firmware)
 - Breadboard
 - A supported IDE(although you can get away with a serial shell, that will still work just fine. rshell, minicom, etc are good examples)
