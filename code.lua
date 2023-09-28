@@ -1,6 +1,8 @@
 -- load modules
 wifi = require("wifi")
+-- variables(set them)
 local message = "123"
+local ssid = "SSID of network"
 
 -- functions
 function start()
@@ -14,7 +16,6 @@ function channel(channelNumber)
 end
 
 function associate()
-    local ssid = "SSID of network"
     wifi.packet.frame_type = 0x00
     associationPacket.frame_body = ssid
     associationPacket:send()
