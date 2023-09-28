@@ -9,6 +9,7 @@
 <p align="center">
   <img width="200" height="200" src="/images/ra1ux5gj17u91.png">
 </p>
+
 ###
 #### Intro
 Overall, this project started as a thought. A pwnagotchi on a raspberry pi pico. Crazy, right? Anyway, this project may make it a little bit more possible. Instead of pwning, it will be a friend to a local pwnagotchi(Most likely one of yours).
