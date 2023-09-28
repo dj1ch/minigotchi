@@ -1,8 +1,8 @@
 -- load modules
 wifi = require("wifi")
 -- variables(set them)
-local message = "123"
-local ssid = "SSID of network"
+local message = "123" -- this should be the pwnagotchi information
+local ssid = "SSID of network" -- set the ssid of the network 
 
 -- functions
 function start()
