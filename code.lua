@@ -2,7 +2,7 @@
 wifi = require("wifi")
 -- variables(set them)
 local message = "123" -- this should be the pwnagotchi information
-local ssid = "SSID of network" -- set the ssid of the network 
+local ssid = "SSID of network" -- set the ssid of the network
 
 -- functions
 function start()
@@ -19,6 +19,7 @@ function associate()
     wifi.packet.frame_type = 0x00
     associationPacket.frame_body = ssid
     associationPacket:send()
+    print("Associated to: " .. ssid)
 end
 
 function pwnagotchipacket()
