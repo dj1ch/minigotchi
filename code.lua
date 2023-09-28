@@ -3,29 +3,32 @@ wifi = require("wifi")
 local message = "123"
 
 -- functions
-function wifi.monitor.start()
+function start()
     wifi.monitor.start
     print("Wi-Fi monitoring started")
 end
 
-function wifi.monitor.channel(channelNumber)
+function channel(channelNumber)
     wifi.monitor.channel(channelNumber)
     print("Switched to channel " .. channelNumber)
 end
 
-function associate
--- put the stuff here
+function associate()
+    local ssid = "SSID of your network you want to associate to"
+    wifi.packet.frame_type = 0x00
+    associationPacket.frame_body = ssid
+    associationPacket:send()
 end
 
 function pwnagotchipacket()
-    local packet = wifi.packet()
-    packet.frame_type = 0x08
-    packet.frame_body = message
-    packet:broadcast()
+    wifi.packet.frame_type = 0x08
+    wifi.packet.frame_body = message
+    wifi.packet:broadcast()
     print("Broadcasted: " .. message)
 end
 
 -- execute functions
-wifi.monitor.start()
-wifi.monitor.channel(6)
+start()
+channel(6)
+associate()
 pwnagotchipacket()
