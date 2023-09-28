@@ -14,7 +14,7 @@ function channel(channelNumber)
 end
 
 function associate()
-    local ssid = "SSID of your network you want to associate to"
+    local ssid = "SSID of network"
     wifi.packet.frame_type = 0x00
     associationPacket.frame_body = ssid
     associationPacket:send()
