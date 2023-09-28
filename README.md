@@ -6,7 +6,9 @@
 ![Raspberry Pi](https://img.shields.io/badge/-RaspberryPi-C51A4A?style=for-the-badge&logo=Raspberry-Pi)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Lua](https://img.shields.io/badge/lua-%232C2D72.svg?style=for-the-badge&logo=lua&logoColor=white)
-![RaspberryPi](/images/ra1ux5gj17u91.png)
+<p align="center">
+  <img width="200" height="200" src="/images/ra1ux5gj17u91.png">
+</p>
 ###
 #### Intro
 Overall, this project started as a thought. A pwnagotchi on a raspberry pi pico. Crazy, right? Anyway, this project may make it a little bit more possible. Instead of pwning, it will be a friend to a local pwnagotchi(Most likely one of yours).
@@ -24,7 +26,7 @@ When I get everything fully working, the install guide will be ![here](INSTALL.m
 #### How it operates/works
 The minigotchi relies on the IDE connected to the pico. The pico will attempt to associate to a local access point, then send packets through that network on a random channel. The logs will be put through the IDE(preferably thonny in this case).
 #### Something that you should know
-The thing is, the drive that mounts onto your computer is essentially a dummy drive. Everything you put into that drive gets copied to ram. Unfortunatly, the firmware that I need is not all going to fit on that drive alongside the circuitpython firmware. Finding a solution. 
+The thing is, the drive that mounts onto your computer is essentially a dummy drive. Everything you put into that drive gets copied to ram. Unfortunatly, the firmware that I need is not all going to fit on that drive alongside the circuitpython firmware. Finding a solution.
 ####
 #### To do
 - I should crop that image...
