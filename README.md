@@ -5,7 +5,6 @@
 ### an even smaller pwnagotchi.
 ![Raspberry Pi](https://img.shields.io/badge/-RaspberryPi-C51A4A?style=for-the-badge&logo=Raspberry-Pi)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![Lua](https://img.shields.io/badge/lua-%232C2D72.svg?style=for-the-badge&logo=lua&logoColor=white)
 <p align="center">
   <img width="200" height="200" src="/images/ra1ux5gj17u91.png">
 </p>
@@ -30,10 +29,7 @@ The minigotchi relies on the IDE connected to the pico. The pico will attempt to
 The thing is, the drive that mounts onto your computer is essentially a dummy drive. Everything you put into that drive gets copied to ram. Unfortunatly, the firmware that I need is not all going to fit on that drive alongside the circuitpython firmware. Finding a solution.
 ####
 #### To do
-- I should crop that image...
 - Get hardware(esp8266, maybe breadboard?)
-- Figure out the memory issue, get files to copy into pico
-- LEARN LUA ASAP!!!!
 #### Last but not least... Some thank yous!
 ##### Thanks to these projects for making this a little bit more possible for me:
 - picolua, a project that allows lua to be run on a raspberry pi pico
