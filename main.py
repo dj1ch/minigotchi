@@ -3,6 +3,7 @@ from machine import UART
 import machine
 import _thread
 import time
+import utime
 from machine import UART
 from machine import Pin, Timer
 led = Pin(25, Pin.OUT)
@@ -45,5 +46,13 @@ print(" ")
 
 # Sending packets
 print("Sending packets...")
-#function goes here
+
+def run_duration(duration_ms, func)
+    while utime.ticks_diff(utime.ticks_ms(), start_time) < duration_ms:
+        func()
+
+def send_packet
+
+run_duration(5000, send_packet)
+
 print("done!")
