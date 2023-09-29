@@ -13,7 +13,7 @@ print("-- Minigotchi by dj1ch --")
 print("\nYou can turn off the light on the pico by running 'led.toggle()' in the terminal here.")
 
 
-# Setup
+# Setup(s)
 print("Setting up UART connections...")
 uart = UART(1,115200) # set uart
 print("done!")
@@ -28,17 +28,22 @@ def uartSerialRxMonitor():
         global recv_buf
         recv_buf=recv_buf+recv
 
-print ("Connecting to ESP8266...")
+print("Connecting to ESP8266...")
 _thread.start_new_thread(uartSerialRxMonitor, ()) # start serial monitor as a thread
-print ("done!")
-print (" ")
+print("done!")
+print(" ")
 
-print ("Connecting to wifi...")
-print ("  - Setting CWMODE to 1 station mode...")
+print("Connecting to wifi...")
+print("  - Setting CWMODE to 1 station mode...")
 uart.write('AT+CWMODE=1'+'\r\n')
 time.sleep(2)
-print ('  - Joining Wifi ...')
+print('  - Joining Wifi ...')
 uart.write('AT+CWJAP="wifissid","wifipassword"'+'\r\n') # set Wifi network SSID and password here
 time.sleep(5)
-print ("done!")
-print (" ")
+print("done!")
+print(" ")
+
+# Sending packets
+print("Sending packets...")
+#function goes here
+print("done!")
