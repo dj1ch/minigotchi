@@ -1,13 +1,16 @@
 -- load modules
 wifi = require("wifi")
--- variables(set them)
+
+-- variables (set them)
 local message = "123" -- this should be the pwnagotchi information
-local ssid = "SSID of network" -- set the ssid of the network
+local ssid = "SSID of network" -- set the SSID of the network
 local mac = "mac of the local pwnagotchi"
 
 -- functions
 function start()
-    wifi.monitor.start()
+    wifi.monitor.start(13, 0x80, function(packet)
+        print('Beacon: ' .. packet.bssid_hex .. " '" .. packet[0] .. "' ch " .. packet[3]:byte(1))
+    end)
     print("Wi-Fi monitoring started")
 end
 
@@ -23,9 +26,9 @@ function associate()
     print("Associated to: " .. ssid)
 end
 
-function pwnagotchipacket()
+function pwnagotchiPacket()
     wifi.packet.frame_type = 0x08
-    wifi.dstmac_hex = mac
+    wifi.packet.dstmac_hex = mac
     wifi.packet.frame_body = message
     wifi.packet:send()
     print("Broadcasted: " .. message)
@@ -35,4 +38,4 @@ end
 start()
 channel(6)
 associate()
-pwnagotchipacket()
+pwnagotchiPacket()
