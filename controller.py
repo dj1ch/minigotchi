@@ -8,8 +8,8 @@ class Controller:
         self.uart = machine.UART(Config.UART_ID, Config.UART_BAUDRATE)
         self.esp = ESP8266(self.uart, debug=True)
 
-        self.wifi_ssid = ""
-        self.wifi_password = ""
+        self.wifi_ssid = "" # Must be set
+        self.wifi_password = "" # Must be set
 
         self.hotspot_ssid = "test_hotspot"
         self.hotspot_password = "hotspot1234"
@@ -60,6 +60,3 @@ class Controller:
 
             # self.send_requests()
             self.start_server()
-
-
-
