@@ -1,5 +1,6 @@
 # Turns on light to indicate it is on
 from machine import UART
+import controller
 import machine
 import _thread
 import time
@@ -22,7 +23,6 @@ print (" ")
 
 def uartSerialRxMonitor():
     recv=""
-
     while True:
         recv=str(uart.read(1).decode("utf-8"))
         print(recv, end='')
@@ -31,14 +31,14 @@ def uartSerialRxMonitor():
 
 print("Connecting to ESP8266...")
 _thread.start_new_thread(uartSerialRxMonitor, ()) # start serial monitor as a thread
-print("done!")
+print("done!")h dhdhdnxbs
 print(" ")
 
 print("Connecting to wifi...")
 print("  - Setting CWMODE to 1 station mode...")
 uart.write('AT+CWMODE=1'+'\r\n')
 time.sleep(2)
-print('  - Joining Wifi ...')
+print("Joining Wifi ..."")
 uart.write('AT+CWJAP="wifissid","wifipassword"'+'\r\n') # set Wifi network SSID and password here
 time.sleep(5)
 print("done!")
