@@ -43,3 +43,5 @@ https://github.com/microsoft/uf2
 - nodeMCU, the firmware which helps the esp card enter monitor mode and inject packets.
 
 https://github.com/nodemcu/nodemcu-firmware
+
+- pico-esp8266, a python wrapper that helps the esp8266 to interact with the microcontroller. 
