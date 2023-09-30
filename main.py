@@ -1,6 +1,6 @@
 # Turns on light to indicate it is on
 from machine import UART
-import controller
+from controller import Controller
 import machine
 import _thread
 import time
