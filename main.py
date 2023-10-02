@@ -17,6 +17,12 @@ def setup()
     print("done.")
     print(" ")
 
+def server()
+    print("Starting the server...")
+    controller.start_server()
+    print("done")
+    print(" ")
+
 def get_and_post()
     print("\fSending requests...")
     controller.send_requests()
