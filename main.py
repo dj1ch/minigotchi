@@ -1,4 +1,5 @@
 # Turns on light to indicate it is on
+import time
 from controller import Controller
 from machine import Pin, Timer
 led = Pin(25, Pin.OUT)
@@ -21,13 +22,20 @@ def setup()
     print("The server should be at 127.0.0.1:8666")
     print(" ")
 
-def get_and_post()
+def get_and_post(max_duration_seconds)
+    start_time = time.time()
     print("\fSending requests...")
     controller.send_requests()
     print("done.")
     print(" ")
+    # check for time
+    elapsed_time = time.time() - start_time
+        if elapsed_time >= max_duration_seconds:
+            break
+
+max_duration = 60
+my_function(max_duration)
 
 # run the script
 setup()
-server()
-get_and_post()
+get_and_post() # set how long these packets should be sent here
