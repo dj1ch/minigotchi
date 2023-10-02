@@ -1,7 +1,10 @@
-# setup the server, associating, etc
+# imports here
+import time
+from controller import Controller
+
+# functions
 def setup():
     controller = Controller()
-    controller.__init__()
     print("Starting in client mode...")
     controller.esp_as_client()
     print("done.")
@@ -11,7 +14,6 @@ def setup():
     print("The server should be at 127.0.0.1:8666")
     print(" ")
 
-# sending get and post requests to specified ip
 def get_and_post(max_duration_seconds):
     start_time = time.time()
     while True:
@@ -23,7 +25,21 @@ def get_and_post(max_duration_seconds):
         print("done.")
         print(" ")
 
-# run the script
-setup()
-max_duration = 60
-get_and_post(max_duration)
+if __name__ == "__main__":
+    # logger
+    logging.basicConfig(level=logging.INFO)
+
+    # controller instance
+    controller = Controller()
+
+    # turn on the light to indicate the script is running
+    led = Pin(25, Pin.OUT)
+    led.toggle()
+
+    print("-- Minigotchi by dj1ch --")
+    print("\nYou can turn off the light on the pico by running 'led.toggle()' in the terminal here.")
+
+    # run the script
+    setup()
+    max_duration = 60 # this is the amount of time, make sure it is set. 
+    get_and_post(max_duration)
