@@ -19,8 +19,8 @@ class Controller:
             print(f"Address data: {self.esp.get_address_as_client()}")
 
     def send_requests(self):
-        get_data = self.esp.send_get("192.168.1.105", "/get", 8080)
-        post_data = self.esp.send_post(str({'key': 'value'}), {}, "192.168.1.105", "/post", 8080)
+        get_data = self.esp.send_get("127.0.0.1", "/get", 8666) # 127.0.0.1 is localhost, so idk 
+        post_data = self.esp.send_post(str({'key': 'value'}), {}, "127.0.0.1", "/post", 8666)
 
         print(f"POST data: {post_data}")
         print(f"GET data: {get_data}")
