@@ -8,8 +8,27 @@ class Controller:
         self.uart = machine.UART(Config.UART_ID, Config.UART_BAUDRATE)
         self.esp = ESP8266(self.uart, debug=True)
 
-        self.wifi_ssid = "" # Must be set
-        self.wifi_password = "" # Must be set
+        self.wifi_ssid = ""
+        self.wifi_password = ""
+
+        self.hotspot_ssid = "test_hotspot"
+        self.hotspot_password = "hotspot1234"
+
+    def esp_as_client(self):
+        print(f"Connecting to network: {self.wifi_ssid}")
+        self.esp.connect_to_network(self.wifi_ssid, self.wifi_password)
+
+        if self.esp.is_connected_to_wifi():
+            print(f"Address data: {self.esp.get_address_as_client()}")
+
+    def esp_as_host(self):
+        print(f"Creating network: {self.hotspot_ssid}")
+        self.esp.init_hotspot(self.hotspot_ssid, self.hotspot_password)
+
+        address_data = self.esp.get_address_as_host()
+
+        if len(address_data) > 0:
+            print(f"Address data: {address_data}")
 
     def server_requests_handler(self, request_data):
         pass
@@ -22,16 +41,9 @@ class Controller:
 
             self.esp.server_mainloop(self.server_requests_handler)
 
-    def esp_as_client(self):
-        print(f"Connecting to network: {self.wifi_ssid}")
-        self.esp.connect_to_network(self.wifi_ssid, self.wifi_password)
-
-        if self.esp.is_connected_to_wifi():
-            print(f"Address data: {self.esp.get_address_as_client()}")
-
     def send_requests(self):
-        get_data = self.esp.send_get("127.0.0.1", "/get", 8666) # 127.0.0.1 is localhost, so idk
-        post_data = self.esp.send_post(str({'key': 'value'}), {}, "127.0.0.1", "/post", 8666)
+        get_data = self.esp.send_get("192.168.1.105", "/get", 8080)
+        post_data = self.esp.send_post(str({'key': 'value'}), {}, "192.168.1.105", "/post", 8080)
 
         print(f"POST data: {post_data}")
         print(f"GET data: {get_data}")
