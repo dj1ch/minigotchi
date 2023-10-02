@@ -1,4 +1,4 @@
-# Turns on light to indicate it is on
+# turns on light to indicate it is on
 import time
 from controller import Controller
 from machine import Pin, Timer
@@ -9,7 +9,7 @@ led.toggle()
 print("-- Minigotchi by dj1ch --")
 print("\nYou can turn off the light on the pico by running 'led.toggle()' in the terminal here.")
 
-# setup
+# setup the server, associating, etc
 def setup()
     controller = Controller()
     controller.__init__()
@@ -22,6 +22,7 @@ def setup()
     print("The server should be at 127.0.0.1:8666")
     print(" ")
 
+# sending get and post requests to specified ip
 def get_and_post(max_duration_seconds)
     start_time = time.time()
     print("\fSending requests...")
