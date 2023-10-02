@@ -8,8 +8,8 @@ class Controller:
         self.uart = machine.UART(Config.UART_ID, Config.UART_BAUDRATE)
         self.esp = ESP8266(self.uart, debug=True)
 
-        self.wifi_ssid = ""
-        self.wifi_password = ""
+        self.wifi_ssid = "" # set them here
+        self.wifi_password = "" # set them here
 
         self.hotspot_ssid = "test_hotspot"
         self.hotspot_password = "hotspot1234"
@@ -36,14 +36,14 @@ class Controller:
     def start_server(self):
         print("Starting server at port 8080")
 
-        if self.esp.start_server(8080):
+        if self.esp.start_server(8666):
             print("Server running...")
 
             self.esp.server_mainloop(self.server_requests_handler)
 
     def send_requests(self):
-        get_data = self.esp.send_get("192.168.1.105", "/get", 8080)
-        post_data = self.esp.send_post(str({'key': 'value'}), {}, "192.168.1.105", "/post", 8080)
+        get_data = self.esp.send_get("127.0.0.1", "/get", 8666)
+        post_data = self.esp.send_post(str({'key': 'value'}), {}, "127.0.0.1", "/post", 8666)
 
         print(f"POST data: {post_data}")
         print(f"GET data: {get_data}")
