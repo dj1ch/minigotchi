@@ -21,6 +21,7 @@ def server()
     print("Starting the server...")
     controller.start_server()
     print("done")
+    print("The server should be at 127.0.0.1:8666")
     print(" ")
 
 def get_and_post()
@@ -31,4 +32,5 @@ def get_and_post()
 
 # run the script
 setup()
+server()
 get_and_post()
