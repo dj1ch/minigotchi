@@ -1,58 +1,45 @@
-# Turns on light to indicate it is on
-from machine import UART
-from controller import Controller
-import machine
-import _thread
+# imports here
 import time
-import utime
-from machine import UART
-from machine import Pin, Timer
-led = Pin(25, Pin.OUT)
-led.toggle()
+from controller import Controller
 
-# startup
-print("-- Minigotchi by dj1ch --")
-print("\nYou can turn off the light on the pico by running 'led.toggle()' in the terminal here.")
+# functions
+def setup():
+    controller = Controller()
+    print("Starting in client mode...")
+    controller.esp_as_client()
+    print("done.")
+    print("Starting the server...")
+    controller.start_server()
+    print("done")
+    print("The server should be at 127.0.0.1:8666")
+    print(" ")
 
-
-# Setup(s)
-print("Setting up UART connections...")
-uart = UART(1,115200) # set uart
-print("done!")
-print (" ")
-
-def uartSerialRxMonitor():
-    recv=""
+def get_and_post(max_duration_seconds):
+    start_time = time.time()
     while True:
-        recv=str(uart.read(1).decode("utf-8"))
-        print(recv, end='')
-        global recv_buf
-        recv_buf=recv_buf+recv
+        elapsed_time = time.time() - start_time
+        if elapsed_time >= max_duration_seconds:
+            break
+        print("\fSending requests...")
+        controller.send_requests()
+        print("done.")
+        print(" ")
 
-print("Connecting to ESP8266...")
-_thread.start_new_thread(uartSerialRxMonitor, ()) # start serial monitor as a thread
-print("done!")h dhdhdnxbs
-print(" ")
+if __name__ == "__main__":
+    # logger
+    logging.basicConfig(level=logging.INFO)
 
-print("Connecting to wifi...")
-print("  - Setting CWMODE to 1 station mode...")
-uart.write('AT+CWMODE=1'+'\r\n')
-time.sleep(2)
-print("Joining Wifi ..."")
-uart.write('AT+CWJAP="wifissid","wifipassword"'+'\r\n') # set Wifi network SSID and password here
-time.sleep(5)
-print("done!")
-print(" ")
+    # controller instance
+    controller = Controller()
 
-# Sending packets
-print("Sending packets...")
+    # turn on the light to indicate the script is running
+    led = Pin(25, Pin.OUT)
+    led.toggle()
 
-def run_duration(duration_ms, func)
-    while utime.ticks_diff(utime.ticks_ms(), start_time) < duration_ms:
-        func()
+    print("-- Minigotchi by dj1ch --")
+    print("\nYou can turn off the light on the pico by running 'led.toggle()' in the terminal here.")
 
-def send_packet
-
-run_duration(5000, send_packet)
-
-print("done!")
+    # run the script
+    setup()
+    max_duration = 60 # this is the amount of time, make sure it is set. 
+    get_and_post(max_duration)
