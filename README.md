@@ -48,6 +48,6 @@ https://github.com/nodemcu/nodemcu-firmware
 
 https://github.com/zNitche/pico-esp8266
 
-- 80211Raw, which allows raw frames to be received and sent through an esp8266 or esp32
+- 80211Raw, which allows raw frames to be received and sent through an esp8266 or esp32 using C and C++
 
 https://github.com/tht/80211Raw
