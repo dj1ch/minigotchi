@@ -24,9 +24,9 @@ When I get everything fully working, the install guide will be ![here](INSTALL.m
 - A seperate computer capable of transferring files
 - Internet connection
 #### How it operates/works
-The minigotchi relies on the IDE/serial shell for communication through logs. It will send raw frames to associate to an access point, and will advertise itself on a network like a pwnagotchi. 
+The minigotchi relies on the IDE/serial shell for communication through logs. It will send raw frames to associate to an access point, and will advertise itself on a network like a pwnagotchi.
 #### Something that you should know
-The thing is, the drive that mounts onto your computer is essentially a dummy drive. Everything you put into that drive gets copied to ram. Unfortunatly, the firmware that I need is not all going to fit on that drive alongside the circuitpython firmware. Finding a solution.
+The thing is, the drive that mounts onto your computer is essentially a dummy drive. Everything you put into that drive gets copied to ram. Unfortunatly, the firmware that I need is not all going to fit on that drive alongside the ~~circuitpython~~ firmware. Finding a solution.
 ####
 #### To do
 - Get hardware(esp8266/esp32, maybe breadboard?)
