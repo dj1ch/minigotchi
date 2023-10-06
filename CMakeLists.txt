@@ -6,10 +6,15 @@ project(minigotchi)
 # Add the source files
 add_executable(${PROJECT_NAME}
     raw80211.cpp
+    # Add other source files if needed
 )
 
 # Link the PICO SDK libraries
 target_link_libraries(${PROJECT_NAME}
     pico_stdlib
     # Add other PICO SDK libraries here
+    # (Include the necessary libraries for your project)
 )
+
+# Add extra outputs
+pico_add_extra_outputs(${PROJECT_NAME})
