@@ -1,7 +1,13 @@
 cmake_minimum_required(VERSION 3.13)
 
+# Including this so we can initialize the sdk
+include(pico_sdk_import.cmake)
+
 # Set the project name
 project(minigotchi)
+
+# initialize sdk
+pico_sdk_init()
 
 # Add the source files
 add_executable(${PROJECT_NAME}
