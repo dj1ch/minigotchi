@@ -1,26 +1,23 @@
 cmake_minimum_required(VERSION 3.13)
 
-# Including this so we can initialize the sdk
-include(pico_sdk_import.cmake)
+# Set the path to the PICO SDK
+set(PICO_SDK_PATH ~/pico-sdk)
 
-# Set the project name
-project(minigotchi)
+# Include pico_sdk_import.cmake
+include(${PICO_SDK_PATH}/external/pico_sdk_import.cmake)
 
-# initialize sdk
+# Initialize the SDK based on PICO_SDK_PATH
 pico_sdk_init()
 
-# Add the source files
-add_executable(${PROJECT_NAME}
+project(minigotchi)
+
+# Add your source files
+add_executable(minigotchi
     raw80211.cpp
-    # Add other source files if needed
 )
 
-# Link the PICO SDK libraries
-target_link_libraries(${PROJECT_NAME}
-    pico_stdlib
-    # Add other PICO SDK libraries here
-    # (Include the necessary libraries for your project)
-)
+# Add pico_stdlib library which aggregates commonly used features
+target_link_libraries(minigotchi pico_stdlib)
 
-# Add extra outputs
-pico_add_extra_outputs(${PROJECT_NAME})
+# Create map/bin/hex/uf2 file in addition to ELF.
+pico_add_extra_outputs(minigotchi)
