@@ -6,7 +6,8 @@ clone the github repo, then cd into it.
 `cd minigotchi`
 `mkdir build`
 `cmake ..`
+`make` 
 
-from here it should generate the stuff needed for the pico. 
+from here it should generate the stuff needed for the pico.
 #### Note
 The pico itself doesn't really have a hard disk. The "disk" that gets mounted on your computer is just a dummy. Whatever you put on there will be copied to the actual memory/ram.
