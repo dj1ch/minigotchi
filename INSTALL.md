@@ -3,11 +3,11 @@ Mostly just figuring out C++ and C, that allows the raw frames to be sent. Long 
 #### How I am testing
 clone the github repo, then cd into it.
 
-`cd minigotchi`
-`mkdir build`
-`cmake ..`
-`make` 
+- `cd minigotchi`
+- `mkdir build`
+- `cmake ..`
+- `make`
 
-from here it should generate the stuff needed for the pico.
+from here it should generate the stuff needed for the esp8266
 #### Note
-The pico itself doesn't really have a hard disk. The "disk" that gets mounted on your computer is just a dummy. Whatever you put on there will be copied to the actual memory/ram.
+We dropped support for the pico, but there is a project out there for the pico w. 
