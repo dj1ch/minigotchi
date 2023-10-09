@@ -19,9 +19,7 @@ We have dropped support for the pico, as it turns out, the esp8266 is a microcon
 ####
 #### To do
 - Get hardware(esp8266/esp32, maybe breadboard?)
-Hardware is here:
-https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp
-
+- Hardware is here: https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp
 - Learn C/C++ basics
 #### Last but not least... Some thank yous!
 ##### Thanks to these projects for making this a little bit more possible for me:
