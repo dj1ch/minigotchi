@@ -1,10 +1,13 @@
 cmake_minimum_required(VERSION 3.13)
 
-# Set the path to the PICO SDK
-set(PICO_SDK_PATH ~/minigotchi)
+# Set the path to the PICO SDK (if not set in the environment)
+if (NOT DEFINED ENV{PICO_SDK_PATH})
+    # Fetch Pico SDK from git if not set
+    set(PICO_SDK_FETCH_FROM_GIT ON CACHE BOOL "Set to ON to fetch copy of SDK from git if not otherwise locatable")
+endif()
 
-# Include pico_sdk_import.cmake
-include(${PICO_SDK_PATH}/pico_sdk_import.cmake)
+# Include the Pico SDK import script
+include(pico_sdk_import.cmake)
 
 # Initialize the SDK based on PICO_SDK_PATH
 pico_sdk_init()
