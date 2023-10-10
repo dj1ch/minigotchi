@@ -26,6 +26,10 @@ We have dropped support for the pico, as it turns out, the esp8266 is a microcon
 https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp
 
 - Learn C/C++ basics
+####
+#### Contributing
+Contributions to the code itself are going to be accepted! Small, and potentially useless pull requests will be ignored. I don't want to waste your time or my time on something as insignificant as adding a space, or putting a link to something I don't need. See more [here](CONTRIBUTING.md). Thank you! 
+####
 #### Last but not least... Some thank yous!
 ##### Thanks to these projects for making this a little bit more possible for me:
 
