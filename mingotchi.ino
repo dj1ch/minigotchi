@@ -1,7 +1,8 @@
 #include "raw80211.h"
 
-const char bssid[] = "84:f3:eb:58:95:bd";
-const uint8_t channel = 6;
+const char bssid[] = "84:f3:eb:58:95:bd"; //you can put your mac address here
+const uint8_t channel = 6; // by default, we are going with channel 6,
+                           // although the pwnagotchi's ai will decide this
 
 void setup() {
   //Serial.begin(115200);
