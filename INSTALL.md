@@ -10,4 +10,4 @@ clone the github repo, then cd into it.
 
 from here it should generate the stuff needed for the esp8266
 #### Note
-We dropped support for the pico, but there is a project out there for the pico w. 
+~~We dropped support for the pico, but there is a project out there for the pico w.~~ I mean, there still is potential support for the pico, if you are willing to build the files correctly. This has to be done manually, and I am sure there are resources available here to do so. When in doubt, check the raspberry pi documentation. 
