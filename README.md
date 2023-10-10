@@ -5,10 +5,16 @@
 ### an even smaller pwnagotchi.
 ###
 #### Intro
-Overall, this project started as a thought. A pwnagotchi on an even smaller board, in this case an esp8266. Crazy, right? Anyway, this project may make it a little bit more possible. Instead of pwning, it will be a friend to a local pwnagotchi(Most likely one of yours). Sadly as of right now, no faces, it might show one when broadcasting.
+Overall, this project started as a thought. A pwnagotchi on an even smaller board, in this case an esp8266. Crazy, right? Anyway, this project may make it a little bit more possible. Instead of pwning, it will be a friend to a local pwnagotchi(Most likely one of yours). Sadly as of right now, no faces, it might show one when broadcasting. We might need to have some code added to the pwnagotchi so it can detect the minigotchi when it is nearby.
 ####
 #### Install?
 When I get everything fully working, the install guide will be [here](INSTALL.md). I'll be putting out some releases soon. Most of the files here are either from the pico-sdk repository or the arduino repository
+####
+#### Languages
+- C 
+- C++
+- Python
+- Go (maybe)
 ####
 #### Prerequisites
 - An IDE (most likely the arduino ide or thonny on the raspberry pi pico)
@@ -28,7 +34,7 @@ https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp
 - Learn C/C++ basics
 ####
 #### Contributing
-Contributions to the code itself are going to be accepted! Small, and potentially useless pull requests will be ignored. I don't want to waste your time or my time on something as insignificant as adding a space, or putting a link to something I don't need. See more [here](CONTRIBUTING.md). Thank you! 
+Contributions to the code itself are going to be accepted! Small, and potentially useless pull requests will be ignored. I don't want to waste your time or my time on something as insignificant as adding a space, or putting a link to something I don't need. See more [here](CONTRIBUTING.md). Thank you!
 ####
 #### Last but not least... Some thank yous!
 ##### Thanks to these projects for making this a little bit more possible for me:

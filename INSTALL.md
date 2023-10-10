@@ -1,9 +1,9 @@
 #### DO NOT INSTALL ANY OF THE FILES ONTO THE PICO!
 Mostly just figuring out C++ and C, that allows the raw frames to be sent. Long story short I may need to learn C++ and C, and at least just figuring out variables. The branch called "saved" is an archive of the work in python, using the esp8266 wrapper, although it will not work, since I have not made the progress in defining the headers being sent to the pwnagotchi.
 #### How I am testing
-clone the github repo, then cd into it.
+clone the github repo, then cd into it. if you are building and testing, i recommend making a seperate directory for testing and then another with the actual github repo with your changes in it.
 
-- `cd minigotchi`
+- `cd minigotchi` (or whatever you named the testing directory)
 - `mkdir build`
 - `cmake ..`
 - `make`
