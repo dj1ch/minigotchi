@@ -1,8 +1,39 @@
 #include "raw80211.h"
+#include <ArduinoJson.h>
 
-const char bssid[] = "84:f3:eb:58:95:bd"; //you can put your mac address here
-const uint8_t channel = 6; // by default, we are going with channel 6,
-                           // although the pwnagotchi's ai will decide this
+const char bssid[] = "84:f3:eb:58:95:bd"; // you can put your mac address here(it is random everytime)
+const uint8_t channel = 6; // by default, we are going with channel 6, although the pwnagotchi's ai will decide this
+
+// define a json file for the pwnagotchi, i would create a new one.
+const char* jsonPayload = R"({
+    "epoch": `1`,
+    "face": "(◕‿‿◕)",
+    "identity": "",
+    "name": "minigotchi",
+    "policy": {
+        "advertise": true,
+        "ap_ttl": 0,
+        "associate": true,
+        "bored_num_epochs": 0,
+        "channels": [],
+        "deauth": true,
+        "excited_num_epochs": 0,
+        "hop_recon_time": 0,
+        "max_inactive_scale": 0,
+        "max_interactions": 0,
+        "max_misses_for_recon": 0,
+        "min_recon_time": 0,
+        "min_rssi": 0,
+        "recon_inactive_multiplier": 0,
+        "recon_time": 0,
+        "sad_num_epochs": 0,
+        "sta_ttl": 0
+    },
+    "pwnd_run": 0,
+    "pwnd_tot": 0,
+    "uptime": 0,
+    "version": "0.1.0alpha"
+})";
 
 void setup() {
   //Serial.begin(115200);
@@ -14,7 +45,10 @@ void setup() {
 }
 
 void loop() {
-  // In here will be sending frames to bc so pwnagotchi might find us
+  // Convert the JSON string to a uint8_t array, then send it
+  const uint8_t* payloadData = reinterpret_cast<const uint8_t*>(jsonPayload);
+  Raw80211::send(payloadData, strlen(jsonPayload));
+  delay(500); // Delayed between each payload by ms, in this case 500
 }
 
 void on_packet(const wifi_ieee80211_mac_hdr_t *hdr, signed int rssi, const uint8_t *buff, uint16_t buff_len) {
