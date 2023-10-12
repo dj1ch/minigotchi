@@ -1,6 +1,5 @@
-#### DO NOT INSTALL ANY OF THE FILES ONTO THE PICO!
-Mostly just figuring out C++ and C, that allows the raw frames to be sent. Long story short I may need to learn C++ and C, and at least just figuring out variables. The branch called "saved" is an archive of the work in python, using the esp8266 wrapper, although it will not work, since I have not made the progress in defining the headers being sent to the pwnagotchi.
-
+# Install guide
+Here you can find out how to install minigotchi on the esp8266, or the raspberry pi pico. The esp8266 microcontroller has more support than the pico at the moment. They can be both built using arduino, but you can build manually with the pico, assuming that you have all the libraries from the arduino esp8266 repo. 
 #### Manually building it
 clone the github repo, then cd into it. if you are building and testing, i recommend making a seperate directory for testing and then another with the actual github repo with your changes in it. make sure you get all the dependancies on your system. this includes the arduino esp8266 and esp32 libraries.
 
@@ -14,7 +13,7 @@ from here it should generate the stuff needed for the esp8266, and the files sho
 
 That's how you can do it manually, here's you do it in a more easier manner.
 #### Building using Arduino IDE
-I believe that you can also use the raspberry pi pico and run arduino .ino files. It would be much easier to do this then to build it yourself manually. 
+I believe that you can also use the raspberry pi pico and run arduino .ino files. It would be much easier to do this then to build it yourself manually.
 - Clone repo, and open it up in the file manager
 - Go to your arduino folder (on linux, it should be `~/Arduino`)
 - Create a folder called `minigotchi`, then in that folder create another folder called `minigotchi`
