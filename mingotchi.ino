@@ -1,5 +1,10 @@
 #include "raw80211.h"
 #include <ArduinoJson.h>
+#include <ESP8266WiFi.h>
+
+// we may need to connect to a wifi network
+const char* ssid = "your-SSID"; // define here
+const char* password = "your-PASSWORD"; // define here
 
 const char bssid[] = "84:f3:eb:58:95:bd"; // you can put your mac address here(it is random everytime)
 const uint8_t channel = 6; // by default, we are going with channel 6, although the pwnagotchi's ai will decide this
@@ -36,7 +41,14 @@ const char* jsonPayload = R"({
 })";
 
 void setup() {
+  // Might uncomment this later, we just need to be testing for now
   //Serial.begin(115200);
+  //WiFi.begin(ssid, password);
+  //while (WiFi.status() != WL_CONNECTED) {
+  //  delay(1000);
+  //  Serial.println("Connecting to WiFi...");
+  //}
+  Serial.println("Connected to WiFi");
   // put your setup code here, to run once:
   //Setup wifi
   Raw80211::init_wlan(bssid, channel);
