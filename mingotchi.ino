@@ -1,6 +1,6 @@
 #include "raw80211.h"
-#include <ArduinoJson.h>
-#include <ESP8266WiFi.h>
+#include <ArduinoJson.h> // make sure you get this library!!
+#include <ESP8266WiFi.h> // this should be included with the esp8266 libs
 
 // we may need to connect to a wifi network
 const char* ssid = "your-SSID"; // define here
@@ -51,7 +51,7 @@ void setup() {
   Serial.println("Connected to WiFi");
   // put your setup code here, to run once:
   //Setup wifi
-  Raw80211::init_wlan(bssid, channel);
+  Raw80211::init(bssid, channel);
   Raw80211::start();
   Raw80211::register_cb(on_packet);
 }
