@@ -10,7 +10,7 @@
     #include <WiFi.h>
     #include <esp_wifi.h>
 #else
-    #include "ESP8266WiFi.h"
+    #include <ESP8266WiFi.h>
 #endif
 
 // SDK structures -----------------------------------
