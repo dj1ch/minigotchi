@@ -9,36 +9,36 @@ const char* password = "your-PASSWORD"; // define here
 const char bssid[] = "84:f3:eb:58:95:bd"; // you can put your mac address here(it is random everytime)
 const uint8_t channel = 6; // by default, we are going with channel 6, although the pwnagotchi's ai will decide this
 
-// define a json file for the pwnagotchi, i would create a new one.
-const char* jsonPayload = R"({
-    "epoch": `1`,
+// define a json file for the pwnagotchi, i would define one here.
+const char* jsonPayload = "{
+    "epoch": 1,
     "face": "(◕‿‿◕)",
-    "identity": "",
+    "identity": "", // write one here
     "name": "minigotchi",
     "policy": {
         "advertise": true,
-        "ap_ttl": 0,
+        "ap_ttl": 120,
         "associate": true,
-        "bored_num_epochs": 0,
+        "bored_num_epochs": 15,
         "channels": [],
         "deauth": true,
-        "excited_num_epochs": 0,
-        "hop_recon_time": 0,
-        "max_inactive_scale": 0,
-        "max_interactions": 0,
-        "max_misses_for_recon": 0,
-        "min_recon_time": 0,
-        "min_rssi": 0,
-        "recon_inactive_multiplier": 0,
-        "recon_time": 0,
-        "sad_num_epochs": 0,
-        "sta_ttl": 0
+        "excited_num_epochs": 10,
+        "hop_recon_time": 10,
+        "max_inactive_scale": 2,
+        "max_interactions": 3,
+        "max_misses_for_recon": 5,
+        "min_recon_time": 5,
+        "min_rssi": -200,
+        "recon_inactive_multiplier": 2,
+        "recon_time": 30,
+        "sad_num_epochs": 25,
+        "sta_ttl": 300
     },
     "pwnd_run": 0,
     "pwnd_tot": 0,
     "uptime": 0,
     "version": "0.1.0alpha"
-})";
+}"
 
 void setup() {
   // Might uncomment this later, we just need to be testing for now
@@ -48,7 +48,6 @@ void setup() {
   //  delay(1000);
   //  Serial.println("Connecting to WiFi...");
   //}
-  Serial.println("Connected to WiFi");
   // put your setup code here, to run once:
   //Setup wifi
   Raw80211::init(bssid, channel);
