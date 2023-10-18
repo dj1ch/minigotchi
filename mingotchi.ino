@@ -40,6 +40,7 @@ const char* jsonPayload = "{
     "version": "0.1.0alpha"
 }"
 
+// main function
 void setup() {
   // Might uncomment this later, we just need to be testing for now
   //Serial.begin(115200);
