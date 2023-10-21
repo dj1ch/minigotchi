@@ -1,5 +1,4 @@
 #include "raw80211.h"
-#include <ArduinoJson.h> // make sure you get this library!!
 #include <ESP8266WiFi.h> // this should be included with the esp8266 libs
 
 // we may need to connect to a wifi network
@@ -15,29 +14,6 @@ const char* jsonPayload = "{
     "face": "(◕‿‿◕)",
     "identity": "", // write one here
     "name": "minigotchi",
-    "policy": {
-        "advertise": true,
-        "ap_ttl": 120,
-        "associate": true,
-        "bored_num_epochs": 15,
-        "channels": [],
-        "deauth": true,
-        "excited_num_epochs": 10,
-        "hop_recon_time": 10,
-        "max_inactive_scale": 2,
-        "max_interactions": 3,
-        "max_misses_for_recon": 5,
-        "min_recon_time": 5,
-        "min_rssi": -200,
-        "recon_inactive_multiplier": 2,
-        "recon_time": 30,
-        "sad_num_epochs": 25,
-        "sta_ttl": 300
-    },
-    "pwnd_run": 0,
-    "pwnd_tot": 0,
-    "uptime": 0,
-    "version": "0.1.0alpha"
 }"
 
 // main function
