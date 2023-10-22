@@ -11,7 +11,7 @@ Overall, this project started as a thought. A pwnagotchi on an even smaller boar
 When I get everything fully working, the install guide will be [here](INSTALL.md). I'll be putting out some releases soon. Most of the files here are either from the pico-sdk repository or the arduino repository
 ####
 #### Languages
-- C 
+- C
 - C++
 - Python
 - Go (maybe)
@@ -26,12 +26,13 @@ The minigotchi relies on the IDE/serial shell for communication through logs. It
 We have dropped support for the pico, as it turns out, the esp8266 is a microcontroller itself(Though I can make progress for this in the future. For now, I am sticking with the esp8266).
 ####
 #### To do
-- Get hardware(esp8266/esp32, maybe breadboard?)
+~~- Get hardware(esp8266/esp32, maybe breadboard?)~~
 - Hardware is here(the esp8266):
 
 https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp
 
-- Learn C/C++ basics
+- Learn C/C++ basics(I still don't really get it 100%)
+- **TEST!!!!!!!!!**
 ####
 #### Contributing
 Contributions to the code itself are going to be accepted! Small, and potentially useless pull requests will be ignored. I don't want to waste your time or my time on something as insignificant as adding a space, or putting a link to something I don't need. See more [here](CONTRIBUTING.md). Thank you!
