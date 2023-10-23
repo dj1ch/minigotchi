@@ -1,53 +1,52 @@
-## Not ready to be used yet(do not clone and install yet)
+## Potential support for the raspberry pi pico returning back soon
 #### See the _To do_ section
 # minigotchi
 ###
 ### an even smaller pwnagotchi.
-![Raspberry Pi](https://img.shields.io/badge/-RaspberryPi-C51A4A?style=for-the-badge&logo=Raspberry-Pi)
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-<p align="center">
-  <img width="200" height="200" src="/images/ra1ux5gj17u91.png">
-</p>
-
 ###
 #### Intro
-Overall, this project started as a thought. A pwnagotchi on a raspberry pi pico. Crazy, right? Anyway, this project may make it a little bit more possible. Instead of pwning, it will be a friend to a local pwnagotchi(Most likely one of yours). Sadly as of right now, no faces, it might show one when broadcasting.
+Overall, this project started as a thought. A pwnagotchi on an even smaller board, in this case an esp8266. Crazy, right? Anyway, this project may make it a little bit more possible. Instead of pwning, it will be a friend to a local pwnagotchi(Most likely one of yours). Sadly as of right now, no faces, it might show one when broadcasting. We might need to have some code added to the pwnagotchi so it can detect the minigotchi when it is nearby.
 ####
 #### Install?
-When I get everything fully working, the install guide will be ![here](INSTALL.md)
+When I get everything fully working, the install guide will be [here](INSTALL.md). I'll be putting out some releases soon. Most of the files here are either from the pico-sdk repository or the arduino repository
+####
+#### Languages
+- C
+- C++
+- Python
+- Go (maybe)
 ####
 #### Prerequisites
-- Raspberry pi pico (not the w, here is a project that does support it [https://github.com/BoxC4T/Pwnagotchi-Pico](url))
-- Esp8266 wifi adapter (or any supported by the firmware)
-- Breadboard
-- A supported IDE(although you can get away with a serial shell, that will still work just fine. rshell, minicom, etc are good examples)
-- A seperate computer capable of transferring files
-- Internet connection
+- An IDE (most likely the arduino ide or thonny on the raspberry pi pico)
+- Hardware(esp8266 microcontroller or raspberry pi pico with esp8266 wifi module)
+- Patience (a lot of it)
 #### How it operates/works
-The minigotchi relies on the IDE/serial shell for communication through logs. It will send raw frames to associate to an access point, and will advertise itself on a network like a pwnagotchi.
+The minigotchi relies on the IDE/serial shell for communication through logs. It will send raw frames to associate to an access point, and will advertise itself on a network like a pwnagotchi, or perhaps interact with the local pwngrid server that the pwnagotchi is running.
 #### Something that you should know
-The thing is, the drive that mounts onto your computer is essentially a dummy drive. Everything you put into that drive gets copied to ram. Unfortunatly, the firmware that I need is not all going to fit on that drive alongside the ~~circuitpython~~ firmware. Finding a solution.
+We have dropped support for the pico, as it turns out, the esp8266 is a microcontroller itself(Though I can make progress for this in the future. For now, I am sticking with the esp8266).
 ####
 #### To do
-- Get hardware(esp8266/esp32, maybe breadboard?)
-- Learn C/C++ basics
+~~- Get hardware(esp8266/esp32, maybe breadboard?)~~
+- Hardware is here(the esp8266):
+
+https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp
+
+- Learn C/C++ basics(I still don't really get it 100%)
+- **TEST!!!!!!!!!**
+####
+#### Contributing
+Contributions to the code itself are going to be accepted! Small, and potentially useless pull requests will be ignored. I don't want to waste your time or my time on something as insignificant as adding a space, or putting a link to something I don't need. See more [here](CONTRIBUTING.md). Thank you!
+####
 #### Last but not least... Some thank yous!
 ##### Thanks to these projects for making this a little bit more possible for me:
-- picolua, a project that allows lua to be run on a raspberry pi pico (not being used as of right now)
 
-https://github.com/kevinboone/luapico
+- Pico-sdk, allowing C/C++ to be compiled and ran on the raspberry pi pico
 
-- uf2, the creator of the uf2 files, but also allowing us to convert .bin files to .uf2
+https://github.com/raspberrypi/pico-sdk
 
-https://github.com/microsoft/uf2
+- Arduino, mostly just the repository containing libraries for the project so I can build this code.
 
-- nodeMCU, the firmware which helps the esp card enter monitor mode and inject packets. (not being used as of right now)
-
-https://github.com/nodemcu/nodemcu-firmware
-
-- pico-esp8266, a python wrapper that helps the esp8266 to interact with the microcontroller. (not going to be used as of right now)
-
-https://github.com/zNitche/pico-esp8266
+https://github.com/esp8266/Arduino
 
 - 80211Raw, which allows raw frames to be received and sent through an esp8266 or esp32 using C and C++
 
