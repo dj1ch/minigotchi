@@ -1,32 +1,45 @@
 #include "raw80211.h"
 #include <ESP8266WiFi.h> // this should be included with the esp8266 libs
 
-// we may need to connect to a wifi network
-const char* ssid = "your-SSID"; // define here
-const char* password = "your-PASSWORD"; // define here
-
 const char bssid[] = "84:f3:eb:58:95:bd"; // you can put your mac address here(it is random everytime)
 const uint8_t channel = 6; // by default, we are going with channel 6, although the pwnagotchi's ai will decide this
 
 // define a json file for the pwnagotchi, i would define one here.
-const char* jsonPayload = "{
-    "epoch": 1,
-    "face": "(◕‿‿◕)",
-    "identity": "", // write one here
-    "name": "minigotchi",
-}"
+const char* jsonPayload = "{"
+    "\"epoch\": 0, "
+    "\"face\": \"(◕‿‿◕)\", "
+    "\"identity\": \"b9210077f7c14c0651aa338c55e820e93f90110ef679648001b1cecdbffc0090\", "
+    "\"name\": \"minigotchi\", "
+    "\"policy\": {"
+        "\"advertise\": false, "
+        "\"ap_ttl\": 0, "
+        "\"associate\": false, "
+        "\"bored_num_epochs\": 0, "
+        "\"channels\": [], "
+        "\"deauth\": false, "
+        "\"excited_num_epochs\": 0, "
+        "\"hop_recon_time\": 0, "
+        "\"max_inactive_scale\": 0, "
+        "\"max_interactions\": 0, "
+        "\"max_misses_for_recon\": 0, "
+        "\"min_recon_time\": 0, "
+        "\"min_rssi\": 0, "
+        "\"recon_inactive_multiplier\": 0, "
+        "\"recon_time\": 0, "
+        "\"sad_num_epochs\": 0, "
+        "\"sta_ttl\": 0"
+    "}, "
+    "\"pwnd_run\": 0, "
+    "\"pwnd_tot\": 0, "
+    "\"uptime\": 0, "
+    "\"version\": \"0.1.0alpha\""
+"}";
+
 
 // main function
 void setup() {
   // Might uncomment this later, we just need to be testing for now
-  //Serial.begin(115200);
-  //WiFi.begin(ssid, password);
-  //while (WiFi.status() != WL_CONNECTED) {
-  //  delay(1000);
-  //  Serial.println("Connecting to WiFi...");
-  //}
-  // put your setup code here, to run once:
-  //Setup wifi
+  Serial.begin(115200);
   Raw80211::init(bssid, channel);
   Raw80211::start();
   Raw80211::register_cb(on_packet);
