@@ -17,7 +17,7 @@ I believe that you can also use the raspberry pi pico and run arduino .ino files
 - Clone repo, and open it up in the file manager
 - Go to your arduino folder (on linux, it should be `~/Arduino`)
 - Create a folder called `minigotchi`
-- Copy and paste the .h and .ino file from this repo the folder `~/Arduino/minigotchi`
+- Copy and paste all the files in the ino folder in this repo into the folder `~/Arduino/minigotchi`
 - Open the arduino IDE in that directory (right clicking the .ino file and opening it with the IDE)
 - It should prompt you to create a new folder called minigotchi, listen to what it tells you to do.
 - Add additional .h files if needed, make sure you install all the dependancies
