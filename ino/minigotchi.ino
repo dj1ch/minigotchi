@@ -32,7 +32,7 @@ const char* jsonPayload = "{"
     "\"pwnd_run\": 0, "
     "\"pwnd_tot\": 0, "
     "\"uptime\": 0, "
-    "\"version\": \"0.1.0alpha\""
+    "\"version\": \"v0.1.0-alpha\""
 "}";
 
 
