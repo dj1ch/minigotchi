@@ -8,7 +8,12 @@
 const char bssid[] = "84:f3:eb:58:95:bd"; // you can put your mac address here, the board will use this mac
 const uint8_t channel = 6; // by default, we are going with channel 6, although the pwnagotchi's ai will decide this
 
+// note: you can change the channel and bssid based on your pwnagotchi's
+// own ai params.
+
 // define a json file for the pwnagotchi, i would define one here.
+// you can change the stats to whatever you want,
+// although i use this default one
 const char* jsonPayload = "{"
     "\"epoch\": 1, "
     "\"face\": \"(◕‿‿◕)\", "
@@ -39,18 +44,16 @@ const char* jsonPayload = "{"
     "\"version\": \"v0.1.0-alpha\""
 "}";
 
-
 // main function
 void setup() {
-  // Might uncomment this later, we just need to be testing for now
   Serial.begin(115200);
   Raw80211::init(bssid, channel);
   Raw80211::start();
   Raw80211::register_cb(on_packet);
 }
 
+// this is the looping function that sends the payload
 void loop() {
-  // Convert the JSON string to a uint8_t array, then send it
   Serial.begin(115200);
   const uint8_t* payloadData = reinterpret_cast<const uint8_t*>(jsonPayload);
   Raw80211::send(payloadData, strlen(jsonPayload));
@@ -58,6 +61,7 @@ void loop() {
 }
 
 void on_packet(const wifi_ieee80211_mac_hdr_t *hdr, signed int rssi, const uint8_t *buff, uint16_t buff_len) {
+    Serial.begin(115200);
 
     const uint8_t *payloadData = buff;
     uint16_t payloadLength = buff_len;
@@ -72,7 +76,6 @@ void on_packet(const wifi_ieee80211_mac_hdr_t *hdr, signed int rssi, const uint8
 
      uint8_t destinationMac[6];
     memcpy(destinationMac, hdr->addr1, 6);
-
 
     bool isBroadcast = true;
     for (int i = 0; i < 6; i++) {
@@ -110,9 +113,6 @@ void on_packet(const wifi_ieee80211_mac_hdr_t *hdr, signed int rssi, const uint8
     Serial.println(rssi);
     Serial.print("Packet Length: ");
     Serial.println(buff_len);
-
-
-
 
     bool compressed = false;
     for (uint16_t i = 0; i < payloadLength; ) {
