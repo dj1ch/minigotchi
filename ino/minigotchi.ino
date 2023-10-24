@@ -1,7 +1,7 @@
-#include "raw80211.h"
+#include "raw80211.h" // will be included in the repo
 #include <ESP8266WiFi.h> // this should be included with the esp8266 libs
 
-const char bssid[] = "84:f3:eb:58:95:bd"; // you can put your mac address here(it is random everytime)
+const char bssid[] = "84:f3:eb:58:95:bd"; // you can put your mac address here, the board will use this mac
 const uint8_t channel = 6; // by default, we are going with channel 6, although the pwnagotchi's ai will decide this
 
 // define a json file for the pwnagotchi, i would define one here.
@@ -47,6 +47,7 @@ void setup() {
 
 void loop() {
   // Convert the JSON string to a uint8_t array, then send it
+  Serial.begin(115200);
   const uint8_t* payloadData = reinterpret_cast<const uint8_t*>(jsonPayload);
   Raw80211::send(payloadData, strlen(jsonPayload));
   delay(500); // Delayed between each payload by ms, in this case 500
