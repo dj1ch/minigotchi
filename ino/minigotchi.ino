@@ -1,6 +1,10 @@
 #include "raw80211.h" // will be included in the repo
 #include <ESP8266WiFi.h> // this should be included with the esp8266 libs
 
+// if you ever have problems with a library being in one or more places,
+// then delete the library in the ~/Arduino directory
+// this is a problem that has occured during the testing
+
 const char bssid[] = "84:f3:eb:58:95:bd"; // you can put your mac address here, the board will use this mac
 const uint8_t channel = 6; // by default, we are going with channel 6, although the pwnagotchi's ai will decide this
 
