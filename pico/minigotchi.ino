@@ -59,9 +59,35 @@ void setup() {
   Raw80211::register_cb(on_packet);
 }
 
+// compressing the payload
+void compressPayload(const char* input, char* output) {
+  char currentChar = *input;
+  int count = 1;
+
+  while (*input) {
+    ++input;
+
+    if (*input == currentChar) {
+      ++count;
+    } else {
+
+      *output++ = currentChar;
+      *output++ = count + '0';
+      currentChar = *input;
+      count = 1;
+    }
+  }
+
+  *output++ = currentChar;
+  *output++ = count + '0';
+  *output = '\0';
+}
+
 // this is the looping function that sends the payload
 void loop() {
   Serial.begin(115200);
+  char compressedPayload[256];
+  compressPayload(jsonPayload, compressedPayload);
   const uint8_t* payloadData = reinterpret_cast<const uint8_t*>(jsonPayload);
   Raw80211::send(payloadData, strlen(jsonPayload));
   delay(500); // Delayed between each payload by ms, in this case 500
