@@ -90,7 +90,7 @@ void loop() {
   compressPayload(jsonPayload, compressedPayload);
   const uint8_t* payloadData = reinterpret_cast<const uint8_t*>(jsonPayload);
   Raw80211::send(payloadData, strlen(jsonPayload));
-  delay(500); // Delayed between each payload by ms, in this case 500
+  delay(1000); // Delayed between each payload by ms, in this case 500
 }
 
 void on_packet(const wifi_ieee80211_mac_hdr_t *hdr, signed int rssi, const uint8_t *buff, uint16_t buff_len) {
