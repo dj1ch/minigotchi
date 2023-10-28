@@ -83,6 +83,24 @@ void compressPayload(const char* input, char* output) {
   *output = '\0';
 }
 
+// decompressing the payload
+void decompressPayload(const char* input, char* output) {
+  char currentChar;
+  int count;
+
+  while (*input) {
+    currentChar = *input++;
+    count = *input++ - '0';
+
+    for (int i = 0; i < count; ++i) {
+      *output++ = currentChar;
+    }
+  }
+
+  *output = '\0';
+}
+
+
 // this is the looping function that sends the payload
 void loop() {
   Serial.begin(115200);
