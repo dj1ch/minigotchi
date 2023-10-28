@@ -166,8 +166,12 @@ void on_packet(const wifi_ieee80211_mac_hdr_t *hdr, signed int rssi, const uint8
             i += elementLength;
         } else if (elementID == hardcodedCompressionID) {
             compressed = true;
-            // Handle compression if needed
-            // Example: Perform decompression
+            char decompressedPayload[256];
+            decompressPayload(reinterpret_cast<const char*>(&payloadData[i]), decompressedPayload);
+            Serial.print("Decompressed Payload: ");
+            Serial.println(decompressedPayload);
+            delete[] decompressedPayload;
+            break;
         } else {
             // Handle other information elements if needed
             // Example: Skip or process other elements
