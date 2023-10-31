@@ -8,7 +8,7 @@
 Overall, this project started as a thought. A pwnagotchi on an even smaller board, in this case an esp8266. Crazy, right? Anyway, this project may make it a little bit more possible. Instead of pwning, it will be a friend to a local pwnagotchi(Most likely one of yours). Sadly as of right now, no faces, it might show one when broadcasting. We might need to have some code added to the pwnagotchi so it can detect the minigotchi when it is nearby.
 ####
 #### Install?
-When I get everything fully working, the install guide will be [here](INSTALL.md). I'll be putting out some releases soon. Most of the files here are either from the pico-sdk repository or the arduino repository
+The install guide is [here](INSTALL.md), now that I have put out releases.
 ####
 #### Languages
 - C
