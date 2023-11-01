@@ -16,7 +16,7 @@ project(minigotchi)
 
 # Add your source files
 add_executable(minigotchi
-    raw80211.cpp
+    minigotchi.cpp
 )
 
 # Add pico_stdlib library which aggregates commonly used features
