@@ -48,7 +48,7 @@ const char* jsonPayload = "{"
     "\"pwnd_tot\": 0, "
     "\"session_id\": \"84:f3:eb:58:95:bd\""
     "\"uptime\": 1, "
-    "\"version\": \"v0.1.0-alpha\""
+    "\"version\": \"v0.2.1-alpha\""
 "}";
 
 // main function
