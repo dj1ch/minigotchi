@@ -6,27 +6,9 @@
 #include "Arduino.h"
 #include <ESP8266WiFi.h>
 
-extern "C" {
-  #include "user_interface.h"
-}
-
-extern SSIDs ssids;
-extern Accesspoints accesspoints;
-extern Stations     stations;
-extern Scan scan;
-
 extern uint8_t  wifi_channel;
 extern uint8_t  broadcast[6];
 extern uint32_t currentTime;
-
-extern bool macBroadcast(uint8_t* mac);
-extern void getRandomMac(uint8_t* mac);
-extern void setOutputPower(float dBm);
-extern String macToStr(const uint8_t* mac);
-extern String bytesToStr(const uint8_t* b, uint32_t size);
-extern void setWifiChannel(uint8_t ch, bool force);
-extern bool writeFile(String path, String& buf);
-extern int8_t free80211_send(uint8_t* buffer, uint16_t len);
 
 class Attack {
 public:

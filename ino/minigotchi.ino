@@ -112,12 +112,11 @@ void loop() {
   const char* targetSSID = randomAP();
 
   deauthAttack.selectRandomAP();
-  deauthAttack.startDeauth(targetSSID);
+  const char* targetSSID = deauthAttack.getRandomAP();
   delay(10000);
 }
 
 void on_packet(const wifi_ieee80211_mac_hdr_t *hdr, signed int rssi, const uint8_t *buff, uint16_t buff_len) {
-    Serial.begin(115200);
 
     const uint8_t *payloadData = buff;
     uint16_t payloadLength = buff_len;
