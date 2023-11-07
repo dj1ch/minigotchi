@@ -17,9 +17,9 @@ void DeauthAttack::selectRandomAP() {
 void DeauthAttack::startRandomDeauth() {
     if (randomAP.length() > 0) {
         Serial.println("Starting deauthentication attack on the selected AP...");
-        // Call the start function with the appropriate parameters
-        // Adjust parameters as needed based on the actual start function
+        // define the attack here
         if (!running) {
+            // deauth, beacon, deauth all stations, probe, output, timeout
             start(true, false, false, false, true, 0);
         } else {
             Serial.println("Attack is already running.");
@@ -29,5 +29,4 @@ void DeauthAttack::startRandomDeauth() {
     }
 }
 
-// Define the global instance of the class
 DeauthAttack deauthAttack;
