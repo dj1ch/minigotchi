@@ -1,5 +1,5 @@
 #include "raw80211.h" // will be included in the repo
-#include "deauth.h" // also included
+#include "deauthAttack.h" // also included
 #include <ESP8266WiFi.h> // this should be included with the esp8266 libs
 
 // if you ever have problems with a library being in one or more places,
