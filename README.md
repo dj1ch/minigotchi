@@ -50,6 +50,10 @@ https://github.com/raspberrypi/pico-sdk
 
 https://github.com/esp8266/Arduino
 
-- 80211Raw, which allows raw frames to be received and sent through an esp8266 or esp32 using C and C++
+- 80211Raw, which allows raw frames to be received and sent through an esp8266 or esp32 using C and C++ in an interesting and useful POC
 
 https://github.com/tht/80211Raw
+
+- esp8266 deauther, the POC that shows that an esp8266 can deauth and attack local access points.
+
+https://github.com/SpacehuhnTech/esp8266_deauther/
