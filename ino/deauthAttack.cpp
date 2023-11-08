@@ -1,5 +1,7 @@
 #include "deauth.h"
 
+DeauthAttack deauthAttack;  // Instantiate the deauthAttack object
+
 void DeauthAttack::selectRandomAP() {
     int apCount = WiFi.scanNetworks();
 
@@ -27,4 +29,9 @@ void DeauthAttack::startRandomDeauth() {
     } else {
         Serial.println("No access point selected. Use selectRandomAP() first.");
     }
+}
+
+void DeauthAttack::start(bool param1, bool param2, bool param3, bool param4, bool param5, int param6) {
+    // Implementation of the start function
+    // Modify this according to your requirements
 }
