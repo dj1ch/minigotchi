@@ -28,5 +28,3 @@ void DeauthAttack::startRandomDeauth() {
         Serial.println("No access point selected. Use selectRandomAP() first.");
     }
 }
-
-DeauthAttack deauthAttack;
