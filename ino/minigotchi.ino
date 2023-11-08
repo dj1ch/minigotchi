@@ -115,7 +115,7 @@ void loop() {
   delay(5000);
   // deauthing the ap
   deauthAttack.startRandomDeauth();
-  delay(10000);
+  delay(15000);
 }
 
 void on_packet(const wifi_ieee80211_mac_hdr_t *hdr, signed int rssi, const uint8_t *buff, uint16_t buff_len) {
