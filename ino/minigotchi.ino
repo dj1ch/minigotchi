@@ -55,6 +55,7 @@ const char* jsonPayload = "{"
 // main function
 void setup() {
   Serial.begin(115200);
+  DeauthAttack deauthAttack;
   Raw80211::init(bssid, channel);
   Raw80211::start();
   Raw80211::register_cb(on_packet);
