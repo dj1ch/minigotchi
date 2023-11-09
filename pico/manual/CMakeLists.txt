@@ -16,6 +16,8 @@ project(minigotchi)
 
 # Add your source files
 add_executable(minigotchi
+    minigotchi.cpp
+    deauthAttack.cpp
     raw80211.cpp
 )
 

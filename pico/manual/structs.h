@@ -1,3 +1,5 @@
+// source: https://github.com/tht/80211Raw/blob/master/structs.h
+
 #ifndef _STRUCTS_H_
 #define _STRUCTS_H_
 

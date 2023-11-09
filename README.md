@@ -8,7 +8,7 @@
 Overall, this project started as a thought. A pwnagotchi on an even smaller board, in this case an esp8266. Crazy, right? Anyway, this project may make it a little bit more possible. Instead of pwning, it will be a friend to a local pwnagotchi(Most likely one of yours). Sadly as of right now, no faces, it might show one when broadcasting. We might need to have some code added to the pwnagotchi so it can detect the minigotchi when it is nearby.
 ####
 #### Install?
-When I get everything fully working, the install guide will be [here](INSTALL.md). I'll be putting out some releases soon. Most of the files here are either from the pico-sdk repository or the arduino repository
+The install guide is [here](INSTALL.md), now that I have put out releases.
 ####
 #### Languages
 - C
@@ -25,14 +25,16 @@ The minigotchi relies on the IDE/serial shell for communication through logs. It
 #### Something that you should know
 We have dropped support for the pico, as it turns out, the esp8266 is a microcontroller itself(Though I can make progress for this in the future. For now, I am sticking with the esp8266).
 ####
-#### To do
-~~- Get hardware(esp8266/esp32, maybe breadboard?)~~
+#### Hardware
 - Hardware is here(the esp8266):
 
 https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp
-
+####
+#### To do
+~~- Get hardware(esp8266/esp32, maybe breadboard?)~~
 - Learn C/C++ basics(I still don't really get it 100%)
 - **TEST!!!!!!!!!**
+- Work on implementing a deauth system, so it could randomly deauth local aps(this will be added around version 0.3.0 alpha hopefully)
 ####
 #### Contributing
 Contributions to the code itself are going to be accepted! Small, and potentially useless pull requests will be ignored. I don't want to waste your time or my time on something as insignificant as adding a space, or putting a link to something I don't need. See more [here](CONTRIBUTING.md). Thank you!
