@@ -14,4 +14,4 @@ This is how you can manually build the minigotchi files for the pico. In order t
 - Build the .uf2 files
 `cmake .. && make`
 
-- From here the files should generate. This guide assumes you are on a linux machine. If you want to cover a windows guide, open up a PR 
+- From here the files should generate. This guide assumes you are on a linux machine. If you want to cover a windows guide, open up a PR
