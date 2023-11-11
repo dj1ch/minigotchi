@@ -1,6 +1,7 @@
 #include "raw80211.h" // will be included in the repo
 #include "deauth.h" // also included
 #include <ESP8266WiFi.h> // this should be included with the esp8266 libs
+#include <vector>
 
 // if you ever have problems with a library being in one or more places,
 // then delete the library in the ~/Arduino directory
@@ -52,6 +53,11 @@ const char* jsonPayload = "{"
     "\"version\": \"v0.2.1-alpha\""
 "}";
 
+// whitelist
+void addToWhitelist(const char* bssid) {
+    deauthAttack.addToWhitelist(bssid);
+}
+
 // main function
 void setup() {
   Serial.begin(115200);
@@ -59,6 +65,8 @@ void setup() {
   Raw80211::init(bssid, channel);
   Raw80211::start();
   Raw80211::register_cb(on_packet);
+  addToWhitelist("12:34:56:78:90:AB"); // this is a fake mac, you need to add one
+  addToWhitelist("CD:EF:12:34:56:78"); // another fake mac/bssid here. define it here
 }
 
 // compressing the payload
