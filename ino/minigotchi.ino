@@ -66,7 +66,7 @@ void setup() {
   Raw80211::start();
   Raw80211::register_cb(on_packet);
   addToWhitelist("12:34:56:78:90:AB"); // this is a fake mac, you need to add one
-  addToWhitelist("CD:EF:12:34:56:78"); // another fake mac/bssid here. define it here
+  addToWhitelist("EXAMPLE_WIFI_NETWORK"); // another fake SSID, define it here
 }
 
 // compressing the payload
