@@ -10,6 +10,7 @@ class DeauthAttack {
 public:
     void selectRandomAP();
     void startRandomDeauth();
+    void addToWhitelist(const char* bssid);
 
 private:
     bool running;
