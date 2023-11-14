@@ -65,8 +65,8 @@ void setup() {
   Raw80211::init(bssid, channel);
   Raw80211::start();
   Raw80211::register_cb(on_packet);
-  addToWhitelist("12:34:56:78:90:AB"); // this is a fake mac, you need to add one
-  addToWhitelist("EXAMPLE_WIFI_NETWORK"); // another fake SSID, define it here
+  deauthAttack.addToWhitelist("12:34:56:78:90:AB"); // this is a fake mac, you need to add one
+  deauthAttack.addToWhitelist("EXAMPLE_WIFI_NETWORK"); // another fake SSID, define it here
 }
 
 // compressing the payload
