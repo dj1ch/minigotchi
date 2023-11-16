@@ -58,6 +58,33 @@ void addToWhitelist(const char* bssid) {
     deauthAttack.addToWhitelist(bssid);
 }
 
+// pwnagotchi detection
+void detectPwnagotchi(const char* essid) {
+    if (strncmp(essid, "de:ad:be:ef:de:ad", 17) == 0) {
+        Serial.println("Detected a Pwnagotchi!");
+
+        DynamicJsonDocument jsonBuffer(1024);
+        DeserializationError error = deserializeJson(jsonBuffer, essid + 18);
+
+        if (error) {
+            Serial.println("Failed to parse Pwnagotchi JSON");
+        } else {
+            Serial.println("Successfully parsed Pwnagotchi JSON");
+            String jsonOutput;
+            serializeJson(jsonBuffer, jsonOutput);
+            Serial.println(jsonOutput);
+
+            String pwnagotchiName = jsonBuffer["name"].as<String>();
+            int pwndTot = jsonBuffer["pwnd_tot"].as<int>();
+
+            Serial.print("Pwnagotchi Name: ");
+            Serial.println(pwnagotchiName);
+            Serial.print("Pwnd Tot: ");
+            Serial.println(pwndTot);
+        }
+    }
+}
+
 // main function
 void setup() {
   Serial.begin(115200);
@@ -101,25 +128,23 @@ void loop() {
     delay(5000);
     // get random ap
     deauthAttack.selectRandomAP();
+    delay(5000);
     // deauthing the ap
     deauthAttack.startRandomDeauth();
     delay(5000);
 }
 
-void on_packet(const wifi_ieee80211_mac_hdr_t *hdr, signed int rssi, const uint8_t *buff, uint16_t buff_len) {
-
-    const uint8_t *payloadData = buff;
+void on_packet(const wifi_ieee80211_mac_hdr_t* hdr, signed int rssi, const uint8_t* buff, uint16_t buff_len) {
+    const uint8_t* payloadData = buff;
     uint16_t payloadLength = buff_len;
 
-    // Define the hardcoded information element IDs
     const uint8_t hardcodedPayloadID = 222;
     const uint8_t hardcodedCompressionID = 223;
 
-    //create source and dest mac address for packet
     uint8_t sourceMac[6];
     memcpy(sourceMac, hdr->addr2, 6);
 
-     uint8_t destinationMac[6];
+    uint8_t destinationMac[6];
     memcpy(destinationMac, hdr->addr1, 6);
 
     bool isBroadcast = true;
@@ -131,7 +156,7 @@ void on_packet(const wifi_ieee80211_mac_hdr_t *hdr, signed int rssi, const uint8
     }
 
     if (!isBroadcast) {
-      return;
+        return;
     }
 
     Serial.println("Received a Wi-Fi packet for a BC Addr:");
@@ -160,38 +185,30 @@ void on_packet(const wifi_ieee80211_mac_hdr_t *hdr, signed int rssi, const uint8
     Serial.println(buff_len);
 
     bool compressed = false;
-    for (uint16_t i = 0; i < payloadLength; ) {
+    for (uint16_t i = 0; i < payloadLength;) {
         uint8_t elementID = payloadData[i++];
         uint8_t elementLength = payloadData[i++];
 
         if (elementID == hardcodedPayloadID) {
-            // Process the payload data
-            // You can access payloadData[i] through payloadData[i + elementLength - 1]
-
-            // Example: Print the payload data
             Serial.print("Payload Data: ");
             for (int j = 0; j < elementLength; j++) {
                 Serial.print(payloadData[i + j], HEX);
                 Serial.print(" ");
             }
-            Serial.println(); // Print a newline to end the line
+            Serial.println();
             i += elementLength;
         } else if (elementID == hardcodedCompressionID) {
             compressed = true;
-            Serial.print("Decompressed Payload: ");
+            detectPwnagotchi(reinterpret_cast<const char*>(&payloadData[i]));
             break;
         } else {
-            // Handle other information elements if needed
-            // Example: Skip or process other elements
             i += elementLength;
         }
     }
 
     if (compressed) {
-        // Handle decompression if necessary
         Serial.println("Got compressed payload");
         return;
     }
-    Serial.println(); // Print a newline to end the line
-
+    Serial.println();
 }
