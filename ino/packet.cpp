@@ -35,9 +35,21 @@ const char* jsonPayload = "{"
     "\"pwnd_tot\": 0, "
     "\"session_id\": \"84:f3:eb:58:95:bd\""
     "\"uptime\": 1, "
-    "\"version\": \"v0.2.1-alpha\""
+    "\"version\": \"v1.0.0\""
 "}";
 
-void PacketSender::sendPayload(const char* payload) {
 
+String PacketSender::serializeJsonPayload(const char* essid) {
+    // Similar logic as in detectPwnagotchi, but without printing to Serial
+    DynamicJsonDocument jsonBuffer(1024);
+    DeserializationError error = deserializeJson(jsonBuffer, essid + 18);
+
+    if (error) {
+        Serial.println("Failed to parse Pwnagotchi JSON");
+        return "";
+    }
+
+    String jsonOutput;
+    serializeJson(jsonBuffer, jsonOutput);
+    return jsonOutput;
 }

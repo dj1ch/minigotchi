@@ -1,10 +1,13 @@
 #pragma once
 
 #include <Arduino.h>
+#include <ArduinoJson.h>
 
 class PacketSender {
 public:
-    void sendPayload(const char* payload);
+    String serializeJsonPayload(const char* essid);
+    String sendPayload(const char* payload)
+    const char* jsonPayload;
 
 private:
 

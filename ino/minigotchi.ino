@@ -4,12 +4,23 @@
 
 void setup() {
     // more stuff here
+    Serial.begin(11500);
+    Pwnagotchi pwnagotchi;
+    PacketSender packetSender;
+    DeauthAttack deauthAttack;
+    deauthAttack::addToWhitelist("SSID");
 }
 
 void loop() {
-    // get payload
+    // get local payload from local pwnagotchi
+    pwnagotchi::detectPwnagotchi(essid);
 
     // send payload
-    PacketSender packetSender;
-    packetSender.sendPayload(payload);
+    packetSender::serializeJsonPayload(jsonPayload);
+    packetSender::sendPayload(payload);
+
+    // deauth a random ap
+    deauthAttack::selectRandomAP();
+    deauthAttack::startRandomDeauth();
+
 }
