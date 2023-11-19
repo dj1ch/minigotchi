@@ -1,2 +1,11 @@
+#pragma once
 
-void detectPwnagotchi(const char* essid) 
+#include <Arduino.h>
+
+class Pwnagotchi {
+public:
+    void detectPwnagotchi(const char* essid);
+
+private:
+    
+};

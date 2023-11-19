@@ -1,3 +1,6 @@
+#include "packet.h"
+#include <ESP8266WiFi.h> // Include the necessary libraries
+
 const char* jsonPayload = "{"
     "\"epoch\": 1, "
     "\"face\": \"(◕‿‿◕)\", "
@@ -34,3 +37,7 @@ const char* jsonPayload = "{"
     "\"uptime\": 1, "
     "\"version\": \"v0.2.1-alpha\""
 "}";
+
+void PacketSender::sendPayload(const char* payload) {
+
+}
