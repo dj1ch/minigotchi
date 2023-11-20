@@ -34,7 +34,8 @@ https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp
 ~~- Get hardware(esp8266/esp32, maybe breadboard?)~~
 - Learn C/C++ basics(I still don't really get it 100%)
 - **TEST!!!!!!!!!**
-- Work on implementing a deauth system, so it could randomly deauth local aps(this will be added around version 0.3.0 alpha hopefully)
+~~- Work on implementing a deauth system, so it could randomly deauth local aps(this will be added around version 0.3.0 alpha hopefully)~~
+- Restructure code and make important changes to this project
 ####
 #### Contributing
 Contributions to the code itself are going to be accepted! Small, and potentially useless pull requests will be ignored. I don't want to waste your time or my time on something as insignificant as adding a space, or putting a link to something I don't need. See more [here](CONTRIBUTING.md). Thank you!
