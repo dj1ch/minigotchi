@@ -1,3 +1,6 @@
+// network.h: header files for network.cpp
+// might be removed
+
 #ifndef NETWORK_H
 #define NETWORK_H
 

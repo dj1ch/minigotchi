@@ -8,11 +8,10 @@
 class PacketSender {
 public:
     String serializeJsonPayload(const char* essid);
-    String sendPayload(const char* payload);
     const char* jsonPayload;
 
 private:
-    
+
 };
 
 #ifndef PACKET_H

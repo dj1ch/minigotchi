@@ -1,4 +1,5 @@
 // network.h: handles the wifi network created by a pwnagotchi
+// might be removed
 
 #include "network.h"
 
