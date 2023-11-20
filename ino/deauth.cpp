@@ -1,3 +1,5 @@
+// deauth.cpp: handles the deauth of a local ap
+
 #include "deauth.h"
 
 DeauthAttack deauthAttack;  // instance of the object

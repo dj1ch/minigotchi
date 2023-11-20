@@ -1,3 +1,5 @@
+// pwnagotchi.h: header files for pwnagotchi.cpp
+
 #pragma once
 
 #include <Arduino.h>

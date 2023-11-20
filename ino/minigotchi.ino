@@ -16,11 +16,19 @@ void loop() {
     pwnagotchi::detectPwnagotchi(essid);
 
     // send payload
-    packetSender::serializeJsonPayload(jsonPayload);
-    packetSender::sendPayload(payload);
+    packetSender::serializeJsonPayload(jsonPayload); {
+
+    }
+    packetSender::sendPayload(payload); {
+
+    }
 
     // deauth a random ap
-    deauthAttack::selectRandomAP();
-    deauthAttack::startRandomDeauth();
+    deauthAttack::selectRandomAP(); {
+
+    }
+    deauthAttack::startRandomDeauth(); {
+      
+    }
 
 }

@@ -1,3 +1,5 @@
+// pwnagotchi.cpp: handles pwnagotchi detection
+
 #include "pwnagotchi.h"
 #include <ArduinoJson.h>
 

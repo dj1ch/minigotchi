@@ -1,3 +1,5 @@
+// packet.h: header for packet.cpp
+
 #pragma once
 
 #include <Arduino.h>
@@ -6,9 +8,14 @@
 class PacketSender {
 public:
     String serializeJsonPayload(const char* essid);
-    String sendPayload(const char* payload)
+    String sendPayload(const char* payload);
     const char* jsonPayload;
 
 private:
-
+    
 };
+
+#ifndef PACKET_H
+#define PACKET_H
+
+#endif // PACKET_H

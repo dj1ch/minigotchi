@@ -1,6 +1,11 @@
-#include "packet.h"
-#include <ESP8266WiFi.h> // Include the necessary libraries
+// packet.cpp: handles json payload
 
+##include "packet.h"
+#include <ESP8266WiFi.h>
+
+PacketSender packetSender; // instance of the object
+
+// json payload
 const char* jsonPayload = "{"
     "\"epoch\": 1, "
     "\"face\": \"(◕‿‿◕)\", "
@@ -38,18 +43,6 @@ const char* jsonPayload = "{"
     "\"version\": \"v1.0.0\""
 "}";
 
-
 String PacketSender::serializeJsonPayload(const char* essid) {
-    // Similar logic as in detectPwnagotchi, but without printing to Serial
-    DynamicJsonDocument jsonBuffer(1024);
-    DeserializationError error = deserializeJson(jsonBuffer, essid + 18);
 
-    if (error) {
-        Serial.println("Failed to parse Pwnagotchi JSON");
-        return "";
-    }
-
-    String jsonOutput;
-    serializeJson(jsonBuffer, jsonOutput);
-    return jsonOutput;
 }
