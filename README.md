@@ -4,6 +4,8 @@
 ###
 ### an even smaller pwnagotchi.
 ###
+### Note that this project is undergoing a major rewrite in the code and the structure of everything(see development branch)
+###
 #### Intro
 Overall, this project started as a thought. A pwnagotchi on an even smaller board, in this case an esp8266. Crazy, right? Anyway, this project may make it a little bit more possible. Instead of pwning networks, it will be a friend to a local pwnagotchi(Most likely one of yours), along with deauthing random networks if the esp8266 is in the vicinity of any.
 ####
