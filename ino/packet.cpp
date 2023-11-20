@@ -33,7 +33,7 @@ const char* jsonPayload = "{"
     "}, "
     "\"pwnd_run\": 0, "
     "\"pwnd_tot\": 0, "
-    "\"session_id\": \"84:f3:eb:58:95:bd\""
+    "\"session_id\": \"84:f3:eb:58:95:bd,\""
     "\"uptime\": 1, "
     "\"version\": \"v1.0.0\""
 "}";
