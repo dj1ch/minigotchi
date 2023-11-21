@@ -20,8 +20,8 @@ void loop() {
 
     // send payload
     const char* essid = "de:ad:be:ef:de:ad";
-    String jsonPayload = PacketSender.serializeJsonPayload(essid);
-    PacketSender.sendJsonPayload(jsonPayload);
+    String jsonPayload = packetSender.serializeJsonPayload(essid);
+    packetSender.sendJsonPayload(jsonPayload);
 
     // deauth a random ap
     deauthAttack.selectRandomAP();

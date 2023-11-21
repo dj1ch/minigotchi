@@ -35,5 +35,3 @@ String PacketSender::sendJsonPayload(const char* essid) {
 
     return jsonOutput;
 }
-
-}

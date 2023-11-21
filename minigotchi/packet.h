@@ -9,10 +9,9 @@
 class PacketSender {
 public:
     String serializeJsonPayload();
-    String sendJsonPayload(const char* essid); // Add 'essid' parameter
+    String sendJsonPayload(const char* essid);
 
     const char* jsonPayload;
-    const char* essid = "de:ad:be:ef:de:ad";
 
 private:
 };
