@@ -3,9 +3,8 @@
 #ifndef DEAUTH_H
 #define DEAUTH_H
 
-#pragma once
-
-#include "Arduino.h"
+#include <Arduino.h>
+#include <vector> 
 #include <ESP8266WiFi.h>
 
 class DeauthAttack {

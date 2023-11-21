@@ -4,14 +4,15 @@
 #include <ArduinoJson.h>
 
 void Pwnagotchi::detectPwnagotchi(const char* essid) {
-    if (strncmp(essid, "de:ad:be:ef:de:ad", 17) == 0) {
+    if (strncmp(essid, PWNAGOTCHI_MAC, 17) == 0) {
         Serial.println("Detected a Pwnagotchi!");
 
         DynamicJsonDocument jsonBuffer(1024);
         DeserializationError error = deserializeJson(jsonBuffer, essid + 18);
 
         if (error) {
-            Serial.println("Failed to parse Pwnagotchi JSON");
+            Serial.print("Failed to parse Pwnagotchi JSON. Error: ");
+            Serial.println(error.c_str());
         } else {
             Serial.println("Successfully parsed Pwnagotchi JSON");
             String jsonOutput;

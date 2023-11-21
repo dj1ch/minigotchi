@@ -4,13 +4,14 @@
 
 #include <Arduino.h>
 #include <ArduinoJson.h>
+#include <raw80211.h>
 
 class PacketSender {
 public:
     String serializeJsonPayload(const char* essid);
-    String packetSender::sendJsonPayload()
+    String sendJsonPayload();
     const char* jsonPayload;
-
+    constexpr char PWNAGOTCHI_MAC[] = "de:ad:be:ef:de:ad";
 private:
 
 };

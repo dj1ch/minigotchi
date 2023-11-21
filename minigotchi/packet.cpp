@@ -1,3 +1,4 @@
+
 // packet.cpp: handles json payload
 
 #include "packet.h"
@@ -54,5 +55,14 @@ String packetSender::serializeJsonPayload() {
 
     String jsonOutput;
     serializeJson(jsonBuffer, jsonOutput);
+    return jsonOutput;
+}
+
+String PacketSender::sendJsonPayload() {
+    String jsonOutput = serializeJsonPayload();
+    uint16_t jsonLength = jsonOutput.length();
+
+    Raw80211::send(reinterpret_cast<const uint8_t*>(jsonOutput.c_str()), jsonLength);
+
     return jsonOutput;
 }
