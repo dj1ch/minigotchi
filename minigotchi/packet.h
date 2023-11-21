@@ -8,6 +8,7 @@
 class PacketSender {
 public:
     String serializeJsonPayload(const char* essid);
+    String packetSender::sendJsonPayload()
     const char* jsonPayload;
 
 private:
