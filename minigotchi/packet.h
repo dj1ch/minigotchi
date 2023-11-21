@@ -8,15 +8,11 @@
 
 class PacketSender {
 public:
-    String serializeJsonPayload(const char* essid);
-    String sendJsonPayload();
+    String serializeJsonPayload();
+    String sendJsonPayload(const char* essid); // Add 'essid' parameter
+
     const char* jsonPayload;
-    constexpr char PWNAGOTCHI_MAC[] = "de:ad:be:ef:de:ad";
+    const char* essid = "de:ad:be:ef:de:ad";
+
 private:
-
 };
-
-#ifndef PACKET_H
-#define PACKET_H
-
-#endif // PACKET_H

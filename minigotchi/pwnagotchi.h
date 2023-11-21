@@ -10,5 +10,5 @@ public:
     void detectPwnagotchi(const char* essid);
 
 private:
-
+    const char* PWNAGOTCHI_MAC = "de:ad:be:ef:de:ad";
 };
