@@ -12,13 +12,11 @@ void setup() {
     Serial.begin(115200); // this is the rate for the serial monitor
     deauthAttack.addToWhitelist("SSID"); // set your ssid you want to use
     if (SPIFFS.begin()) {
-        // Use the appropriate file path
+        // file path
         packetSender.sendJsonPayloadFromFile("/packet.json");
     } else {
         Serial.println("Failed to mount file, does the file exist?");
   }
-}
-
 }
 
 void loop() {
