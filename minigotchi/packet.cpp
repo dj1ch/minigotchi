@@ -13,6 +13,8 @@ void PacketSender::sendJsonPayloadFromFile(const char* filePath) {
 
     DynamicJsonDocument doc(1024);
     deserializeJson(doc, buf.get());
+    // send payload here
+    Raw80211::send(reinterpret_cast<const uint8_t*>(jsonPayload.c_str()), jsonPayload.length());
   } else {
     Serial.println("Failed to open JSON file for reading");
   }
