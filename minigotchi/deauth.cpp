@@ -2,8 +2,6 @@
 
 #include "deauth.h"
 
-DeauthAttack deauthAttack;  // instance of the object
-
 void DeauthAttack::addToWhitelist(const char* bssid) {
     whitelist.push_back(bssid);
 }

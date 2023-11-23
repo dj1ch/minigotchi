@@ -1,5 +1,8 @@
 // pwnagotchi.h: header files for pwnagotchi.cpp
 
+#ifndef PWNAGOTCHI_H
+#define PWNAGOTCHI_H
+
 #pragma once
 
 #include <Arduino.h>
@@ -12,3 +15,8 @@ public:
 private:
     const char* PWNAGOTCHI_MAC = "de:ad:be:ef:de:ad";
 };
+
+// global instance
+extern Pwnagotchi pwnagotchi;
+
+#endif // PWNAGOTCHI_H
