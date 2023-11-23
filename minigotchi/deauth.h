@@ -20,7 +20,7 @@ private:
     void start(bool param1, bool param2, bool param3, bool param4, bool param5, int param6);
 };
 
-// global instance
+// Declare the global instance of DeauthAttack here
 extern DeauthAttack deauthAttack;
 
 #endif // DEAUTH_H
