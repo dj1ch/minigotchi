@@ -4,6 +4,8 @@
 ###
 ### an even smaller pwnagotchi.
 ###
+### Note that this project is undergoing a major rewrite in the code and the structure of everything(see development branch)
+###
 #### Intro
 Overall, this project started as a thought. A pwnagotchi on an even smaller board, in this case an esp8266. Crazy, right? Anyway, this project may make it a little bit more possible. Instead of pwning networks, it will be a friend to a local pwnagotchi(Most likely one of yours), along with deauthing random networks if the esp8266 is in the vicinity of any.
 ####
@@ -31,11 +33,9 @@ We have dropped support for the pico, as it turns out, the esp8266 is a microcon
 https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp
 ####
 #### To do
-~~- Get hardware(esp8266/esp32, maybe breadboard?)~~
-- Learn C/C++ basics(I still don't really get it 100%)
-- **TEST!!!!!!!!!**
-~~- Work on implementing a deauth system, so it could randomly deauth local aps(this will be added around version 0.3.0 alpha hopefully)~~
-- Restructure code and make important changes to this project
+- screen support? 
+- web ui maybe? or a terminal?
+- more testing
 ####
 #### Contributing
 Contributions to the code itself are going to be accepted! Small, and potentially useless pull requests will be ignored. I don't want to waste your time or my time on something as insignificant as adding a space, or putting a link to something I don't need. See more [here](CONTRIBUTING.md). Thank you!
