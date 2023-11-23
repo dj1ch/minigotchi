@@ -15,17 +15,16 @@ void Pwnagotchi::detectPwnagotchi(const char* essid) {
             Serial.println(error.c_str());
         } else {
             Serial.println("Successfully parsed Pwnagotchi JSON");
-            String jsonOutput;
-            serializeJson(jsonBuffer, jsonOutput);
-            Serial.println(jsonOutput);
 
-            String pwnagotchiName = jsonBuffer["name"].as<String>();
-            int pwndTot = jsonBuffer["pwnd_tot"].as<int>();
+            const String pwnagotchiName = jsonBuffer["name"].as<String>();
+            const int pwndTot = jsonBuffer["pwnd_tot"].as<int>();
 
             Serial.print("Pwnagotchi Name: ");
             Serial.println(pwnagotchiName);
             Serial.print("Pwnd Tot: ");
             Serial.println(pwndTot);
         }
+    } else {
+        Serial.println("Not a Pwnagotchi device.");
     }
 }
