@@ -29,3 +29,7 @@ I recommend getting the hardware needed and making sure this works.
 6. Open a pull request
 
 Go to your forked repository on GitHub, switch to the branch you just pushed, and click on the "New Pull Request" button. Fill out the necessary information and submit the pull request.
+##
+# Code structure
+Most of the code is object oriented. I essentially grouped all of the main functions into their own .cpp and .h files, then inclded those files in the main .ino file. Here's some more info on the [OOP(Object oriented programming)](https://en.wikipedia.org/wiki/Object-oriented_programming). 
+#

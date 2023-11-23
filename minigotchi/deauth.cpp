@@ -1,6 +1,6 @@
-#include "deauth.h"
+// deauth.cpp: handles the deauth of a local ap
 
-DeauthAttack deauthAttack;  // instance of the object
+#include "deauth.h"
 
 void DeauthAttack::addToWhitelist(const char* bssid) {
     whitelist.push_back(bssid);
