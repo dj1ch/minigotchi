@@ -3,6 +3,9 @@
 #include "packet.h"
 #include "raw80211.h"
 
+// set magic number(222 in hex)
+const uint8_t MAGIC_NUMBER = 0xDE;
+
 void PacketSender::sendJsonPayloadFromFile(const char* filePath) {
   File configFile = SPIFFS.open(filePath, "r");
   if (configFile) {
@@ -11,17 +14,12 @@ void PacketSender::sendJsonPayloadFromFile(const char* filePath) {
     configFile.readBytes(buf.get(), size);
     configFile.close();
 
-    DynamicJsonDocument doc(1024);
-    deserializeJson(doc, buf.get());
-    
-    // make json string
-    String jsonString;
-    serializeJson(doc, jsonString);
+    // put number in payload
+    Raw80211::send(&MAGIC_NUMBER, sizeof(MAGIC_NUMBER));
+    Raw80211::send(reinterpret_cast<const uint8_t*>(buf.get()), size);
 
-    // send payload
-    Raw80211::send(reinterpret_cast<const uint8_t*>(jsonString.c_str()), jsonString.length());
+    Serial.println("Sent payload!");
   } else {
     Serial.println("Failed to open JSON file for reading");
   }
 }
-

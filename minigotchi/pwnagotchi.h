@@ -7,13 +7,21 @@
 
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
+#include "raw80211.h"
+#include <user_interface.h>
 
 class Pwnagotchi {
 public:
-    void detectPwnagotchi(const char* essid);
+    Pwnagotchi();  // constructs/inits everything
+
+    void detectPwnagotchi();
+    void handlePwnagotchiDetection(const wifi_ieee80211_mac_hdr_t *hdr, int rssi, const unsigned char *buff, short unsigned int buff_len);
+    String extractMAC(const unsigned char *buff);
+    void getMAC(char* addr, const unsigned char* buff, int offset);
 
 private:
-    const char* PWNAGOTCHI_MAC = "de:ad:be:ef:de:ad";
+    String essid;
+
 };
 
 // global instance
