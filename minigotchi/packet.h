@@ -4,13 +4,12 @@
 #define PACKET_H
 
 #include <Arduino.h>
-#include <FS.h>
 #include "raw80211.h"
 #include <ArduinoJson.h>
 
 class PacketSender {
 public:
-  void sendJsonPayloadFromFile(const char* filePath);
+  void sendJsonPayload();
 };
 
 #endif // PACKET_H

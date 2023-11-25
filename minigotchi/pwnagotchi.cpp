@@ -17,7 +17,10 @@ namespace {
 
 Pwnagotchi::Pwnagotchi() {
     // init the class
-    essid = "de:ad:be:ef:de:ad"; 
+    essid = "de:ad:be:ef:de:ad";
+    // register the function
+    Raw80211::register_cb(&rawCallback);
+    Serial.println("Callback registered");
 }
 
 void Pwnagotchi::getMAC(char* addr, const unsigned char* buff, int offset) {
@@ -32,14 +35,19 @@ String Pwnagotchi::extractMAC(const unsigned char *buff) {
     return String(addr);
 }
 
-void Pwnagotchi::detectPwnagotchi() {
+void Pwnagotchi::detectAndHandlePwnagotchi() {
     Serial.println("Scanning for Pwnagotchi...");
 
     // static instance
     pwnInstance = this;
 
-    // register the function
-    Raw80211::register_cb(&rawCallback);
+    // delay for scanning (adjust as needed)
+    delay(5000);
+
+    // check if the rawCallback was triggered during scanning
+    if (!pwnInstance->pwnagotchiDetected) {
+        Serial.println("No Pwnagotchi found.");
+    }
 }
 
 void Pwnagotchi::handlePwnagotchiDetection(const wifi_ieee80211_mac_hdr_t *hdr, int rssi, const unsigned char *buff, short unsigned int buff_len) {
@@ -51,9 +59,15 @@ void Pwnagotchi::handlePwnagotchiDetection(const wifi_ieee80211_mac_hdr_t *hdr, 
 
         // check if the source MAC matches "de:ad:be:ef:de:ad"
         if (src == "de:ad:be:ef:de:ad") {
+            pwnagotchiDetected = true;
+            Serial.println("Pwnagotchi detected!");
+
             // extract the ESSID from the beacon frame
             String essid(reinterpret_cast<const char*>(&buff[36]));
             essid = essid.substring(0, 32); // Assuming ESSID starts at index 36 and is 32 bytes long
+
+            Serial.print("ESSID: ");
+            Serial.println(essid);
 
             // load json from the ESSID
             DynamicJsonDocument jsonBuffer(1024);  // Adjust the buffer size as needed

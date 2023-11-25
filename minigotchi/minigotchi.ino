@@ -10,29 +10,25 @@ DeauthAttack deauthAttack;
 
 void setup() {
     Serial.begin(115200);
-    deauthAttack.addToWhitelist("SSID");
-    Serial.println();
-
-    Serial.println("Formatting SPIFFS. This may take a while...");
-    if (SPIFFS.format()) {
-        Serial.println("SPIFFS formatted successfully.");
-    } else {
-        Serial.println("Failed to format SPIFFS.");
-    }
+    Serial.println("Hi, I'm Minigotchi, your pwnagotchi's best friend!");
+    Serial.println(" ");
+    Serial.println("You can edit my whitelist in the minigotchi.ino, and you can also edit the json parameters in the packet.cpp");
+    Serial.println(" ");
+    deauthAttack.addToWhitelist("SSID"); // add your ssid(s) here
+    deauthAttack.addToWhitelist("ANOTHER_SSID");
+    delay(5000);
+    Serial.println(" ");
+    Serial.println("Starting now...");
 }
 
 void loop() {
     // get local payload from local pwnagotchi
-    pwnagotchi.detectPwnagotchi();
+    pwnagotchi.detectAndHandlePwnagotchi();
     delay(5000);
 
     // send payload
-    if (SPIFFS.begin()) {
-        packetSender.sendJsonPayloadFromFile("packet.json");
-    } else {
-        Serial.println("Failed to mount file, does the file exist?");
-        delay(5000);
-    }
+    packetSender.sendJsonPayload();
+    delay(5000);
 
     // deauth a random ap
     deauthAttack.selectRandomAP();
