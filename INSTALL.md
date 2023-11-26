@@ -5,7 +5,20 @@ I believe that you can also use the raspberry pi pico and run arduino .ino files
 - Download the latest release [here](https://github.com/Pwnagotchi-Unofficial/minigotchi/releases).
 - Unzip the file
 - Navigate to the `minigotchi.ino` file in the unzipped folder, and open it up 
-- At the line that says `raw.init("bssid of ap you will listen on", channel number); // set the settings here, ("BSSID", channel)`, replace the `"bssid of ap you will listen on"` with your actual BSSID(in the quotations), and the `channel` with the channel you prefer(not in quotations).
+- At the line that says:
+
+```cpp
+raw.init("bssid of ap you will listen on", channel number); // set the settings here, ("BSSID", channel)
+```
+
+Replace the `"bssid of ap you will listen on"` with your actual BSSID(in the quotations), and the `channel` with the channel you prefer(not in quotations).
+- There should also be a line that says:
+
+```cpp
+deauthAttack.addToWhitelist("SSID"); // add your ssid(s) here
+deauthAttack.addToWhitelist("ANOTHER_SSID");
+```
+Replace the `SSID` and `ANOTHER_SSID` with the ssid's you want whitelisted. You can add more!
 - Save and exit the file. 
 - Right click on the folder(should be called minigotchi) then archive it, making it back into a zip file. If you need to rename it, rename it
 - Go to the [arduino web editor](create.arduino.cc/editor), then sign in/create an account
