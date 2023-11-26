@@ -26,6 +26,6 @@ Replace the `SSID` and `ANOTHER_SSID` with the ssid's you want whitelisted. You 
 - Select the board as `ESP8266 WEMOS(LOLIN) D1 mini Lite`, and select the port it is plugged into(if you haven't already, plug in the board)
 - Click on the upload button(arrow pointing to the left). 
 - You can click on the monitor button on the sidebar to see the serial monitor. Make sure the baud rate is `115200`.
-- **Compile errors happen with the Web editor, so you can just use the app. Make sure you install all the correct libraries(ArduinoJson), and the correct [boards](https://github.com/esp8266/Arduino)**
+- **Compile errors happen with the Web editor, so you can just use the Arduino IDE app. Make sure you install all the correct libraries(ArduinoJson), and the correct [boards](https://github.com/esp8266/Arduino)**
 - Happy hacking!
 ####
