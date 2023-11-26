@@ -5,6 +5,7 @@
 ### an even smaller pwnagotchi.
 ###
 ### Note that this project is undergoing a major rewrite in the code and the structure of everything(see development branch)
+It will take a really long time to get a fully stable and working release! You can watch this repository and see the activity on this repository. I got several issues to sort out, including the packet sending and the pwnagotchi detection system. If you want to help, feel free to fork and make a couple changes to my code. 
 ###
 #### Intro
 Overall, this project started as a thought. A pwnagotchi on an even smaller board, in this case an esp8266. Crazy, right? Anyway, this project may make it a little bit more possible. Instead of pwning networks, it will be a friend to a local pwnagotchi(Most likely one of yours), along with deauthing random networks if the esp8266 is in the vicinity of any.
@@ -19,8 +20,9 @@ The install guide is [here](INSTALL.md), now that I have put out releases.
 - Go (maybe)
 ####
 #### Prerequisites
-- An IDE (most likely the arduino ide or thonny on the raspberry pi pico)
-- Hardware(esp8266 microcontroller or raspberry pi pico with esp8266 wifi module)
+- An IDE (most likely the arduino ide)
+- Hardware(esp8266 microcontroller)
+- A reliable and appropriate power source and supply for the hardware
 - Patience (a lot of it)
 #### How it operates/works
 The minigotchi relies on the IDE/serial shell for communication through logs. It will send raw frames to associate to an access point, and will advertise itself on a network like a pwnagotchi, or perhaps interact with the local pwngrid server that the pwnagotchi is running.
@@ -31,6 +33,8 @@ We have dropped support for the pico, as it turns out, the esp8266 is a microcon
 - Hardware is here(the esp8266):
 
 https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp
+
+Keep in mind it comes with two of them. It's best to keep one extra in case a board gets burnt out and/or lost. I don't think I can find a singular one. I believe this is a clone, so be sure to set this as the clone in the Arduino IDE board manager.
 ####
 #### To do
 - screen support? 
