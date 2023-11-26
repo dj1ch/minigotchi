@@ -10,6 +10,7 @@
 class PacketSender {
 public:
   void sendJsonPayload();
+  void sendJsonPayloadMultipleTimes(int count = 10, int delayBetweenSends = 100);
 };
 
 #endif // PACKET_H
