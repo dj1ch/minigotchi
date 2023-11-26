@@ -62,3 +62,10 @@ void PacketSender::sendJsonPayload() {
     Serial.println("Sent payload!");
   }
 }
+
+void PacketSender::sendJsonPayloadMultipleTimes(int count, int delayBetweenSends) {
+    for (int i = 0; i < count; ++i) {
+        sendJsonPayload();
+        delay(delayBetweenSends);
+    }
+}
