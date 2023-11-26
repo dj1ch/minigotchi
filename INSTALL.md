@@ -21,7 +21,7 @@ deauthAttack.addToWhitelist("ANOTHER_SSID");
 Replace the `SSID` and `ANOTHER_SSID` with the ssid's you want whitelisted. You can add more!
 - Save and exit the file. 
 - Right click on the folder(should be called minigotchi) then archive it, making it back into a zip file. If you need to rename it, rename it
-- Go to the [arduino web editor](create.arduino.cc/editor), then sign in/create an account
+- Go to the [arduino web editor](https://create.arduino.cc/editor), then sign in/create an account
 - Import the zip file by clicking the button that looks like an upload button, then selecting the minigotchi zip file that you edited
 - Select the board as `ESP8266 WEMOS(LOLIN) D1 mini Lite`, and select the port it is plugged into(if you haven't already, plug in the board)
 - Click on the upload button(arrow pointing to the left). 
