@@ -36,7 +36,7 @@ void loop() {
     raw.stop();
 
     // send payload(10 times)
-    void sendJsonPayloadMultipleTimes();
+    packetSender.sendJsonPayloadMultipleTimes();
     delay(5000);
 
     // deauth a random ap
