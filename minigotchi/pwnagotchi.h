@@ -1,4 +1,4 @@
-// pwnagotchi.h: header files for pwnagotchi.cpp
+// pwnagotchi.h: header files for pwnagotchi.cpp, and perhaps channel.cpp
 
 #ifndef PWNAGOTCHI_H
 #define PWNAGOTCHI_H

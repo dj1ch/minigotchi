@@ -4,7 +4,7 @@
 #define DEAUTH_H
 
 #include <Arduino.h>
-#include <vector> 
+#include <vector>
 #include <ESP8266WiFi.h>
 
 class DeauthAttack {
@@ -20,7 +20,7 @@ private:
     void start(bool param1, bool param2, bool param3, bool param4, bool param5, int param6);
 };
 
-// Declare the global instance of DeauthAttack here
+// global instance
 extern DeauthAttack deauthAttack;
 
 #endif // DEAUTH_H
