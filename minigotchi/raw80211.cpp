@@ -1,5 +1,7 @@
-// source: https://github.com/tht/80211Raw/blob/master/raw80211.cpp
-// note that some of the code here is probably unfinished(see line 225)
+//////////////////////////////////////////////////////////////////////////
+// source: https://github.com/tht/80211Raw/blob/master/raw80211.cpp     //
+// note that some of the code here is probably unfinished(see line 225) //
+//////////////////////////////////////////////////////////////////////////
 
 #include "raw80211.h"
 

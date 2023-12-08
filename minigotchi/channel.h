@@ -1,4 +1,7 @@
-// channel.h: header files for channel.cpp
+/////////////////////////////////////////////
+// channel.h: header files for channel.cpp //
+// note that this will be implemented soon //
+/////////////////////////////////////////////
 
 #ifndef CHANNEL_H
 #define CHANNEL_H

@@ -1,3 +1,8 @@
+/////////////////////////////////////////////
+// channel.cpp: handles channel switching  //
+// note that this will be implemented soon //
+/////////////////////////////////////////////
+
 #include "channel.h"
 #include "raw80211.h"
 

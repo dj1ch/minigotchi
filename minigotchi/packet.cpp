@@ -1,4 +1,6 @@
-// packet.cpp: handles the sending of pwnagotchi packets
+///////////////////////////////////////////////////////////
+// packet.cpp: handles the sending of pwnagotchi packets //
+///////////////////////////////////////////////////////////
 
 #include "packet.h"
 #include "raw80211.h"
@@ -8,7 +10,7 @@
 const uint8_t MAGIC_NUMBER = 0xDE;
 
 void PacketSender::sendJsonPayload() {
-  
+
   // json object creation
   DynamicJsonDocument doc(1024);
 

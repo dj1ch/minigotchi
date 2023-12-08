@@ -1,5 +1,6 @@
-// minigotchi.ino: everything implemented here
-
+/////////////////////////////////////////////////
+// minigotchi.ino: everything implemented here //
+/////////////////////////////////////////////////
 #include "pwnagotchi.h"
 #include "deauth.h"
 #include "packet.h"
