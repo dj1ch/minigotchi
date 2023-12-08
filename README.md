@@ -15,12 +15,14 @@ The install guide is [here](INSTALL.md), now that I have put out releases.
 ####
 #### Languages
 The code is done in these langauges. 
+
 - C
 - C++
 
 Note that the C++ in arduino is slightly modified from what I have heard. See [this reddit question](https://www.reddit.com/r/arduino/comments/x46sml/is_arduino_programming_language_c/) for more about this. Arduino probably has tweaked it to be more beginner friendly, although still being [low-level](https://en.wikipedia.org/wiki/Low-level_programming_language). 
 ####
 #### Some other ones...
+
 - Python 
 - Go
 
