@@ -1,5 +1,3 @@
-## Support for both the raspberry pi pico and the esp8266
-#### See the _To do_ section
 # minigotchi
 ###
 ### an even smaller pwnagotchi.
