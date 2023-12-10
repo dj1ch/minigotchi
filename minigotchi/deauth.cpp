@@ -57,6 +57,6 @@ void DeauthAttack::start(bool param1, bool param2, bool param3, bool param4, boo
         wifi_send_pkt_freedom(deauthPacketBytes, packetSize, 0);
         delay(100);
     }
-    Serial.println("Attack finished!");
+    Serial.println("(^-^) Attack finished!");
     running = false;
 }
