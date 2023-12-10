@@ -61,7 +61,7 @@ void PacketSender::sendJsonPayload() {
     Raw80211::send(&MAGIC_NUMBER, sizeof(MAGIC_NUMBER));
     Raw80211::send(reinterpret_cast<const uint8_t*>(jsonString.c_str()), jsonString.length());
 
-    Serial.println("(^-^) Sent payload!");
+    Serial.println("(>-<) Sent payload!");
   }
 }
 
