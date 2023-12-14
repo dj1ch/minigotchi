@@ -25,4 +25,4 @@ The minigotchi has multiple faces, similar to that of the pwnagotchi.
 
 ### ('-') Neutral
 
-### (~-~) Sleeping
+### (*-*) Sleeping
