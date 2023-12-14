@@ -12,7 +12,7 @@ The minigotchi has multiple faces, similar to that of the pwnagotchi.
 - hasn't seen a pwnagotchi for a long time
 - can't find any new AP's
 
-### (-_-) Angry
+### (-~-) Angry
 - being depressed for multiple periods
 - becomes blind as it cannot find any AP's
 
@@ -22,3 +22,7 @@ The minigotchi has multiple faces, similar to that of the pwnagotchi.
 
 ### (0-o) (o-0) Looking around 
 - looking for a pwnagotchi, scanning for AP's
+
+### ('-') Neutral
+
+### (~-~) Sleeping
