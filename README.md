@@ -14,7 +14,7 @@ Overall, this project started as a thought. A pwnagotchi on an even smaller boar
 The install guide is [here](INSTALL.md), now that I have put out releases.
 ####
 #### Languages
-The code is done in these langauges. 
+The code is written in these languages. 
 
 - C
 - C++
