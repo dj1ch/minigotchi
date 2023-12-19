@@ -1,4 +1,6 @@
-// packet.cpp: handles the sending of pwnagotchi packets
+///////////////////////////////////////////////////////////
+// packet.cpp: handles the sending of pwnagotchi packets //
+///////////////////////////////////////////////////////////
 
 #include "packet.h"
 #include "raw80211.h"
@@ -8,13 +10,13 @@
 const uint8_t MAGIC_NUMBER = 0xDE;
 
 void PacketSender::sendJsonPayload() {
-  
+
   // json object creation
   DynamicJsonDocument doc(1024);
 
   // all settings
   doc["epoch"] = 1;
-  doc["face"] = "(◕‿‿◕)";
+  doc["face"] = "(^-^)";
   doc["identity"] = "b9210077f7c14c0651aa338c55e820e93f90110ef679648001b1cecdbffc0090";
   doc["name"] = "minigotchi";
 
@@ -48,18 +50,18 @@ void PacketSender::sendJsonPayload() {
   doc["pwnd_tot"] = 0;
   doc["session_id"] = "84:f3:eb:58:95:bd";
   doc["uptime"] = 1;
-  doc["version"] = "v1.0.0";
+  doc["version"] = "v1.2.0";
 
   String jsonString;
   if (serializeJson(doc, jsonString) == 0) {
     // handle errors here
-    Serial.println("Failed to serialize JSON");
+    Serial.println("(;-;) Failed to serialize JSON");
   } else {
     // put number in payload
     Raw80211::send(&MAGIC_NUMBER, sizeof(MAGIC_NUMBER));
     Raw80211::send(reinterpret_cast<const uint8_t*>(jsonString.c_str()), jsonString.length());
 
-    Serial.println("Sent payload!");
+    Serial.println("(>-<) Sent payload!");
   }
 }
 

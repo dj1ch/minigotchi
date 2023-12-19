@@ -18,11 +18,14 @@ Replace the `"bssid of ap you will listen on"` with your actual BSSID(in the quo
 deauthAttack.addToWhitelist("SSID"); // add your ssid(s) here
 deauthAttack.addToWhitelist("ANOTHER_SSID");
 ```
-Replace the `SSID` and `ANOTHER_SSID` with the ssid's you want whitelisted. You can add more!
+Replace the `SSID` and `ANOTHER_SSID` with the ssid's you want whitelisted. You can add more in this manner by copying and pasting this into the setup function
+```cpp
+deauthAttack.addToWhitelist("YOUR_SSID_HERE");
+```
 - Save and exit the file.
 - Right click on the folder(should be called minigotchi) then archive it, making it back into a zip file. If you need to rename it, rename it
 - Go to the [arduino web editor](https://create.arduino.cc/editor), then sign in/create an account
-- Import the zip file by clicking the button that looks like an upload button, then selecting the minigotchi zip file that you edited
+- Import the zip file by clicking the button that looks like an upload button, then selecting the minigotchi zip file that you edited **Note: you may also use the Arduino IDE, as the website seems to have compile issues**
 - Select the board as `ESP8266 WEMOS(LOLIN) D1 mini Lite`, and select the port it is plugged into(if you haven't already, plug in the board)
 - Click on the upload button(arrow pointing to the left).
 - You can click on the monitor button on the sidebar to see the serial monitor. Make sure the baud rate is `115200`.

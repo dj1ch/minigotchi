@@ -1,4 +1,6 @@
-// minigotchi.ino: everything implemented here
+/////////////////////////////////////////////////
+// minigotchi.ino: everything implemented here //
+/////////////////////////////////////////////////
 
 #include "pwnagotchi.h"
 #include "deauth.h"
@@ -13,18 +15,18 @@ Raw80211 raw;
 void setup() {
     Serial.begin(115200);
     Serial.println(" ");
-    Serial.println("Hi, I'm Minigotchi, your pwnagotchi's best friend!");
+    Serial.println("(^-^) Hi, I'm Minigotchi, your pwnagotchi's best friend!");
     Serial.println(" ");
     Serial.println("You can edit my whitelist in the minigotchi.ino, and you can also edit the json parameters in the packet.cpp");
     Serial.println(" ");
-    Serial.println("Starting now...");
+    Serial.println("(>-<) Starting now...");
     deauthAttack.addToWhitelist("SSID"); // add your ssid(s) here
     deauthAttack.addToWhitelist("ANOTHER_SSID");
     raw.init("bssid of ap you will listen on", channel number); // set the settings here, ("BSSID", channel)
     raw.start();
     delay(15000);
     Serial.println(" ");
-    Serial.println("Started successfully!");
+    Serial.println("('-') Started successfully!");
 }
 
 void loop() {

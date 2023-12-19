@@ -1,4 +1,6 @@
-// packet.h: header files for packet.cpp
+///////////////////////////////////////////
+// packet.h: header files for packet.cpp //
+///////////////////////////////////////////
 
 #ifndef PACKET_H
 #define PACKET_H

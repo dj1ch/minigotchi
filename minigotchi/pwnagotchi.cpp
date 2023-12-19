@@ -1,9 +1,12 @@
-// pwnagotchi.cpp: handles pwnagotchi detection
+//////////////////////////////////////////////////
+// pwnagotchi.cpp: handles pwnagotchi detection //
+//////////////////////////////////////////////////
 
 #include "pwnagotchi.h"
 #include <ArduinoJson.h>
 #include "raw80211.h"
 #include <user_interface.h>
+#include <ESP8266WiFi.h>
 
 namespace {
     Pwnagotchi* pwnInstance = nullptr;
@@ -36,7 +39,8 @@ String Pwnagotchi::extractMAC(const unsigned char *buff) {
 }
 
 void Pwnagotchi::detectAndHandlePwnagotchi() {
-    Serial.println("Scanning for Pwnagotchi...");
+    Serial.println("(0-o) Scanning for Pwnagotchi...");
+    delay(100);
 
     // static instance
     pwnInstance = this;
@@ -46,7 +50,7 @@ void Pwnagotchi::detectAndHandlePwnagotchi() {
 
     // check if the rawCallback was triggered during scanning
     if (!pwnInstance->pwnagotchiDetected) {
-        Serial.println("No Pwnagotchi found.");
+        Serial.println("(;-;) No Pwnagotchi found.");
     }
 }
 
@@ -60,7 +64,7 @@ void Pwnagotchi::handlePwnagotchiDetection(const wifi_ieee80211_mac_hdr_t *hdr, 
         // check if the source MAC matches "de:ad:be:ef:de:ad"
         if (src == "de:ad:be:ef:de:ad") {
             pwnagotchiDetected = true;
-            Serial.println("Pwnagotchi detected!");
+            Serial.println("(^-^) Pwnagotchi detected!");
 
             // extract the ESSID from the beacon frame
             String essid(reinterpret_cast<const char*>(&buff[36]));
@@ -75,19 +79,19 @@ void Pwnagotchi::handlePwnagotchiDetection(const wifi_ieee80211_mac_hdr_t *hdr, 
 
             // check if json parsing is successful
             if (error) {
-                Serial.print(F("Could not parse Pwnagotchi json: "));
+                Serial.print(F("(X-X) Could not parse Pwnagotchi json: "));
                 Serial.println(error.c_str());
             } else {
-                Serial.println("\nSuccessfully parsed json");
+                Serial.println("\n(^-^) Successfully parsed json");
 
                 // find out some stats
                 String name = jsonBuffer["name"].as<String>();
                 String pwndTot = jsonBuffer["pwnd_tot"].as<String>();
 
                 // print the info
-                Serial.print("Pwnagotchi name: ");
+                Serial.print("(^-^) Pwnagotchi name: ");
                 Serial.println(name);
-                Serial.print("Pwned Networks: ");
+                Serial.print("(^-^) Pwned Networks: ");
                 Serial.println(pwndTot);
             }
         }

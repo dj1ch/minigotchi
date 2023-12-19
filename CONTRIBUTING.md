@@ -18,7 +18,7 @@ Hello everyone, whether you be from hacktoberfest or just some random person who
 
 4. Test
 
-I recommend getting the hardware needed and making sure this works. Test using the Arduino IDE(Not the web editor), and make sure the appropriate board is selected. I am using the latest version, and so should you. 
+I recommend getting the hardware needed and making sure this works. Test using the Arduino IDE(Not the web editor), and make sure the appropriate board is selected. I am using the latest version, and so should you.
 
 5. Commit and push
 
@@ -31,5 +31,5 @@ I recommend getting the hardware needed and making sure this works. Test using t
 Go to your forked repository on GitHub, switch to the branch you just pushed, and click on the "New Pull Request" button. Fill out the necessary information and submit the pull request.
 ##
 # Code structure
-Most of the code is object oriented. I essentially grouped all of the main functions into their own .cpp and .h files, then inclded those files in the main .ino file. Here's some more info on the [OOP(Object oriented programming)](https://en.wikipedia.org/wiki/Object-oriented_programming).
+Most of the code is object oriented. I essentially grouped all of the main functions into their own .cpp and .h files, then inclded those files in the main .ino file. I am trying to make this as easy to maintain as possible. It's easier on me and others if each part was seperated and organized. Here's some more info on the [OOP(Object oriented programming)](https://en.wikipedia.org/wiki/Object-oriented_programming).
 #

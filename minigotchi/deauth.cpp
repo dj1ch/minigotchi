@@ -1,4 +1,6 @@
-// deauth.cpp: handles the deauth of a local ap
+//////////////////////////////////////////////////
+// deauth.cpp: handles the deauth of a local ap //
+//////////////////////////////////////////////////
 
 #include "deauth.h"
 
@@ -53,8 +55,9 @@ void DeauthAttack::start(bool param1, bool param2, bool param3, bool param4, boo
     // send the deauth 150 times
     for (int i = 0; i < 150; ++i) {
         wifi_send_pkt_freedom(deauthPacketBytes, packetSize, 0);
+        Serial.println("(>-<) Deauth packet sent!");
         delay(100);
     }
-    Serial.println("Attack finished!");
+    Serial.println("(^-^) Attack finished!");
     running = false;
 }
