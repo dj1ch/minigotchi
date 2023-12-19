@@ -6,6 +6,7 @@
 #include "channel.h"
 #include "raw80211.h"
 
+// note that the pwnagotchi uses about 20 or so channels
 // define channels here. don't add more than 8
 int channelList[] = {1, 2, 3, 4, 5, 6, 7, 8}; // add the channels the pwnagotchi goes on.
 
@@ -16,7 +17,7 @@ ChannelHandler::ChannelHandler(int initialChannel) : currentChannel(initialChann
 
 void ChannelHandler::cycleChannels() {
     // stop raw80211 from being on this one channel
-    Serial.print("Switching to channel ");
+    Serial.print("(-.-) Switching to channel ");
     Serial.println(newChannel);
     raw.stop();
 
@@ -29,7 +30,7 @@ void ChannelHandler::cycleChannels() {
     raw.start();
 
     // switched channel
-    Serial.print("Currently on channel ");
+    Serial.print("('-') Currently on channel ");
     Serial.println(newChannel);
 }
 
