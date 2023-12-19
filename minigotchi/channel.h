@@ -10,6 +10,7 @@ class ChannelHandler {
 public:
     ChannelHandler(int initialChannel);
     void cycleChannels();
+    int getCurrentChannel();
 
 private:
     int currentChannel;
