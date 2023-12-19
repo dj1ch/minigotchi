@@ -6,6 +6,7 @@
 #include <ArduinoJson.h>
 #include "raw80211.h"
 #include <user_interface.h>
+#include <ESP8266WiFi.h>
 
 namespace {
     Pwnagotchi* pwnInstance = nullptr;
@@ -39,6 +40,7 @@ String Pwnagotchi::extractMAC(const unsigned char *buff) {
 
 void Pwnagotchi::detectAndHandlePwnagotchi() {
     Serial.println("(0-o) Scanning for Pwnagotchi...");
+    delay(100);
 
     // static instance
     pwnInstance = this;
@@ -77,10 +79,10 @@ void Pwnagotchi::handlePwnagotchiDetection(const wifi_ieee80211_mac_hdr_t *hdr, 
 
             // check if json parsing is successful
             if (error) {
-                Serial.print(F("Could not parse Pwnagotchi json: "));
+                Serial.print(F("(X-X) Could not parse Pwnagotchi json: "));
                 Serial.println(error.c_str());
             } else {
-                Serial.println("\nSuccessfully parsed json");
+                Serial.println("\n(^-^) Successfully parsed json");
 
                 // find out some stats
                 String name = jsonBuffer["name"].as<String>();
