@@ -2,6 +2,7 @@
 ###
 ### an even smaller pwnagotchi.
 ###
+**Note that I have merged changes from development recently as to fix a recent pull request made to this repository**
 #### Intro
 Overall, this project started as a thought. A pwnagotchi on an even smaller board, in this case an esp8266. Crazy, right? Anyway, this project may make it a little bit more possible. Instead of pwning networks, it will be a friend to a local pwnagotchi(Most likely one of yours), along with deauthing random networks if the esp8266 is in the vicinity of any.
 ####
@@ -14,14 +15,14 @@ The code is written in these languages.
 - C
 - C++
 
-Note that the C++ in arduino is slightly modified from what I have heard. See [this reddit question](https://www.reddit.com/r/arduino/comments/x46sml/is_arduino_programming_language_c/) for more about this. Arduino probably has tweaked it to be more beginner friendly, although still being [low-level](https://en.wikipedia.org/wiki/Low-level_programming_language). 
+Note that the C++ in arduino is slightly modified from what I have heard. See [this reddit question](https://www.reddit.com/r/arduino/comments/x46sml/is_arduino_programming_language_c/) for more about this. Arduino probably has tweaked it to be more beginner friendly, although still being [low-level](https://en.wikipedia.org/wiki/Low-level_programming_language).
 ####
 #### Some other ones...
 
-- Python 
+- Python
 - Go
 
-Although nothing will be coded in these langauges(most likely) on this project, it will still be good to know these languages as they will help us understand how a pwnagotchi works. It's a complicated machine, and takes a while to fully understand considering how complex it can be. 
+Although nothing will be coded in these langauges(most likely) on this project, it will still be good to know these languages as they will help us understand how a pwnagotchi works. It's a complicated machine, and takes a while to fully understand considering how complex it can be.
 ####
 #### Prerequisites
 - An IDE (most likely the arduino ide)
@@ -41,7 +42,7 @@ https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp
 Keep in mind it comes with two of them. It's best to keep one extra in case a board gets burnt out and/or lost. I don't think I can find a singular one. I believe this is a clone, so be sure to set this as the clone in the Arduino IDE board manager.
 ####
 #### To do
-- screen support? 
+- screen support?
 - web ui maybe? or a terminal?
 - more testing
 ####
