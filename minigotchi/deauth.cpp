@@ -34,7 +34,7 @@ void DeauthAttack::startRandomDeauth() {
         // define the attack
         if (!running) {
             // Deauth, beacon, deauth all stations, probe, output, timeout
-            start(true, false, false, false, true, 0);
+            start();
         } else {
             Serial.println("Attack is already running.");
         }
