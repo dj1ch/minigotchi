@@ -28,7 +28,4 @@ private:
 
 };
 
-// global instance
-extern Pwnagotchi pwnagotchi;
-
 #endif // PWNAGOTCHI_H
