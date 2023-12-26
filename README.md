@@ -42,9 +42,7 @@ https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp
 Keep in mind it comes with two of them. It's best to keep one extra in case a board gets burnt out and/or lost. I don't think I can find a singular one. I believe this is a clone, so be sure to set this as the clone in the Arduino IDE board manager.
 ####
 #### To do
-- screen support?
-- web ui maybe? or a terminal?
-- more testing
+See this [project](https://github.com/orgs/Pwnagotchi-Unofficial/projects/4)
 ####
 #### Contributing
 Contributions to the code itself are going to be accepted! Small, and potentially useless pull requests will be ignored. I don't want to waste your time or my time on something as insignificant as adding a space, or putting a link to something I don't need. See more [here](CONTRIBUTING.md). Thank you!
