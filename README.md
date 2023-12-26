@@ -51,24 +51,31 @@ Contributions to the code itself are going to be accepted! Small, and potentiall
 I'll add some more questions that I can answer here, but here are some I can answer.
 
 **Why is this in a zip file, not a bin file?**
+
 Long story short you will not be able to customize it after first boot. It's gonna stay like this forever, so any changes you make will be permanent. Plus, you're gonna need to whitelist your home network, channels it will change to, etc.
 
 **Will there be flipper zero support?**
+
 Maybe. I will need to test on the esp32, which at the moment I currently do not have. 
 
 **How long until the next release?**
+
 Probably a couple weeks at the most. I gotta finish up/fix a bunch of things, but feel free to check out this [project](https://github.com/orgs/Pwnagotchi-Unofficial/projects/4) to see my progress towards our goals.
 
 **Why the esp8266, why not the esp32?**
+
 Do one thing and do it right. I don't want to spend too much on a development board, and the *LOLIN D1 Mini* is small and effective, not having to pull much power, all at a cheaper price. I don't want it to be too big, the *minigotchi* is called *mini* for a reason. There aren't a lot of projects out there for this board anyway, the esp32 has a lot of different projects surrounding that board, which means this will project won't be as relevant to anyone. Do we even need bluetooth, when we have raw WiFi frames being sent to access points? I guess not right? 
 
 **What's your motivation behind this project?**
+
 I'm sure I have said this, but there aren't a lot of pwnagotchis. A major feature with them is having the ability to make friends. I don't want my pwnagotchi to sit bored at home while I am at school, so it would be nice to have something keep it company. 
 
 **Help, there's an error! How do I fix it?**
+
 Get the output and paste it in an [issue](https://github.com/Pwnagotchi-Unofficial/minigotchi/issues), usually the output can tell you what the problem is. Be sure to ask [google](https://google.com) beforehand, I don't want clueless people asking dumb questions which can be solved with a google search. 
 
 **The board stopped working! The light will not turn on with my current power supply!**
+
 Congragulations, you have burnt the board! Most likely you gave a really high voltage to the board and that caused it to fail. I'm pretty sure it is supposed to run at 3.3 volts. Feel free to get more info with the documention [here](https://www.wemos.cc/en/latest/d1/d1_mini.html).
 
 ####
