@@ -3,15 +3,21 @@
 /////////////////////////////////////////////////
 
 #include "pwnagotchi.h"
-#include "deauth.h"
 #include "packet.h"
+#include "deauth.h"
+#include "network.h"
+#include "webui.h"
 #include "raw80211.h"
 
 Pwnagotchi pwnagotchi;
 PacketSender packetSender;
 DeauthAttack deauthAttack;
+Network network("minigotchi", "dj1ch-minigotchi");
+WebUI webUI;
 Raw80211 raw;
 
+// defines what the minigotchi is to do on startup.
+// the only things that should be adjusted here is probably the whitelist.
 void setup() {
     Serial.begin(115200);
     Serial.println(" ");
@@ -20,6 +26,7 @@ void setup() {
     Serial.println("You can edit my whitelist in the minigotchi.ino, and you can also edit the json parameters in the packet.cpp");
     Serial.println(" ");
     Serial.println("(>-<) Starting now...");
+    network.setupAP();
     deauthAttack.addToWhitelist("SSID"); // add your ssid(s) here
     deauthAttack.addToWhitelist("ANOTHER_SSID");
     raw.init("bssid of ap you will listen on", channel number); // set the settings here, ("BSSID", channel)
@@ -29,6 +36,8 @@ void setup() {
     Serial.println("('-') Started successfully!");
 }
 
+// defines what happens every loop
+// this goes on infinitely, until the minigotchi is turned off
 void loop() {
     // get local payload from local pwnagotchi
     pwnagotchi.detectAndHandlePwnagotchi();

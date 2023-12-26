@@ -68,7 +68,6 @@ void Pwnagotchi::handlePwnagotchiDetection(const wifi_ieee80211_mac_hdr_t *hdr, 
 
             // extract the ESSID from the beacon frame
             String essid(reinterpret_cast<const char*>(&buff[36]));
-            essid = essid.substring(0, 32); // Assuming ESSID starts at index 36 and is 32 bytes long
 
             Serial.print("ESSID: ");
             Serial.println(essid);

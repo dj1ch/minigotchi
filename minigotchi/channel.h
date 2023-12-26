@@ -1,6 +1,5 @@
 /////////////////////////////////////////////
 // channel.h: header files for channel.cpp //
-// note that this will be implemented soon //
 /////////////////////////////////////////////
 
 #ifndef CHANNEL_H
@@ -10,6 +9,7 @@ class ChannelHandler {
 public:
     ChannelHandler(int initialChannel);
     void cycleChannels();
+    int getCurrentChannel();
 
 private:
     int currentChannel;
