@@ -2,7 +2,7 @@
 ###
 ### an even smaller pwnagotchi.
 ###
-**Note that I have merged changes from development recently as to fix a recent pull request made to this repository. Use the latest [release](https://github.com/Pwnagotchi-Unofficial/minigotchi/releases/tag/v1.1.1), so there are no problems. I am working constantly to figure out everything and to push a new release soon.**
+**Note that I have merged changes from development recently as to fix a recent pull request made to this repository. Use the latest [release](https://github.com/Pwnagotchi-Unofficial/minigotchi/releases/tag/v1.1.1), so there are no problems. I am working constantly to figure out everything and to release a new version soon.**
 #### Intro
 Overall, this project started as a thought. A pwnagotchi on an even smaller board, in this case an esp8266. Crazy, right? Anyway, this project may make it a little bit more possible. Instead of pwning networks, it will be a friend to a local pwnagotchi(Most likely one of yours), along with deauthing random networks if the esp8266 is in the vicinity of any.
 ####
