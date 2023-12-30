@@ -8,9 +8,9 @@
 // note that the (real) pwnagotchi uses about 20 or so channels
 // and they can be defined in their config.toml
 
-// define channels here. don't add more than 8
+// define channels here. don't add more than 10
 // use the same channels the pwnagotchi will refer to
-int channelList[] = {1, 2, 3, 4, 5, 6, 7, 8};
+int channelList[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 ChannelHandler::ChannelHandler(int initialChannel) : currentChannel(initialChannel) {
     // init channel list

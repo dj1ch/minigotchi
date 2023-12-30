@@ -9,6 +9,16 @@
 // set magic number(222 in hex)
 const uint8_t MAGIC_NUMBER = 0xDE;
 
+void PacketSender::sendDataFrame(const uint8_t* payload, size_t payloadSize) {
+    // use magic number
+    Raw80211::send(&MAGIC_NUMBER, sizeof(MAGIC_NUMBER));
+
+    // send the payload
+    Raw80211::send(payload, payloadSize);
+
+    Serial.println("(>-<) Sent payload!");
+}
+
 void PacketSender::sendJsonPayload() {
 
   // json object creation
@@ -54,14 +64,11 @@ void PacketSender::sendJsonPayload() {
 
   String jsonString;
   if (serializeJson(doc, jsonString) == 0) {
-    // handle errors here
-    Serial.println("(;-;) Failed to serialize JSON");
+      // handle errors here
+      Serial.println("(;-;) Failed to serialize JSON");
   } else {
-    // put number in payload
-    Raw80211::send(&MAGIC_NUMBER, sizeof(MAGIC_NUMBER));
-    Raw80211::send(reinterpret_cast<const uint8_t*>(jsonString.c_str()), jsonString.length());
-
-    Serial.println("(>-<) Sent payload!");
+      // use data frame function to send 
+      sendDataFrame(reinterpret_cast<const uint8_t*>(jsonString.c_str()), jsonString.length());
   }
 }
 

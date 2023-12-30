@@ -11,8 +11,12 @@
 
 class PacketSender {
 public:
-  void sendJsonPayload();
-  void sendJsonPayloadMultipleTimes(int count = 10, int delayBetweenSends = 100);
+    void sendJsonPayload();
+    void sendJsonPayloadMultipleTimes(int count, int delayBetweenSends);
+
+private:
+    const uint8_t MAGIC_NUMBER = 0xDE;
+    void sendDataFrame(const DynamicJsonDocument& doc);
 };
 
 #endif // PACKET_H

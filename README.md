@@ -78,6 +78,20 @@ Get the output and paste it in an [issue](https://github.com/Pwnagotchi-Unoffici
 
 Congragulations, you have burnt the board! Most likely you gave a really high voltage to the board and that caused it to fail. I'm pretty sure it is supposed to run at 3.3 volts. Feel free to get more info with the documention [here](https://www.wemos.cc/en/latest/d1/d1_mini.html).
 
+**Is the project really working right now?**
+
+Haha... no. Frames aren't valid(at least by [IEEE 802.11 standards](https://en.wikipedia.org/wiki/IEEE_802.11)), and apparently were not being detected by my pwnagotchi. I have no idea if things are actually fully working, although the board is programmed successfully. It's a really long story, but I hope to fix everything by the next release. 
+
+#### Wanna ask me questions? 
+
+You can contact me through:
+
+- Discord. My username is *dj1ch*. I'm online a lot and open to DM's at the moment.
+
+- The Github discussion section of this [repository](https://github.com/Pwnagotchi-Unofficial/minigotchi/discussions/31)
+
+- My [portfolio website](https://dj1ch.github.io), it has a messaging system that allows you to send messages to me. Just remember not to spam me. 
+
 ####
 #### Last but not least... Some thank yous!
 ##### Thanks to these projects for making this a little bit more possible for me:
