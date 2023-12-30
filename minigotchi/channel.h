@@ -13,7 +13,7 @@ public:
 
 private:
     int currentChannel;
-    int channelList[8] // 8 channels
+    int channelList[10] // 10 channels
 };
 
 // global instance
