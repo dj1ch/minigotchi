@@ -3,7 +3,7 @@
 ///////////////////////////////////
 
 #include "webui.h"
-#include <ESPAsyncWebServer.h>
+#include <AsyncEspFSWebServer.h>
 
 AsyncWebServer server(80);
 
@@ -17,5 +17,5 @@ void WebUI::setupWebServer() {
 }
 
 void WebUI::handleRoot() {
-    server.send(200, "text/html", _htmlContent);
+    ::server.send(200, "text/html", _htmlContent);
 }

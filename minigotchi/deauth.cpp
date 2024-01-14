@@ -48,7 +48,7 @@ void DeauthAttack::start() {
 
     // send the deauth 150 times
     for (int i = 0; i < 150; ++i) {
-        wifi_send_pkt_freedom(deauthPacket, packetSize, 0);
+        wifi_send_pkt_freedom(const_cast<uint8_t*>(deauthPacket), packetSize, 0);
         Serial.println("(>-<) Deauth packet sent!");
         delay(100);
     }

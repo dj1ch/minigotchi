@@ -20,7 +20,7 @@ private:
     std::vector<String> whitelist;
     String randomAP;
     void start();
-    constexpr uint8_t deauthPacket[26] = {
+    uint8_t deauthPacket[26] = {
     /*  0 - 1  */ 0xC0, 0x00,                         // type, subtype c0: deauth (a0: disassociate)
     /*  2 - 3  */ 0x00, 0x00,                         // duration (SDK takes care of that)
     /*  4 - 9  */ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // receiver (target)

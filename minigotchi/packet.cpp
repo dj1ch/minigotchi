@@ -72,9 +72,9 @@ void PacketSender::sendJsonPayload() {
   }
 }
 
-void PacketSender::sendJsonPayloadMultipleTimes(int count, int delayBetweenSends) {
-    for (int i = 0; i < count; ++i) {
+void PacketSender::sendJsonPayloadMultipleTimes() {
+    for (int i = 0; i < 150; ++i) {
         sendJsonPayload();
-        delay(delayBetweenSends);
+        delay(100);
     }
 }
