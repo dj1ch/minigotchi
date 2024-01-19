@@ -17,6 +17,7 @@ Raw80211 raw;
 
 // defines what the minigotchi is to do on startup.
 // the only things that should be adjusted here is probably the whitelist.
+// the webui allows you to edit this without having to open this file on your own computer! sick af
 void setup() {
     Serial.begin(115200);
     Serial.println(" ");
@@ -36,6 +37,7 @@ void setup() {
 
 // defines what happens every loop
 // this goes on infinitely, until the minigotchi is turned off
+// this shouldn't be tampered with unless YOU REALLY KNOW WHAT YOU'RE DOING
 void loop() {
     // get local payload from local pwnagotchi
     pwnagotchi.detectAndHandlePwnagotchi();

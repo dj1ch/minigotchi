@@ -3,7 +3,9 @@
 ///////////////////////////////////
 
 #include "webui.h"
-#include <AsyncEspFSWebServer.h>
+// if you're gonna compile from source, install this library using the library manager
+// life won't be very fun trying to compile something such as this while missing a library(trust me i know)
+#include <AsyncEspFSWebServer.h> 
 
 AsyncWebServer server(80);
 

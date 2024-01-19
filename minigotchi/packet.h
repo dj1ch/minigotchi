@@ -11,8 +11,8 @@
 
 class PacketSender {
 public:
-    void sendJsonPayload();
-    void sendJsonPayloadMultipleTimes();
+    void send();
+    void spamJson();
     void sendDataFrame(const uint8_t* payload, size_t payloadSize);
 
 private:
