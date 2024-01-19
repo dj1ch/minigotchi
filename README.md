@@ -1,11 +1,13 @@
 # minigotchi
-###
-### an even smaller pwnagotchi.
-<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/Pwnagotchi-Unofficial/minigotchi"></img>
+
+languages/code-size/Pwnagotchi-Unofficial/minigotchi"></img>
 <img alt="GitHub license" src="https://img.shields.io/github/license/Pwnagotchi-Unofficial/minigotchi"></img>
 <a href="https://github.com/Pwnagotchi-Unofficial/minigotchi/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/Pwnagotchi-Unofficial/minigotchi"></a>
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/Pwnagotchi-Unofficial/minigotchi"></img>
 <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Pwnagotchi-Unofficial/minigotchi"></img>
+
+###
+### an even smaller pwnagotchi.
 ###
 **Note that I have merged changes from development recently as to fix a recent pull request made to this repository. Use the latest [release](https://github.com/Pwnagotchi-Unofficial/minigotchi/releases/tag/v1.1.1), so there are no problems. I am working constantly to figure out everything and to release a new version soon.**
 #### Intro
