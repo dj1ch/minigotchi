@@ -94,7 +94,7 @@ Nope. Never will be unless I publicly declare it and I let the org take it over.
 
 **How can I support your work?**
 
-I have an Open Collective [account](opencollective.com/minigotchi), if that helps.
+I have an Open Collective [account](https://opencollective.com/minigotchi), if that helps.
 
 #### Wanna ask me questions? 
 
