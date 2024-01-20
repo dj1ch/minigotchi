@@ -13,7 +13,7 @@ namespace {
 
     void rawCallback(const wifi_ieee80211_mac_hdr_t *hdr, int rssi, const unsigned char *buff, short unsigned int buff_len) {
         if (pwnInstance) {
-            pwnInstance->handlePwnagotchiDetection(hdr, rssi, buff, buff_len);
+            pwnInstance->handle(hdr, rssi, buff, buff_len);
         }
     }
 }
@@ -38,23 +38,32 @@ String Pwnagotchi::extractMAC(const unsigned char *buff) {
     return String(addr);
 }
 
-void Pwnagotchi::detectAndHandlePwnagotchi() {
-    Serial.println("(0-o) Scanning for Pwnagotchi...");
-    delay(100);
+void Pwnagotchi::detectAndHandle() {
+    // cool animation here
+    for (int i = 0; i < 5; ++i) {
+        Serial.println("(0-o) Scanning for Pwnagotchi.");
+        delay(500);
+        Serial.println("(o-0) Scanning for Pwnagotchi..");
+        delay(500);
+        Serial.println("(0-o) Scanning for Pwnagotchi...");
+        delay(500);
+    }
 
     // static instance
     pwnInstance = this;
 
-    // delay for scanning (adjust as needed)
+    // delay for scanning
     delay(5000);
 
     // check if the rawCallback was triggered during scanning
     if (!pwnInstance->pwnagotchiDetected) {
+        // only searches on your current channel and such afaik, 
+        // so this only applies for the current searching area
         Serial.println("(;-;) No Pwnagotchi found.");
     }
 }
 
-void Pwnagotchi::handlePwnagotchiDetection(const wifi_ieee80211_mac_hdr_t *hdr, int rssi, const unsigned char *buff, short unsigned int buff_len) {
+void Pwnagotchi::handle(const wifi_ieee80211_mac_hdr_t *hdr, int rssi, const unsigned char *buff, short unsigned int buff_len) {
     // check if it is a beacon frame
     if (buff[0] == 0x80) {
         // extract mac
@@ -73,7 +82,7 @@ void Pwnagotchi::handlePwnagotchiDetection(const wifi_ieee80211_mac_hdr_t *hdr, 
             Serial.println(essid);
 
             // load json from the ESSID
-            DynamicJsonDocument jsonBuffer(1024);  // Adjust the buffer size as needed
+            DynamicJsonDocument jsonBuffer(1024);
             DeserializationError error = deserializeJson(jsonBuffer, essid);
 
             // check if json parsing is successful

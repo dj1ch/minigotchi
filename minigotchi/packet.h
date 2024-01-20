@@ -11,8 +11,9 @@
 
 class PacketSender {
 public:
-    void sendJsonPayload();
-    void sendJsonPayloadMultipleTimes(int count, int delayBetweenSends);
+    void send();
+    void spamJson();
+    void sendDataFrame(const uint8_t* payload, size_t payloadSize);
 
 private:
     const uint8_t MAGIC_NUMBER = 0xDE;

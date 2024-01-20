@@ -19,7 +19,7 @@ void PacketSender::sendDataFrame(const uint8_t* payload, size_t payloadSize) {
     Serial.println("(>-<) Sent payload!");
 }
 
-void PacketSender::sendJsonPayload() {
+void PacketSender::send() {
 
   // json object creation
   DynamicJsonDocument doc(1024);
@@ -65,6 +65,7 @@ void PacketSender::sendJsonPayload() {
   String jsonString;
   if (serializeJson(doc, jsonString) == 0) {
       // handle errors here
+      // its usually just the json's fault maybe, please fix it dj1ch(or whoever changed that bs)
       Serial.println("(;-;) Failed to serialize JSON");
   } else {
       // use data frame function to send 
@@ -72,9 +73,9 @@ void PacketSender::sendJsonPayload() {
   }
 }
 
-void PacketSender::sendJsonPayloadMultipleTimes(int count, int delayBetweenSends) {
-    for (int i = 0; i < count; ++i) {
-        sendJsonPayload();
-        delay(delayBetweenSends);
+void PacketSender::spamJson() {
+    for (int i = 0; i < 150; ++i) {
+        send();
+        delay(100);
     }
 }

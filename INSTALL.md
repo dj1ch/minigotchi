@@ -30,5 +30,6 @@ deauthAttack.addToWhitelist("YOUR_SSID_HERE");
 - Click on the upload button(arrow pointing to the left).
 - You can click on the monitor button on the sidebar to see the serial monitor. Make sure the baud rate is `115200`.
 - **Compile errors happen with the Web editor, so you can just use the Arduino IDE app. Make sure you install all the correct libraries(ArduinoJson), and the correct [boards](https://github.com/esp8266/Arduino). See this issue I made [here](https://github.com/Pwnagotchi-Unofficial/minigotchi/issues/40)**
+- After everything starts up successfully, you can connect to the wifi network `minigotchi` using the password `dj1ch-minigotchi` with the webui being at http://192.168.4.1
 - Happy hacking!
 ####

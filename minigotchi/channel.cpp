@@ -5,8 +5,7 @@
 #include "channel.h"
 #include "raw80211.h"
 
-// note that the (real) pwnagotchi uses about 20 or so channels
-// and they can be defined in their config.toml
+Raw80211 raw;
 
 // define channels here. don't add more than 10
 // use the same channels the pwnagotchi will refer to
@@ -18,14 +17,14 @@ ChannelHandler::ChannelHandler(int initialChannel) : currentChannel(initialChann
 }
 
 void ChannelHandler::cycleChannels() {
+    // switch to next channel
+    currentChannel = (currentChannel + 1) % (sizeof(channelList) / sizeof(channelList[0]));
+    newChannel = channelList[currentChannel];
+
     // stop raw80211 from being on this one channel
     Serial.print("(-.-) Switching to channel ");
     Serial.println(newChannel);
     raw.stop();
-
-    // switch to next channel
-    currentChannel = (currentChannel + 1) % sizeof(channelList) / sizeof(channelList[0]);
-    int newChannel = channelList[currentChannel];
 
     // monitor this one channel
     wifi_promiscuous_enable(0);
@@ -37,7 +36,7 @@ void ChannelHandler::cycleChannels() {
     Serial.println(newChannel);
 }
 
-
 int ChannelHandler::getCurrentChannel() {
     return channelList[currentChannel];
 }
+

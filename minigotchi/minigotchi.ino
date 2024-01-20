@@ -12,12 +12,12 @@
 Pwnagotchi pwnagotchi;
 PacketSender packetSender;
 DeauthAttack deauthAttack;
-Network network("minigotchi", "dj1ch-minigotchi");
 WebUI webUI;
 Raw80211 raw;
 
 // defines what the minigotchi is to do on startup.
 // the only things that should be adjusted here is probably the whitelist.
+// the webui allows you to edit this without having to open this file on your own computer! sick af
 void setup() {
     Serial.begin(115200);
     Serial.println(" ");
@@ -26,10 +26,9 @@ void setup() {
     Serial.println("You can edit my whitelist in the minigotchi.ino, and you can also edit the json parameters in the packet.cpp");
     Serial.println(" ");
     Serial.println("(>-<) Starting now...");
-    network.setupAP();
     deauthAttack.addToWhitelist("SSID"); // add your ssid(s) here
     deauthAttack.addToWhitelist("ANOTHER_SSID");
-    raw.init("bssid of ap you will listen on", channel number); // set the settings here, ("BSSID", channel)
+    raw.init("bssid of ap you will listen on", channel_number); // set the settings here, ("BSSID", channel)
     raw.start();
     delay(15000);
     Serial.println(" ");
@@ -38,6 +37,7 @@ void setup() {
 
 // defines what happens every loop
 // this goes on infinitely, until the minigotchi is turned off
+// this shouldn't be tampered with unless YOU REALLY KNOW WHAT YOU'RE DOING
 void loop() {
     // get local payload from local pwnagotchi
     pwnagotchi.detectAndHandlePwnagotchi();
@@ -47,7 +47,7 @@ void loop() {
     raw.stop();
 
     // send payload(10 times)
-    packetSender.sendJsonPayloadMultipleTimes();
+    packetSender.sendJsonPayloadMultipleTimes(count, delayBetweenSends);
     delay(5000);
 
     // deauth a random ap

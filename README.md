@@ -1,8 +1,14 @@
 # minigotchi
+<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/Pwnagotchi-Unofficial/minigotchi"></img>
+<img alt="GitHub license" src="https://img.shields.io/github/license/Pwnagotchi-Unofficial/minigotchi"></img>
+<a href="https://github.com/Pwnagotchi-Unofficial/minigotchi/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/Pwnagotchi-Unofficial/minigotchi"></a>
+<img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/Pwnagotchi-Unofficial/minigotchi"></img>
+<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Pwnagotchi-Unofficial/minigotchi"></img>
+
 ###
 ### an even smaller pwnagotchi.
 ###
-**Note that I have merged changes from development recently as to fix a recent pull request made to this repository. Use the latest [release](https://github.com/Pwnagotchi-Unofficial/minigotchi/releases/tag/v1.1.1), so there are no problems. I am working constantly to figure out everything and to release a new version soon.**
+
 #### Intro
 Overall, this project started as a thought. A pwnagotchi on an even smaller board, in this case an esp8266. Crazy, right? Instead of grabbing handshakes, it will be a friend to a local pwnagotchi(most likely one of yours), along with deauthing random networks if the esp8266 is in the vicinity of any.
 ####
@@ -81,6 +87,14 @@ Congragulations, you have burnt the board! Most likely you gave a really high vo
 **Is the project really working right now?**
 
 Haha... no. Frames aren't valid(at least by [IEEE 802.11 standards](https://en.wikipedia.org/wiki/IEEE_802.11)), and apparently were not being detected by my pwnagotchi. I have no idea if things are actually fully working, although the board is programmed successfully. It's a really long story, but I hope to fix everything by the next release. 
+
+**Is this project dead**
+
+Nope. Never will be unless I publicly declare it and I let the org take it over. 
+
+**How can I support your work?**
+
+I have an Open Collective [account](https://opencollective.com/minigotchi), if that helps.
 
 #### Wanna ask me questions? 
 
