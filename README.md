@@ -88,9 +88,9 @@ Congragulations, you have burnt the board! Most likely you gave a really high vo
 
 Haha... no. Frames aren't valid(at least by [IEEE 802.11 standards](https://en.wikipedia.org/wiki/IEEE_802.11)), and apparently were not being detected by my pwnagotchi. I have no idea if things are actually fully working, although the board is programmed successfully. It's a really long story, but I hope to fix everything by the next release. 
 
-**Is this project dead**
+**Is this project dead?**
 
-Nope. Never will be unless I publicly declare it and I let the org take it over. 
+Nope. Never will be unless I publicly declare it and I let the organization take it over. Most likely my friend @rai68 will take it over. 
 
 **How can I support your work?**
 
