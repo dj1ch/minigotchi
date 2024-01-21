@@ -5,7 +5,6 @@
 #include "pwnagotchi.h"
 #include "packet.h"
 #include "deauth.h"
-#include "network.h"
 #include "webui.h"
 #include "raw80211.h"
 
@@ -47,7 +46,7 @@ void loop() {
     raw.stop();
 
     // send payload(10 times)
-    packetSender.sendJsonPayloadMultipleTimes(count, delayBetweenSends);
+    packetSender.sendJsonPayloadMultipleTimes(count, delayBetweenSends); // no need to adjust this lol
     delay(5000);
 
     // deauth a random ap
