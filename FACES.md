@@ -1,5 +1,7 @@
 # Faces
-The minigotchi has multiple faces, similar to that of the pwnagotchi.I tried my best here to adhere to how emotions were handled with the pwnagotchi
+The minigotchi has multiple faces, similar to that of the pwnagotchi. I tried my best here to adhere to how emotions were handled with the pwnagotchi. It doesn't exactly have an emotion set using a setting, rather having the emotion being shown to the user. It might be best to have the emotion set to a variable, although this will be done later. 
+
+**Note that these are the only emotions that the minigotchi is capable of showing. You may add your own but at this moment the last release doesn't have any emotions.**
 
 ### (^-^) Happy
 - found a pwnagotchi
@@ -10,7 +12,7 @@ The minigotchi has multiple faces, similar to that of the pwnagotchi.I tried my 
 
 ### (X-X) Broken
 - error while the program was running has occured
-- usually an error will be provided
+- usually an error will be provided, or it will literally tell you what the issue is
 
 ### (>-<) Intense
 - sending frames to an AP

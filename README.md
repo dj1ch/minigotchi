@@ -96,8 +96,9 @@ Nope. Never will be unless I publicly declare it and I let the organization take
 
 I have an Open Collective [account](https://opencollective.com/minigotchi), if that helps.
 
-#### Wanna ask me questions? 
+#### Communication
 
+Wanna ask me questions? 
 You can contact me through:
 
 - Discord. My username is *dj1ch*. I'm online a lot and open to DM's at the moment.
@@ -105,6 +106,8 @@ You can contact me through:
 - The Github discussion section of this [repository](https://github.com/Pwnagotchi-Unofficial/minigotchi/discussions/31)
 
 - My [portfolio website](https://dj1ch.github.io), it has a messaging system that allows you to send messages to me. Just remember not to spam me. 
+
+The last thing I want for this project is for it to die suddenly, and for the creator to disappear and not be able to help people trying to build it, and running into issues. This is a very similar issue with what happened to the Pwnagotchi Project, and the main developer pretty much abondoned the community, which is not good for a very popular project. 
 
 ####
 #### Last but not least... Some thank yous!
