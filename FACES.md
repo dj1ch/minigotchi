@@ -10,7 +10,7 @@ The minigotchi has multiple faces, similar to that of the pwnagotchi.I tried my 
 
 ### (X-X) Broken
 - error while the program was running has occured
-- usually an error will be provided
+- usually an error will be provided, or it will literally tell you what the issue is
 
 ### (>-<) Intense
 - sending frames to an AP
