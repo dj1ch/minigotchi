@@ -3,8 +3,12 @@
 //////////////////////////////////////////////////
 
 #include "deauth.h"
+#include <Arduino.h>
+#include <vector>
+#include <ESP8266WiFi.h>
 
 // deauth packet defined here
+// this is sent using the ESP8266WiFi library
 uint8_t deauthPacket[26] = {
     /*  0 - 1  */ 0xC0, 0x00,                         // type, subtype c0: deauth (a0: disassociate)
     /*  2 - 3  */ 0x00, 0x00,                         // duration (SDK takes care of that)

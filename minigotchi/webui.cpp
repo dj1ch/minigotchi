@@ -5,7 +5,7 @@
 #include "webui.h"
 // if you're gonna compile from source, install this library using the library manager
 // life won't be very fun trying to compile something such as this while missing a library(trust me i know)
-#include "AsyncFSWebServer.h"
+#include <AsyncFSWebServer.h>
 
 // define the html for the site
 const char* _htmlContent = R"=====(
@@ -33,7 +33,7 @@ const char* _htmlContent = R"=====(
     </html>
     )=====";
 
-// define the hostname here
+// define the hostname here, although this might not work correctly
 const char* hostname = "minigotchi";
 
 // start this server on port 80, unless otherwise
