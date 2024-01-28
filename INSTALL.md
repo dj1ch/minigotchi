@@ -18,18 +18,28 @@ Replace the `"bssid of ap you will listen on"` with your actual BSSID(in the quo
 deauthAttack.addToWhitelist("SSID"); // add your ssid(s) here
 deauthAttack.addToWhitelist("ANOTHER_SSID");
 ```
+
 Replace the `SSID` and `ANOTHER_SSID` with the ssid's you want whitelisted. You can add more in this manner by copying and pasting this into the setup function
+
 ```cpp
 deauthAttack.addToWhitelist("YOUR_SSID_HERE");
 ```
+
 - Save and exit the file.
-- Right click on the folder(should be called minigotchi) then archive it, making it back into a zip file. If you need to rename it, rename it
-- Go to the [arduino web editor](https://create.arduino.cc/editor), then sign in/create an account
-- Import the zip file by clicking the button that looks like an upload button, then selecting the minigotchi zip file that you edited **Note: you may also use the Arduino IDE, as the website seems to have compile issues**
+- Download the [Arduino IDE](https://https://www.arduino.cc/en/software), preferably the latest version.
+- In the IDE, go to *File* > *Preferences*, then in the *Additional board manager URLS*, paste the link "https://arduino.esp8266.com/stable/package_esp8266com_index.json" to add the ESP8266 board(s) to the board manager
+- Click *Ok* and plug the board into your computer. It should blink, make sure it is receiving the correct amount of voltage, too much will burn it(I learned that the hard way)
+- Open up the minigotchi folder through the IDE by pushing *Ctrl O*, or by going to *File* > *Open*, then selecting the folder the .ino is in. If other tabs don't show up, along with minigotchi.ino, make sure to copy and paste the files into the same directory/folder as that lone .ino file. It won't be able to compile if that happens. 
 - Select the board as `ESP8266 WEMOS(LOLIN) D1 mini Lite`, and select the port it is plugged into(if you haven't already, plug in the board)
-- Click on the upload button(arrow pointing to the left).
-- You can click on the monitor button on the sidebar to see the serial monitor. Make sure the baud rate is `115200`.
+- Click on the upload button(arrow pointing to the left). 
+
+**Note: if you get any errors, let me know ASAP with a github issue, sending me a discord message, or perhaps even messaging me through my portfolio site.**
+
+- You can click on the *Serial Monitor* button on the top bar to see the serial monitor output. Make sure the baud rate is `115200`.
 - **Compile errors happen with the Web editor, so you can just use the Arduino IDE app. Make sure you install all the correct libraries(ArduinoJson), and the correct [boards](https://github.com/esp8266/Arduino). See this issue I made [here](https://github.com/Pwnagotchi-Unofficial/minigotchi/issues/40)**
-- After everything starts up successfully, you can connect to the wifi network `minigotchi` using the password `dj1ch-minigotchi` with the webui being at http://192.168.4.1
+
+**This is a new feature to be added, this won't actually work with the v1.1.1(beta) release.**
+
+~~- After everything starts up successfully, you can connect to the wifi network `minigotchi` using the password `dj1ch-minigotchi` with the webui being at http://192.168.4.1~~
 - Happy hacking!
 ####
