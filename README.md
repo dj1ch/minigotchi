@@ -43,7 +43,7 @@ We have dropped support for the pico, as it turns out, the esp8266 is a microcon
 #### Hardware
 - Hardware is here(the esp8266):
 
-https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp
+https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp/B0B9XSNZXD/ref=sr_1_3?keywords=QCCAN-Internet-ESP8266-Compatible-MicroPython&sr=8-3
 
 Keep in mind it comes with two of them. It's best to keep one extra in case a board gets burnt out and/or lost. I don't think I can find a singular one. I believe this is a clone, so be sure to set this as the clone in the Arduino IDE board manager.
 ####
