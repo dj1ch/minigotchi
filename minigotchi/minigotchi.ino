@@ -25,9 +25,9 @@ void setup() {
     Serial.println("You can edit my whitelist in the minigotchi.ino, and you can also edit the json parameters in the packet.cpp");
     Serial.println(" ");
     Serial.println("(>-<) Starting now...");
-    deauthAttack.addToWhitelist("SSID"); // add your ssid(s) here
-    deauthAttack.addToWhitelist("ANOTHER_SSID");
-    raw.init("bssid of ap you will listen on", channel_number); // set the settings here, ("BSSID", channel)
+    deauthAttack.addToWhitelist("fo:od:ba:be:fo:od"); // add your ssid(s) here
+    deauthAttack.addToWhitelist("fo:od:ba:be:fo:od");
+    raw.init("fo:od:ba:be:fo:od", 1); // set the settings here, ("BSSID", channel)
     raw.start();
     delay(15000);
     Serial.println(" ");

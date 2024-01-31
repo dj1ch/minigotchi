@@ -8,21 +8,21 @@ I believe that you can also use the raspberry pi pico and run arduino .ino files
 - At the line that says:
 
 ```cpp
-raw.init("bssid of ap you will listen on", channel number); // set the settings here, ("BSSID", channel)
+raw.init("fo:od:ba:be:fo:od", 1); // set the settings here, ("BSSID", channel)
 ```
 
-Replace the `"bssid of ap you will listen on"` with your actual BSSID(in the quotations), and the `channel` with the channel you prefer(not in quotations). Note that the pwnagotchi will constantly switch channels so you should go check the channels in the pwnagotchi's web UI.
+Replace the `"fo:od:ba:be:fo:od"` with your actual BSSID(in the quotations), and the `1` with the channel you prefer(not in quotations). Note that the pwnagotchi will constantly switch channels so you should go check the channels in the pwnagotchi's web UI.
 - There should also be a line that says:
 
 ```cpp
-deauthAttack.addToWhitelist("SSID"); // add your ssid(s) here
-deauthAttack.addToWhitelist("ANOTHER_SSID");
+deauthAttack.addToWhitelist("fo:od:ba:be:fo:od"); // add your ssid(s) here
+deauthAttack.addToWhitelist("fo:od:ba:be:fo:od");
 ```
 
-Replace the `SSID` and `ANOTHER_SSID` with the ssid's you want whitelisted. You can add more in this manner by copying and pasting this into the setup function
+Replace the `fo:od:ba:be:fo:od` with the ssid's you want whitelisted. You can add more in this manner by copying and pasting this into the setup function
 
 ```cpp
-deauthAttack.addToWhitelist("YOUR_SSID_HERE");
+deauthAttack.addToWhitelist("YOUR_SSID_HERE_OR_BSSID_IDC_REALLY");
 ```
 
 - Save and exit the file.
