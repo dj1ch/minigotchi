@@ -37,21 +37,22 @@ void setup() {
 // defines what happens every loop
 // this goes on infinitely, until the minigotchi is turned off
 // this shouldn't be tampered with unless YOU REALLY KNOW WHAT YOU'RE DOING
+
 void loop() {
     // get local payload from local pwnagotchi
-    pwnagotchi.detectAndHandlePwnagotchi();
+    pwnagotchi.detectAndHandle();
     delay(5000);
 
     // stop for deauthing and payload
     raw.stop();
 
     // send payload(10 times)
-    packetSender.sendJsonPayloadMultipleTimes(count, delayBetweenSends); // no need to adjust this lol
+    packetSender.sendDataFrame(count, delayBetweenSends); // no need to adjust this lol
     delay(5000);
 
     // deauth a random ap
-    deauthAttack.selectRandomAP();
-    deauthAttack.startRandomDeauth();
+    deauthAttack.selectAP();
+    deauthAttack.startDeauth();
     delay(5000);
 
     // restart the process

@@ -37,7 +37,7 @@ const char* _htmlContent = R"=====(
 const char* hostname = "minigotchi";
 
 // start this server on port 80, unless otherwise
-ESPAsyncWebServer server(80);
+AsyncWebServer server(80);
 
 WebUI::WebUI() {
     server.on("/", HTTP_GET, std::bind(&WebUI::handleRoot, this));
@@ -49,5 +49,7 @@ void WebUI::setupWebServer() {
 }
 
 void WebUI::handleRoot() {
-    server.send(200, "text/html", _htmlContent);
+    AsyncWebServerRequest *request = server.newAsyncWebServerRequest();
+    requests->send(200, "text/html", _htmlContent);
+    delete request; // give the minigotchi dementia
 }
