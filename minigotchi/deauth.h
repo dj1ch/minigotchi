@@ -13,7 +13,7 @@ class DeauthAttack {
 public:
     void selectAP();
     void startDeauth();
-    void addWhitelist(const char* bssid);
+    void addToWhitelist(const char* bssid);
 
 private:
     bool running;

