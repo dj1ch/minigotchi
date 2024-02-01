@@ -111,7 +111,7 @@ The last thing I want for this project is for it to die suddenly, and for the cr
 
 ####
 #### Last but not least... Some thank yous!
-##### Thanks to these projects for making this a little bit more possible for me:
+**Thanks to these projects for making this a little bit more possible for me:**
 
 - Pico-sdk, allowing C/C++ to be compiled and ran on the raspberry pi pico
 
