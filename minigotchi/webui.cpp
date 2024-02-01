@@ -37,6 +37,7 @@ const char* _htmlContent = R"=====(
 const char* hostname = "minigotchi";
 
 // start this server on port 80, unless otherwise
+// ok who tf names the class a different name than the library, that's nasty af.   
 AsyncWebServer server(80);
 
 WebUI::WebUI() {

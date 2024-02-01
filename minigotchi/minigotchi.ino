@@ -41,12 +41,15 @@ void setup() {
 void loop() {
     // get local payload from local pwnagotchi
     pwnagotchi.detectAndHandle();
-    delay(5000);
+    // ugly hack: remove all these lines containing the words "delay(5000);" or comment them out with a "//" slash.
+    // doing so will make the loop a lot faster. plus this might overheat the board and stuff but its worth a try.
+    delay(5000); 
 
     // stop for deauthing and payload
     raw.stop();
 
     // send payload(10 times)
+    // note: replace function and set default values later
     packetSender.sendDataFrame(count, delayBetweenSends); // no need to adjust this lol
     delay(5000);
 
