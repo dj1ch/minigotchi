@@ -7,11 +7,6 @@
 
 #pragma once
 
-#include <Arduino.h>
-#include <ESP8266WiFi.h>
-#include "raw80211.h"
-#include <user_interface.h>
-
 class Pwnagotchi {
 public:
     Pwnagotchi();  // constructs/inits everything
