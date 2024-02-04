@@ -10,7 +10,7 @@
 ###
 
 ### Intro
-Overall, this project started as a thought. A pwnagotchi on an even smaller board, in this case an esp8266. Crazy, right? Instead of grabbing handshakes, it will be a friend to a local pwnagotchi(most likely one of yours), along with deauthing random networks if the esp8266 is in the vicinity of any.
+Overall, this project started as a thought. A pwnagotchi on an even smaller board, in this case an ESP8266. Crazy, right? Instead of grabbing handshakes, it will be a friend to a local pwnagotchi(most likely one of yours), along with deauthing random networks if the ESP8266 is in the vicinity of any.
 ###
 ### Install guide
 The install guide is [here](INSTALL.md), now that I have put out releases.
@@ -32,16 +32,16 @@ Although nothing will be coded in these langauges(most likely) on this project, 
 ###
 ### Prerequisites
 - An IDE (most likely the arduino ide)
-- Hardware(esp8266 microcontroller)
+- Hardware(D1 Mini ESP8266)
 - A reliable and appropriate power source and supply for the hardware
 - Patience (a lot of it)
 ### How it operates/works
 The minigotchi relies on the IDE/serial shell for communication through logs. It will send raw frames to associate to an access point, and will advertise itself on a network like a pwnagotchi, or perhaps interact with the local pwngrid server that the pwnagotchi is running.
 ### Something that you should know
-We have dropped support for the pico, as it turns out, the esp8266 is a microcontroller itself(Though I can make progress for this in the future. For now, I am sticking with the esp8266).
+We have dropped support for the pico, as it turns out, the ESP8266 is a microcontroller itself(Though I can make progress for this in the future. For now, I am sticking with the ESP8266).
 ###
 ### Hardware
-- Hardware is here(the esp8266):
+- Hardware is here(the D1 Mini ESP8266):
 
 https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp/B0B9XSNZXD/ref=sr_1_3?keywords=QCCAN-Internet-ESP8266-Compatible-MicroPython&sr=8-3
 
@@ -62,13 +62,13 @@ Long story short you will not be able to customize it after first boot. It's gon
 
 **Will there be flipper zero support?**
 
-Maybe. I will need to test on the esp32, which at the moment I currently do not have. 
+Maybe. I will need to test on the ESP32, which at the moment I currently do not have. 
 
 **How long until the next release?**
 
 Probably a couple weeks at the most. I gotta finish up/fix a bunch of things, but feel free to check out this [project](https://github.com/orgs/Pwnagotchi-Unofficial/projects/4) to see my progress towards our goals.
 
-**Why the esp8266, why not the esp32?**
+**Why the ESP8266, why not the ESP32?**
 
 Do one thing and do it right. I don't want to spend too much on a development board, and the *LOLIN D1 Mini* is small and effective, not having to pull much power, all at a cheaper price. I don't want it to be too big, the *minigotchi* is called *mini* for a reason. There aren't a lot of projects out there for this board anyway, the esp32 has a lot of different projects surrounding that board, which means this will project won't be as relevant to anyone. Do we even need bluetooth, when we have raw WiFi frames being sent to access points? I guess not right? 
 
