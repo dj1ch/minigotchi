@@ -50,7 +50,6 @@ void loop() {
 
     // send payload(10 times)
     // note: replace function and set default values later
-    packetSender.sendDataFrame(count, delayBetweenSends); // no need to adjust this lol
     delay(5000);
 
     // deauth a random ap

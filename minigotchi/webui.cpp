@@ -27,13 +27,14 @@ const char* _htmlContent = R"=====(
         <p>Minigotchi log:</p>
         <div id="log-container">
             <!-- log messages will appear here -->
-            
+            <!-- if this dumb site won't work ill cry -->
         </div>
     </body>
     </html>
     )=====";
 
-// define the hostname here, although this might not work correctly
+// define the hostname here, although this might not work correctly.
+// a hostname may not be required to be defined in spite of some libraries requirinng it to start the server
 const char* hostname = "minigotchi";
 
 // start this server on port 80, unless otherwise
