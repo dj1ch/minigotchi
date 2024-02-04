@@ -111,24 +111,28 @@ The last thing I want for this project is for it to die suddenly, and for the cr
 
 ###
 ### Last but not least... Some thank yous!
-**Thanks to these projects for making this a little bit more possible for me:**
+**Thanks to these projects for making this a little bit more possible for me, I have used libraries/code from these projects and implemented it here:**
 
-- Pico-sdk, allowing C/C++ to be compiled and ran on the raspberry pi pico
-
-https://github.com/raspberrypi/pico-sdk
-
-- Arduino, mostly just the repository containing libraries for the project so I can build this code.
+- Arduino, mostly just the repository containing libraries for the project so I can build this code. There were many libraries that were used in this core repository. 
 
 https://github.com/esp8266/Arduino
 
-- 80211Raw, which allows raw frames to be received and sent through an esp8266 or esp32 using C and C++ in an interesting and useful POC
+- 80211Raw, which allows raw frames to be received and sent through an ESP8266 or ESP32 using C and C++ in an interesting and useful POC. This is used to send the *Pwnagotchi*-like packets/frames.
 
 https://github.com/tht/80211Raw
 
-- esp8266 deauther, the POC that shows that an esp8266 can deauth and attack local access points.
+- ESP8266 deauther, the POC that shows that an ESP8266 can deauth and attack local access points. Deauthing is based off of this. 
 
 https://github.com/SpacehuhnTech/esp8266_deauther/
 
-- esp32 marauder, similar to the esp8266 deauther, although packed with much more features along with support for the flipper zero
+- ESP32 Marauder, similar to the ESP8266 deauther, although packed with much more features along with support for the flipper zero ESP32. It has wardriving capabilities, BLE, and deauthing features available. 
 
 https://github.com/justcallmekoko/ESP32Marauder
+
+- ESPAsyncWebServer, the library that allows a Web UI on the ESP8266, along with an AP. 
+
+https://github.com/lacamera/ESPAsyncWebServer
+
+- Milkydeveloper, idk what he did but he wanted to be here ig so...
+
+https://github.com/MilkyDeveloper

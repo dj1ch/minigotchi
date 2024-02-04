@@ -11,7 +11,8 @@ public:
     void setupWebServer();
 
 private:
-    const char* _htmlContent;
+    const char* apName;
+    const char* apPassword; 
     const char* hostname;
     void handleRoot();
 };
