@@ -25,6 +25,8 @@ void PacketSender::send() {
   DynamicJsonDocument doc(1024);
 
   // all settings
+  // if github goes insane about that key in the "identity", its just the identity key that identifies a pwnagotchi 
+  
   doc["epoch"] = 1;
   doc["face"] = "(^-^)";
   doc["identity"] = "b9210077f7c14c0651aa338c55e820e93f90110ef679648001b1cecdbffc0090";
@@ -74,6 +76,7 @@ void PacketSender::send() {
 }
 
 void PacketSender::spamJson() {
+    // for the sake of consistency also sending this packet 150 times
     for (int i = 0; i < 150; ++i) {
         send();
         delay(100);

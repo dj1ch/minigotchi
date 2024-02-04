@@ -7,9 +7,10 @@
 
 Raw80211 raw;
 
-// define channels here. don't add more than 10
-// use the same channels the pwnagotchi will refer to
-int channelList[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+// use the ideal 2.4 ghz channels, which are 1, 6, and 11
+// the reason is this is so it doesn't interfere with other devices
+// there are probably plenty more reasons but this is an good practice for such devices
+int channelList[] = {1, 6, 11};
 
 ChannelHandler::ChannelHandler(int initialChannel) : currentChannel(initialChannel) {
     // init channel list

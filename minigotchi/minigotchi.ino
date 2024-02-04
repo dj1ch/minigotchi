@@ -6,12 +6,14 @@
 #include "packet.h"
 #include "deauth.h"
 #include "webui.h"
+#include "channel.h"
 #include "raw80211.h"
 
 Pwnagotchi pwnagotchi;
 PacketSender packetSender;
 DeauthAttack deauthAttack;
 WebUI webUI;
+ChannelHandler channelHandler;
 Raw80211 raw;
 
 // defines what the minigotchi is to do on startup.
@@ -39,6 +41,8 @@ void setup() {
 // this shouldn't be tampered with unless YOU REALLY KNOW WHAT YOU'RE DOING
 
 void loop() {
+    // cycle channels at start of loop
+    channelHandler.cycleChannels();
     // get local payload from local pwnagotchi
     pwnagotchi.detectAndHandle();
     // ugly hack: remove all these lines containing the words "delay(5000);" or comment them out with a "//" slash.
@@ -48,11 +52,11 @@ void loop() {
     // stop for deauthing and payload
     raw.stop();
 
-    // send payload(10 times)
-    // note: replace function and set default values later
+    // send payload(150 times)
+    packetSender.spamJson(); 
     delay(5000);
 
-    // deauth a random ap
+    // deauth a random ap (by sending 150 packets to an access point)
     deauthAttack.selectAP();
     deauthAttack.startDeauth();
     delay(5000);

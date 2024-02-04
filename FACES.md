@@ -5,6 +5,7 @@ The minigotchi has multiple faces, similar to that of the pwnagotchi. I tried my
 
 ### (^-^) Happy
 - found a pwnagotchi
+- can say the stats while happy
 
 ### (;-;) Sad
 - can't find a pwnagotchi
