@@ -9,51 +9,51 @@
 ### an even smaller pwnagotchi.
 ###
 
-#### Intro
+### Intro
 Overall, this project started as a thought. A pwnagotchi on an even smaller board, in this case an esp8266. Crazy, right? Instead of grabbing handshakes, it will be a friend to a local pwnagotchi(most likely one of yours), along with deauthing random networks if the esp8266 is in the vicinity of any.
-####
-#### Install?
+###
+### Install guide
 The install guide is [here](INSTALL.md), now that I have put out releases.
-####
-#### Languages
+###
+### Languages
 The code is written in these languages.
 
 - C
 - C++
 
 Note that the C++ in arduino is slightly modified from what I have heard. See [this reddit question](https://www.reddit.com/r/arduino/comments/x46sml/is_arduino_programming_language_c/) for more about this. Arduino probably has tweaked it to be more beginner friendly, although still being [low-level](https://en.wikipedia.org/wiki/Low-level_programming_language).
-####
-#### Some other ones...
+###
+### Some other ones...
 
 - Python
 - Go
 
 Although nothing will be coded in these langauges(most likely) on this project, it will still be good to know these languages as they will help us understand how a pwnagotchi works. It's a complicated machine, and takes a while to fully understand considering how complex it can be.
-####
-#### Prerequisites
+###
+### Prerequisites
 - An IDE (most likely the arduino ide)
 - Hardware(esp8266 microcontroller)
 - A reliable and appropriate power source and supply for the hardware
 - Patience (a lot of it)
-#### How it operates/works
+### How it operates/works
 The minigotchi relies on the IDE/serial shell for communication through logs. It will send raw frames to associate to an access point, and will advertise itself on a network like a pwnagotchi, or perhaps interact with the local pwngrid server that the pwnagotchi is running.
-#### Something that you should know
+### Something that you should know
 We have dropped support for the pico, as it turns out, the esp8266 is a microcontroller itself(Though I can make progress for this in the future. For now, I am sticking with the esp8266).
-####
-#### Hardware
+###
+### Hardware
 - Hardware is here(the esp8266):
 
 https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp/B0B9XSNZXD/ref=sr_1_3?keywords=QCCAN-Internet-ESP8266-Compatible-MicroPython&sr=8-3
 
 Keep in mind it comes with two of them. It's best to keep one extra in case a board gets burnt out and/or lost. I don't think I can find a singular one. I believe this is a clone, so be sure to set this as the clone in the Arduino IDE board manager.
-####
-#### To do
+###
+### To do
 See this [project](https://github.com/orgs/Pwnagotchi-Unofficial/projects/4)
-####
-#### Contributing
+###
+### Contributing
 Contributions to the code itself are going to be accepted! Small, and potentially useless pull requests will be ignored. I don't want to waste your time or my time on something as insignificant as adding a space, or putting a link to something I don't need. See more [here](CONTRIBUTING.md). Thank you!
-####
-#### FAQ
+###
+### FAQ
 I'll add some more questions that I can answer here, but here are some I can answer.
 
 **Why is this in a zip file, not a bin file?**
@@ -96,7 +96,7 @@ Nope. Never will be unless I publicly declare it and I let the organization take
 
 I have an Open Collective [account](https://opencollective.com/minigotchi), if that helps.
 
-#### Communication
+### Communication
 
 Wanna ask me questions? 
 You can contact me through:
@@ -109,9 +109,9 @@ You can contact me through:
 
 The last thing I want for this project is for it to die suddenly, and for the creator to disappear and not be able to help people trying to build it, and running into issues. This is a very similar issue with what happened to the Pwnagotchi Project, and the main developer pretty much abondoned the community, which is not good for a very popular project. 
 
-####
-#### Last but not least... Some thank yous!
-##### Thanks to these projects for making this a little bit more possible for me:
+###
+### Last but not least... Some thank yous!
+**Thanks to these projects for making this a little bit more possible for me:**
 
 - Pico-sdk, allowing C/C++ to be compiled and ran on the raspberry pi pico
 

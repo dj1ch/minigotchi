@@ -33,31 +33,39 @@ void DeauthAttack::selectAP() {
 
         // check for ap in whitelist
         if (std::find(whitelist.begin(), whitelist.end(), randomAP) != whitelist.end()) {
-            Serial.println("Selected AP is in the whitelist. Skipping deauthentication.");
+            Serial.println("('-') Selected AP is in the whitelist. Skipping deauthentication...");
             return;
         }
 
-        Serial.print("Selected random AP: ");
+        Serial.print("('-') Selected random AP: ");
         Serial.println(randomAP);
     } else {
+<<<<<<< HEAD
         // well ur fucked. 
         Serial.println("No access points found.");
+=======
+        Serial.println("(;-;) No access points found.");
+>>>>>>> b636ab1e095bc3c0c2c050eb5043cba2abbb67a1
     }
 };
 
 void DeauthAttack::startDeauth() {
     if (randomAP.length() > 0) {
-        Serial.println("Starting deauthentication attack on the selected AP...");
+        Serial.println("(>-<) Starting deauthentication attack on the selected AP...");
         // define the attack
         if (!running) {
             start();
         } else {
-            Serial.println("Attack is already running.");
+            Serial.println("('-') Attack is already running.");
         }
     } else {
+<<<<<<< HEAD
         // ok why did you modify the deauth function? i literally told you to not do that...
         Serial.println("No access point selected. Use selectRandomAP() first.");
         Serial.println("('-') Told you so!");
+=======
+        Serial.println("(X-X) No access point selected. Use selectRandomAP() first.");
+>>>>>>> b636ab1e095bc3c0c2c050eb5043cba2abbb67a1
     }
 };
 
