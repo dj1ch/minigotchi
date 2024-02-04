@@ -8,7 +8,6 @@
 
 #include "structs.h"
 
-
 void setup_raw();
 void get_mac(uint8_t mac[6]);
 void mac2str(const uint8_t* ptr, char* string);
