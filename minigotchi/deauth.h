@@ -5,6 +5,10 @@
 #ifndef DEAUTH_H
 #define DEAUTH_H
 
+#include <Arduino.h>
+#include <vector>
+#include <ESP8266WiFi.h>
+
 class DeauthAttack {
 public:
     void selectAP();
