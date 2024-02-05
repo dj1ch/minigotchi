@@ -3,8 +3,6 @@
 ///////////////////////////////////////////////////////////
 
 #include "packet.h"
-#include "raw80211.h"
-#include <ArduinoJson.h>
 
 // set magic number(222 in hex)
 const uint8_t MAGIC_NUMBER = 0xDE;
