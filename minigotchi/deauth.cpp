@@ -3,9 +3,6 @@
 //////////////////////////////////////////////////
 
 #include "deauth.h"
-#include <Arduino.h>
-#include <vector>
-#include <ESP8266WiFi.h>
 
 // deauth packet defined here
 // this is sent using the ESP8266WiFi library
