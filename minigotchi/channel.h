@@ -5,6 +5,8 @@
 #ifndef CHANNEL_H
 #define CHANNEL_H
 
+#include "raw80211.h"
+
 class ChannelHandler {
 public:
     ChannelHandler(int initialChannel);
