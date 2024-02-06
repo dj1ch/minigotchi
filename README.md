@@ -10,10 +10,14 @@
 ###
 
 ### Intro
+
 Overall, this project started as a thought. A pwnagotchi on an even smaller board, in this case an ESP8266. Crazy, right? Instead of grabbing handshakes, it will be a friend to a local pwnagotchi(most likely one of yours), along with deauthing random networks if the ESP8266 is in the vicinity of any.
+
 ###
 ### Install guide
+
 The install guide is [here](INSTALL.md), now that I have put out releases.
+
 ###
 ### Languages
 The code is written in these languages.
@@ -22,6 +26,7 @@ The code is written in these languages.
 - C++
 
 Note that the C++ in arduino is slightly modified from what I have heard. See [this reddit question](https://www.reddit.com/r/arduino/comments/x46sml/is_arduino_programming_language_c/) for more about this. Arduino probably has tweaked it to be more beginner friendly, although still being [low-level](https://en.wikipedia.org/wiki/Low-level_programming_language).
+
 ###
 ### Some other ones...
 
@@ -29,6 +34,7 @@ Note that the C++ in arduino is slightly modified from what I have heard. See [t
 - Go
 
 Although nothing will be coded in these langauges(most likely) on this project, it will still be good to know these languages as they will help us understand how a pwnagotchi works. It's a complicated machine, and takes a while to fully understand considering how complex it can be.
+
 ###
 ### Prerequisites
 - An IDE (most likely the arduino ide)
@@ -39,18 +45,10 @@ Although nothing will be coded in these langauges(most likely) on this project, 
 
 The minigotchi relies on the IDE/serial shell for communication through logs. It will send raw frames to associate to an access point, and will advertise itself on a network like a pwnagotchi, or perhaps interact with the local pwngrid server that the pwnagotchi is running.
 
-### Something that you should know
-
-We have dropped support for the pico, as it turns out, the ESP8266 is a microcontroller itself(Though I can make progress for this in the future. For now, I am sticking with the ESP8266).
-
 ###
 ### Hardware
 
-- Hardware is here(the D1 Mini ESP8266):
-
-https://www.amazon.com/QCCAN-Internet-ESP8266-Compatible-MicroPython/dp/B0B9XSNZXD/ref=sr_1_3?keywords=QCCAN-Internet-ESP8266-Compatible-MicroPython&sr=8-3
-
-Keep in mind it comes with two of them. It's best to keep one extra in case a board gets burnt out and/or lost. I don't think I can find a singular one. I believe this is a clone, so be sure to set this as the clone in the Arduino IDE board manager.
+See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Hardware).
 
 ###
 ### To do
