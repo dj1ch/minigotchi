@@ -1,4 +1,4 @@
-p {
+p, b {
     font-family: Arial, Helvetica, sans-serif;
 
 }
@@ -7,8 +7,23 @@ h1 {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.white {
+    color: white;
+}
+
+.center {
+    /* centers in the middle of the screen. should work regardless of size */
+    margin: auto;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+
 .log-container {
-    height: 200px;
-    width: 200px;
+    width: 500px;
+    height: 500px;
     background-color: black;
+    border-radius: 10px;
+    padding: 10px;
 }
