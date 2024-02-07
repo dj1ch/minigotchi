@@ -43,7 +43,7 @@ Although nothing will be coded in these langauges(most likely) on this project, 
 - Patience (a lot of it)
 ### How it operates/works
 
-The minigotchi relies on the IDE/serial shell for communication through logs. It will send raw frames to associate to an access point, and will advertise itself on a network like a pwnagotchi, or perhaps interact with the local pwngrid server that the pwnagotchi is running.
+See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/How-the-Minigotchi-works)
 
 ###
 ### Hardware
