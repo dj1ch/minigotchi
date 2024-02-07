@@ -1,7 +1,12 @@
 # Minigotchi contributing guidelines
+
 Hello everyone, whether you be from hacktoberfest or just some random person who stumbled upon this repository. Be sure to follow our contributing guidelines! This project needs just as much help from the community as it does from the maintainer itself.
+
 #
-## How can I contribute?
+### How can I contribute?
+
+**Remember if you have write access to this, please do not make any changes to the main branch unless it is 100% necessary! Push commits to the [development](https://github.com/Pwnagotchi-Unofficial/minigotchi/tree/development) branch instead and make a [pull request](https://github.com/Pwnagotchi-Unofficial/minigotchi/pulls)!**
+
 1. Fork and clone the repository
 
 `git clone https://github.com/<your username>/minigotchi.git`
@@ -29,16 +34,19 @@ I recommend getting the hardware needed and making sure this works. Test using t
 6. Open a pull request
 
 Go to your forked repository on GitHub, switch to the branch you just pushed, and click on the "New Pull Request" button. Fill out the necessary information and submit the pull request.
-##
-## More ways to contribute to development
+
+###
+### More ways to contribute to development
 
 Don't worry if you can't code! There's other ways to help!
 
 1. You can give this project money through this [Open Source Collective](https://opencollective.com/minigotchi). It's not a lot of money but it does help the me, the main developer. 
 
-2. You can also suggest features by communicating with me, see *Communication* section of the [README.md](README.md). Or, you can make an issue and suggest a feature to me. 
+2. You can also suggest features by communicating with me, see *Communication* section of the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Communication). Or, you can make an issue and suggest a feature to me. 
 
-##
+###
 # Code structure
+
 Most of the code is object oriented. I essentially grouped all of the main functions into their own .cpp and .h files, then inclded those files in the main .ino file. I am trying to make this as easy to maintain as possible. It's easier on me and others if each part was seperated and organized. Here's some more info on the [OOP(Object oriented programming)](https://en.wikipedia.org/wiki/Object-oriented_programming).
+
 #
