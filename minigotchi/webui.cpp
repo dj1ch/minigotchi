@@ -6,9 +6,6 @@
 // along with that INSTALL ALL DEPENDANCIES! WE NEED IT TO COMPILE!
 // life won't be very fun trying to compile something such as this while missing a library(trust me I know).
 #include "webui.h"
-#include <ESPAsyncWebServer.h>
-#include <FS.h> // we need a fs for this! 
-#include <ESP8266WiFi.h>
 
 // define the hostname here, although this might not work correctly.
 // a hostname may not be required to be defined in spite of some libraries requirinng it to start the server
