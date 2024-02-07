@@ -43,7 +43,7 @@ Although nothing will be coded in these langauges(most likely) on this project, 
 - Patience (a lot of it)
 ### How it operates/works
 
-See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/How-the-Minigotchi-works)
+See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/How-the-Minigotchi-works).
 
 ###
 ### Hardware
@@ -52,7 +52,7 @@ See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Hardware
 
 ###
 ### To do
-See this [project](https://github.com/orgs/Pwnagotchi-Unofficial/projects/4)
+See this [project](https://github.com/orgs/Pwnagotchi-Unofficial/projects/4).
 ###
 ### Contributing
 
