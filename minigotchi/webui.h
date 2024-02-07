@@ -5,6 +5,10 @@
 #ifndef WEBUI_H
 #define WEBUI_H
 
+#include <ESPAsyncWebServer.h>
+#include <FS.h> 
+#include <ESP8266WiFi.h>
+
 class WebUI {
 public:
     WebUI();
