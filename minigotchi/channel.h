@@ -19,7 +19,4 @@ private:
     int channelList[3]; // 3 channels 
 };
 
-// global instance
-extern ChannelHandler channelHandler;
-
 #endif // CHANNEL_H
