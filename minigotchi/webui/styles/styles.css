@@ -1,29 +1,51 @@
 p, b {
     font-family: Arial, Helvetica, sans-serif;
-
+    color: white;
 }
 
 h1 {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.white {
-    color: white;
+html {
+    background-color: #C0C0C0;
 }
 
-.center {
-    /* centers in the middle of the screen. should work regardless of size */
-    margin: auto;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
+.big {
+    background-color: #363636;
+    border-radius: 16px;
+    width: 65%;
+    padding: 80px;
+    margin: 0 auto;
+}
+
+.textbox {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    width: 60%;
+    color: #fff;
+    text-align: center;
+    border-radius: 16px;
+}
+
+.title {
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    margin: 0px auto; 
+    border-radius: 16px;
+    width: 60%
 }
 
 .log-container {
-    width: 500px;
+    width: 60%;
     height: 500px;
-    background-color: black;
-    border-radius: 10px;
+    border-radius: 16px;
+    margin: 20px auto;
     padding: 10px;
+    border-color: white;
+    border-width: 5px;
+    border-style: solid;
+    overflow:auto
 }
