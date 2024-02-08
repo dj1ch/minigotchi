@@ -11,6 +11,13 @@ html {
     background-color: #C0C0C0;
 }
 
+footer {
+    text-align: center;
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 7px;
+}
+
 .big {
     background-color: #363636;
     border-radius: 16px;
