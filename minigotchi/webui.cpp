@@ -28,5 +28,6 @@ void WebUI::handleRoot() {
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
         request->send(200);
         request->send(SPIFFS, "/webui/index.html", "text/html");
+        delete request; // give minigotchi dementia
     });
 }
