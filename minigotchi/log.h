@@ -9,13 +9,13 @@
 
 class Logger {
 public:
-    static void begin(int logLevel);
+    static void begin();
     static void logP(const char* message);
     static void logPln(const char* message);
     static String getLog(); 
     static void clearLog();
 private:
-    static int logLevel;
+
 };
 
 #endif // LOG_H

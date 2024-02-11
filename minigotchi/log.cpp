@@ -4,29 +4,34 @@
 
 #include "log.h"
 
+/* 
+
+essentially, this logs to the serial terminal, but also logs to the Web UI.
+i find this necessary as this renders the Web UI useless if this doesn't work.
+
+*/
+
 // string with log
 String logBuffer = "";
 
-void Logger::begin(int level) {
-    logLevel = level;
+void Logger::begin() {
     Serial.begin(115200);
 }
 
+// alternative to Serial.print():, this time logP();
 void Logger::logP(const char* message) {
-    if (logLevel >= LOG_LEVEL_VERBOSE) {
-        Serial.print(message);
-        logBuffer += message;
-    }
+    Serial.print(message);
+    logBuffer += message;
 }
 
+// alternative to Serial.println();, this time logPln();
 void Logger::logPln(const char* message) {
-    if (logLevel >= LOG_LEVEL_VERBOSE) {
-        Serial.println(message);
-        logBuffer += message;
-        logBuffer += "\n";
-    }
+    Serial.println(message);
+    logBuffer += message;
+    logBuffer += "\n";
 }
 
+// show log
 String Logger::getLog() {
     return logBuffer;
 }

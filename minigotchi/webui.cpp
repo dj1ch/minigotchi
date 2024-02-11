@@ -120,6 +120,6 @@ void WebUI::setupWebServer() {
 
 void WebUI::handleRoot() {
     server.on("/", HTTP_GET, [this](AsyncWebServerRequest *request) {
-        request->send(200, "text/html", html);
+        request->send(200, "text/html", html1 + html2);
     });
 }
