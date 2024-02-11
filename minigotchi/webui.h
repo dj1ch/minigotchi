@@ -13,11 +13,14 @@ class WebUI {
 public:
     WebUI();
     void setupWebServer();
+    const char* getSSID();
+    const char* getPassword();
 
 private:
     const char* apName;
     const char* apPassword; 
     const char* hostname;
+    String html;
     void handleRoot();
 };
 

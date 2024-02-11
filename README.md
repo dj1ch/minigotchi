@@ -16,7 +16,7 @@ Overall, this project started as a thought. A pwnagotchi on an even smaller boar
 ###
 ### Install guide
 
-The install guide is [here](INSTALL.md), now that I have put out releases.
+See the [install guide](INSTALL.md).
 
 ###
 ### Languages
@@ -37,10 +37,13 @@ Although nothing will be coded in these langauges(most likely) on this project, 
 
 ###
 ### Prerequisites
+
 - An IDE (most likely the arduino ide)
 - Hardware(D1 Mini ESP8266)
 - A reliable and appropriate power source and supply for the hardware
 - Patience (a lot of it)
+
+###
 ### How it operates/works
 
 See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/How-the-Minigotchi-works).
@@ -68,7 +71,8 @@ See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/FAQ).
 See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Communication#communication).
 
 ###
-### Last but not least... Some thank yous!
+### Last but not least... Some thank you's!
+
 **Thanks to these projects for making this a little bit more possible for me, I have used libraries/code from these projects and implemented it here:**
 
 - Arduino, mostly just the repository containing libraries for the project so I can build this code. There were many libraries that were used in this core repository. 
@@ -91,6 +95,6 @@ https://github.com/justcallmekoko/ESP32Marauder
 
 https://github.com/lacamera/ESPAsyncWebServer
 
-- Milkydeveloper, idk what he did but he wanted to be here ig so...
+- Milkydeveloper, idk what he did but he wanted to be here ig so...(this is totally not an advertisement)
 
 https://github.com/MilkyDeveloper
