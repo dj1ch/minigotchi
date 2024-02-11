@@ -9,7 +9,7 @@
 AsyncWebServer server(80);
 
 // i might define the html here bc arduino can't find this folder? 
-String html = R"=====(
+String html1 = R"=====(
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,14 +87,17 @@ String html = R"=====(
         <div class="log-container">
             <b>Minigotchi log:</b>
             <p>This is what log messages should look like!</p>
-            <!-- log messages will appear here -->
-            <!-- if this dumb site won't work ill cry -->
+)=====";
+
+String html2 = R"====(
+    <!-- log messages will appear here -->
+    <!-- if this dumb site won't work ill cry -->
         </div>
     </div>
     <footer>Made by <a href="https://github.com/dj1ch">@dj1ch</a></footer>
 </body>
 </html>
-)=====";
+)====";
 
 WebUI::WebUI() {
     const char* apName = "minigotchi"; 
@@ -116,8 +119,7 @@ void WebUI::setupWebServer() {
 }
 
 void WebUI::handleRoot() {
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-        request->send(200);
-        request->send(SPIFFS, "/webui/index.html", "text/html");
+    server.on("/", HTTP_GET, [this](AsyncWebServerRequest *request) {
+        request->send(200, "text/html", html);
     });
 }

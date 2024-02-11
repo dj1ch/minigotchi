@@ -20,7 +20,8 @@ private:
     const char* apName;
     const char* apPassword; 
     const char* hostname;
-    String html;
+    String html1;
+    String html2;
     void handleRoot();
 };
 
