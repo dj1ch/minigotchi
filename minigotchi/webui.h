@@ -5,8 +5,6 @@
 #ifndef WEBUI_H
 #define WEBUI_H
 
-// add esp-fs-webserver library here
-// this will handle wifi and file editing plus or minus the webui
 #include <ESPAsyncWebServer.h>
 #include <FS.h> 
 #include <ESP8266WiFi.h>
@@ -15,11 +13,14 @@ class WebUI {
 public:
     WebUI();
     void setupWebServer();
+    const char* getSSID();
+    const char* getPassword();
 
 private:
     const char* apName;
     const char* apPassword; 
     const char* hostname;
+    String html;
     void handleRoot();
 };
 

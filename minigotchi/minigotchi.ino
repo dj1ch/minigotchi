@@ -13,12 +13,13 @@ Pwnagotchi pwnagotchi;
 PacketSender packetSender;
 DeauthAttack deauthAttack;
 WebUI webUI;
-ChannelHandler channelHandler;
+ChannelHandler channelHandler(1);
 Raw80211 raw;
 
 // defines what the minigotchi is to do on startup.
 // the only things that should be adjusted here is probably the whitelist.
 // the webui allows you to edit this without having to open this file on your own computer! sick af
+// ^ that should be the case unless the library doesn't work. well ofc it doesn't work bc ESPAsyncWebServer and esp-fs-webserver are two different libraries
 
 void setup() {
     Serial.begin(115200);
@@ -28,6 +29,11 @@ void setup() {
     Serial.println("You can edit my whitelist in the minigotchi.ino, and you can also edit the json parameters in the packet.cpp");
     Serial.println(" ");
     Serial.println("(>-<) Starting now...");
+    Serial.print("(>-<) Setting up Access Point...");
+    WiFi.softAP(webUI.getSSID(), webUI.getPassword());
+    IPAddress IP = WiFi.softAPIP();
+    Serial.println("('-') AP IP address: ");
+    Serial.print(IP);
     deauthAttack.addToWhitelist("fo:od:ba:be:fo:od"); // add your ssid(s) here
     deauthAttack.addToWhitelist("fo:od:ba:be:fo:od");
     raw.init("fo:od:ba:be:fo:od", 1); // set the settings here, ("BSSID", channel)
