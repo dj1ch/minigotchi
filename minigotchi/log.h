@@ -15,7 +15,9 @@ public:
     static String getLog(); 
     static void clearLog();
 private:
-
+    static const int bufferSize = 10;
+    static String logBuffer[bufferSize];
+    static int logIndex;
 };
 
 #endif // LOG_H
