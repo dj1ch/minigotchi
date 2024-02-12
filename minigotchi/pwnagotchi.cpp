@@ -44,6 +44,8 @@ void Pwnagotchi::detectAndHandle() {
         delay(500);
         Serial.println("(0-o) Scanning for Pwnagotchi...");
         delay(500);
+        Serial.println("(o-0) Scanning for Pwnagotchi.");
+        delay(500);
     }
 
     // static instance

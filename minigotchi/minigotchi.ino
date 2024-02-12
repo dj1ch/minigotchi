@@ -34,10 +34,10 @@ void setup() {
     Serial.println(" ");
     Serial.println("(>-<) Starting now...");
     Serial.print("(>-<) Setting up Access Point...");
-    WiFi.softAP(webUI.getSSID(), webUI.getPassword());
+    WiFi.softAP("minigotchi", "dj1ch-minigotchi");
     IPAddress IP = WiFi.softAPIP();
     Serial.println("('-') AP IP address: ");
-    Serial.print(IP);
+    Serial.println(IP);
     deauthAttack.addToWhitelist("fo:od:ba:be:fo:od"); // add your ssid(s) here
     deauthAttack.addToWhitelist("fo:od:ba:be:fo:od");
     raw.init("fo:od:ba:be:fo:od", 1); // set the settings here, ("BSSID", channel)
