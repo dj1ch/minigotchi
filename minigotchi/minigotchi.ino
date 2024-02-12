@@ -12,14 +12,18 @@
 Pwnagotchi pwnagotchi;
 PacketSender packetSender;
 DeauthAttack deauthAttack;
-WebUI webUI;
+WebUI webUI("minigotchi", "dj1ch-minigotchi");
 ChannelHandler channelHandler(1);
 Raw80211 raw;
 
-// defines what the minigotchi is to do on startup.
-// the only things that should be adjusted here is probably the whitelist.
-// the webui allows you to edit this without having to open this file on your own computer! sick af
-// ^ that should be the case unless the library doesn't work. well ofc it doesn't work bc ESPAsyncWebServer and esp-fs-webserver are two different libraries
+/*
+
+this defines what the minigotchi is to do on startup.
+the only things that should be adjusted here is probably the whitelist.
+the webui allows you to edit this without having to open this file on your own computer! sick af
+^ that should be the case unless the library doesn't work. well ofc it doesn't work bc ESPAsyncWebServer and esp-fs-webserver are two different libraries
+
+*/
 
 void setup() {
     Serial.begin(115200);
@@ -30,10 +34,10 @@ void setup() {
     Serial.println(" ");
     Serial.println("(>-<) Starting now...");
     Serial.print("(>-<) Setting up Access Point...");
-    WiFi.softAP(webUI.getSSID(), webUI.getPassword());
+    WiFi.softAP("minigotchi", "dj1ch-minigotchi");
     IPAddress IP = WiFi.softAPIP();
     Serial.println("('-') AP IP address: ");
-    Serial.print(IP);
+    Serial.println(IP);
     deauthAttack.addToWhitelist("fo:od:ba:be:fo:od"); // add your ssid(s) here
     deauthAttack.addToWhitelist("fo:od:ba:be:fo:od");
     raw.init("fo:od:ba:be:fo:od", 1); // set the settings here, ("BSSID", channel)
@@ -43,10 +47,14 @@ void setup() {
     Serial.println("('-') Started successfully!");
 }
 
-// defines what happens every loop. 
-// this goes on infinitely, until the minigotchi is turned off.
-// this shouldn't be tampered with unless YOU REALLY KNOW WHAT YOU'RE DOING!
-// this also applies to other files as well! 
+/*
+
+this defines what happens every loop. 
+this goes on infinitely, until the minigotchi is turned off.
+shouldn't be tampered with unless YOU REALLY KNOW WHAT YOU'RE DOING!
+this also applies to other files as well! 
+
+*/
 
 void loop() {
     // cycle channels at start of loop

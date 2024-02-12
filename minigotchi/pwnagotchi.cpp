@@ -1,6 +1,7 @@
-//////////////////////////////////////////////////
-// pwnagotchi.cpp: handles pwnagotchi detection //
-//////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
+// pwnagotchi.cpp: handles pwnagotchi detection            //
+// source: https://github.com/justcallmekoko/ESP32Marauder //
+/////////////////////////////////////////////////////////////
 
 #include "pwnagotchi.h"
 
@@ -42,6 +43,8 @@ void Pwnagotchi::detectAndHandle() {
         Serial.println("(o-0) Scanning for Pwnagotchi..");
         delay(500);
         Serial.println("(0-o) Scanning for Pwnagotchi...");
+        delay(500);
+        Serial.println("(o-0) Scanning for Pwnagotchi.");
         delay(500);
     }
 

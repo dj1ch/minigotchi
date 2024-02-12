@@ -5,9 +5,14 @@
 #include "channel.h"
 #include "raw80211.h"
 
-// use the ideal 2.4 GHz channels, which are 1, 6, and 11
-// the reason is this is so it doesn't interfere with other devices
-// there are probably plenty more reasons but this is a good practice for such devices
+/* 
+
+i am using the ideal 2.4 GHz channels, which are 1, 6, and 11.
+the reason for that is so we don't interfere with other devices on our frequency.
+there are probably plenty more reasons but this is a good practice for such iot devices.
+
+*/ 
+
 int channelList[] = {1, 6, 11};
 
 ChannelHandler::ChannelHandler(int initialChannel) : currentChannel(initialChannel) {
