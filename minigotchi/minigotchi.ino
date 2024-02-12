@@ -12,7 +12,7 @@
 Pwnagotchi pwnagotchi;
 PacketSender packetSender;
 DeauthAttack deauthAttack;
-WebUI webUI;
+WebUI webUI("minigotchi", "dj1ch-minigotchi");
 ChannelHandler channelHandler(1);
 Raw80211 raw;
 

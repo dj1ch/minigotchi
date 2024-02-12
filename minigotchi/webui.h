@@ -8,20 +8,22 @@
 #include <ESPAsyncWebServer.h>
 #include <FS.h> 
 #include <ESP8266WiFi.h>
+#include "log.h"
 
 class WebUI {
 public:
-    WebUI();
+    WebUI(const char* apName, const char* apPassword);
     void setupWebServer();
-    const char* getSSID();
-    const char* getPassword();
+    const char* getSSID() const;
+    const char* getPassword() const;
 
 private:
     const char* apName;
     const char* apPassword; 
-    const char* hostname;
     String html1;
     String html2;
+    String fullHtml;
+    String logMessages;
     void handleRoot();
 };
 

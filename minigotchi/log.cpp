@@ -36,7 +36,6 @@ void Logger::logPln(const char* message) {
     logP(message);
 
     logBuffer[logIndex - 1] += "\n";
-
     Serial.println(message);
 }
 
