@@ -6,6 +6,7 @@
 #define CHANNEL_H
 
 #include "raw80211.h"
+#include <ESP8266WiFi.h>
 
 class ChannelHandler {
 public:

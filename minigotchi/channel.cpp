@@ -40,5 +40,5 @@ void ChannelHandler::cycleChannels() {
 }
 
 int ChannelHandler::getCurrentChannel() {
-    return channelList[currentChannel];
+    return wifi_get_channel();
 }
