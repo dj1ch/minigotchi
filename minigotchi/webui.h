@@ -12,14 +12,10 @@
 
 class WebUI {
 public:
-    WebUI(const char* apName, const char* apPassword);
+    WebUI();
     void setupWebServer();
-    const char* getSSID() const;
-    const char* getPassword() const;
 
 private:
-    const char* apName;
-    const char* apPassword; 
     String html1;
     String html2;
     String fullHtml;

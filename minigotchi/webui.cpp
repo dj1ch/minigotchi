@@ -9,10 +9,7 @@
 AsyncWebServer server(80);
 
 // i might define the html here bc arduino can't find this folder? 
-WebUI::WebUI(const char* apName, const char* apPassword) {
-    // ap info here
-    this->apName = "minigotchi"; 
-    this->apPassword = "dj1ch-minigotchi";
+WebUI::WebUI() {
     // this is the first half of the html string
     this->html1 = R"=====(
         <!DOCTYPE html>
@@ -106,16 +103,6 @@ WebUI::WebUI(const char* apName, const char* apPassword) {
     server.on("/", HTTP_GET, std::bind(&WebUI::handleRoot, this));
     server.begin();    
     Serial.println("('-') Web server initialized successfully");
-}
-
-
-// we're just returning info for debugging reasons
-const char* WebUI::getSSID() const{
-    return apName;
-}
-
-const char* WebUI::getPassword() const{
-    return apPassword;
 }
 
 void WebUI::handleRoot() {
