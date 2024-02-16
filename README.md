@@ -11,7 +11,7 @@
 
 ### Intro
 
-Overall, this project started as a thought. A pwnagotchi on an even smaller board, in this case an ESP8266. Crazy, right? Instead of grabbing handshakes, it will be a friend to a local pwnagotchi(most likely one of yours), along with deauthing random networks if the ESP8266 is in the vicinity of any.
+This is a project meant to showcase the use of raw WiFi frames and deauthentication in a pwnagotchi-like matter with an ESP8266. It can detect pwnagotchis, send "advertisements" for another pwnagotchi to detect, along with deauthenticating devices connected to an AP. Originally meant to just befriend a local pwnagotchi, I plan on improving it and extending its purpose.
 
 ###
 ### Install guide
