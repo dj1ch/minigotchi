@@ -12,17 +12,17 @@
 Pwnagotchi pwnagotchi;
 PacketSender packetSender;
 DeauthAttack deauthAttack;
-WebUI webUI("minigotchi", "dj1ch-minigotchi");
+WebUI webUI();
 ChannelHandler channelHandler(1);
 Raw80211 raw;
 
 /*
-
-this defines what the minigotchi is to do on startup.
-the only things that should be adjusted here is probably the whitelist.
-the webui allows you to edit this without having to open this file on your own computer! sick af
-^ that should be the case unless the library doesn't work. well ofc it doesn't work bc ESPAsyncWebServer and esp-fs-webserver are two different libraries
-
+*
+* this defines what the minigotchi is to do on startup.
+* the only things that should be adjusted here is probably the whitelist.
+* the webui allows you to edit this without having to open this file on your own computer! sick af
+* ^ that should be the case unless the library doesn't work. well ofc it doesn't work bc ESPAsyncWebServer and esp-fs-webserver are two different libraries
+*
 */
 
 void setup() {
@@ -48,12 +48,12 @@ void setup() {
 }
 
 /*
-
-this defines what happens every loop. 
-this goes on infinitely, until the minigotchi is turned off.
-shouldn't be tampered with unless YOU REALLY KNOW WHAT YOU'RE DOING!
-this also applies to other files as well! 
-
+*
+* this defines what happens every loop. 
+* this goes on infinitely, until the minigotchi is turned off.
+* shouldn't be tampered with unless YOU REALLY KNOW WHAT YOU'RE DOING!
+* this also applies to other files as well! 
+* 
 */
 
 void loop() {
