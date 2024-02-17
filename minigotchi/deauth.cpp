@@ -23,6 +23,9 @@ uint8_t deauthPacket[26] = {
     };
 
 void DeauthAttack::addToWhitelist(const char* bssid) {
+    Serial.print("('-') Adding ");
+    Serial.print(bssid);
+    Serial.println(" to the whitelist");
     whitelist.push_back(bssid);
 };
 
