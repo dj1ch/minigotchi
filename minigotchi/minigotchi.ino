@@ -5,17 +5,13 @@
 #include "pwnagotchi.h"
 #include "packet.h"
 #include "deauth.h"
-#include "webui.h"
 #include "channel.h"
-#include "ap.h"
 #include "raw80211.h"
 
 Pwnagotchi pwnagotchi;
 PacketSender packetSender;
 DeauthAttack deauthAttack;
-WebUI webUI;
 ChannelHandler channelHandler(1);
-AP ap("minigotchi", "dj1ch-minigotchi"); 
 Raw80211 raw;
 
 /*
@@ -35,8 +31,6 @@ void setup() {
     Serial.println("You can edit my whitelist in the minigotchi.ino, and you can also edit the json parameters in the packet.cpp");
     Serial.println(" ");
     Serial.println("(>-<) Starting now...");
-    ap.startAP(); // start AP
-    webUI.handleRoot(); // start Web Server
     deauthAttack.addToWhitelist("fo:od:ba:be:fo:od"); // add your ssid(s) here
     deauthAttack.addToWhitelist("fo:od:ba:be:fo:od");
     raw.init("fo:od:ba:be:fo:od", 1); // set the settings here, ("BSSID", channel)
