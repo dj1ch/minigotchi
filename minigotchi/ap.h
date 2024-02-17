@@ -6,6 +6,7 @@
 #define AP_H
 
 #include <ESP8266WiFi.h>
+#include <Arduino.h>
 
 class AP {
 public:

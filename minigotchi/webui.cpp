@@ -10,6 +10,14 @@ AsyncWebServer server(80);
 
 // i might define the html here bc arduino can't find this folder? 
 WebUI::WebUI() {
+    for (int i = 0; i < 2; ++i) {
+        Serial.println("(>-<) Setting up Web Server.");
+        delay(500);
+        Serial.println("(>-<) Setting up Web Server..");
+        delay(500);
+        Serial.println("(>-<) Setting up Web Server...");
+        delay(500);
+    }
     // this is the first half of the html string
     this->html1 = R"=====(
         <!DOCTYPE html>
@@ -101,8 +109,12 @@ WebUI::WebUI() {
     )====";
 
     server.on("/", HTTP_GET, std::bind(&WebUI::handleRoot, this));
-    server.begin();    
-    Serial.println("('-') Web server initialized successfully");
+    server.begin();
+
+    // print out link    
+    Serial.print("('-') Web Server initialized successfully. URL: http://");
+    Serial.print(WiFi.localIP());
+    Serial.println(":80");
 }
 
 void WebUI::handleRoot() {

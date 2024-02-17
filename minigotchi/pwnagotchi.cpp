@@ -20,7 +20,7 @@ Pwnagotchi::Pwnagotchi() {
     essid = "de:ad:be:ef:de:ad";
     // register the function
     Raw80211::register_cb(&rawCallback);
-    Serial.println("Callback registered");
+    Serial.println("('-') Callback registered");
 }
 
 void Pwnagotchi::getMAC(char* addr, const unsigned char* buff, int offset) {
@@ -86,19 +86,19 @@ void Pwnagotchi::handle(const wifi_ieee80211_mac_hdr_t *hdr, int rssi, const uns
 
             // check if json parsing is successful
             if (error) {
-                Serial.print(F("(X-X) Could not parse Pwnagotchi json: "));
+                Serial.println(F("(X-X) Could not parse Pwnagotchi json: "));
                 Serial.println(error.c_str());
             } else {
-                Serial.println("\n(^-^) Successfully parsed json");
+                Serial.println("(^-^) Successfully parsed json");
 
                 // find out some stats
                 String name = jsonBuffer["name"].as<String>();
                 String pwndTot = jsonBuffer["pwnd_tot"].as<String>();
 
                 // print the info
-                Serial.print("(^-^) Pwnagotchi name: ");
+                Serial.println("(^-^) Pwnagotchi name: ");
                 Serial.println(name);
-                Serial.print("(^-^) Pwned Networks: ");
+                Serial.println("(^-^) Pwned Networks: ");
                 Serial.println(pwndTot);
             }
         }

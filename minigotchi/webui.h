@@ -13,14 +13,14 @@
 class WebUI {
 public:
     WebUI();
-    void setupWebServer();
+    void handleRoot();
 
 private:
     String html1;
     String html2;
     String fullHtml;
     String logMessages;
-    void handleRoot();
+    
 };
 
 #endif // WEBUI_H
