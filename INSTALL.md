@@ -1,10 +1,8 @@
 # Install guide
 
-Here you can find out how to install minigotchi on the ESP8266, or the raspberry pi pico. The ESP8266 microcontroller has more support than the pico at the moment. They can be both built using arduino, ~~but you can build manually with the pico, assuming that you have all the libraries from the arduino ESP8266 repo. Again, building with Arduino IDE is an option for the raspberry pi pico.~~ The support for this has been dropped, as this is not maintained nor tested by me.
+Here you can find out how to install minigotchi on the ESP8266. The ESP8266 microcontroller has more support than the Pico at the moment, and I don't plan on supporting the Pico anymore.
 
-### Building using Arduino IDE/Web editor
-
-I believe that you can also use the raspberry pi pico and run arduino `.ino` files. It would be much easier to do this then to build it yourself manually. However, I don't support the pico, so if you run into error you're on your own.
+### Building using Arduino IDE
 
 - Download the latest release [here](https://github.com/Pwnagotchi-Unofficial/minigotchi/releases).
 - Unzip the file
