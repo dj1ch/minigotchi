@@ -207,7 +207,7 @@ void Raw80211::start() {
   get_mac(mac);
 
   #ifdef DEBUG_PRINT
-  Serial.print("Local MAC is: "); printmac(mac);
+  Serial.print("('-') Local MAC is: "); printmac(mac);
   Serial.println(" - setting up raw message reception...");
   #endif
 
