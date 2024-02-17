@@ -12,9 +12,12 @@ class ChannelHandler {
 public:
     ChannelHandler(int initialChannel);
     void cycleChannels();
+    void switchChannel(int newChannel);
     int getCurrentChannel();
 
 private:
+    int randomIndex; 
+    int numChannels; 
     int currentChannel;
     int newChannel;
     int channelList[3]; // 3 channels 

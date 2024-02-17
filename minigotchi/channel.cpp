@@ -3,7 +3,6 @@
 /////////////////////////////////////////////
 
 #include "channel.h"
-#include "raw80211.h"
 
 /* 
 *
@@ -19,11 +18,19 @@ ChannelHandler::ChannelHandler(int initialChannel) : currentChannel(initialChann
     // no need to copy channelList, as it's already initialized
 }
 
-void ChannelHandler::cycleChannels() {
-    // switch to next channel
-    currentChannel = (currentChannel + 1) % (sizeof(channelList) / sizeof(channelList[0]));
-    int newChannel = channelList[currentChannel];
+void ChannelHandler::cycleChannels() { 
+    // get channels
+    int numChannels = sizeof(channelList) / sizeof(channelList[0]);
 
+    // select a random one
+    int randomIndex = random(numChannels);
+    int newChannel = channelList[randomIndex];
+
+    // switch here
+    switchChannel(newChannel);
+}
+
+void ChannelHandler::switchChannel(int newChannel) {
     // stop raw80211 from being on this one channel
     Serial.print("(-.-) Switching to channel ");
     Serial.println(newChannel);
