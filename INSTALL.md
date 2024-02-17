@@ -13,7 +13,8 @@ Here you can find out how to install minigotchi on the ESP8266. The ESP8266 micr
 raw.init("fo:od:ba:be:fo:od", 1); // set the settings here, ("BSSID", channel)
 ```
 
-Replace the `"fo:od:ba:be:fo:od"` with your actual BSSID(in the quotations), and the `1` with the channel you prefer(not in quotations). Note that the pwnagotchi will constantly switch channels so you should go check the channels in the pwnagotchi's web UI.
+Replace the `"fo:od:ba:be:fo:od"` with your actual BSSID(in the quotations), and the `1` with the channel you prefer(not in quotations). Note that the WiFi network you're listening on should be on a specific WiFi channel anyway, each AP is on a specific one. 
+
 - There should also be a line that says:
 
 ```cpp
@@ -40,7 +41,6 @@ deauthAttack.addToWhitelist("YOUR_SSID_HERE_OR_BSSID_IDC_REALLY");
 
 - You can click on the *Serial Monitor* button on the top bar to see the serial monitor output. Make sure the baud rate is `115200`.
 
-- After everything starts up successfully, you can connect to the wifi network `minigotchi` using the password `dj1ch-minigotchi` with the webui being at http://192.168.4.1
 - Happy hacking!
 
 ###
