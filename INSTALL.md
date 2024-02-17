@@ -34,14 +34,15 @@ deauthAttack.addToWhitelist("YOUR_SSID_HERE_OR_BSSID_IDC_REALLY");
 - In the IDE, go to *File* > *Preferences*, then in the *Additional board manager URLS*, paste the link "https://arduino.esp8266.com/stable/package_esp8266com_index.json" to add the ESP8266 board(s) to the board manager
 - Click *Ok* and plug the board into your computer. It should blink, make sure it is receiving the correct amount of voltage, too much will burn it(I learned that the hard way)
 - Open up the minigotchi folder through the IDE by pushing *Ctrl O*, or by going to *File* > *Open*, then selecting the folder the .ino is in. If other tabs don't show up, along with minigotchi.ino, make sure to copy and paste the files into the same directory/folder as that lone .ino file. It won't be able to compile if that happens. 
-- Install the following dependancies with the library manager: ``
+- Install the following dependancies with the library manager: `ArduinoJson`, `ESPAsyncWebServer`, all with their dependancies(Please install all of them for them to work correctly).
 - Select the board as `ESP8266 WEMOS(LOLIN) D1 mini Lite`, and select the port it is plugged into(if you haven't already, plug in the board)
 - Click on the upload button(arrow pointing to the left). 
 
 **Note: if you get any errors, let me know ASAP with a github issue, sending me a discord message, or perhaps even messaging me through my portfolio site.**
 
 - You can click on the *Serial Monitor* button on the top bar to see the serial monitor output. Make sure the baud rate is `115200`.
-- **Compile errors happen with the Web editor, so you can just use the Arduino IDE app. Make sure you install all the correct libraries(ArduinoJson), and the correct [boards](https://github.com/esp8266/Arduino). See this issue I made [here](https://github.com/Pwnagotchi-Unofficial/minigotchi/issues/40)**
+
+- **Compile errors happen with the Web editor, so you can just use the Arduino IDE app. Make sure you install all the correct libraries, and the correct [boards](https://github.com/esp8266/Arduino). See this issue I made [here](https://github.com/Pwnagotchi-Unofficial/minigotchi/issues/40)**
 
 **This is a new feature to be added, this won't actually work with the v1.1.1(beta) release.**
 
