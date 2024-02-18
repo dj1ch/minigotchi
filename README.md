@@ -9,6 +9,8 @@
 ### an even smaller pwnagotchi.
 ###
 
+<img src="images/Desktop Screenshot 2024.02.17 - 18.10.08.12.png"></img>
+
 ### Intro
 
 This is a project meant to showcase the use of raw WiFi frames and deauthentication in a pwnagotchi-like matter with an ESP8266. It can detect pwnagotchis, send "advertisements" for another pwnagotchi to detect, along with deauthenticating devices connected to an AP. Originally meant to just befriend a local pwnagotchi, I plan on improving it and extending its purpose.
