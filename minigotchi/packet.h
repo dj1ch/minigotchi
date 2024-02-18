@@ -10,13 +10,14 @@
 
 class PacketSender {
 public:
+    PacketSender() : MAGIC_NUMBER(0xDE), COMPRESSION_ID(0xDF) {}
+    
     void send();
     void spamJson();
-    void sendDataFrame(const uint8_t* payload, size_t payloadSize);
 
 private:
-    const uint8_t MAGIC_NUMBER = 0xDE;
-    void sendDataFrame(const DynamicJsonDocument& doc);
+    const uint8_t MAGIC_NUMBER;
+    const uint8_t COMPRESSION_ID;  
 };
 
 #endif // PACKET_H
