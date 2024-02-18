@@ -28,7 +28,7 @@ void setup() {
     Serial.println(" ");
     Serial.println("(^-^) Hi, I'm Minigotchi, your pwnagotchi's best friend!");
     Serial.println(" ");
-    Serial.println("You can edit my whitelist in the minigotchi.ino, and you can also edit the json parameters in the packet.cpp");
+    Serial.println("You can edit my whitelist in the minigotchi.ino, and you can also edit the JSON parameters in the packet.cpp");
     Serial.println(" ");
     Serial.println("(>-<) Starting now...");
     deauthAttack.addToWhitelist("fo:od:ba:be:fo:od"); // add your ssid(s) here
