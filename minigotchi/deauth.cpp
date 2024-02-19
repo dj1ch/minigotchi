@@ -18,7 +18,7 @@ void Deauth::construct(uint8_t* packetBuffer, const uint8_t* destinationMAC, con
 
     /*
     * 
-    * Top Ten Security Vulnerabilities 2024!!111!!!1!
+    * Top Ten Security Vulnerabilities in 2024!!111!!!1!
     * Number one: probably this code you're about to see...
     * 
     */
@@ -103,7 +103,7 @@ void Deauth::start() {
     int packetSize = sizeof(deauthPacket);
 
     // construct the frame
-    uint8_t deauthPacket[26];
+    uint8_t* deauthPacket = new uint8_t[packetSize];
     construct(deauthPacket, destinationMAC, sourceMAC, bssid, sequenceNumber, reasonCode);
 
     // send the deauth 150 times(ur cooked if they find out)
@@ -112,7 +112,10 @@ void Deauth::start() {
         Serial.println("(>-<) Deauth packet sent!");
         delay(100);
     }
-    
+
+    // save memory by deleting frame
+    delete[] deauthPacket;
+
     Serial.println("(^-^) Attack finished!");
     running = false;
 };
