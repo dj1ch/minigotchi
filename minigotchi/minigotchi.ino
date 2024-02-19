@@ -9,9 +9,9 @@
 #include "raw80211.h"
 
 Pwnagotchi pwnagotchi;
-PacketSender packetSender;
-DeauthAttack deauthAttack;
-ChannelHandler channelHandler(1);
+Packet packet;
+Deauth deauth;
+Channel channel(1);
 Raw80211 raw;
 
 /*
@@ -31,8 +31,8 @@ void setup() {
     Serial.println("You can edit my whitelist in the minigotchi.ino, and you can also edit the JSON parameters in the packet.cpp");
     Serial.println(" ");
     Serial.println("(>-<) Starting now...");
-    deauthAttack.addToWhitelist("fo:od:ba:be:fo:od"); // add your ssid(s) here
-    deauthAttack.addToWhitelist("fo:od:ba:be:fo:od");
+    deauth.add("fo:od:ba:be:fo:od"); // add your ssid(s) here
+    deauth.add("fo:od:ba:be:fo:od");
     raw.init("fo:od:ba:be:fo:od", 1); // set the settings here, ("BSSID", channel)
     raw.start();
     delay(15000);
@@ -51,9 +51,9 @@ void setup() {
 
 void loop() {
     // cycle channels at start of loop
-    channelHandler.cycleChannels();
+    channel.cycle();
     // get local payload from local pwnagotchi
-    pwnagotchi.detectAndHandle();
+    pwnagotchi.detect();
     // ugly hack: remove all these lines containing the words "delay(5000);" or comment them out with a "//" slash.
     // doing so will make the loop a lot faster. plus this might overheat the board and stuff but its worth a try.
     delay(5000); 
@@ -62,12 +62,12 @@ void loop() {
     raw.stop();
 
     // send payload(150 times)
-    packetSender.spamJson(); 
+    packet.advertise(); 
     delay(5000);
 
     // deauth a random ap (by sending 150 packets to an access point)
-    deauthAttack.selectAP();
-    deauthAttack.startDeauth();
+    deauth.select();
+    deauth.deauth();
     delay(5000);
 
     // restart the process

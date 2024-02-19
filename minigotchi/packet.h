@@ -8,12 +8,12 @@
 #include "raw80211.h"
 #include <ArduinoJson.h>
 
-class PacketSender {
+class Packet {
 public:
-    PacketSender() : MAGIC_NUMBER(0xDE), COMPRESSION_ID(0xDF) {}
+    Packet() : MAGIC_NUMBER(0xDE), COMPRESSION_ID(0xDF) {}
     
     void send();
-    void spamJson();
+    void advertise();
 
 private:
     const uint8_t MAGIC_NUMBER;

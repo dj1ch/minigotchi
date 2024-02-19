@@ -8,7 +8,7 @@
 const uint8_t MAGIC_NUMBER = 0xDE;
 const uint8_t COMPRESSION_ID = 0xDF; 
 
-void PacketSender::send() {
+void Packet::send() {
 
     // json object creation
     DynamicJsonDocument doc(1024);
@@ -51,7 +51,7 @@ void PacketSender::send() {
     doc["pwnd_tot"] = 0;
     doc["session_id"] = "84:f3:eb:58:95:bd";
     doc["uptime"] = 1;
-    doc["version"] = "v1.2.0";
+    doc["version"] = "v1.3.0";
 
     String jsonString;
     if (serializeJson(doc, jsonString) == 0) {
@@ -80,7 +80,7 @@ void PacketSender::send() {
     }
 }
 
-void PacketSender::spamJson() {
+void Packet::advertise() {
     // for the sake of consistency also sending this packet 150 times
     for (int i = 0; i < 150; ++i) {
         send();

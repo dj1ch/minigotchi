@@ -8,12 +8,14 @@
 #include <Arduino.h>
 #include <vector>
 #include <ESP8266WiFi.h>
+#include "raw80211.h"
 
-class DeauthAttack {
+class Deauth {
 public:
-    void selectAP();
-    void startDeauth();
-    void addToWhitelist(const char* bssid);
+    void select();
+    void deauth();
+    void add(const char* bssid);
+    void construct();
 
 private:
     bool running;

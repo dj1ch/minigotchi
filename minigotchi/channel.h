@@ -8,19 +8,19 @@
 #include "raw80211.h"
 #include <ESP8266WiFi.h>
 
-class ChannelHandler {
+class Channel {
 public:
-    ChannelHandler(int initialChannel);
-    void cycleChannels();
-    void switchChannel(int newChannel);
-    int getCurrentChannel();
+    Channel(int initialChannel);
+    void cycle();
+    void switchC(int newChannel);
+    int getChannel();
 
 private:
     int randomIndex; 
     int numChannels; 
     int currentChannel;
     int newChannel;
-    int channelList[3]; // 3 channels 
+    static int channelList[3]; // 3 channels 
 };
 
 #endif // CHANNEL_H
