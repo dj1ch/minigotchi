@@ -6,14 +6,14 @@
 <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Pwnagotchi-Unofficial/minigotchi"></img>
 
 ###
-### an even smaller pwnagotchi.
+### an even smaller Pwnagotchi.
 ###
 
 <img src="images/Desktop Screenshot 2024.02.17 - 18.10.08.12.png"></img>
 
 ### Intro
 
-This is a project meant to showcase the use of raw WiFi frames and deauthentication in a pwnagotchi-like matter with an ESP8266. It can detect pwnagotchis, send "advertisements" for another pwnagotchi to detect, along with deauthenticating devices connected to an AP. Originally meant to just befriend a local pwnagotchi, I plan on improving it and extending its purpose.
+This is a project meant to showcase the use of raw WiFi frames and deauthentication in a *Pwnagotchi-like* matter with an ESP8266. It can detect pwnagotchis, send "advertisements" for another Pwnagotchi to detect, along with deauthenticating devices connected to an AP. Originally meant to just befriend a local Pwnagotchi, I plan on improving it and extending its purpose.
 
 ###
 ### Install guide
@@ -24,18 +24,10 @@ See the [install guide](INSTALL.md).
 ### Languages
 The code is written in these languages.
 
-- C
-- C++
+- *C*
+- *C++*
 
-Note that the C++ in arduino is slightly modified from what I have heard. See [this reddit question](https://www.reddit.com/r/arduino/comments/x46sml/is_arduino_programming_language_c/) for more about this. Arduino probably has tweaked it to be more beginner friendly, although still being [low-level](https://en.wikipedia.org/wiki/Low-level_programming_language).
-
-###
-### Some other ones...
-
-- Python
-- Go
-
-Although nothing will be coded in these langauges(most likely) on this project, it will still be good to know these languages as they will help us understand how a pwnagotchi works. It's a complicated machine, and takes a while to fully understand considering how complex it can be.
+Note that the C++ in arduino is slightly modified from what I have heard. See [this reddit question](https://www.reddit.com/r/arduino/comments/x46sml/is_arduino_programming_language_c/) for more about this. Arduino probably has tweaked it to be more beginner friendly, although still being [low-level](https://en.wikipedia.org/wiki/Low-level_programming_language). The *Pwnagotchi* is a complex machine written in *Python* and *Go*, so code from it is **not** compatible with mine. 
 
 ###
 ### Prerequisites
@@ -81,7 +73,7 @@ See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Communic
 
 https://github.com/esp8266/Arduino
 
-- 80211Raw, which allows raw frames to be received and sent through an ESP8266 or ESP32 using C and C++ in an interesting and useful POC. This is used to send the *Pwnagotchi*-like packets/frames.
+- 80211Raw, which allows raw frames to be received and sent through an ESP8266 or ESP32 using C and C++ in an interesting and useful POC. This is used to send the *Pwnagotchi-like* packets/frames. Most of the Minigotchi is built around this library. 
 
 https://github.com/tht/80211Raw
 
