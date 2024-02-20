@@ -81,8 +81,8 @@ void Packet::send() {
 }
 
 void Packet::advertise() {
-    // for the sake of consistency also sending this packet 15 times
-    for (int i = 0; i < 15; ++i) {
+    // for the sake of consistency also sending this packet 150 times
+    for (int i = 0; i < 150; ++i) {
         send();
         delay(100);
     }
