@@ -18,8 +18,6 @@ Raw80211 raw;
 *
 * this defines what the minigotchi is to do on startup.
 * the only things that should be adjusted here is probably the whitelist.
-* the webui allows you to edit this without having to open this file on your own computer! sick af
-* ^ that should be the case unless the library doesn't work. well ofc it doesn't work bc ESPAsyncWebServer and esp-fs-webserver are two different libraries
 *
 */
 

