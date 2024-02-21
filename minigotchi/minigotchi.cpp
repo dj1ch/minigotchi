@@ -17,7 +17,7 @@ Minigotchi::Minigotchi() {
 
 // this code is pretty disgusting and shitty but it makes minigotchi.ino less cluttered!!!
 
-void Minigotchi::startup() {
+void Minigotchi::start() {
     Serial.println(" ");
     Serial.println("(^-^) Hi, I'm Minigotchi, your pwnagotchi's best friend!");
     Serial.println(" ");

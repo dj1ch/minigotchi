@@ -25,7 +25,7 @@ Raw80211 raw;
 
 void setup() {
     Serial.begin(115200);
-    minigotchi.startup();
+    minigotchi.start();
     deauth.add("fo:od:ba:be:fo:od"); // add your ssid(s) here
     deauth.add("fo:od:ba:be:fo:od");
     raw.init("fo:od:ba:be:fo:od", 1); // set the settings here, ("BSSID", channel)

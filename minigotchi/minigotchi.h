@@ -7,7 +7,7 @@
 class Minigotchi {
 public: 
     Minigotchi();
-    void startup();
+    void start();
     void finish(); 
     void mem();
     void cpu();
