@@ -2,12 +2,14 @@
 // minigotchi.ino: everything implemented here //
 /////////////////////////////////////////////////
 
+#include "minigotchi.h"
 #include "pwnagotchi.h"
 #include "packet.h"
 #include "deauth.h"
 #include "channel.h"
 #include "raw80211.h"
 
+Minigotchi minigotchi;
 Pwnagotchi pwnagotchi;
 Packet packet;
 Deauth deauth;
@@ -23,19 +25,13 @@ Raw80211 raw;
 
 void setup() {
     Serial.begin(115200);
-    Serial.println(" ");
-    Serial.println("(^-^) Hi, I'm Minigotchi, your pwnagotchi's best friend!");
-    Serial.println(" ");
-    Serial.println("You can edit my whitelist in the minigotchi.ino, and you can also edit the JSON parameters in the packet.cpp");
-    Serial.println(" ");
-    Serial.println("(>-<) Starting now...");
+    minigotchi.startup();
     deauth.add("fo:od:ba:be:fo:od"); // add your ssid(s) here
     deauth.add("fo:od:ba:be:fo:od");
     raw.init("fo:od:ba:be:fo:od", 1); // set the settings here, ("BSSID", channel)
     raw.start();
-    delay(15000);
-    Serial.println(" ");
-    Serial.println("('-') Started successfully!");
+    minigotchi.info();
+    minigotchi.finish();
 }
 
 /*
