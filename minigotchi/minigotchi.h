@@ -4,6 +4,9 @@
 
 #include <Arduino.h>
 
+#ifndef MINIGOTCHI_H
+#define MINIGOTCHI_H
+
 class Minigotchi {
 public: 
     Minigotchi();
@@ -16,3 +19,5 @@ public:
 private:
 
 };
+
+#endif // MINIGOTCHI_H
