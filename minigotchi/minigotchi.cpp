@@ -30,7 +30,7 @@ void Minigotchi::start() {
 
 void Minigotchi::info() {
     Serial.println(" ");
-    Serial.println("('-') Current stats: ");
+    Serial.println("('-') Current Minigotchi Stats: ");
     mem();
     cpu();
     Serial.println(" ");
@@ -42,13 +42,13 @@ void Minigotchi::finish() {
 };
 
 void Minigotchi::mem() {
-    Serial.print("('-') Current Minigotchi Heap: ");
+    Serial.print("('-') Heap: ");
     Serial.print(ESP.getFreeHeap());
     Serial.println(" bytes");
 };
 
 void Minigotchi::cpu() {
-    Serial.print("('-') Current Minigotchi CPU Frequency: ");
+    Serial.print("('-') CPU Frequency: ");
     Serial.print(ESP.getCpuFreqMHz());
     Serial.println(" MHz");
 };
