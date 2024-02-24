@@ -21,30 +21,34 @@ Replace the `"fo:od:ba:be:fo:od"` with your actual BSSID(in the quotations), and
 - There should also be a line that says:
 
 ```cpp
-deauthAttack.addToWhitelist("fo:od:ba:be:fo:od"); // add your ssid(s) here
-deauthAttack.addToWhitelist("fo:od:ba:be:fo:od");
+deauth.add("fo:od:ba:be:fo:od"); // add your ssid(s) here
+deauth.add("fo:od:ba:be:fo:od");
 ```
 
 Replace the `fo:od:ba:be:fo:od` with the ssid's you want whitelisted. You can add more in this manner by copying and pasting this into the setup function
 
 ```cpp
-deauthAttack.addToWhitelist("YOUR_SSID_HERE_OR_BSSID_IDC_REALLY");
+deauth.add("YOUR_SSID_HERE_OR_BSSID_IDC_REALLY");
 ```
 
 - Save and exit the file.
 
 - Download the [Arduino IDE](https://https://www.arduino.cc/en/software), preferably the latest version.
 
-- In the IDE, go to *File* > *Preferences*, then in the *Additional board manager URLS*, paste the link https://arduino.esp8266.com/stable/package_esp8266com_index.json to add the ESP8266 board(s) to the board manager
+- In the IDE, go to `File` > `Preferences`, then in the `Additional board manager URLS`, paste the link `https://arduino.esp8266.com/stable/package_esp8266com_index.json` to add the ESP8266 board(s) to the board manager
 
-- Click *Ok* and plug the board into your computer. It should blink, make sure it is receiving the correct amount of voltage, too much will burn it(I learned that the hard way)
+- Click `Ok` and plug the board into your computer. It should blink, make sure it is receiving the correct amount of voltage, too much will burn it(I learned that the hard way)
 
-- Open up the minigotchi folder through the IDE by pushing *Ctrl O*, or by going to *File* > *Open*, then selecting the folder the .ino is in. If other tabs don't show up, along with minigotchi.ino, make sure to copy and paste the files into the same directory/folder as that lone .ino file. It won't be able to compile if that happens. 
+- Open up the minigotchi folder through the IDE by pushing `Ctrl O`, or by going to `File` > `Open`, then selecting the folder the .ino is in. If other tabs don't show up, along with `minigotchi.ino`, make sure to copy and paste the files into the same directory/folder as that lone `.ino` file. It won't be able to compile if that happens. 
 
-- Install the following dependancies with the library manager: `ArduinoJson`, `ESPAsyncWebServer`, all with their dependancies(Please install all of them for them to work correctly).
+- Install the following dependancies with the library manager: `ArduinoJson`, etc with all with their dependancies(Please install all of them for them to work correctly).
 
 - Select the board as `ESP8266 WEMOS(LOLIN) D1 mini Lite`, and select the port it is plugged into(if you haven't already, plug in the board)
 - Click on the upload button(arrow pointing to the left). 
+
+**OR**
+
+- Go to `Sketch` > `Export Compiled Binary` to generate a `.bin` file to flash to the board, which also works. This can also be done with `Alt Ctrl S`.
 
 **Note: if you get any errors, let me know ASAP with a github issue, sending me a discord message, or perhaps even messaging me through my portfolio site.**
 
