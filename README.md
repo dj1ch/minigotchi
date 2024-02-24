@@ -6,7 +6,7 @@
 <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Pwnagotchi-Unofficial/minigotchi"></img>
 
 ###
-### an even smaller Pwnagotchi.
+### An even smaller Pwnagotchi.
 ###
 
 <img src="images/Desktop Screenshot 2024.02.17 - 18.10.08.12.png"></img>
