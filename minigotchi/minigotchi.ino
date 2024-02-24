@@ -2,42 +2,36 @@
 // minigotchi.ino: everything implemented here //
 /////////////////////////////////////////////////
 
+#include "minigotchi.h"
 #include "pwnagotchi.h"
 #include "packet.h"
 #include "deauth.h"
 #include "channel.h"
 #include "raw80211.h"
 
+Minigotchi minigotchi;
 Pwnagotchi pwnagotchi;
-PacketSender packetSender;
-DeauthAttack deauthAttack;
-ChannelHandler channelHandler(1);
+Packet packet;
+Deauth deauth;
+Channel channel(1);
 Raw80211 raw;
 
 /*
 *
 * this defines what the minigotchi is to do on startup.
 * the only things that should be adjusted here is probably the whitelist.
-* the webui allows you to edit this without having to open this file on your own computer! sick af
-* ^ that should be the case unless the library doesn't work. well ofc it doesn't work bc ESPAsyncWebServer and esp-fs-webserver are two different libraries
 *
 */
 
 void setup() {
     Serial.begin(115200);
-    Serial.println(" ");
-    Serial.println("(^-^) Hi, I'm Minigotchi, your pwnagotchi's best friend!");
-    Serial.println(" ");
-    Serial.println("You can edit my whitelist in the minigotchi.ino, and you can also edit the JSON parameters in the packet.cpp");
-    Serial.println(" ");
-    Serial.println("(>-<) Starting now...");
-    deauthAttack.addToWhitelist("fo:od:ba:be:fo:od"); // add your ssid(s) here
-    deauthAttack.addToWhitelist("fo:od:ba:be:fo:od");
+    minigotchi.start();
+    deauth.add("fo:od:ba:be:fo:od"); // add your ssid(s) here
+    deauth.add("fo:od:ba:be:fo:od");
     raw.init("fo:od:ba:be:fo:od", 1); // set the settings here, ("BSSID", channel)
     raw.start();
-    delay(15000);
-    Serial.println(" ");
-    Serial.println("('-') Started successfully!");
+    minigotchi.info();
+    minigotchi.finish();
 }
 
 /*
@@ -51,9 +45,9 @@ void setup() {
 
 void loop() {
     // cycle channels at start of loop
-    channelHandler.cycleChannels();
+    channel.cycle();
     // get local payload from local pwnagotchi
-    pwnagotchi.detectAndHandle();
+    pwnagotchi.detect();
     // ugly hack: remove all these lines containing the words "delay(5000);" or comment them out with a "//" slash.
     // doing so will make the loop a lot faster. plus this might overheat the board and stuff but its worth a try.
     delay(5000); 
@@ -62,12 +56,12 @@ void loop() {
     raw.stop();
 
     // send payload(150 times)
-    packetSender.spamJson(); 
+    packet.advertise(); 
     delay(5000);
 
     // deauth a random ap (by sending 150 packets to an access point)
-    deauthAttack.selectAP();
-    deauthAttack.startDeauth();
+    deauth.select();
+    deauth.deauth();
     delay(5000);
 
     // restart the process

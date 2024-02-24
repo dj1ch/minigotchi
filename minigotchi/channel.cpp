@@ -12,13 +12,13 @@
 *
 */ 
 
-int channelList[] = {1, 6, 11};
-
-ChannelHandler::ChannelHandler(int initialChannel) : currentChannel(initialChannel) {
+Channel::Channel(int initialChannel) : currentChannel(initialChannel) {
     // no need to copy channelList, as it's already initialized
 }
 
-void ChannelHandler::cycleChannels() { 
+int Channel::channelList[] = {1, 6, 11};
+
+void Channel::cycle() { 
     // get channels
     int numChannels = sizeof(channelList) / sizeof(channelList[0]);
 
@@ -27,10 +27,10 @@ void ChannelHandler::cycleChannels() {
     int newChannel = channelList[randomIndex];
 
     // switch here
-    switchChannel(newChannel);
+    switchC(newChannel);
 }
 
-void ChannelHandler::switchChannel(int newChannel) {
+void Channel::switchC(int newChannel) {
     // stop raw80211 from being on this one channel
     Serial.print("(-.-) Switching to channel ");
     Serial.println(newChannel);
@@ -46,6 +46,6 @@ void ChannelHandler::switchChannel(int newChannel) {
     Serial.println(newChannel);
 }
 
-int ChannelHandler::getCurrentChannel() {
+int Channel::getChannel() {
     return wifi_get_channel();
 }

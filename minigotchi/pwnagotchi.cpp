@@ -35,7 +35,7 @@ String Pwnagotchi::extractMAC(const unsigned char *buff) {
     return String(addr);
 }
 
-void Pwnagotchi::detectAndHandle() {
+void Pwnagotchi::detect() {
     // cool animation here
     for (int i = 0; i < 5; ++i) {
         Serial.println("(0-o) Scanning for Pwnagotchi.");
