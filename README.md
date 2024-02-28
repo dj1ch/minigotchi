@@ -13,7 +13,7 @@
 
 ### Intro
 
-This is a project meant to showcase the use of raw WiFi frames and deauthentication in a *Pwnagotchi-like* matter with an ESP8266. It can detect pwnagotchis, send "advertisements" for another Pwnagotchi to detect, along with deauthenticating devices connected to an AP. Originally meant to just befriend a local Pwnagotchi, I plan on improving it and extending its purpose.
+This is a project meant to showcase the use of raw WiFi frames and deauthentication in a *Pwnagotchi-like* matter with an ESP8266. It can detect pwnagotchis, send "advertisements" for another Pwnagotchi to detect, along with deauthenticating devices connected to an AP. Originally meant to just befriend a local Pwnagotchi, I plan on improving it and extending its purpose, merely all done with a ESP8266 with 4 MB of memory. 
 
 ###
 ### Install guide
@@ -27,13 +27,14 @@ The code is written in these languages.
 - *C*
 - *C++*
 
-Note that the C++ in arduino is slightly modified from what I have heard. See [this reddit question](https://www.reddit.com/r/arduino/comments/x46sml/is_arduino_programming_language_c/) for more about this. Arduino probably has tweaked it to be more beginner friendly, although still being [low-level](https://en.wikipedia.org/wiki/Low-level_programming_language). The *Pwnagotchi* is a complex machine written in *Python* and *Go*, so code from it is **not** compatible with mine. 
+Note that the C++ in arduino is slightly modified from what I have heard. See [this reddit question](https://www.reddit.com/r/arduino/comments/x46sml/is_arduino_programming_language_c/) for more about this. Arduino probably has tweaked it to be more beginner friendly, although still being [low-level](https://en.wikipedia.org/wiki/Low-level_programming_language). The *Pwnagotchi* is a complex machine written in *Python* and *Go*, so code from the Pwnagotchi Project is **not** compatible with mine.
 
 ###
 ### Prerequisites
 
-- An IDE (most likely the arduino ide)
-- Hardware(D1 Mini ESP8266)
+- Arduino IDE
+- A good understanding of coding/programming
+- D1 Mini ESP8266 V4 
 - A reliable and appropriate power source and supply for the hardware
 - Patience (a lot of it)
 
@@ -66,6 +67,8 @@ See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Communic
 
 ###
 ### Last but not least... Some thank you's!
+
+**If you believe your project wasn't properly credited, please let me know ASAP! Here's how you can [communicate](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Communication#communication) with me.**
 
 **Thanks to these projects for making this a little bit more possible for me, I have used libraries/code from these projects and implemented it here:**
 
