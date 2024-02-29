@@ -34,7 +34,7 @@ Note that the C++ in arduino is slightly modified from what I have heard. See [t
 
 - Arduino IDE
 - A good understanding of coding/programming
-- D1 Mini ESP8266 V4 
+- D1 Mini ESP8266 V4
 - A reliable and appropriate power source and supply for the hardware
 - Patience (a lot of it)
 
@@ -54,7 +54,7 @@ See this [project](https://github.com/orgs/Pwnagotchi-Unofficial/projects/4).
 ###
 ### Contributing
 
-Contributions to the code itself are going to be accepted! Small, and potentially useless pull requests will be ignored. I don't want to waste your time or my time on something as insignificant as adding a space, or putting a link to something I don't need. See more [here](CONTRIBUTING.md). Thank you!
+See the Contributing Guidelines [here](CONTRIBUTING.md).
 
 ###
 ### FAQ
@@ -80,11 +80,11 @@ https://github.com/esp8266/Arduino
 
 https://github.com/tht/80211Raw
 
-- ESP8266 deauther, the POC that shows that an ESP8266 can deauth and attack local access points. Deauthing is based off of this. 
+- ESP8266 Deauther, the POC that shows that an ESP8266 can deauth and attack local access points. Deauthing is based off of this project and is done in a very similar fashion. 
 
 https://github.com/SpacehuhnTech/esp8266_deauther/
 
-- ESP32 Marauder, similar to the ESP8266 deauther, although packed with much more features along with support for the flipper zero ESP32. It has wardriving capabilities, BLE, and deauthing features available. 
+- ESP32 Marauder, similar to the ESP8266 Deauther, although packed with more features along with support for the Flipper Zero's ESP32 WiFi Card. It has wardriving capabilities, BLE, Pwnagotchi Scanning, and Deauthing available. This is a very cool project!
 
 https://github.com/justcallmekoko/ESP32Marauder
 
