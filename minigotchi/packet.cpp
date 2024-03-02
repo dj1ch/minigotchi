@@ -4,7 +4,12 @@
 
 #include "packet.h"
 
-// set magic number(222 in hex)
+/* 
+* when it comes to detecting a pwnagotchi, this is done with pwngrid/opwngrid.
+* essentially pwngrid looks for the numbers 222 and 223 in payloads, and if they aren't there, it ignores it.
+* these need to be put into the frames!!!
+*/
+
 const uint8_t MAGIC_NUMBER = 0xDE;
 const uint8_t COMPRESSION_ID = 0xDF; 
 
@@ -62,19 +67,20 @@ void Packet::send() {
         // find frame size
         size_t frameSize = sizeof(MAGIC_NUMBER) + jsonString.length();
 
-        // use memory for the data frame
+        // allocate memory for the data frame and build it
         uint8_t* dataFrame = new uint8_t[frameSize];
-
-        // set/copy compression id
         dataFrame[0] = MAGIC_NUMBER;
-
-        // copy payload
         jsonString.getBytes(dataFrame + sizeof(MAGIC_NUMBER), frameSize - sizeof(MAGIC_NUMBER) + 1);
+
+        // show frame size
+        Serial.print("('-') Frame size: ");
+        Serial.print(frameSize);
+        Serial.println(" bytes");
 
         // send full frame
         Raw80211::send(dataFrame, frameSize);
 
-        // save memory 
+        // dementia! 
         delete[] dataFrame;
         Serial.println("(>-<) Sent payload!");
     }
