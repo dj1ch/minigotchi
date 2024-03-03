@@ -16,7 +16,7 @@ Deauth deauth;
 Channel channel(1);
 Raw80211 raw;
 
-/*
+/* developer note: 
 *
 * this defines what the minigotchi is to do on startup.
 * the only things that should be adjusted here is probably the whitelist.
@@ -34,7 +34,7 @@ void setup() {
     minigotchi.finish();
 }
 
-/*
+/* developer note: 
 *
 * this defines what happens every loop. 
 * this goes on infinitely, until the minigotchi is turned off.

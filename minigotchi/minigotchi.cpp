@@ -4,7 +4,7 @@
 
 #include "minigotchi.h"
 
-/*
+/* developer note: 
 *
 * The functions here provide info on the minigotchi, such as memory, temperature, etc.
 * This is meant to be ran on startup.

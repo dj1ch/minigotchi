@@ -4,10 +4,9 @@
 
 #include "deauth.h"
 
-/*
+/* developer note: 
 * 
 * the deauth packet is defined here.
-* this is sent using the Raw80211 library.
 * this is a raw frame/packet depending on where/how you refer to it in networking terms, i should specify or whatever...
 *
 */
@@ -21,8 +20,6 @@ uint8_t deauthPacket[26] = {
     /* 22 - 23 */ 0x00, 0x00,                         // fragment & sequence number
     /* 24 - 25 */ 0x01, 0x00                          // reason code (1 = unspecified reason)
     };
-
-
 
 void Deauth::add(const char* bssid) {
     Serial.print("('-') Adding ");

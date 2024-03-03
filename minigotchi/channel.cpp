@@ -4,7 +4,7 @@
 
 #include "channel.h"
 
-/* 
+/* developer note: 
 *
 * i am using the ideal 2.4 GHz channels, which are 1, 6, and 11.
 * the reason for that is so we don't interfere with other devices on our frequency.
