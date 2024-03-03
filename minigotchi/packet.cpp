@@ -33,11 +33,9 @@ void Packet::send() {
     policy["bored_num_epochs"] = 0;
 
     JsonArray channels = policy.createNestedArray("channels");
-    channels.add(1);
-    channels.add(3);
-    channels.add(4);
-    channels.add(5);
-    channels.add(6);
+    for (size_t i = 0; i < sizeof(Channel::channelList) / sizeof(Channel::channelList[0]); ++i) {
+        channels.add(Channel::channelList[i]);
+    }
 
     policy["deauth"] = true;
     policy["excited_num_epochs"] = 1;

@@ -14,13 +14,14 @@ public:
     void cycle();
     void switchC(int newChannel);
     int getChannel();
+    int list();
+    static int channelList[3]; // 3 channels 
 
 private:
     int randomIndex; 
     int numChannels; 
     int currentChannel;
     int newChannel;
-    static int channelList[3]; // 3 channels 
 };
 
 #endif // CHANNEL_H
