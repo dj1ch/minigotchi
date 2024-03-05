@@ -12,8 +12,7 @@
 *
 */
 
-const uint8_t MAGIC_NUMBER = 0xDE;
-const uint8_t COMPRESSION_ID = 0xDF; 
+Packet::Packet() : MAGIC_NUMBER(0xDE), COMPRESSION_ID(0xDF) {}
 
 void Packet::send() {
 
