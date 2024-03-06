@@ -67,7 +67,6 @@ void Pwnagotchi::detect() {
 
     if (pwnagotchiDetected) {
         // send the advertisement if it is found
-        Serial.println("(^-^) Pwnagotchi found!");
         Serial.println("(^-^) Starting advertisement...");
         delay(5000);
         Packet::advertise();
