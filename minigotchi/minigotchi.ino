@@ -42,19 +42,14 @@ void setup() {
 void loop() {
     // cycle channels at start of loop
     channel.cycle();
-    // get local payload from local pwnagotchi
+    // get local payload from local pwnagotchi, send raw frame if one is found
     pwnagotchi.detect();
     // ugly hack: remove all these lines containing the words "delay(5000);" or comment them out with a "//" slash.
     // doing so will make the loop a lot faster. plus this might overheat the board and stuff but its worth a try.
     delay(5000); 
 
-    // stop for payload
-    raw.stop();
-
     // send payload(150 times)
+    // regardless if a pwnagotchi is found or not, we send the raw frame to attract the attention of one
     packet.advertise(); 
     delay(5000);
-
-    // restart the process
-    raw.start();
 }
