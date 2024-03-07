@@ -65,6 +65,13 @@ void Pwnagotchi::detect() {
     // delay for scanning
     delay(5000);
 
+    if (pwnagotchiDetected) {
+        // send the advertisement if it is found
+        Serial.println("(^-^) Starting advertisement...");
+        delay(5000);
+        Packet::advertise();
+    }
+
     // check if the rawCallback was triggered during scanning
     if (!pwnInstance->pwnagotchiDetected) {
         // only searches on your current channel and such afaik, 

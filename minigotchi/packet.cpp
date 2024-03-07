@@ -12,8 +12,12 @@
 *
 */
 
-const uint8_t MAGIC_NUMBER = 0xDE;
-const uint8_t COMPRESSION_ID = 0xDF; 
+Packet::Packet() {
+    // nothing as of now
+}
+
+const uint8_t Packet::MAGIC_NUMBER = 0xDE;
+const uint8_t Packet::COMPRESSION_ID = 0xDF;
 
 void Packet::send() {
 
@@ -64,6 +68,14 @@ void Packet::send() {
         // its usually just the json's fault maybe, please fix it dj1ch(or whoever changed that json above here, it's your fault)
         Serial.println("(X-X) Failed to serialize JSON");
     } else {
+        static bool framePrinted = false;
+        if (!framePrinted) {
+            // showcase the frame
+            Serial.println("('-') Current JSON frame: ");
+            Serial.println(jsonString);
+            framePrinted = true;
+        }
+
         // find frame size
         size_t frameSize = sizeof(MAGIC_NUMBER) + jsonString.length();
 
