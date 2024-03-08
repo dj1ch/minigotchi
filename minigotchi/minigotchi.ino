@@ -5,12 +5,15 @@
 #include "minigotchi.h"
 #include "pwnagotchi.h"
 #include "packet.h"
+#include "deauth.h"
 #include "channel.h"
 #include "raw80211.h"
+#include "config.h"
 
 Minigotchi minigotchi;
 Pwnagotchi pwnagotchi;
 Packet packet;
+Deauth deauth;
 Channel channel(1);
 Raw80211 raw;
 
@@ -24,6 +27,7 @@ Raw80211 raw;
 void setup() {
     Serial.begin(115200);
     minigotchi.start();
+    deauth.add("fo:od:ba:be:fo:od"); // add your bssid(s) here
     raw.init("fo:od:ba:be:fo:od", 1); // set the settings here, ("BSSID", channel)
     raw.start();
     minigotchi.info();
@@ -48,8 +52,14 @@ void loop() {
     // doing so will make the loop a lot faster. plus this might overheat the board and stuff but its worth a try.
     delay(5000); 
 
-    // send payload(150 times)
+    // send payload(150 times) on current channel
     // regardless if a pwnagotchi is found or not, we send the raw frame to attract the attention of one
+    // we deauth AFTER advertising as we don't want to kick any devices before sending a payload...
     packet.advertise(); 
+    delay(5000);
+
+    // deauth random access point
+    raw.stop();
+    deauth.deauth();
     delay(5000);
 }
