@@ -11,3 +11,24 @@
 * whatever can be disabled/enabled can be enabled here
 *
 */
+
+// set to true normally 
+bool deauth = true;
+bool advertise = true;
+
+// define whitelist 
+int Config::whitelist[] = {fo:od:ba:be:fo:od, fo:od:ba:be:fo:od, fo:od:ba:be:fo:od}
+
+// define channels
+int Config::channels[] = {1, 6, 11};
+
+/* developer note:
+*
+* everything beyong this point can be ignored
+* functions here only return values
+*
+*/
+
+Config::Config() { 
+    // nothing as of right now
+}
