@@ -25,7 +25,7 @@ int Config::channel = 1;
 std::string Config::whitelist[] = {"fo:od:ba:be:fo:od", "fo:od:ba:be:fo:od", "fo:od:ba:be:fo:od"};
 
 // define channels
-int Config::channels[] = {1, 6, 11};
+int Config::channels[3] = {1, 6, 11};
 
 /* developer note:
 *

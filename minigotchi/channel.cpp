@@ -16,7 +16,8 @@ Channel::Channel() {
     // nothing here as raw handles the initial channel
 }
 
-int Channel::channelList[] = {1, 6, 11};
+// same channels in config
+int Channel::channelList[3] = {Config::channels[0], Config::channels[1], Config::channels[2]};
 
 void Channel::cycle() { 
     // get channels

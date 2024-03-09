@@ -14,7 +14,7 @@ public:
     static bool deauth;
     static bool advertise; 
     static std::string whitelist[10]; 
-    static int channels[];
+    static int channels[3];
     static const char* bssid;
     static int channel;
     
