@@ -13,7 +13,7 @@
 
 ### Intro
 
-This is a project meant to showcase the use of raw WiFi frames and deauthentication in a *Pwnagotchi-like* matter with an ESP8266. It can detect pwnagotchis, send "advertisements" for another Pwnagotchi to detect, ~~along with deauthenticating devices connected to an AP~~. Originally meant to just befriend a local Pwnagotchi, I plan on improving it and extending its purpose, merely all done with a ESP8266 with 4 MB of memory. 
+This is a project meant to showcase the use of raw WiFi frames and deauthentication in a *Pwnagotchi-like* matter with an ESP8266. It can detect pwnagotchis, send "advertisements" for another Pwnagotchi to detect, along with deauthenticating devices connected to an AP. Originally meant to just befriend a local Pwnagotchi, I plan on improving it and extending its purpose, merely all done with a ESP8266 with 4 MB of memory. 
 
 ###
 ### Install guide
@@ -95,3 +95,5 @@ https://github.com/lacamera/ESPAsyncWebServer
 - Milkydeveloper, idk what he did but he wanted to be here ig so...(this is totally not an advertisement)
 
 https://github.com/MilkyDeveloper
+
+**Made with ❤️ by [@dj1ch](https://github.com/dj1ch) and the rest of the Pwnagotchi-Unofficial team!**
