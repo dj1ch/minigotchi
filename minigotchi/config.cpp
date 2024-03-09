@@ -17,7 +17,7 @@ bool deauth = true;
 bool advertise = true;
 
 // define whitelist 
-int Config::whitelist[] = {fo:od:ba:be:fo:od, fo:od:ba:be:fo:od, fo:od:ba:be:fo:od}
+int Config::whitelist[] = {"fo:od:ba:be:fo:od", "fo:od:ba:be:fo:od", "fo:od:ba:be:fo:od"};
 
 // define channels
 int Config::channels[] = {1, 6, 11};
