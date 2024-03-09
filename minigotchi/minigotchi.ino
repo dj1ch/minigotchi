@@ -28,9 +28,7 @@ Config config;
 void setup() {
     Serial.begin(config.baud);
     minigotchi.start();
-    for (const auto& bssid : config.whitelist) {
-        deauth.add(bssid);
-    }
+    deauth.list();
     raw.init(config.bssid, config.channel); // set the settings here, ("BSSID", channel)
     raw.start();
     minigotchi.info();

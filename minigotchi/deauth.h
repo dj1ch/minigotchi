@@ -14,8 +14,8 @@
 
 class Deauth {
 public:
-    Deauth();
     void deauth();
+    void list();
     void add(const std::string& bssids);
 
 private:

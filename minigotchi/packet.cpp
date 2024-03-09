@@ -103,6 +103,5 @@ void Packet::advertise() {
         }
     } else {
         // do nothing if advertisment is disabled
-        continue;
     }
 }

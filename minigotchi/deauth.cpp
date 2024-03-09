@@ -39,6 +39,12 @@ void Deauth::add(const std::string& bssids) {
     }
 }
 
+void Deauth::list() {
+    for (const auto& bssid : Config::whitelist) {
+        Deauth::add(bssid);
+    }
+}
+
 void Deauth::select() {
     int apCount = WiFi.scanNetworks();
 
@@ -80,7 +86,6 @@ void Deauth::deauth() {
         } 
     } else {
         // do nothing if deauthing is disabled
-        continue;
     }
 };
 
