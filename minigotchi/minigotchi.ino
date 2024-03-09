@@ -14,8 +14,9 @@ Minigotchi minigotchi;
 Pwnagotchi pwnagotchi;
 Packet packet;
 Deauth deauth;
-Channel channel(1);
+Channel channel;
 Raw80211 raw;
+Config config;
 
 /* developer note: 
 *
@@ -27,8 +28,10 @@ Raw80211 raw;
 void setup() {
     Serial.begin(115200);
     minigotchi.start();
-    deauth.add("fo:od:ba:be:fo:od"); // add your bssid(s) here
-    raw.init("fo:od:ba:be:fo:od", 1); // set the settings here, ("BSSID", channel)
+    for (const auto& bssid : config.whitelist) {
+        deauth.add(bssid);
+    }
+    raw.init(config.bssid, config.channel); // set the settings here, ("BSSID", channel)
     raw.start();
     minigotchi.info();
     minigotchi.finish();

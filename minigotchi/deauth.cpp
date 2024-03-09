@@ -21,12 +21,23 @@ uint8_t deauthPacket[26] = {
     /* 24 - 25 */ 0x01, 0x00                          // reason code (1 = unspecified reason)
     };
 
-void Deauth::add(const char* bssid) {
-    Serial.print("('-') Adding ");
-    Serial.print(bssid);
-    Serial.println(" to the whitelist");
-    whitelist.push_back(bssid);
-};
+void Deauth::add(const std::string& bssids) {
+    std::stringstream ss(bssids);
+    std::string token;
+
+    // seperate info and whitelist
+    while (std::getline(ss, token, ',')) {
+        // trim out whitespace
+        token.erase(0, token.find_first_not_of(" \t\r\n"));
+        token.erase(token.find_last_not_of(" \t\r\n") + 1);
+
+        // add to whitelist
+        Serial.print("('-') Adding ");
+        Serial.print(token.c_str());
+        Serial.println(" to the whitelist");
+        whitelist.push_back(token.c_str());
+    }
+}
 
 void Deauth::select() {
     int apCount = WiFi.scanNetworks();

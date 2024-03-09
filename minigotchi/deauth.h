@@ -7,13 +7,15 @@
 
 #include <Arduino.h>
 #include <vector>
+#include <string>
+#include <sstream>
 #include <ESP8266WiFi.h>
 #include "raw80211.h"
 
 class Deauth {
 public:
     void deauth();
-    void add(const char* bssid);
+    void add(const std::string& bssids);
 
 private:
     bool running;

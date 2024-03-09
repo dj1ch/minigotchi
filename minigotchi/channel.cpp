@@ -12,8 +12,8 @@
 *
 */ 
 
-Channel::Channel(int initialChannel) : currentChannel(initialChannel) {
-    // no need to copy channelList, as it's already initialized
+Channel::Channel() {
+    // nothing here as raw handles the initial channel
 }
 
 int Channel::channelList[] = {1, 6, 11};

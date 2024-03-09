@@ -6,11 +6,12 @@
 #define CHANNEL_H
 
 #include "raw80211.h"
+#include "config.h"
 #include <ESP8266WiFi.h>
 
 class Channel {
 public:
-    Channel(int initialChannel);
+    Channel();
     void cycle();
     void switchC(int newChannel);
     int getChannel();
