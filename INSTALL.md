@@ -2,18 +2,40 @@
 
 Here you can find out how to install minigotchi on the ESP8266. Installing on the Pico is not possible as the code is meant for the ESP8266. 
 
-### Building using Arduino IDE
+## Building using Arduino IDE
 
+### Step 1: Configuration
 - Download the latest release [here](https://github.com/Pwnagotchi-Unofficial/minigotchi/releases).
 
 - Unzip the file
 
-- Navigate to the `minigotchi.ino` file in the unzipped folder, and open it up with the text editor of your choice. 
+- Navigate to the `config.cpp` file in the unzipped folder, and open it up with the text editor of your choice. Configurations are always controlled here. 
 
-- At the line that says:
+- At the set of lines that says:
 
 ```cpp
-raw.init("fo:od:ba:be:fo:od", 1); // set the settings here, ("BSSID", channel)
+// set to true normally 
+bool Config::deauth = true;
+bool Config::advertise = true;
+```
+
+From here, you can turn off deauthing or advertising. Since this is the main feature of the minigotchi, I highly recommend you don't turn either of these off. 
+
+- After that, there should be a line that states the buad rate. 
+
+```cpp
+// baud rate
+int Config::baud = 115200;
+```
+
+Here, you can adjust the baud rate, which is of course optional. Make sure your serial terminal is running at the same buad rate as the minigotchi.
+
+- Here, we can adjust the BSSID we listen on, and the channel we start on.
+
+```cpp
+// define init bssid, channel
+const char* Config::bssid = "fo:od:ba:be:fo:od";
+int Config::channel = 1;
 ```
 
 Replace the `"fo:od:ba:be:fo:od"` with your actual BSSID(in the quotations), and the `1` with the channel you prefer(not in quotations). Note that the WiFi network you're listening on should be on a specific WiFi channel anyway, each AP is on a specific one. 
@@ -21,17 +43,24 @@ Replace the `"fo:od:ba:be:fo:od"` with your actual BSSID(in the quotations), and
 - There should also be a line that says:
 
 ```cpp
-deauth.add("fo:od:ba:be:fo:od"); // add your ssid(s) here
-deauth.add("fo:od:ba:be:fo:od");
+// define whitelist 
+std::string Config::whitelist[] = {"fo:od:ba:be:fo:od", "fo:od:ba:be:fo:od", "fo:od:ba:be:fo:od"};
 ```
 
-Replace the `fo:od:ba:be:fo:od` with the ssid's you want whitelisted. You can add more in this manner by copying and pasting this into the setup function
+This defines our whitelist. The minigotchi will not deauth these access points. We can have up to ten values here. Three were added as an example, you can remove those. 
+
+- Here, we set the channels we hop from time to time.
 
 ```cpp
-deauth.add("YOUR_SSID_HERE_OR_BSSID_IDC_REALLY");
+// define channels
+int Config::channels[3] = {1, 6, 11};
 ```
 
-- Save and exit the file.
+Usually this shouldn't be changed as these are the best channels for IOT boards such as an ESP8266.
+
+- Save and exit the file when you have configured everything to your liking. Note you cannot change this after this is flashed onto the board. 
+
+### Step 2: Building and flashing
 
 - Download the [Arduino IDE](https://https://www.arduino.cc/en/software), preferably the latest version.
 
@@ -51,6 +80,8 @@ deauth.add("YOUR_SSID_HERE_OR_BSSID_IDC_REALLY");
 - Go to `Sketch` > `Export Compiled Binary` to generate a `.bin` file to flash to the board, which also works. This can also be done with `Alt+Ctrl+S`.
 
 **Note: if you get any errors, let me know ASAP with a github issue, sending me a discord message, or perhaps even messaging me through my portfolio site.**
+
+### Step 3: Post Install
 
 - You can click on the *Serial Monitor* button on the top bar to see the serial monitor output. Make sure the baud rate is `115200`. You can also use https://serial.huhn.me/ as a serial monitor, I also recommend using this! 
 
