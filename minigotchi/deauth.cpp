@@ -61,21 +61,26 @@ void Deauth::select() {
 };
 
 void Deauth::deauth() {
-    // select AP
-    Deauth::select();
+    if (Config::deauth) {
+       // select AP
+        Deauth::select();
     
-    if (randomAP.length() > 0) {
-        Serial.println("(>-<) Starting deauthentication attack on the selected AP...");
-        // define the attack
-        if (!running) {
-            start();
+        if (randomAP.length() > 0) {
+            Serial.println("(>-<) Starting deauthentication attack on the selected AP...");
+            // define the attack
+            if (!running) {
+                start();
+            } else {
+                Serial.println("('-') Attack is already running.");
+            }
         } else {
-            Serial.println("('-') Attack is already running.");
-        }
+            // ok why did you modify the deauth function? i literally told you to not do that...
+            Serial.println("(X-X) No access point selected. Use select() first.");
+            Serial.println("('-') Told you so!");
+        } 
     } else {
-        // ok why did you modify the deauth function? i literally told you to not do that...
-        Serial.println("(X-X) No access point selected. Use select() first.");
-        Serial.println("('-') Told you so!");
+        // do nothing if deauthing is disabled
+        continue;
     }
 };
 
