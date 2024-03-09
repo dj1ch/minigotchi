@@ -2,5 +2,5 @@
 .vscode
 
 # builds
-minigotchi/*.zip
-minigotchi/build
+minigotchi/ESP8266/*.zip
+minigotchi/ESP8266/build
