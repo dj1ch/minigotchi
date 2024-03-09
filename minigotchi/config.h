@@ -13,6 +13,7 @@ public:
     Config();
     static bool deauth;
     static bool advertise; 
+    static int baud;
     static std::string whitelist[10]; 
     static int channels[3];
     static const char* bssid;

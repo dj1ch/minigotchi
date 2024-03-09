@@ -26,7 +26,7 @@ Config config;
 */
 
 void setup() {
-    Serial.begin(115200);
+    Serial.begin(config.baud);
     minigotchi.start();
     for (const auto& bssid : config.whitelist) {
         deauth.add(bssid);
