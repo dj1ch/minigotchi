@@ -14,6 +14,7 @@
 
 class Deauth {
 public:
+    Deauth();
     void deauth();
     void add(const std::string& bssids);
 

@@ -11,7 +11,6 @@
 
 class Channel {
 public:
-    Channel();
     void cycle();
     void switchC(int newChannel);
     int getChannel();

@@ -9,7 +9,6 @@
 
 class Minigotchi {
 public: 
-    Minigotchi();
     void start();
     void finish(); 
     void mem();

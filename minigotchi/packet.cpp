@@ -12,10 +12,6 @@
 *
 */
 
-Packet::Packet() {
-    // nothing as of now
-}
-
 const uint8_t Packet::MAGIC_NUMBER = 0xDE;
 const uint8_t Packet::COMPRESSION_ID = 0xDF;
 

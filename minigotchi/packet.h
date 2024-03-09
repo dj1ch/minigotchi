@@ -11,7 +11,6 @@
 
 class Packet {
 public:
-    Packet();
     static void send();
     static void advertise();
 

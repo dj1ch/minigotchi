@@ -11,10 +11,6 @@
 *
 */ 
 
-Minigotchi::Minigotchi() {
-
-};
-
 // this code is pretty disgusting and shitty but it makes minigotchi.ino less cluttered!!!
 
 void Minigotchi::start() {

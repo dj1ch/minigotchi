@@ -10,7 +10,6 @@
 
 class Config {
 public:
-    Config();
     static bool deauth;
     static bool advertise; 
     static int baud;

@@ -29,14 +29,3 @@ std::string Config::whitelist[] = {"fo:od:ba:be:fo:od", "fo:od:ba:be:fo:od", "fo
 
 // define channels
 int Config::channels[3] = {1, 6, 11};
-
-/* developer note:
-*
-* everything beyong this point can be ignored
-* functions here only return values
-*
-*/
-
-Config::Config() { 
-    // nothing as of right now
-}

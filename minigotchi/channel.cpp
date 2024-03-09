@@ -12,10 +12,6 @@
 *
 */ 
 
-Channel::Channel() {
-    // nothing here as raw handles the initial channel
-}
-
 // same channels in config
 int Channel::channelList[3] = {Config::channels[0], Config::channels[1], Config::channels[2]};
 
