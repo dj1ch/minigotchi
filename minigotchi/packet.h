@@ -18,7 +18,6 @@ public:
 private:
     static const uint8_t MAGIC_NUMBER;
     static const uint8_t COMPRESSION_ID;  
-    static bool framePrinted;
 };
 
 #endif // PACKET_H
