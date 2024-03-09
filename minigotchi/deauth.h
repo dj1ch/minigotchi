@@ -5,12 +5,12 @@
 #ifndef DEAUTH_H
 #define DEAUTH_H
 
+#include "config.h"
 #include <Arduino.h>
 #include <vector>
 #include <string>
 #include <sstream>
 #include <ESP8266WiFi.h>
-#include "raw80211.h"
 
 class Deauth {
 public:
