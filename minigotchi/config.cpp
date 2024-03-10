@@ -29,3 +29,6 @@ std::string Config::whitelist[] = {"fo:od:ba:be:fo:od", "fo:od:ba:be:fo:od", "fo
 
 // define channels
 int Config::channels[3] = {1, 6, 11};
+
+// define version(please do not change, this should not be changed)
+const char* Config::version = "2.0.0-beta";

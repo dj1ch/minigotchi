@@ -17,6 +17,7 @@ public:
     static int channels[3];
     static const char* bssid;
     static int channel;
+    static const char* version;
     
 private:
 
