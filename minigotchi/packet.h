@@ -5,7 +5,6 @@
 #ifndef PACKET_H
 #define PACKET_H
 
-#include "channel.h"
 #include "raw80211.h"
 #include "config.h"
 #include <ArduinoJson.h>

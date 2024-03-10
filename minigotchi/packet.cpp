@@ -22,6 +22,7 @@ void Packet::send() {
 
     // all settings
     // if github goes insane about that key in the "identity", its just the identity key that identifies a pwnagotchi 
+    // fun fact: this is the key for one of my older pwnagotchis
   
     doc["epoch"] = 1;
     doc["face"] = "(^-^)";
@@ -35,8 +36,8 @@ void Packet::send() {
     policy["bored_num_epochs"] = 0;
 
     JsonArray channels = policy.createNestedArray("channels");
-    for (size_t i = 0; i < sizeof(Channel::channelList) / sizeof(Channel::channelList[0]); ++i) {
-        channels.add(Channel::channelList[i]);
+    for (size_t i = 0; i < sizeof(Config::channels) / sizeof(Config::channels[0]); ++i) {
+        channels.add(Config::channels[i]);
     }
 
     policy["deauth"] = true;
@@ -56,7 +57,7 @@ void Packet::send() {
     doc["pwnd_tot"] = 0;
     doc["session_id"] = "84:f3:eb:58:95:bd";
     doc["uptime"] = 1;
-    doc["version"] = "v1.3.0";
+    doc["version"] = Config::version;
 
     String jsonString;
     if (serializeJson(doc, jsonString) == 0) {
