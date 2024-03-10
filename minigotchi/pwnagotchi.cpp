@@ -55,8 +55,6 @@ void Pwnagotchi::detect() {
         delay(500);
         Serial.println("(0-o) Scanning for Pwnagotchi...");
         delay(500);
-        Serial.println("(o-0) Scanning for Pwnagotchi.");
-        delay(500);
     }
 
     // static instance
@@ -67,7 +65,9 @@ void Pwnagotchi::detect() {
 
     if (pwnagotchiDetected) {
         // send the advertisement if it is found
+        Serial.println(" ");
         Serial.println("(^-^) Starting advertisement...");
+        Serial.println(" ");
         delay(5000);
         Packet::advertise();
     }
@@ -76,7 +76,9 @@ void Pwnagotchi::detect() {
     if (!pwnInstance->pwnagotchiDetected) {
         // only searches on your current channel and such afaik, 
         // so this only applies for the current searching area
+        Serial.println(" ");
         Serial.println("(;-;) No Pwnagotchi found.");
+        Serial.println(" ");
     }
 }
 
@@ -90,7 +92,9 @@ void Pwnagotchi::handle(const wifi_ieee80211_mac_hdr_t *hdr, int rssi, const uns
         // check if the source MAC matches "de:ad:be:ef:de:ad"
         if (src == "de:ad:be:ef:de:ad") {
             pwnagotchiDetected = true;
+            Serial.println(" ");
             Serial.println("(^-^) Pwnagotchi detected!");
+            Serial.println(" ");
 
             // extract the ESSID from the beacon frame
             String essid(reinterpret_cast<const char*>(&buff[36]));
@@ -114,10 +118,12 @@ void Pwnagotchi::handle(const wifi_ieee80211_mac_hdr_t *hdr, int rssi, const uns
                 String pwndTot = jsonBuffer["pwnd_tot"].as<String>();
 
                 // print the info
+                Serial.println(" ");
                 Serial.println("(^-^) Pwnagotchi name: ");
                 Serial.println(name);
                 Serial.println("(^-^) Pwned Networks: ");
                 Serial.println(pwndTot);
+                Serial.println(" ");
             }
         }
     }

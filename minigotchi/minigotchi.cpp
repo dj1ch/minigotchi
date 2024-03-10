@@ -17,7 +17,7 @@ void Minigotchi::start() {
     Serial.println(" ");
     Serial.println("(^-^) Hi, I'm Minigotchi, your pwnagotchi's best friend!");
     Serial.println(" ");
-    Serial.println("You can edit my whitelist in the minigotchi.ino, and you can also edit the JSON parameters in the packet.cpp");
+    Serial.println("You can edit my configuration parameters in config.cpp!");
     delay(5000);
     Serial.println(" ");
     Serial.println("(>-<) Starting now...");

@@ -80,6 +80,9 @@ void Packet::send() {
         // send full frame
         Raw80211::send(dataFrame, frameSize);
 
+        // say this BEFORE deleting the frame
+        Serial.println("(>-<) Sent payload!");
+
         // dementia! 
         delete[] dataFrame;
     }
@@ -90,7 +93,7 @@ void Packet::advertise() {
         // for the sake of consistency also sending this packet 150 times
         for (int i = 0; i < 150; ++i) {
             send();
-            delay(100);
+            delay(500);
         }
     } else {
         // do nothing if advertisment is disabled
