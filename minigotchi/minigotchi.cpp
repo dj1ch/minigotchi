@@ -6,8 +6,9 @@
 
 /* developer note: 
 *
-* The functions here provide info on the minigotchi, such as memory, temperature, etc.
-* This is meant to be ran on startup.
+* the functions here provide info on the minigotchi, such as memory, temperature, etc.
+* all this really does is print information to the serial terminal
+* this is meant to be ran on startup.
 *
 */ 
 
@@ -27,6 +28,7 @@ void Minigotchi::start() {
 void Minigotchi::info() {
     Serial.println(" ");
     Serial.println("('-') Current Minigotchi Stats: ");
+    version();
     mem();
     cpu();
     Serial.println(" ");
@@ -36,6 +38,11 @@ void Minigotchi::finish() {
     Serial.println("('-') Started successfully!");
     Serial.println(" ");
 };
+
+void Minigotchi::version() {
+    Serial.print("('-') Version: ");
+    Serial.println(Config::version);
+}
 
 void Minigotchi::mem() {
     Serial.print("('-') Heap: ");

@@ -12,9 +12,10 @@ class Minigotchi {
 public: 
     void start();
     void finish(); 
+    void info();
+    void version();
     void mem();
     void cpu();
-    void info();
 
 private:
 

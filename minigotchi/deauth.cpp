@@ -87,7 +87,6 @@ void Deauth::deauth() {
         Deauth::select();
     
         if (randomAP.length() > 0) {
-            Serial.println(" ");
             Serial.println("(>-<) Starting deauthentication attack on the selected AP...");
             Serial.println(" ");
             // define the attack
@@ -120,6 +119,8 @@ void Deauth::start() {
         Serial.println("(>-<) Deauth packet sent!");
         delay(500);
     }
+    Serial.println(" ");
     Serial.println("(^-^) Attack finished!");
+    Serial.println(" ");
     running = false;
 };

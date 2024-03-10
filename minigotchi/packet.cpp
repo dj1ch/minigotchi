@@ -62,7 +62,9 @@ void Packet::send() {
     if (serializeJson(doc, jsonString) == 0) {
         // handle errors here
         // its usually just the json's fault maybe, please fix it dj1ch(or whoever changed that json above here, it's your fault)
+        Serial.println(" ");
         Serial.println("(X-X) Failed to serialize JSON");
+        Serial.println(" ");
     } else {
         // find frame size
         size_t frameSize = sizeof(MAGIC_NUMBER) + jsonString.length();
@@ -73,9 +75,11 @@ void Packet::send() {
         jsonString.getBytes(dataFrame + sizeof(MAGIC_NUMBER), frameSize - sizeof(MAGIC_NUMBER) + 1);
 
         // show frame size
+        Serial.println(" ");
         Serial.print("('-') Frame size: ");
         Serial.print(frameSize);
         Serial.println(" bytes");
+        Serial.println(" ");
 
         // send full frame
         Raw80211::send(dataFrame, frameSize);

@@ -29,8 +29,10 @@ void Channel::cycle() {
 
 void Channel::switchC(int newChannel) {
     // stop raw80211 from being on this one channel
+    Serial.println(" ");
     Serial.print("(-.-) Switching to channel ");
     Serial.println(newChannel);
+    Serial.println(" ");
     Raw80211::stop();
 
     // monitor this one channel
@@ -41,6 +43,7 @@ void Channel::switchC(int newChannel) {
     // switched channel
     Serial.print("('-') Currently on channel ");
     Serial.println(newChannel);
+    Serial.println(" ");
 }
 
 int Channel::getChannel() {

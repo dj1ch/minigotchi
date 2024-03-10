@@ -101,6 +101,7 @@ void Pwnagotchi::handle(const wifi_ieee80211_mac_hdr_t *hdr, int rssi, const uns
 
             Serial.print("ESSID: ");
             Serial.println(essid);
+            Serial.println(" ");
 
             // load json from the ESSID
             DynamicJsonDocument jsonBuffer(1024);
@@ -110,15 +111,16 @@ void Pwnagotchi::handle(const wifi_ieee80211_mac_hdr_t *hdr, int rssi, const uns
             if (error) {
                 Serial.println(F("(X-X) Could not parse Pwnagotchi json: "));
                 Serial.println(error.c_str());
+                Serial.println(" ");
             } else {
                 Serial.println("(^-^) Successfully parsed json");
+                Serial.println(" ");
 
                 // find out some stats
                 String name = jsonBuffer["name"].as<String>();
                 String pwndTot = jsonBuffer["pwnd_tot"].as<String>();
 
                 // print the info
-                Serial.println(" ");
                 Serial.println("(^-^) Pwnagotchi name: ");
                 Serial.println(name);
                 Serial.println("(^-^) Pwned Networks: ");
