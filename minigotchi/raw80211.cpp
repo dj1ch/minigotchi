@@ -10,7 +10,7 @@
 /*
  * Configuration part
  */
-#define DEBUG_PRINT     // Uncomment to print debug output to Serial
+// #define DEBUG_PRINT     // Uncomment to print debug output to Serial
 #define RETRIES 0       // Number of retries when sending. 0 means send only once, no retries
 
 

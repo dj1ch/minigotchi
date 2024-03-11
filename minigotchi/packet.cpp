@@ -75,12 +75,19 @@ void Packet::send() {
         dataFrame[0] = MAGIC_NUMBER;
         jsonString.getBytes(dataFrame + sizeof(MAGIC_NUMBER), frameSize - sizeof(MAGIC_NUMBER) + 1);
 
-        // show frame size
-        Serial.println(" ");
-        Serial.print("('-') Frame size: ");
-        Serial.print(frameSize);
-        Serial.println(" bytes");
-        Serial.println(" ");
+        static bool framePrinted = false;
+        if (!framePrinted) {
+            Serial.println(" ");
+            Serial.print("('-') Frame size: ");
+            Serial.print(frameSize);
+            Serial.println(" bytes");
+            Serial.println(" ");
+            Serial.println("('-') Current Frame: ");
+            Serial.println(" ");
+            Serial.println(jsonString);
+            Serial.println(" ");
+            framePrinted = true;
+        }
 
         // send full frame
         Raw80211::send(dataFrame, frameSize);
