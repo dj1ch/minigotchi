@@ -5,8 +5,6 @@
 #ifndef PWNAGOTCHI_H
 #define PWNAGOTCHI_H
 
-#pragma once
-
 #include "raw80211.h"
 #include "packet.h"
 #include <ArduinoJson.h>
