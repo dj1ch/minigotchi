@@ -29,7 +29,7 @@ void setup() {
     Serial.begin(config.baud);
     minigotchi.start();
     deauth.list();
-    raw.init(config.bssid, config.channel); // set the settings here, ("BSSID", channel)
+    raw.init(config.bssid, config.channel);
     raw.start();
     minigotchi.info();
     minigotchi.finish();
@@ -48,9 +48,12 @@ void loop() {
     // cycle channels at start of loop
     channel.cycle();
     delay(5000);
+
+    // the longer we are on this channel, the more likely we're gonna see a pwnagotchi on this channel
     // get local payload from local pwnagotchi, send raw frame if one is found
     pwnagotchi.detect();
     delay(5000);
+
     // ugly hack: remove all these lines containing the words "delay(5000);" or comment them out with a "//" slash.
     // doing so will make the loop a lot faster. plus this might overheat the board and stuff but its worth a try.
 
