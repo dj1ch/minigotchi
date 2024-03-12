@@ -242,3 +242,16 @@ void Raw80211::start() {
     wifi_set_channel(_channel);
   #endif
 }
+
+/**
+ * Raw80211::stop()
+ * Stops Promisscuous mode
+ * Make sure to call init() and start() first!
+ */
+void Raw80211::stop() {
+  #ifdef ESP32
+    esp_wifi_set_promiscuous(0);
+  #else
+    wifi_promiscuous_enable(0);
+  #endif
+}

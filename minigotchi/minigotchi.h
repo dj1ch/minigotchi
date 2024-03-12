@@ -16,9 +16,7 @@ public:
     void version();
     void mem();
     void cpu();
-
-private:
-
+    
 };
 
 #endif // MINIGOTCHI_H

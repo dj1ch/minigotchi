@@ -13,11 +13,11 @@
 *
 */
 
-// set to true normally 
+// define whether or not these deauthing or advertising is turned on 
 bool Config::deauth = true;
 bool Config::advertise = true;
 
-// baud rate
+// define baud rate
 int Config::baud = 115200;
 
 // define init bssid, channel

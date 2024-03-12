@@ -19,8 +19,6 @@ public:
     static int channel;
     static const char* version;
     
-private:
-
 };
 
 #endif // CONFIG_H

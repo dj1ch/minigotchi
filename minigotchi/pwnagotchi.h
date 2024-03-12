@@ -23,7 +23,6 @@ public:
 private:
     String essid;
     bool pwnagotchiDetected;
-
 };
 
 #endif // PWNAGOTCHI_H
