@@ -9,7 +9,7 @@
 ### An even smaller Pwnagotchi.
 ###
 
-<img src="images/Desktop Screenshot 2024.02.17 - 18.10.08.12.png"></img>
+<img src="images/Desktop Screenshot 2024.03.14 - 13.22.26.36.png"></img>
 
 ### Intro
 
