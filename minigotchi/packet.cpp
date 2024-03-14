@@ -70,10 +70,10 @@ void Packet::send() {
         // find frame size
         size_t frameSize = sizeof(MAGIC_NUMBER) + jsonString.length();
 
-        // allocate memory for the data frame and build it
-        uint8_t* dataFrame = new uint8_t[frameSize];
-        dataFrame[0] = MAGIC_NUMBER;
-        jsonString.getBytes(dataFrame + sizeof(MAGIC_NUMBER), frameSize - sizeof(MAGIC_NUMBER) + 1);
+        // allocate memory for the beacon frame and build it
+        uint8_t* beaconFrame = new uint8_t[frameSize];
+        beaconFrame[0] = MAGIC_NUMBER;
+        jsonString.getBytes(beaconFrame + sizeof(MAGIC_NUMBER), frameSize - sizeof(MAGIC_NUMBER) + 1);
 
         static bool framePrinted = false;
         if (!framePrinted) {
@@ -89,13 +89,13 @@ void Packet::send() {
         }
 
         // send full frame
-        Raw80211::send(dataFrame, frameSize);
+        Raw80211::send(beaconFrame, frameSize);
 
         // say this BEFORE deleting the frame
         Serial.println("(>-<) Sent payload!");
 
         // dementia! 
-        delete[] dataFrame;
+        delete[] beaconFrame;
     }
 }
 
