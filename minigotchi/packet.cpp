@@ -77,7 +77,6 @@ void Packet::send() {
 
         static bool framePrinted = false;
         if (!framePrinted) {
-            Serial.println(" ");
             Serial.print("('-') Frame size: ");
             Serial.print(frameSize);
             Serial.println(" bytes");
