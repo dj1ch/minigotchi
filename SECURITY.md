@@ -2,10 +2,11 @@
 
 ## Supported Versions
 
-When it comes to installing any version of the project, I highly recommend you install the latest version available. Anything version under or equal to `1.1.1-beta` is going to have some sort of issue whether it be compile errors or not functioning as expected.
+When it comes to installing any version of the project, I highly recommend you install the latest version available. Anything version under or equal to `1.1.1-beta` is going to have some sort of issue whether it be compile errors or not functioning as expected. Keep in mind configuration is different between x.0.0 releases!
 
 | Version | Supported          |
 | ------- | ------------------ |
+| 2.0.0-beta   | :white_check_mark: |
 | 1.3.0-beta   | :white_check_mark: |
 | 1.2.0-beta   | :white_check_mark:              |
 | =< 1.1.1-beta   | :x:                |
