@@ -27,13 +27,7 @@ class Raw80211 {
         static void start();
         static void send(const uint8_t *data, uint16_t data_len);
         static void register_cb(RAW_CB cb);
-        static void stop() {
-            #ifdef ESP32
-                esp_wifi_set_promiscuous(0);
-            #else
-                wifi_promiscuous_enable(0);
-            #endif
-    }
+        static void stop();
 };
 
 #endif

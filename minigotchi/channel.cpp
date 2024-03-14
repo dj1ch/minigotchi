@@ -4,7 +4,7 @@
 
 #include "channel.h"
 
-/* 
+/* developer note: 
 *
 * i am using the ideal 2.4 GHz channels, which are 1, 6, and 11.
 * the reason for that is so we don't interfere with other devices on our frequency.
@@ -12,11 +12,8 @@
 *
 */ 
 
-Channel::Channel(int initialChannel) : currentChannel(initialChannel) {
-    // no need to copy channelList, as it's already initialized
-}
-
-int Channel::channelList[] = {1, 6, 11};
+// same channels in config
+int Channel::channelList[3] = {Config::channels[0], Config::channels[1], Config::channels[2]};
 
 void Channel::cycle() { 
     // get channels
@@ -31,9 +28,10 @@ void Channel::cycle() {
 }
 
 void Channel::switchC(int newChannel) {
-    // stop raw80211 from being on this one channel
+    // stop raw80211 from being on this one channe
     Serial.print("(-.-) Switching to channel ");
     Serial.println(newChannel);
+    Serial.println(" ");
     Raw80211::stop();
 
     // monitor this one channel
@@ -44,8 +42,13 @@ void Channel::switchC(int newChannel) {
     // switched channel
     Serial.print("('-') Currently on channel ");
     Serial.println(newChannel);
+    Serial.println(" ");
 }
 
 int Channel::getChannel() {
     return wifi_get_channel();
+}
+
+int Channel::list() {
+    return channelList[3];
 }

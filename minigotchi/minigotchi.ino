@@ -8,15 +8,17 @@
 #include "deauth.h"
 #include "channel.h"
 #include "raw80211.h"
+#include "config.h"
 
 Minigotchi minigotchi;
 Pwnagotchi pwnagotchi;
 Packet packet;
 Deauth deauth;
-Channel channel(1);
+Channel channel;
 Raw80211 raw;
+Config config;
 
-/*
+/* developer note: 
 *
 * this defines what the minigotchi is to do on startup.
 * the only things that should be adjusted here is probably the whitelist.
@@ -24,17 +26,16 @@ Raw80211 raw;
 */
 
 void setup() {
-    Serial.begin(115200);
+    Serial.begin(config.baud);
     minigotchi.start();
-    deauth.add("fo:od:ba:be:fo:od"); // add your ssid(s) here
-    deauth.add("fo:od:ba:be:fo:od");
-    raw.init("fo:od:ba:be:fo:od", 1); // set the settings here, ("BSSID", channel)
+    deauth.list();
+    raw.init(config.bssid, config.channel);
     raw.start();
     minigotchi.info();
     minigotchi.finish();
 }
 
-/*
+/* developer note: 
 *
 * this defines what happens every loop. 
 * this goes on infinitely, until the minigotchi is turned off.
@@ -46,24 +47,24 @@ void setup() {
 void loop() {
     // cycle channels at start of loop
     channel.cycle();
-    // get local payload from local pwnagotchi
+    delay(5000);
+
+    // the longer we are on this channel, the more likely we're gonna see a pwnagotchi on this channel
+    // get local payload from local pwnagotchi, send raw frame if one is found
     pwnagotchi.detect();
+    delay(5000);
+
     // ugly hack: remove all these lines containing the words "delay(5000);" or comment them out with a "//" slash.
     // doing so will make the loop a lot faster. plus this might overheat the board and stuff but its worth a try.
-    delay(5000); 
 
-    // stop for deauthing and payload
-    raw.stop();
-
-    // send payload(150 times)
+    // send payload(150 times) on current channel
+    // regardless if a pwnagotchi is found or not, we send the raw frame to attract the attention of one
+    // we deauth AFTER advertising as we don't want to kick any devices before sending a payload...
     packet.advertise(); 
     delay(5000);
 
-    // deauth a random ap (by sending 150 packets to an access point)
-    deauth.select();
+    // deauth random access point
+    raw.stop();
     deauth.deauth();
     delay(5000);
-
-    // restart the process
-    raw.start();
 }

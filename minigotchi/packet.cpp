@@ -4,9 +4,16 @@
 
 #include "packet.h"
 
-// set magic number(222 in hex)
-const uint8_t MAGIC_NUMBER = 0xDE;
-const uint8_t COMPRESSION_ID = 0xDF; 
+/* developer note: 
+*
+* when it comes to detecting a pwnagotchi, this is done with pwngrid/opwngrid.
+* essentially pwngrid looks for the numbers 222 and 223 in payloads, and if they aren't there, it ignores it.
+* these need to be put into the frames!!!
+*
+*/
+
+const uint8_t Packet::MAGIC_NUMBER = 0xDE;
+const uint8_t Packet::COMPRESSION_ID = 0xDF;
 
 void Packet::send() {
 
@@ -15,6 +22,7 @@ void Packet::send() {
 
     // all settings
     // if github goes insane about that key in the "identity", its just the identity key that identifies a pwnagotchi 
+    // fun fact: this is the key for one of my older pwnagotchis
   
     doc["epoch"] = 1;
     doc["face"] = "(^-^)";
@@ -28,11 +36,9 @@ void Packet::send() {
     policy["bored_num_epochs"] = 0;
 
     JsonArray channels = policy.createNestedArray("channels");
-    channels.add(1);
-    channels.add(3);
-    channels.add(4);
-    channels.add(5);
-    channels.add(6);
+    for (size_t i = 0; i < sizeof(Config::channels) / sizeof(Config::channels[0]); ++i) {
+        channels.add(Config::channels[i]);
+    }
 
     policy["deauth"] = true;
     policy["excited_num_epochs"] = 1;
@@ -51,39 +57,57 @@ void Packet::send() {
     doc["pwnd_tot"] = 0;
     doc["session_id"] = "84:f3:eb:58:95:bd";
     doc["uptime"] = 1;
-    doc["version"] = "v1.3.0";
+    doc["version"] = Config::version;
 
     String jsonString;
     if (serializeJson(doc, jsonString) == 0) {
         // handle errors here
         // its usually just the json's fault maybe, please fix it dj1ch(or whoever changed that json above here, it's your fault)
+        Serial.println(" ");
         Serial.println("(X-X) Failed to serialize JSON");
+        Serial.println(" ");
     } else {
         // find frame size
         size_t frameSize = sizeof(MAGIC_NUMBER) + jsonString.length();
 
-        // use memory for the data frame
+        // allocate memory for the data frame and build it
         uint8_t* dataFrame = new uint8_t[frameSize];
-
-        // set/copy compression id
         dataFrame[0] = MAGIC_NUMBER;
-
-        // copy payload
         jsonString.getBytes(dataFrame + sizeof(MAGIC_NUMBER), frameSize - sizeof(MAGIC_NUMBER) + 1);
+
+        static bool framePrinted = false;
+        if (!framePrinted) {
+            Serial.println(" ");
+            Serial.print("('-') Frame size: ");
+            Serial.print(frameSize);
+            Serial.println(" bytes");
+            Serial.println(" ");
+            Serial.println("('-') Current Frame: ");
+            Serial.println(" ");
+            Serial.println(jsonString);
+            Serial.println(" ");
+            framePrinted = true;
+        }
 
         // send full frame
         Raw80211::send(dataFrame, frameSize);
 
-        // save memory 
-        delete[] dataFrame;
+        // say this BEFORE deleting the frame
         Serial.println("(>-<) Sent payload!");
+
+        // dementia! 
+        delete[] dataFrame;
     }
 }
 
 void Packet::advertise() {
-    // for the sake of consistency also sending this packet 150 times
-    for (int i = 0; i < 150; ++i) {
-        send();
-        delay(100);
+    if (Config::advertise) {
+        // for the sake of consistency also sending this packet 150 times
+        for (int i = 0; i < 150; ++i) {
+            send();
+            delay(500);
+        }
+    } else {
+        // do nothing if advertisment is disabled
     }
 }

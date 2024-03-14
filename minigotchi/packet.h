@@ -6,18 +6,18 @@
 #define PACKET_H
 
 #include "raw80211.h"
+#include "config.h"
 #include <ArduinoJson.h>
 
 class Packet {
 public:
-    Packet() : MAGIC_NUMBER(0xDE), COMPRESSION_ID(0xDF) {}
+    static void send();
+    static void advertise();
     
-    void send();
-    void advertise();
-
 private:
-    const uint8_t MAGIC_NUMBER;
-    const uint8_t COMPRESSION_ID;  
+    static const uint8_t MAGIC_NUMBER;
+    static const uint8_t COMPRESSION_ID;
+    static bool framePrinted;  
 };
 
 #endif // PACKET_H

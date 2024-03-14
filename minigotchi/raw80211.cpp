@@ -10,7 +10,7 @@
 /*
  * Configuration part
  */
-#define DEBUG_PRINT     // Uncomment to print debug output to Serial
+// #define DEBUG_PRINT     // Uncomment to print debug output to Serial
 #define RETRIES 0       // Number of retries when sending. 0 means send only once, no retries
 
 
@@ -207,6 +207,7 @@ void Raw80211::start() {
   get_mac(mac);
 
   #ifdef DEBUG_PRINT
+  Serial.println(" ");
   Serial.print("('-') Local MAC is: "); printmac(mac);
   Serial.println(" - setting up raw message reception...");
   #endif
@@ -239,5 +240,18 @@ void Raw80211::start() {
     wifi_promiscuous_enable(1);
     wifi_promiscuous_set_mac(mac);
     wifi_set_channel(_channel);
+  #endif
+}
+
+/**
+ * Raw80211::stop()
+ * Stops Promisscuous mode
+ * Make sure to call init() and start() first!
+ */
+void Raw80211::stop() {
+  #ifdef ESP32
+    esp_wifi_set_promiscuous(0);
+  #else
+    wifi_promiscuous_enable(0);
   #endif
 }

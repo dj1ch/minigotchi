@@ -2,22 +2,21 @@
 // minigotchi.h: header files for minigotchi.cpp //
 ///////////////////////////////////////////////////
 
-#include <Arduino.h>
-
 #ifndef MINIGOTCHI_H
 #define MINIGOTCHI_H
 
+#include "config.h"
+#include <Arduino.h>
+
 class Minigotchi {
 public: 
-    Minigotchi();
     void start();
     void finish(); 
+    void info();
+    void version();
     void mem();
     void cpu();
-    void info();
-
-private:
-
+    
 };
 
 #endif // MINIGOTCHI_H
