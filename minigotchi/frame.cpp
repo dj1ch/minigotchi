@@ -1,8 +1,8 @@
-///////////////////////////////////////////////////////////
-// packet.cpp: handles the sending of pwnagotchi packets //
-///////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+// frame.cpp: handles the sending of pwnagotchi beacon frames //
+////////////////////////////////////////////////////////////////
 
-#include "packet.h"
+#include "frame.h"
 
 /* developer note: 
 *
@@ -12,10 +12,10 @@
 *
 */
 
-const uint8_t Packet::MAGIC_NUMBER = 0xDE;
-const uint8_t Packet::COMPRESSION_ID = 0xDF;
+const uint8_t Frame::MAGIC_NUMBER = 0xDE;
+const uint8_t Frame::COMPRESSION_ID = 0xDF;
 
-void Packet::send() {
+void Frame::send() {
 
     // json object creation
     DynamicJsonDocument doc(1024);
@@ -91,16 +91,16 @@ void Packet::send() {
         Raw80211::send(beaconFrame, frameSize);
 
         // say this BEFORE deleting the frame
-        Serial.println("(>-<) Sent payload!");
+        Serial.println("(>-<) Sent Beacon Frame!");
 
         // dementia! 
         delete[] beaconFrame;
     }
 }
 
-void Packet::advertise() {
+void Frame::advertise() {
     if (Config::advertise) {
-        // for the sake of consistency also sending this packet 150 times
+        // for the sake of consistency also sending this frame 150 times
         for (int i = 0; i < 150; ++i) {
             send();
             delay(500);

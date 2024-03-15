@@ -6,7 +6,7 @@
 #define PWNAGOTCHI_H
 
 #include "raw80211.h"
-#include "packet.h"
+#include "frame.h"
 #include <ArduinoJson.h>
 #include <user_interface.h>
 #include <ESP8266WiFi.h>

@@ -69,7 +69,7 @@ void Pwnagotchi::detect() {
         Serial.println("(^-^) Starting advertisement...");
         Serial.println(" ");
         delay(5000);
-        Packet::advertise();
+        Frame::advertise();
     }
 
     // check if the rawCallback was triggered during scanning

@@ -4,7 +4,7 @@
 
 #include "minigotchi.h"
 #include "pwnagotchi.h"
-#include "packet.h"
+#include "frame.h"
 #include "deauth.h"
 #include "channel.h"
 #include "raw80211.h"
@@ -12,7 +12,7 @@
 
 Minigotchi minigotchi;
 Pwnagotchi pwnagotchi;
-Packet packet;
+Frame frame;
 Deauth deauth;
 Channel channel;
 Raw80211 raw;
@@ -60,7 +60,7 @@ void loop() {
     // send payload(150 times) on current channel
     // regardless if a pwnagotchi is found or not, we send the raw frame to attract the attention of one
     // we deauth AFTER advertising as we don't want to kick any devices before sending a payload...
-    packet.advertise(); 
+    frame.advertise(); 
     delay(5000);
 
     // deauth random access point

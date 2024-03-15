@@ -1,15 +1,15 @@
-///////////////////////////////////////////
-// packet.h: header files for packet.cpp //
-///////////////////////////////////////////
+/////////////////////////////////////////
+// frame.h: header files for frame.cpp //
+/////////////////////////////////////////
 
-#ifndef PACKET_H
-#define PACKET_H
+#ifndef FRAME_H
+#define FRAME_H
 
 #include "raw80211.h"
 #include "config.h"
 #include <ArduinoJson.h>
 
-class Packet {
+class Frame {
 public:
     static void send();
     static void advertise();
@@ -20,4 +20,4 @@ private:
     static bool framePrinted;  
 };
 
-#endif // PACKET_H
+#endif // FRAME_H
