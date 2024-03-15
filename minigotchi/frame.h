@@ -6,6 +6,7 @@
 #define FRAME_H
 
 #include "raw80211.h"
+#include "config.h"
 
 class Frame {
 public:
