@@ -63,7 +63,6 @@ void Packet::send() {
     if (serializeJson(doc, jsonString) == 0) {
         // handle errors here
         // its usually just the json's fault maybe, please fix it dj1ch(or whoever changed that json above here, it's your fault)
-        Serial.println(" ");
         Serial.println("(X-X) Failed to serialize JSON");
         Serial.println(" ");
     } else {
