@@ -6,8 +6,6 @@
 #define FRAME_H
 
 #include "raw80211.h"
-#include "config.h"
-#include <ArduinoJson.h>
 
 class Frame {
 public:
