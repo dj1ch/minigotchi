@@ -15,87 +15,63 @@
 const uint8_t Frame::MAGIC_NUMBER = 0xDE;
 const uint8_t Frame::COMPRESSION_ID = 0xDF;
 
+uint8_t beaconFrame[109] = {
+    /*   0 -  1 */ 0x80, 0x00,                                      // Type/Subtype: Management Beacon frame
+    /*   2 -  3 */ 0x00, 0x00,                                      // Duration (SDK takes care of that)
+    /*   4 -  9 */ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,              // Destination: Broadcast
+    /*  10 - 15 */ 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,              // Source MAC
+    /*  16 - 21 */ 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,              // Source MAC (Repeated for BSSID)
+    /*  22 - 23 */ 0x00, 0x00,                                      // Fragment & sequence number (will be done by the SDK)
+    /*  24 - 31 */ 0x83, 0x51, 0xF7, 0x8F, 0x0F, 0x00, 0x00, 0x00,  // Timestamp
+    /*  32 - 33 */ 0x64, 0x00,                                      // Beacon Interval: 100ms
+    /*  34 - 35 */ 0x31, 0x00,                                      // Capabilities Information
+    /*  36 - 37 */ 0x00, 0x20,                                      // Tag: Set SSID length, Tag length: 32
+    /* 38 - 47 */ 'm', 'i', 'n', 'i', 'g', 'o', 't', 'c', 'h', 'i', // ESSID 
+    /*  48 - 49 */ 0x01, 0x08,                                      // Tag: Supported Rates, Tag length: 8
+    /*  50 - 57 */ 0x82, 0x84, 0x8B, 0x96, 0x24, 0x30, 0x48, 0x6C,  // Supported Rates (Example: 1, 2, 5.5, 11, 18, 24, 36, 54)
+    /*  58 - 59 */ 0x03, 0x01,                                      // Channel set, length
+    /*  60 - 62 */ 0x01, 0x06, 0x11                                 // Current Channel (Example: Channel 1)
+};
+
 void Frame::send() {
+    // find frame size
+    size_t frameSize = sizeof(MAGIC_NUMBER) + sizeof(beaconFrame);
 
-    // json object creation
-    DynamicJsonDocument doc(1024);
+    // allocate memory for the beacon frame and build it
+    uint8_t* beaconFrame = new uint8_t[frameSize];
+    beaconFrame[0] = MAGIC_NUMBER; 
+    std::memcpy(beaconFrame + sizeof(MAGIC_NUMBER), beaconFrame, sizeof(beaconFrame));
 
-    // all settings
-    // if github goes insane about that key in the "identity", its just the identity key that identifies a pwnagotchi 
-    // fun fact: this is the key for one of my older pwnagotchis
-  
-    doc["epoch"] = 1;
-    doc["face"] = "(^-^)";
-    doc["identity"] = "b9210077f7c14c0651aa338c55e820e93f90110ef679648001b1cecdbffc0090";
-    doc["name"] = "minigotchi";
-
-    JsonObject policy = doc.createNestedObject("policy");
-    policy["advertise"] = true;
-    policy["ap_ttl"] = 0;
-    policy["associate"] = true;
-    policy["bored_num_epochs"] = 0;
-
-    JsonArray channels = policy.createNestedArray("channels");
-    for (size_t i = 0; i < sizeof(Config::channels) / sizeof(Config::channels[0]); ++i) {
-        channels.add(Config::channels[i]);
+    // make it into a string
+    String beaconFrameStr = "";
+    for (size_t i = 0; i < frameSize; ++i) {
+        char hex[3];
+        sprintf(hex, "%02X", beaconFrame[i]);
+        beaconFrameStr += hex;
     }
 
-    policy["deauth"] = true;
-    policy["excited_num_epochs"] = 1;
-    policy["hop_recon_time"] = 1;
-    policy["max_inactive_scale"] = 0;
-    policy["max_interactions"] = 1;
-    policy["max_misses_for_recon"] = 1;
-    policy["min_recon_time"] = 1;
-    policy["min_rssi"] = 1;
-    policy["recon_inactive_multiplier"] = 1;
-    policy["recon_time"] = 1;
-    policy["sad_num_epochs"] = 1;
-    policy["sta_ttl"] = 0;
-
-    doc["pwnd_run"] = 0;
-    doc["pwnd_tot"] = 0;
-    doc["session_id"] = "84:f3:eb:58:95:bd";
-    doc["uptime"] = 1;
-    doc["version"] = Config::version;
-
-    String jsonString;
-    if (serializeJson(doc, jsonString) == 0) {
-        // handle errors here
-        // its usually just the json's fault maybe, please fix it dj1ch(or whoever changed that json above here, it's your fault)
-        Serial.println("(X-X) Failed to serialize JSON");
+    // print info
+    static bool framePrinted = false;
+    if (!framePrinted) {
+        Serial.print("('-') Frame size: ");
+        Serial.print(frameSize);
+        Serial.println(" bytes");
         Serial.println(" ");
-    } else {
-        // find frame size
-        size_t frameSize = sizeof(MAGIC_NUMBER) + jsonString.length();
-
-        // allocate memory for the beacon frame and build it
-        uint8_t* beaconFrame = new uint8_t[frameSize];
-        beaconFrame[0] = MAGIC_NUMBER;
-        jsonString.getBytes(beaconFrame + sizeof(MAGIC_NUMBER), frameSize - sizeof(MAGIC_NUMBER) + 1);
-
-        static bool framePrinted = false;
-        if (!framePrinted) {
-            Serial.print("('-') Frame size: ");
-            Serial.print(frameSize);
-            Serial.println(" bytes");
-            Serial.println(" ");
-            Serial.println("('-') Current Frame: ");
-            Serial.println(" ");
-            Serial.println(jsonString);
-            Serial.println(" ");
-            framePrinted = true;
-        }
-
-        // send full frame
-        Raw80211::send(beaconFrame, frameSize);
-
-        // say this BEFORE deleting the frame
-        Serial.println("(>-<) Sent Beacon Frame!");
-
-        // dementia! 
-        delete[] beaconFrame;
+        Serial.println("('-') Current Frame: ");
+        Serial.println(" ");
+        Serial.println(beaconFrameStr);
+        Serial.println(" ");
+        framePrinted = true;
     }
+
+    // send full frame
+    Raw80211::send(beaconFrame, frameSize);
+
+    // say this BEFORE deleting the frame
+    Serial.println("(>-<) Sent Beacon Frame!");
+
+    // dementia! 
+    delete[] beaconFrame;
 }
 
 void Frame::advertise() {
