@@ -4,12 +4,12 @@
 
 #include "deauth.h"
 
-/* developer note: 
-* 
-* the deauth frame is defined here.
-* this is a raw frame(layer 2)
-* man i hate networking
-*
+/** developer note: 
+ * 
+ * the deauth frame is defined here.
+ * this is a raw frame(layer 2)
+ * man i hate networking
+ *
 */
 
 uint8_t deauthPacket[26] = {

@@ -4,12 +4,12 @@
 
 #include "frame.h"
 
-/* developer note: 
-*
-* when it comes to detecting a pwnagotchi, this is done with pwngrid/opwngrid.
-* essentially pwngrid looks for the numbers 222 and 223 in payloads, and if they aren't there, it ignores it.
-* these need to be put into the frames!!!
-*
+/** developer note: 
+ *
+ * when it comes to detecting a pwnagotchi, this is done with pwngrid/opwngrid.
+ * essentially pwngrid looks for the numbers 222 and 223 in payloads, and if they aren't there, it ignores it.
+ * these need to be put into the frames!!!
+ *
 */
 
 const uint8_t Frame::MAGIC_NUMBER = 0xDE;

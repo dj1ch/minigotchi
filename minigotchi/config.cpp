@@ -4,14 +4,14 @@
 
 #include "config.h"
 
-/* developer note:
-*
-* this is the very equivalent of the 'config.toml' for the pwnagotchi
-* variables are defined here which will be used by the minigotchi
-* whatever can be disabled/enabled can be enabled here
-* i would add this to the wiki but apparently i cannot due to my account being flagged, and a lack of any sort of support :/ 
-*
-*/
+/** developer note:
+ *
+ * this is the very equivalent of the 'config.toml' for the pwnagotchi
+ * variables are defined here which will be used by the minigotchi
+ * whatever can be disabled/enabled can be enabled here
+ * i would add this to the wiki but apparently i cannot due to my account being flagged, and a lack of any sort of support :/ 
+ *
+ */
 
 // define whether or not these deauthing or advertising is turned on 
 bool Config::deauth = true;

@@ -4,12 +4,12 @@
 
 #include "minigotchi.h"
 
-/* developer note: 
-*
-* the functions here provide info on the minigotchi, such as memory, temperature, etc.
-* all this really does is print information to the serial terminal
-* this is meant to be ran on startup.
-*
+/** developer note: 
+ *
+ * the functions here provide info on the minigotchi, such as memory, temperature, etc.
+ * all this really does is print information to the serial terminal
+ * this is meant to be ran on startup.
+ *
 */ 
 
 // this code is pretty disgusting and shitty but it makes minigotchi.ino less cluttered!!!

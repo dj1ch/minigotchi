@@ -4,13 +4,13 @@
 
 #include "channel.h"
 
-/* developer note: 
-*
-* i am using the ideal 2.4 GHz channels, which are 1, 6, and 11.
-* the reason for that is so we don't interfere with other devices on our frequency.
-* there are probably plenty more reasons but this is a good practice for such iot devices.
-*
-*/ 
+/** developer note: 
+ *
+ * i am using the ideal 2.4 GHz channels, which are 1, 6, and 11.
+ * the reason for that is so we don't interfere with other devices on our frequency.
+ * there are probably plenty more reasons but this is a good practice for such iot devices.
+ *
+ */ 
 
 // same channels in config
 int Channel::channelList[3] = {Config::channels[0], Config::channels[1], Config::channels[2]};

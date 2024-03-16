@@ -18,11 +18,11 @@ Channel channel;
 Raw80211 raw;
 Config config;
 
-/* developer note: 
-*
-* this defines what the minigotchi is to do on startup.
-* the only things that should be adjusted here is probably the whitelist.
-*
+/** developer note: 
+ *
+ * this defines what the minigotchi is to do on startup.
+ * the only things that should be adjusted here is probably the whitelist.
+ *
 */
 
 void setup() {
@@ -35,13 +35,13 @@ void setup() {
     minigotchi.finish();
 }
 
-/* developer note: 
-*
-* this defines what happens every loop. 
-* this goes on infinitely, until the minigotchi is turned off.
-* shouldn't be tampered with unless YOU REALLY KNOW WHAT YOU'RE DOING!
-* this also applies to other files as well! 
-* 
+/** developer note: 
+ *
+ * this defines what happens every loop. 
+ * this goes on infinitely, until the minigotchi is turned off.
+ * shouldn't be tampered with unless YOU REALLY KNOW WHAT YOU'RE DOING!
+ * this also applies to other files as well! 
+ * 
 */
 
 void loop() {

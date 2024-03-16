@@ -5,15 +5,15 @@
 
 #include "pwnagotchi.h"
 
-/* developer note: 
-* 
-* essentially the pwnagotchi sends out a frame(with JSON) while associated to a network
-* if the minigotchi listens for a while it should find something
-* this is under the assumption that we put the minigotchi on the same channel as the pwnagotchi
-* or one of the channels that the pwnagotchi listens on
-* the JSON frame it sends out should have some magic id attached to it (222 or 223) so it is identified by pwngrid
-* however we don't need to search for such things
-*
+/** developer note: 
+ * 
+ * essentially the pwnagotchi sends out a frame(with JSON) while associated to a network
+ * if the minigotchi listens for a while it should find something
+ * this is under the assumption that we put the minigotchi on the same channel as the pwnagotchi
+ * or one of the channels that the pwnagotchi listens on
+ * the JSON frame it sends out should have some magic id attached to it (222 or 223) so it is identified by pwngrid
+ * however we don't need to search for such things
+ *
 */
 
 namespace {
