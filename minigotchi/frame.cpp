@@ -16,21 +16,21 @@ const uint8_t Frame::MAGIC_NUMBER = 0xDE;
 const uint8_t Frame::COMPRESSION_ID = 0xDF;
 
 uint8_t beaconFrame[109] = {
-    /*   0 -  1 */ 0x80, 0x00,                                      // Type/Subtype: Management Beacon frame
-    /*   2 -  3 */ 0x00, 0x00,                                      // Duration (SDK takes care of that)
-    /*   4 -  9 */ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,              // Destination: Broadcast
-    /*  10 - 15 */ 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,              // Source MAC
-    /*  16 - 21 */ 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,              // Source MAC (Repeated for BSSID)
-    /*  22 - 23 */ 0x00, 0x00,                                      // Fragment & sequence number (will be done by the SDK)
-    /*  24 - 31 */ 0x83, 0x51, 0xF7, 0x8F, 0x0F, 0x00, 0x00, 0x00,  // Timestamp
-    /*  32 - 33 */ 0x64, 0x00,                                      // Beacon Interval: 100ms
-    /*  34 - 35 */ 0x31, 0x00,                                      // Capabilities Information
-    /*  36 - 37 */ 0x00, 0x20,                                      // Tag: Set SSID length, Tag length: 32
-    /* 38 - 47 */ 'm', 'i', 'n', 'i', 'g', 'o', 't', 'c', 'h', 'i', // ESSID 
-    /*  48 - 49 */ 0x01, 0x08,                                      // Tag: Supported Rates, Tag length: 8
-    /*  50 - 57 */ 0x82, 0x84, 0x8B, 0x96, 0x24, 0x30, 0x48, 0x6C,  // Supported Rates (Example: 1, 2, 5.5, 11, 18, 24, 36, 54)
-    /*  58 - 59 */ 0x03, 0x01,                                      // Channel set, length
-    /*  60 - 62 */ 0x01, 0x06, 0x11                                 // Current Channel (Example: Channel 1)
+    /*   0 -  1  */ 0x80, 0x00,                                       // Type/Subtype: Management Beacon frame
+    /*   2 -  3  */ 0x00, 0x00,                                       // Duration (SDK takes care of that)
+    /*   4 -  9  */ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,               // Destination: Broadcast
+    /*  10 - 15  */ 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,               // Source MAC
+    /*  16 - 21  */ 0x01, 0x02, 0x03, 0x04, 0x05, 0x06,               // Source MAC (Repeated for BSSID)
+    /*  22 - 23  */ 0x00, 0x00,                                       // Fragment & sequence number (will be done by the SDK)
+    /*  24 - 31  */ 0x83, 0x51, 0xF7, 0x8F, 0x0F, 0x00, 0x00, 0x00,   // Timestamp
+    /*  32 - 33  */ 0x64, 0x00,                                       // Beacon Interval: 100ms
+    /*  34 - 35  */ 0x31, 0x00,                                       // Capabilities Information
+    /*  36 - 37  */ 0x00, 0x20,                                       // Tag: Set SSID length, Tag length: 32
+    /*  38 - 47  */ 'm', 'i', 'n', 'i', 'g', 'o', 't', 'c', 'h', 'i', // ESSID 
+    /*  48 - 49  */ 0x01, 0x08,                                       // Tag: Supported Rates, Tag length: 8
+    /*  50 - 57  */ 0x82, 0x84, 0x8B, 0x96, 0x24, 0x30, 0x48, 0x6C,   // Supported Rates
+    /*  58 - 59  */ 0x03, 0x01,                                       // Channel set, length
+    /*  60 - 62  */ 0x01, 0x06, 0x11                                  // Current Channel
 };
 
 void Frame::send() {
@@ -79,7 +79,7 @@ void Frame::advertise() {
         // for the sake of consistency also sending this frame 150 times
         for (int i = 0; i < 150; ++i) {
             send();
-            delay(500);
+            delay(100);
         }
     } else {
         // do nothing if advertisment is disabled
