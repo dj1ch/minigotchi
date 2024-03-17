@@ -22,6 +22,8 @@ void Minigotchi::start() {
     delay(5000);
     Serial.println(" ");
     Serial.println("(>-<) Starting now...");
+    delay(5000);
+    Frame::start();
     Serial.println(" ");
 };
 

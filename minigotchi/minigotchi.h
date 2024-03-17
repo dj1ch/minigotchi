@@ -6,6 +6,7 @@
 #define MINIGOTCHI_H
 
 #include "config.h"
+#include "frame.h"
 #include <Arduino.h>
 
 class Minigotchi {

@@ -46,25 +46,25 @@ void setup() {
 
 void loop() {
     // cycle channels at start of loop
+    frame.stop();
     channel.cycle();
+    frame.start();
     delay(5000);
 
     // the longer we are on this channel, the more likely we're gonna see a pwnagotchi on this channel
     // get local payload from local pwnagotchi, send raw frame if one is found
+    frame.stop();
     pwnagotchi.detect();
+    frame.start();
     delay(5000);
 
     // ugly hack: remove all these lines containing the words "delay(5000);" or comment them out with a "//" slash.
     // doing so will make the loop a lot faster. plus this might overheat the board and stuff but its worth a try.
 
-    // send payload(150 times) on current channel
-    // regardless if a pwnagotchi is found or not, we send the raw frame to attract the attention of one
-    // we deauth AFTER advertising as we don't want to kick any devices before sending a payload...
-    frame.advertise(); 
-    delay(5000);
-
     // deauth random access point
+    frame.stop();
     raw.stop();
     deauth.deauth();
+    frame.start();
     delay(5000);
 }

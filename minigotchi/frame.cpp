@@ -67,21 +67,23 @@ void Frame::send() {
     // send full frame
     Raw80211::send(beaconFrame, frameSize);
 
-    // say this BEFORE deleting the frame
-    Serial.println("(>-<) Sent Beacon Frame!");
-
     // dementia! 
     delete[] beaconFrame;
 }
 
 void Frame::advertise() {
-    if (Config::advertise) {
-        // for the sake of consistency also sending this frame 150 times
-        for (int i = 0; i < 150; ++i) {
-            send();
-            delay(100);
-        }
+    if (Config::advertise && Frame::running) {
+        send();
+        delay(100);
     } else {
-        // do nothing if advertisment is disabled
+        // do nothing but still idle
     }
+}
+
+void Frame::start() {
+    bool running = true;
+}
+
+void Frame::stop() {
+    bool running = false;
 }

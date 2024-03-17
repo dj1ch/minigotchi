@@ -12,9 +12,11 @@ class Frame {
 public:
     static void send();
     static void advertise();
-    static void print();
+    static void start();
+    static void stop();
     
 private:
+    static bool running;
     static const uint8_t MAGIC_NUMBER;
     static const uint8_t COMPRESSION_ID;
     static bool framePrinted;
