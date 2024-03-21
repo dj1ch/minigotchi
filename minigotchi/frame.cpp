@@ -37,17 +37,17 @@ void Frame::send() {
     // find frame size
     size_t frameSize = sizeof(MAGIC_NUMBER) + sizeof(beaconFrame);
 
-    // allocate memory for the beacon frame and build it
-    uint8_t* beaconFrame = new uint8_t[frameSize];
-    beaconFrame[0] = MAGIC_NUMBER; 
-    std::memcpy(beaconFrame + sizeof(MAGIC_NUMBER), beaconFrame, sizeof(beaconFrame));
+    // allocate memory for the full frame and build it
+    uint8_t* fullFrame = new uint8_t[frameSize];
+    fullFrame[0] = MAGIC_NUMBER; 
+    std::memcpy(fullFrame + sizeof(MAGIC_NUMBER), beaconFrame, sizeof(beaconFrame));
 
     // make it into a string
-    String beaconFrameStr = "";
+    String fullFrameStr = "";
     for (size_t i = 0; i < frameSize; ++i) {
         char hex[3];
-        sprintf(hex, "%02X", beaconFrame[i]);
-        beaconFrameStr += hex;
+        sprintf(hex, "%02X", fullFrame[i]);
+        fullFrameStr += hex;
     }
 
     // print info
@@ -59,17 +59,18 @@ void Frame::send() {
         Serial.println(" ");
         Serial.println("('-') Current Frame: ");
         Serial.println(" ");
-        Serial.println(beaconFrameStr);
+        Serial.println(fullFrameStr);
         Serial.println(" ");
         framePrinted = true;
     }
 
     // send full frame
-    Raw80211::send(beaconFrame, frameSize);
+    Raw80211::send(fullFrame, frameSize);
 
-    // dementia! 
-    delete[] beaconFrame;
+    // free memory
+    delete[] fullFrame;
 }
+
 
 void Frame::advertise() {
     if (Config::advertise && Frame::running) {
@@ -81,9 +82,11 @@ void Frame::advertise() {
 }
 
 void Frame::start() {
+    Raw80211::start();
     bool running = true;
 }
 
 void Frame::stop() {
+    Raw80211::stop();
     bool running = false;
 }
