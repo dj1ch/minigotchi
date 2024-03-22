@@ -30,6 +30,14 @@ void Frame::send() {
     beaconFrame[offset++] = (FRAME_CONTROL >> 8) & 0xFF;
 
     beaconFrame[offset++] = Frame::IDWhisperCompression;
+
+    beaconFrame[offset++] = Config::epoch;
+    beaconFrame[offset++] = Config::face;
+    beaconFrame[offset++] = Config::identity;
+    beaconFrame[offset++] = Config::name;
+    beaconFrame[offset++] = Config::associate;
+    
+    beaconFrame[offset++] = Config::bored_num_epochs;
     beaconFrame[offset++] = Config::excited_num_epochs;
     beaconFrame[offset++] = Config::hop_recon_time;
     beaconFrame[offset++] = Config::max_inactive_scale;
@@ -45,6 +53,7 @@ void Frame::send() {
     beaconFrame[offset++] = Config::pwnd_tot;
     beaconFrame[offset++] = Config::session_id;
     beaconFrame[offset++] = Config::uptime;
+
     beaconFrame[offset++] = Config::version;
     
     // add more frame parameters here
