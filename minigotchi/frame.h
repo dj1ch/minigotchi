@@ -17,10 +17,10 @@ public:
     
 private:
     static bool running;
-    static const uint8_t MAGIC_NUMBER;
-    static const uint8_t COMPRESSION_ID;
+    static const uint8_t IDWhispherPayload;
+    static const uint8_t IDWhispherCompression;
     static bool framePrinted;
-    static uint8_t beaconFrame[109];  
+    static uint8_t beaconFrame;  
 };
 
 #endif // FRAME_H
