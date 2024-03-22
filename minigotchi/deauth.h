@@ -1,6 +1,6 @@
-///////////////////////////////////////////
-// deauth.h: header files for deauth.cpp //
-///////////////////////////////////////////
+/**
+ * deauth.h: header files for deauth.cpp
+*/
 
 #ifndef DEAUTH_H
 #define DEAUTH_H

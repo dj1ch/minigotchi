@@ -1,7 +1,7 @@
-/////////////////////////////////////////////////////////////
-// pwnagotchi.cpp: handles pwnagotchi detection            //
-// source: https://github.com/justcallmekoko/ESP32Marauder //
-/////////////////////////////////////////////////////////////
+/**
+ * pwnagotchi.cpp: handles pwnagotchi detection            
+ * source: https://github.com/justcallmekoko/ESP32Marauder 
+*/
 
 #include "pwnagotchi.h"
 

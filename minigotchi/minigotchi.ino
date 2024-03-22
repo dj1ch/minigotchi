@@ -1,6 +1,6 @@
-/////////////////////////////////////////////////
-// minigotchi.ino: everything implemented here //
-/////////////////////////////////////////////////
+/**
+ * minigotchi.ino: everything implemented here
+*/
 
 #include "minigotchi.h"
 #include "pwnagotchi.h"

@@ -1,6 +1,6 @@
-/////////////////////////////////////////
-// frame.h: header files for frame.cpp //
-/////////////////////////////////////////
+/**
+ * frame.h: header files for frame.cpp
+*/
 
 #ifndef FRAME_H
 #define FRAME_H

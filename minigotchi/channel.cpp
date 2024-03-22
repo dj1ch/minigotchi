@@ -1,6 +1,6 @@
-/////////////////////////////////////////////
-// channel.cpp: handles channel switching  //
-/////////////////////////////////////////////
+/**
+ * channel.cpp: handles channel switching
+*/
 
 #include "channel.h"
 

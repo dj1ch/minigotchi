@@ -1,6 +1,6 @@
-///////////////////////////////////////////
-// config.h: header files for config.cpp //
-///////////////////////////////////////////
+/**
+ * config.h: header files for config.cpp
+*/
 
 #ifndef CONFIG_H
 #define CONFIG_H

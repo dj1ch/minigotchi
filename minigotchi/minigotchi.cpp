@@ -1,6 +1,6 @@
-///////////////////////////////////////////////
-// minigotchi.cpp: handles system usage info //
-///////////////////////////////////////////////
+/**
+ * minigotchi.cpp: handles system usage info, etc
+*/
 
 #include "minigotchi.h"
 
