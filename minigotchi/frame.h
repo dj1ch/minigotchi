@@ -14,11 +14,13 @@ public:
     static void advertise();
     static void start();
     static void stop();
+    static const uint8_t FRAME_CONTROL;
+    static const uint8_t CAPABILITIES_INFO;
+    static const uint8_t IDWhisperPayload;
+    static const uint8_t IDWhisperCompression;
     
 private:
     static bool running;
-    static const uint8_t IDWhispherPayload;
-    static const uint8_t IDWhispherCompression;
     static bool framePrinted;
     static uint8_t beaconFrame;  
 };

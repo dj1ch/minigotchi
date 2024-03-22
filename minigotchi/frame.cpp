@@ -15,16 +15,28 @@
 const uint8_t Frame::IDWhisperPayload = 0xDE;
 const uint8_t Frame::IDWhisperCompression = 0xDF;
 
+const uint8_t FRAME_CONTROL = 0x80;
+const uint8_t CAPABILITIES_INFO = 0x31;
+
 void Frame::send() {
     // set frame size
     const size_t frameSize = 256;
-    uint8t* beaconFrame = new uint8_t[frameSize];
+    uint8_t* beaconFrame = new uint8_t[frameSize];
 
     // dynamic construction
     size_t offset = 0;
-    beaconFrame[offset++] = IDWhisperCompression; 
-    beaconFrame[offset++] = 
 
+    beaconFrame[offset++] = FRAME_CONTROL & 0xFF;
+    beaconFrame[offset++] = (FRAME_CONTROL >> 8) & 0xFF;
+
+    beaconFrame[offset++] = Frame::IDWhisperCompression; 
+
+    String beaconFrameStr = "";
+    for (size_t i = 0; i < frameSize; ++i) {
+        char hex[3];
+        sprintf(hex, "%02X", beaconFrame[i]);
+        beaconFrameStr += hex;
+    }
 
     // print info
     static bool framePrinted = false;
@@ -35,16 +47,16 @@ void Frame::send() {
         Serial.println(" ");
         Serial.println("('-') Current Frame: ");
         Serial.println(" ");
-        Serial.println(fullFrameStr);
+        Serial.println(beaconFrameStr);
         Serial.println(" ");
         framePrinted = true;
     }
 
     // send full frame
-    Raw80211::send(fullFrame, frameSize);
+    Raw80211::send(beaconFrame, frameSize);
 
     // free memory
-    delete[] fullFrame;
+    delete[] beaconFrame;
 }
 
 
