@@ -18,6 +18,9 @@ public:
     static const uint8_t CAPABILITIES_INFO;
     static const uint8_t IDWhisperPayload;
     static const uint8_t IDWhisperCompression;
+    static const uint8_t IDWhisperIdentity;
+    static const uint8_t IDWhisperSignature;
+    static const uint8_t IDWhisperStreamHeader;
     
 private:
     static bool running;

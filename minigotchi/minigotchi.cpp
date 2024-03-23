@@ -43,7 +43,7 @@ void Minigotchi::finish() {
 
 void Minigotchi::version() {
     Serial.print("('-') Version: ");
-    Serial.println(Config::version);
+    Serial.println(Config::version[0]);
 }
 
 void Minigotchi::mem() {
