@@ -22,7 +22,7 @@ public:
     static std::string name;
     static bool associate;
     static int bored_num_epochs;
-    static int channels[];
+    static int channels[3];
     static int excited_num_epochs;
     static int hop_recon_time;
     static int max_inactive_scale;

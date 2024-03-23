@@ -36,7 +36,7 @@ bool Config::associate = true;
 int Config::bored_num_epochs = 0;
 
 // define channels
-int Config::channels[] = {1, 6, 11};
+int Config::channels[3] = {1, 6, 11};
 
 int Config::excited_num_epochs = 1;
 int Config::hop_recon_time = 1;

