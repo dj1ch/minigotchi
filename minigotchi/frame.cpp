@@ -29,7 +29,34 @@ void Frame::send() {
     beaconFrame[offset++] = FRAME_CONTROL & 0xFF;
     beaconFrame[offset++] = (FRAME_CONTROL >> 8) & 0xFF;
 
-    beaconFrame[offset++] = Frame::IDWhisperCompression; 
+    beaconFrame[offset++] = Frame::IDWhisperCompression;
+
+    beaconFrame[offset++] = Config::epoch;
+    beaconFrame[offset++] = Config::face;
+    beaconFrame[offset++] = Config::identity;
+    beaconFrame[offset++] = Config::name;
+    beaconFrame[offset++] = Config::associate;
+    
+    beaconFrame[offset++] = Config::bored_num_epochs;
+    beaconFrame[offset++] = Config::excited_num_epochs;
+    beaconFrame[offset++] = Config::hop_recon_time;
+    beaconFrame[offset++] = Config::max_inactive_scale;
+    beaconFrame[offset++] = Config::max_interactions;
+    beaconFrame[offset++] = Config::max_misses_for_recon;
+    beaconFrame[offset++] = Config::min_recon_time;
+    beaconFrame[offset++] = Config::min_rssi;
+    beaconFrame[offset++] = Config::recon_inactive_multiplier;
+    beaconFrame[offset++] = Config::recon_time;
+    beaconFrame[offset++] = Config::sad_num_epochs;
+    beaconFrame[offset++] = Config::sta_ttl;
+    beaconFrame[offset++] = Config::pwnd_run;
+    beaconFrame[offset++] = Config::pwnd_tot;
+    beaconFrame[offset++] = Config::session_id;
+    beaconFrame[offset++] = Config::uptime;
+
+    beaconFrame[offset++] = Config::version;
+    
+    // add more frame parameters here
 
     String beaconFrameStr = "";
     for (size_t i = 0; i < frameSize; ++i) {
