@@ -7,6 +7,7 @@
 
 #include <Arduino.h>
 #include <string>
+#include <vector>
 
 class Config {
 public:
@@ -15,7 +16,7 @@ public:
     static int baud;
     static const char* bssid;
     static int channel;
-    static std::string whitelist[];
+    static std::vector<std::string> whitelist;
     static int epoch;
     static std::string face;
     static std::string identity;
@@ -38,7 +39,7 @@ public:
     static int pwnd_tot;
     static std::string session_id;
     static int uptime;
-    static const char* version;
+    static std::string version;
 };
 
 #endif // CONFIG_H

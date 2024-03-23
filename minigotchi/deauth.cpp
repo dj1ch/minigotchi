@@ -72,7 +72,7 @@ void Deauth::select() {
         }
         Serial.println(" ");
         Serial.print("('-') Selected random AP: ");
-        Serial.println(randomAP);
+        Serial.println(randomAP.c_str());
         Serial.println(" ");
     } else {
         // well ur fucked.

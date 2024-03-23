@@ -25,7 +25,7 @@ const char* Config::bssid = "fo:od:ba:be:fo:od";
 int Config::channel = 1;
 
 // define whitelist 
-std::string Config::whitelist[] = {"fo:od:ba:be:fo:od", "fo:od:ba:be:fo:od", "fo:od:ba:be:fo:od"};
+std::vector<std::string> Config::whitelist = {"fo:od:ba:be:fo:od", "fo:od:ba:be:fo:od", "fo:od:ba:be:fo:od"};
 
 // json config
 int Config::epoch = 1;
@@ -55,4 +55,4 @@ std::string Config::session_id = "84:f3:eb:58:95:bd";
 int Config::uptime = 1;
 
 // define version(please do not change, this should not be changed)
-const char* Config::version = "2.1.0-beta";
+std::string Config::version = "2.1.0-beta";

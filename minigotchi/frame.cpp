@@ -19,6 +19,9 @@ const uint8_t FRAME_CONTROL = 0x80;
 const uint8_t CAPABILITIES_INFO = 0x31;
 
 void Frame::send() {
+    // declare frame
+    std::vector<uint8_t> beaconFrame;
+
     // set frame size
     const size_t frameSize = 256;
     uint8_t* beaconFrame = new uint8_t[frameSize];
@@ -32,9 +35,9 @@ void Frame::send() {
     beaconFrame[offset++] = Frame::IDWhisperCompression;
 
     beaconFrame[offset++] = Config::epoch;
-    beaconFrame[offset++] = Config::face;
-    beaconFrame[offset++] = Config::identity;
-    beaconFrame[offset++] = Config::name;
+    beaconFrame[offset++] = Config::face[0];
+    beaconFrame[offset++] = Config::identity[0];
+    beaconFrame[offset++] = Config::name[0];
     beaconFrame[offset++] = Config::associate;
     
     beaconFrame[offset++] = Config::bored_num_epochs;
@@ -51,10 +54,10 @@ void Frame::send() {
     beaconFrame[offset++] = Config::sta_ttl;
     beaconFrame[offset++] = Config::pwnd_run;
     beaconFrame[offset++] = Config::pwnd_tot;
-    beaconFrame[offset++] = Config::session_id;
+    beaconFrame[offset++] = Config::session_id[0];
     beaconFrame[offset++] = Config::uptime;
 
-    beaconFrame[offset++] = Config::version;
+    beaconFrame[offset++] = Config::version[0];
     
     // add more frame parameters here
 
@@ -80,10 +83,10 @@ void Frame::send() {
     }
 
     // send full frame
-    Raw80211::send(beaconFrame, frameSize);
+    Raw80211::send(&beaconFrame[0], frameSize);
 
     // free memory
-    delete[] beaconFrame;
+    delete[] &beaconFrame[0];
 }
 
 
