@@ -63,7 +63,6 @@ void loop() {
 
     // deauth random access point
     frame.stop();
-    raw.stop();
     deauth.deauth();
     frame.start();
     delay(5000);
