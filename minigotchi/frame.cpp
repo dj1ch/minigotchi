@@ -47,10 +47,12 @@ void Frame::pack() {
     beaconFrame.push_back(CAPABILITIES_INFO & 0xFF);
     beaconFrame.push_back((CAPABILITIES_INFO >> 8) & 0xFF);
 
-    // payload
-    beaconFrame.push_back(Frame::IDWhisperCompression);
+    // id's
+    beaconFrame.push_back(Frame::IDWhisperIdentity);
+    beaconFrame.push_back(Frame::IDWhisperSignature);
+    beaconFrame.push_back(Frame::IDWhisperStreamHeader);
 
-    // Add other payload data as needed
+    // other payload data
     beaconFrame.push_back(Config::epoch);
     beaconFrame.push_back(Config::face[0]);
     beaconFrame.push_back(Config::identity[0]);
