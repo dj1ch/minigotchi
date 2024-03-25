@@ -5,6 +5,8 @@
 #ifndef FRAME_H
 #define FRAME_H
 
+#include <cstdint>
+#include <cstring>
 #include "raw80211.h"
 #include "config.h"
 
@@ -24,6 +26,7 @@ public:
     
 private:
     static bool running;
+    static bool compressed;
     static bool framePrinted;
     static uint8_t beaconFrame;  
 };
