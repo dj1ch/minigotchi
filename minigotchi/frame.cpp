@@ -12,74 +12,77 @@
  *
 */
 
+// initializing
+bool Frame::running = false;
+bool Frame::framePrinted = false;
+
 // payload ID's according to pwngrid
-const uint8_t IDWhisperPayload = 0xDE;
-const uint8_t IDWhisperCompression = 0xDF;
-const uint8_t IDWhisperIdentity = 0xE0;
-const uint8_t IDWhisperSignature = 0xE1;
-const uint8_t IDWhisperStreamHeader = 0xE2;
+const uint8_t Frame::IDWhisperPayload = 0xDE;
+const uint8_t Frame::IDWhisperCompression = 0xDF;
+const uint8_t Frame::IDWhisperIdentity = 0xE0;
+const uint8_t Frame::IDWhisperSignature = 0xE1;
+const uint8_t Frame::IDWhisperStreamHeader = 0xE2;
 
-const uint8_t FRAME_CONTROL = 0x80;
-const uint8_t CAPABILITIES_INFO = 0x31;
-const uint8_t BEACON_INTERVAL  = 100;
+// frame info
+const uint8_t Frame::FRAME_CONTROL = 0x80;
+const uint8_t Frame::CAPABILITIES_INFO = 0x31;
+const uint8_t Frame::BEACON_INTERVAL  = 100;
 
-void Frame::send() {
-    // declare frame
-    std::vector<uint8_t> beaconFrame;
-
-    // set frame size
-    const size_t frameSize = beaconFrame.size();
-    uint8_t* beaconData = new uint8_t[frameSize];
+void Frame::pack() {
+    // clear frame before constructing
+    beaconFrame.clear();
 
     // dynamic construction
     size_t offset = 0;
 
     // frame control
-    beaconData[offset++] = FRAME_CONTROL & 0xFF;
-    beaconData[offset++] = (FRAME_CONTROL >> 8) & 0xFF;
+    beaconFrame.push_back(FRAME_CONTROL & 0xFF);
+    beaconFrame.push_back((FRAME_CONTROL >> 8) & 0xFF);
 
-    // send interval(this should match the delay in the advertise() function)
-    beaconFrame[offset++] = BEACON_INTERVAL & 0xFF;
-    beaconFrame[offset++] = (BEACON_INTERVAL >> 8) & 0xFF;
+    // send interval (this should match the delay in the advertise() function)
+    beaconFrame.push_back(BEACON_INTERVAL & 0xFF);
+    beaconFrame.push_back((BEACON_INTERVAL >> 8) & 0xFF);
 
     // capabilities info
-    beaconFrame[offset++] = CAPABILITIES_INFO & 0xFF;
-    beaconFrame[offset++] = (CAPABILITIES_INFO >> 8) & 0xFF;
+    beaconFrame.push_back(CAPABILITIES_INFO & 0xFF);
+    beaconFrame.push_back((CAPABILITIES_INFO >> 8) & 0xFF);
 
     // payload
-    beaconData[offset++] = Frame::IDWhisperCompression;
+    beaconFrame.push_back(Frame::IDWhisperCompression);
 
-    beaconData[offset++] = Config::epoch;
-    beaconData[offset++] = Config::face[0];
-    beaconData[offset++] = Config::identity[0];
-    beaconData[offset++] = Config::name[0];
-    beaconData[offset++] = Config::associate;
+    // Add other payload data as needed
+    beaconFrame.push_back(Config::epoch);
+    beaconFrame.push_back(Config::face[0]);
+    beaconFrame.push_back(Config::identity[0]);
+    beaconFrame.push_back(Config::name[0]);
+    beaconFrame.push_back(Config::associate);
     
-    beaconData[offset++] = Config::bored_num_epochs;
-    beaconData[offset++] = Config::excited_num_epochs;
-    beaconData[offset++] = Config::hop_recon_time;
-    beaconData[offset++] = Config::max_inactive_scale;
-    beaconData[offset++] = Config::max_interactions;
-    beaconData[offset++] = Config::max_misses_for_recon;
-    beaconData[offset++] = Config::min_recon_time;
-    beaconData[offset++] = Config::min_rssi;
-    beaconData[offset++] = Config::recon_inactive_multiplier;
-    beaconData[offset++] = Config::recon_time;
-    beaconData[offset++] = Config::sad_num_epochs;
-    beaconData[offset++] = Config::sta_ttl;
-    beaconData[offset++] = Config::pwnd_run;
-    beaconData[offset++] = Config::pwnd_tot;
-    beaconData[offset++] = Config::session_id[0];
-    beaconData[offset++] = Config::uptime;
+    beaconFrame.push_back(Config::bored_num_epochs);
+    beaconFrame.push_back(Config::excited_num_epochs);
+    beaconFrame.push_back(Config::hop_recon_time);
+    beaconFrame.push_back(Config::max_inactive_scale);
+    beaconFrame.push_back(Config::max_interactions);
+    beaconFrame.push_back(Config::max_misses_for_recon);
+    beaconFrame.push_back(Config::min_recon_time);
+    beaconFrame.push_back(Config::min_rssi);
+    beaconFrame.push_back(Config::recon_inactive_multiplier);
+    beaconFrame.push_back(Config::recon_time);
+    beaconFrame.push_back(Config::sad_num_epochs);
+    beaconFrame.push_back(Config::sta_ttl);
+    beaconFrame.push_back(Config::pwnd_run);
+    beaconFrame.push_back(Config::pwnd_tot);
+    beaconFrame.push_back(Config::session_id[0]);
+    beaconFrame.push_back(Config::uptime);
 
-    beaconData[offset++] = Config::version[0];
-    
-    // add more frame parameters here
+    beaconFrame.push_back(Config::version[0]);
 
-    beaconFrame.assign(beaconData, beaconData + frameSize);
+    // set frame size
+    frameSize = beaconFrame.size();
+}
 
-    // frame compression
-    
+void Frame::send() {
+    // build frame
+    Frame::pack();
 
     String beaconFrameStr = "";
     for (size_t i = 0; i < frameSize; ++i) {
@@ -104,9 +107,6 @@ void Frame::send() {
 
     // send full frame
     Raw80211::send(&beaconFrame[0], frameSize);
-
-    // free memory
-    delete[] beaconData;
 }
 
 

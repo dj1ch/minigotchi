@@ -10,6 +10,7 @@
 
 class Frame {
 public:
+    static void pack();
     static void send();
     static void advertise();
     static void start();
@@ -25,9 +26,9 @@ public:
     
 private:
     static bool running;
-    static bool compressed;
     static bool framePrinted;
-    static uint8_t beaconFrame;  
+    static size_t frameSize;
+    static std::vector<uint8_t> beaconFrame;
 };
 
 #endif // FRAME_H
