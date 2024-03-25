@@ -21,6 +21,7 @@ const uint8_t IDWhisperStreamHeader = 0xE2;
 
 const uint8_t FRAME_CONTROL = 0x80;
 const uint8_t CAPABILITIES_INFO = 0x31;
+const uint8_t BEACON_INTERVAL  = 100;
 
 void Frame::send() {
     // declare frame
@@ -33,9 +34,19 @@ void Frame::send() {
     // dynamic construction
     size_t offset = 0;
 
+    // frame control
     beaconData[offset++] = FRAME_CONTROL & 0xFF;
     beaconData[offset++] = (FRAME_CONTROL >> 8) & 0xFF;
 
+    // send interval(this should match the delay in the advertise() function)
+    beaconFrame[offset++] = BEACON_INTERVAL & 0xFF;
+    beaconFrame[offset++] = (BEACON_INTERVAL >> 8) & 0xFF;
+
+    // capabilities info
+    beaconFrame[offset++] = CAPABILITIES_INFO & 0xFF;
+    beaconFrame[offset++] = (CAPABILITIES_INFO >> 8) & 0xFF;
+
+    // payload
     beaconData[offset++] = Frame::IDWhisperCompression;
 
     beaconData[offset++] = Config::epoch;

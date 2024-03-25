@@ -5,8 +5,6 @@
 #ifndef FRAME_H
 #define FRAME_H
 
-#include <cstdint>
-#include <cstring>
 #include "raw80211.h"
 #include "config.h"
 
@@ -18,6 +16,7 @@ public:
     static void stop();
     static const uint8_t FRAME_CONTROL;
     static const uint8_t CAPABILITIES_INFO;
+    static const uint8_t BEACON_INTERVAL;
     static const uint8_t IDWhisperPayload;
     static const uint8_t IDWhisperCompression;
     static const uint8_t IDWhisperIdentity;
