@@ -30,22 +30,23 @@ const uint8_t Frame::BEACON_INTERVAL  = 100;
 
 void Frame::pack() {
     // clear frame before constructing
+    frameControl.clear();
     beaconFrame.clear();
 
     // dynamic construction
     size_t offset = 0;
 
     // frame control
-    beaconFrame.push_back(FRAME_CONTROL & 0xFF);
-    beaconFrame.push_back((FRAME_CONTROL >> 8) & 0xFF);
+    frameControl.push_back(FRAME_CONTROL & 0xFF);
+    frameControl.push_back((FRAME_CONTROL >> 8) & 0xFF);
 
     // send interval (this should match the delay in the advertise() function)
-    beaconFrame.push_back(BEACON_INTERVAL & 0xFF);
-    beaconFrame.push_back((BEACON_INTERVAL >> 8) & 0xFF);
+    frameControl.push_back(BEACON_INTERVAL & 0xFF);
+    frameControl.push_back((BEACON_INTERVAL >> 8) & 0xFF);
 
     // capabilities info
-    beaconFrame.push_back(CAPABILITIES_INFO & 0xFF);
-    beaconFrame.push_back((CAPABILITIES_INFO >> 8) & 0xFF);
+    frameControl.push_back(CAPABILITIES_INFO & 0xFF);
+    frameControl.push_back((CAPABILITIES_INFO >> 8) & 0xFF);
 
     // id's
     beaconFrame.push_back(Frame::IDWhisperIdentity);
@@ -78,8 +79,26 @@ void Frame::pack() {
 
     beaconFrame.push_back(Config::version[0]);
 
-    // set frame size
+    // payload size
+    const size_t payloadSize = beaconFrame.size();
+
+    // add into frame
+    beaconFrame.insert(beaconFrame.end(), frameControl.begin(), frameControl.end());
+
+    // full frame size
     frameSize = beaconFrame.size();
+
+    // add IDWhisperPayload for every chunk
+    const size_t chunkSize = 0xff;
+
+    for (size_t i = 0; i < frameSize; i += chunkSize) {
+    beaconFrame.push_back(IDWhisperPayload);
+
+    size_t chunkEnd = std::min(i + chunkSize, payloadSize);
+    for (size_t j = i; j < chunkEnd; ++j) {
+        beaconFrame.push_back(beaconFrame[j]);
+        }
+    }
 }
 
 void Frame::send() {
