@@ -55,9 +55,20 @@ void Frame::pack() {
 
     // other payload data
     beaconFrame.push_back(Config::epoch);
-    beaconFrame.push_back(Config::face[0]);
-    beaconFrame.push_back(Config::identity[0]);
-    beaconFrame.push_back(Config::name[0]);
+    
+    // all chars
+    for (size_t i = 0; i < sizeof(Config::face); ++i) {
+        beaconFrame.push_back(Config::face[i]);
+    }
+
+    for (size_t i = 0; i < sizeof(Config::identity); ++i) {
+        beaconFrame.push_back(Config::identity[i]);
+    }
+
+    for (size_t i = 0; i < sizeof(Config::name); ++i) {
+        beaconFrame.push_back(Config::name[i]);
+    }
+
     beaconFrame.push_back(Config::associate);
     
     beaconFrame.push_back(Config::bored_num_epochs);
@@ -74,10 +85,16 @@ void Frame::pack() {
     beaconFrame.push_back(Config::sta_ttl);
     beaconFrame.push_back(Config::pwnd_run);
     beaconFrame.push_back(Config::pwnd_tot);
-    beaconFrame.push_back(Config::session_id[0]);
+
+    for (size_t i = 0; i < sizeof(Config::session_id); ++i) {
+        beaconFrame.push_back(Config::session_id[i]);
+    }
+
     beaconFrame.push_back(Config::uptime);
 
-    beaconFrame.push_back(Config::version[0]);
+    for (size_t i = 0; i < sizeof(Config::version); ++i) {
+        beaconFrame.push_back(Config::version[i]);
+    }
 
     // payload size
     const size_t payloadSize = beaconFrame.size();
