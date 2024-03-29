@@ -1,6 +1,6 @@
-///////////////////////////////////////////
-// deauth.h: header files for deauth.cpp //
-///////////////////////////////////////////
+/**
+ * deauth.h: header files for deauth.cpp
+*/
 
 #ifndef DEAUTH_H
 #define DEAUTH_H
@@ -24,7 +24,7 @@ private:
     String randomAP;
     void select();
     void start();
-    uint8_t deauthPacket[26];
+    uint8_t deauthFrame[26];
     uint8_t bssid[6];
 };
 

@@ -1,19 +1,19 @@
-/////////////////////////////////////////////////////////////
-// pwnagotchi.cpp: handles pwnagotchi detection            //
-// source: https://github.com/justcallmekoko/ESP32Marauder //
-/////////////////////////////////////////////////////////////
+/**
+ * pwnagotchi.cpp: handles pwnagotchi detection            
+ * source: https://github.com/justcallmekoko/ESP32Marauder 
+*/
 
 #include "pwnagotchi.h"
 
-/* developer note: 
-* 
-* essentially the pwnagotchi sends out a frame(with JSON) while associated to a network
-* if the minigotchi listens for a while it should find something
-* this is under the assumption that we put the minigotchi on the same channel as the pwnagotchi
-* or one of the channels that the pwnagotchi listens on
-* the JSON frame it sends out should have some magic id attached to it (222 or 223) so it is identified by pwngrid
-* however we don't need to search for such things
-*
+/** developer note: 
+ * 
+ * essentially the pwnagotchi sends out a frame(with JSON) while associated to a network
+ * if the minigotchi listens for a while it should find something
+ * this is under the assumption that we put the minigotchi on the same channel as the pwnagotchi
+ * or one of the channels that the pwnagotchi listens on
+ * the JSON frame it sends out should have some magic id attached to it (222 or 223) so it is identified by pwngrid
+ * however we don't need to search for such things
+ *
 */
 
 namespace {
@@ -54,6 +54,7 @@ void Pwnagotchi::detect() {
         Serial.println("(o-0) Scanning for Pwnagotchi..");
         delay(500);
         Serial.println("(0-o) Scanning for Pwnagotchi...");
+        Serial.println(" ");
         delay(500);
     }
 
@@ -69,14 +70,13 @@ void Pwnagotchi::detect() {
         Serial.println("(^-^) Starting advertisement...");
         Serial.println(" ");
         delay(5000);
-        Packet::advertise();
+        Frame::start();
     }
 
     // check if the rawCallback was triggered during scanning
     if (!pwnInstance->pwnagotchiDetected) {
         // only searches on your current channel and such afaik, 
         // so this only applies for the current searching area
-        Serial.println(" ");
         Serial.println("(;-;) No Pwnagotchi found.");
         Serial.println(" ");
     }

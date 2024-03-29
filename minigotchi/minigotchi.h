@@ -1,11 +1,12 @@
-///////////////////////////////////////////////////
-// minigotchi.h: header files for minigotchi.cpp //
-///////////////////////////////////////////////////
+/**
+ * minigotchi.h: header files for minigotchi.cpp
+*/
 
 #ifndef MINIGOTCHI_H
 #define MINIGOTCHI_H
 
 #include "config.h"
+#include "frame.h"
 #include <Arduino.h>
 
 class Minigotchi {

@@ -13,7 +13,7 @@
 
 ### Intro
 
-This is a project meant to showcase the use of raw WiFi frames and deauthentication in a *Pwnagotchi-like* matter with an ESP8266. It can detect pwnagotchis, and send "advertisements" for another Pwnagotchi to detect, along with deauthenticating devices connected to an AP. Originally meant to just befriend a local Pwnagotchi, I plan to improve it and extend its purpose, merely with an ESP8266 with 4 MB of memory. 
+This is a project meant to showcase the use of low-level Wi-Fi frame manipulation in a *Pwnagotchi-like* matter with an ESP8266. It can detect *Pwnagotchis*, and send "advertisements" for another *Pwnagotchi* to detect, along with deauthenticating devices connected to an AP. Originally meant to just befriend a local Pwnagotchi, I plan to improve it and extend its purpose, merely with an ESP8266 with 4 MB of memory. 
 
 ###
 ### Install guide
@@ -76,15 +76,15 @@ See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Communic
 
 https://github.com/esp8266/Arduino
 
-- 80211Raw allows raw frames to be received and sent through an ESP8266 or ESP32 using C and C++ in an interesting and useful POC. This is used to send the *Pwnagotchi-like* packets/frames. Most of the Minigotchi is built around this library. 
+- 80211Raw allows raw arbritary frames to be received and sent through an ESP8266 or ESP32 using C and C++ in an interesting and useful POC. This is used to send the *Pwnagotchi-like* frames. Most of the Minigotchi is built around this library. 
 
 https://github.com/tht/80211Raw
 
-- ESP8266 Deauther, the POC that shows that an ESP8266 can deauth and attack local access points. Deauthing is based on this project and is done in a very similar fashion. 
+- ESP8266 Deauther, the POC that shows that an ESP8266 can deauth and attack local access points. Deauthing is based on this project and is done in a very similar fashion. Not only that, but it can also send probes and create fake AP's.
 
 https://github.com/SpacehuhnTech/esp8266_deauther/
 
-- ESP32 Marauder, similar to the ESP8266 Deauther, although packed with more features and support for Flipper Zero's ESP32 WiFi Card Module. It has wardriving capabilities, BLE, Pwnagotchi Scanning, and Deauthing available. This is a very cool project!
+- ESP32 Marauder, similar to the ESP8266 Deauther, although packed with more features and support for Flipper Zero's ESP32 WiFi Card Module. It has wardriving capabilities, BLE, Pwnagotchi Scanning, and Deauthing available. This is a very cool project, I highly recommend checking this out if you have an ESP32. 
 
 https://github.com/justcallmekoko/ESP32Marauder
 

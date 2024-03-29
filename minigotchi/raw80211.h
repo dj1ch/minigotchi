@@ -1,7 +1,8 @@
-///////////////////////////////////////////////////////////////////////////////////////////////
-// source: https://github.com/tht/80211Raw/blob/master/raw80211.h                            //
-// implemented functions: stop(), which stops the listening on a specified channel and bssid //
-///////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * source: https://github.com/tht/80211Raw/blob/master/raw80211.h                            
+ * implemented functions: stop(), which stops the listening on a specified channel and bssid 
+*/
+
 
 #ifndef _RAW80211_H
 #define _RAW80211_H

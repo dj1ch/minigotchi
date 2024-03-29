@@ -1,15 +1,15 @@
-///////////////////////////////////////////////
-// minigotchi.cpp: handles system usage info //
-///////////////////////////////////////////////
+/**
+ * minigotchi.cpp: handles system usage info, etc
+*/
 
 #include "minigotchi.h"
 
-/* developer note: 
-*
-* the functions here provide info on the minigotchi, such as memory, temperature, etc.
-* all this really does is print information to the serial terminal
-* this is meant to be ran on startup.
-*
+/** developer note: 
+ *
+ * the functions here provide info on the minigotchi, such as memory, temperature, etc.
+ * all this really does is print information to the serial terminal
+ * this is meant to be ran on startup.
+ *
 */ 
 
 // this code is pretty disgusting and shitty but it makes minigotchi.ino less cluttered!!!
@@ -22,6 +22,8 @@ void Minigotchi::start() {
     delay(5000);
     Serial.println(" ");
     Serial.println("(>-<) Starting now...");
+    delay(5000);
+    Frame::start();
     Serial.println(" ");
 };
 
@@ -41,7 +43,7 @@ void Minigotchi::finish() {
 
 void Minigotchi::version() {
     Serial.print("('-') Version: ");
-    Serial.println(Config::version);
+    Serial.println(Config::version.c_str());
 }
 
 void Minigotchi::mem() {
