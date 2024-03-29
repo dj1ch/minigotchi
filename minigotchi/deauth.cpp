@@ -54,6 +54,7 @@ void Deauth::select() {
         Serial.println("(o-0) Scanning for APs..");
         delay(500);
         Serial.println("(0-o) Scanning for APs...");
+        Serial.println(" ");
         delay(500);
     }
 
@@ -70,13 +71,11 @@ void Deauth::select() {
             Serial.println("('-') Selected AP is in the whitelist. Skipping deauthentication...");
             return;
         }
-        Serial.println(" ");
         Serial.print("('-') Selected random AP: ");
         Serial.println(randomAP.c_str());
         Serial.println(" ");
     } else {
         // well ur fucked.
-        Serial.println(" ");
         Serial.println("(;-;) No access points found.");
         Serial.println(" ");
     }
@@ -94,13 +93,11 @@ void Deauth::deauth() {
             if (!running) {
                 start();
             } else {
-                Serial.println(" ");
                 Serial.println("('-') Attack is already running.");
                 Serial.println(" ");
             }
         } else {
             // ok why did you modify the deauth function? i literally told you to not do that...
-            Serial.println(" ");
             Serial.println("(X-X) No access point selected. Use select() first.");
             Serial.println("('-') Told you so!");
             Serial.println(" ");

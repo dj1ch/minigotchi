@@ -54,6 +54,7 @@ void Pwnagotchi::detect() {
         Serial.println("(o-0) Scanning for Pwnagotchi..");
         delay(500);
         Serial.println("(0-o) Scanning for Pwnagotchi...");
+        Serial.println(" ");
         delay(500);
     }
 
@@ -76,7 +77,6 @@ void Pwnagotchi::detect() {
     if (!pwnInstance->pwnagotchiDetected) {
         // only searches on your current channel and such afaik, 
         // so this only applies for the current searching area
-        Serial.println(" ");
         Serial.println("(;-;) No Pwnagotchi found.");
         Serial.println(" ");
     }
