@@ -5,8 +5,8 @@
 #ifndef FRAME_H
 #define FRAME_H
 
-#include "raw80211.h"
 #include "config.h"
+#include <user_interface.h>
 
 class Frame {
 public:
