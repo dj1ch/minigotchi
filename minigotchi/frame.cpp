@@ -144,7 +144,7 @@ void Frame::send() {
     }
 
     // send full frame
-    Raw80211::send(beaconFrame, frameSize);
+    Raw80211::send(beaconFrame.data(), frameSize);
 }
 
 
