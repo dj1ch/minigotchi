@@ -6,6 +6,7 @@
 #define FRAME_H
 
 #include "config.h"
+#include "raw80211.h"
 #include <user_interface.h>
 
 class Frame {
