@@ -72,6 +72,10 @@ See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Communic
 
 **Thanks to these projects for making this a little bit more possible for me, I have used libraries/code from these projects and implemented it here:**
 
+- Pwngrid, this is what the project is trying to replicate, specifically the Pwnagotchi's system of peer detection. If this didn't exist this project probably wouldn't have either.
+
+https://github.com/evilsocket/pwngrid
+
 - Arduino, mostly just the repository containing libraries for the project so I can build this code. Many libraries were used in this core repository. 
 
 https://github.com/esp8266/Arduino
