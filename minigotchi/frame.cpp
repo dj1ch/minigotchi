@@ -144,7 +144,7 @@ void Frame::send() {
     }
 
     // send full frame
-    Raw80211::send(beaconFrame.data(), frameSize);
+    wifi_send_pkt_freedom(beaconFrame.data(), frameSize, 0);
 }
 
 
