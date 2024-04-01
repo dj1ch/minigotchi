@@ -159,10 +159,10 @@ void Frame::advertise() {
 
 void Frame::start() {
     Raw80211::start();
-    bool running = true;
+    Frame::running = true;
 }
 
 void Frame::stop() {
     Raw80211::stop();
-    bool running = false;
+    Frame::running = false;
 }
