@@ -7,9 +7,13 @@
 /** developer note: 
  *
  * when it comes to detecting a pwnagotchi, this is done with pwngrid/opwngrid.
- * essentially pwngrid looks for the numbers 222 and 223 in payloads, and if they aren't there, it ignores it.
+ * essentially pwngrid looks for the numbers 222-226 in payloads, and if they aren't there, it ignores it.
  * these need to be put into the frames!!!
  *
+ * note that these frames aren't just normal beacon frames, rather a modified one with data, additional ids, etc.
+ * frames are dynamically constructed, headers are included like a normal frame.
+ * by far this is the most memory heaviest part of the minigotchi, the reason is 
+ * 
 */
 
 // initializing
@@ -23,30 +27,53 @@ const uint8_t Frame::IDWhisperIdentity = 0xE0;
 const uint8_t Frame::IDWhisperSignature = 0xE1;
 const uint8_t Frame::IDWhisperStreamHeader = 0xE2;
 
-// frame info
-const uint8_t Frame::FRAME_CONTROL = 0x80;
-const uint8_t Frame::CAPABILITIES_INFO = 0x31;
-const uint8_t Frame::BEACON_INTERVAL  = 100;
+// other addresses
+const uint8_t Frame::SignatureAddr[] = {0xde, 0xad, 0xbe, 0xef, 0xde, 0xad};
+const uint8_t Frame::BroadcastAddr[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
+const int Frame::wpaFlags = 1041;
+
+// frame control, etc
+const uint8_t Frame::header[] = {
+    0x80, 0x00,                         // Frame Control: Version 0, Type: Management, Subtype: Beacon
+    0x00, 0x00,                         // Duration/ID (will be overwritten)
+    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, // Destination address: Broadcast
+    0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, // Source address: Set in "init"
+    0xa0, 0xa0, 0xa0, 0xa0, 0xa0, 0xa0, // BSSID: Set in "init"
+    0x00, 0x00                          // Sequence/Fragment number
+};
 
 void Frame::pack() {
     // clear frame before constructing
     frameControl.clear();
     beaconFrame.clear();
 
+    // copy pre-defined header to beaconFrame
+    beaconFrame.insert(beaconFrame.end(), Frame::header, Frame::header + sizeof(Frame::header));
+
+    // Parse and set the BSSID
+    std::string bssidStr = Config::bssid;
+    std::istringstream iss(bssidStr);
+    std::string byteStr;
+    uint8_t bssidBytes[6];
+
+    int i = 0;
+    while (std::getline(iss, byteStr, ':') && i < 6) {
+        bssidBytes[i++] = std::stoi(byteStr, nullptr, 16);
+    }
+
+    // set the BSSID in the frame header
+    std::copy(bssidBytes, bssidBytes + 6, beaconFrame.begin() + 10);
+
+    // set signature address
+    beaconFrame[10] = Frame::SignatureAddr[0];
+    beaconFrame[11] = Frame::SignatureAddr[1];
+    beaconFrame[12] = Frame::SignatureAddr[2];
+    beaconFrame[13] = Frame::SignatureAddr[3];
+    beaconFrame[14] = Frame::SignatureAddr[4];
+    beaconFrame[15] = Frame::SignatureAddr[5];
+
     // dynamic construction
     size_t offset = 0;
-
-    // frame control
-    frameControl.push_back(FRAME_CONTROL & 0xFF);
-    frameControl.push_back((FRAME_CONTROL >> 8) & 0xFF);
-
-    // send interval (this should match the delay in the advertise() function)
-    frameControl.push_back(BEACON_INTERVAL & 0xFF);
-    frameControl.push_back((BEACON_INTERVAL >> 8) & 0xFF);
-
-    // capabilities info
-    frameControl.push_back(CAPABILITIES_INFO & 0xFF);
-    frameControl.push_back((CAPABILITIES_INFO >> 8) & 0xFF);
 
     // id's
     beaconFrame.push_back(Frame::IDWhisperIdentity);
@@ -99,9 +126,6 @@ void Frame::pack() {
     // payload size
     const size_t payloadSize = beaconFrame.size();
 
-    // add into frame
-    beaconFrame.insert(beaconFrame.end(), frameControl.begin(), frameControl.end());
-
     // full frame size
     frameSize = beaconFrame.size();
 
@@ -144,6 +168,7 @@ void Frame::send() {
     }
 
     // send full frame
+    // we dont use raw80211 since it sends a header(which we don't need), although we do use it for monitoring, etc.
     wifi_send_pkt_freedom(beaconFrame.data(), frameSize, 0);
 }
 
