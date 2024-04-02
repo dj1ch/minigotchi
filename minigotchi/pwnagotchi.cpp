@@ -54,6 +54,7 @@ void Pwnagotchi::detect() {
         Serial.println("(o-0) Scanning for Pwnagotchi..");
         delay(500);
         Serial.println("(0-o) Scanning for Pwnagotchi...");
+        delay(500);
         Serial.println(" ");
         delay(500);
     }
