@@ -6,6 +6,7 @@
 #define DEAUTH_H
 
 #include "config.h"
+#include "minigotchi.h"
 #include <Arduino.h>
 #include <vector>
 #include <string>
