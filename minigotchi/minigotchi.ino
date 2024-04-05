@@ -27,7 +27,7 @@ void setup() {
     Serial.begin(config.baud);
     minigotchi.start();
     deauth.list();
-    channel.init(1);
+    channel.init(config.channel);
     minigotchi.info();
     minigotchi.finish();
 }
