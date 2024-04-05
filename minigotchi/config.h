@@ -16,7 +16,6 @@ public:
     static bool deauth;
     static bool advertise;
     static int baud;
-    static const char* bssid;
     static int channel;
     static std::vector<std::string> whitelist;
     static int epoch;

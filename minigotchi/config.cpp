@@ -20,8 +20,7 @@ bool Config::advertise = true;
 // define baud rate
 int Config::baud = 115200;
 
-// define init bssid, channel
-const char* Config::bssid = "fo:od:ba:be:fo:od";
+// define init channel
 int Config::channel = 1;
 
 // define whitelist 
