@@ -15,6 +15,13 @@
 // same channels in config
 int Channel::channelList[3] = {Config::channels[0], Config::channels[1], Config::channels[2]};
 
+void Channel::init(int initChannel) {
+    // start on user specified channel
+    Serial.print("(-.-) Initializing on channel ");
+    Serial.println(initChannel);
+    switchC(initChannel);
+}
+
 void Channel::cycle() { 
     // get channels
     int numChannels = sizeof(channelList) / sizeof(channelList[0]);
@@ -28,11 +35,10 @@ void Channel::cycle() {
 }
 
 void Channel::switchC(int newChannel) {
-    // stop raw80211 from being on this one channe
+    // switch to channel
     Serial.print("(-.-) Switching to channel ");
     Serial.println(newChannel);
     Serial.println(" ");
-    Raw80211::stop();
 
     // monitor this one channel
     wifi_promiscuous_enable(0);

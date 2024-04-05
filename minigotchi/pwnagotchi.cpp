@@ -1,5 +1,5 @@
 /**
- * pwnagotchi.cpp: handles pwnagotchi detection            
+ * pwnagotchi.cpp: sniffs for pwnagotchi beacon frames            
  * source: https://github.com/justcallmekoko/ESP32Marauder 
 */
 
@@ -16,23 +16,8 @@
  *
 */
 
-namespace {
-    Pwnagotchi* pwnInstance = nullptr;
-
-    void rawCallback(const wifi_ieee80211_mac_hdr_t *hdr, int rssi, const unsigned char *buff, short unsigned int buff_len) {
-        if (pwnInstance) {
-            pwnInstance->handle(hdr, rssi, buff, buff_len);
-        }
-    }
-}
-
-Pwnagotchi::Pwnagotchi() {
-    // init the class
-    essid = "de:ad:be:ef:de:ad";
-    // register the function
-    Raw80211::register_cb(&rawCallback);
-    Serial.println("('-') Callback registered");
-}
+// start off false
+bool Pwnagotchi::pwnagotchiDetected = false;
 
 void Pwnagotchi::getMAC(char* addr, const unsigned char* buff, int offset) {
     snprintf(addr, 18, "%02x:%02x:%02x:%02x:%02x:%02x",
@@ -40,14 +25,14 @@ void Pwnagotchi::getMAC(char* addr, const unsigned char* buff, int offset) {
              buff[offset + 3], buff[offset + 4], buff[offset + 5]);
 }
 
-String Pwnagotchi::extractMAC(const unsigned char *buff) {
+std::string Pwnagotchi::extractMAC(const unsigned char *buff) {
     char addr[] = "00:00:00:00:00:00";
     getMAC(addr, buff, 10);
-    return String(addr);
+    return std::string(addr);
 }
 
 void Pwnagotchi::detect() {
-    // cool animation here
+    // cool animation
     for (int i = 0; i < 5; ++i) {
         Serial.println("(0-o) Scanning for Pwnagotchi.");
         delay(500);
@@ -59,38 +44,26 @@ void Pwnagotchi::detect() {
         delay(500);
     }
 
-    // static instance
-    pwnInstance = this;
-
     // delay for scanning
     delay(5000);
 
-    if (pwnagotchiDetected) {
-        // send the advertisement if it is found
-        Serial.println(" ");
-        Serial.println("(^-^) Starting advertisement...");
-        Serial.println(" ");
-        delay(5000);
-        Frame::start();
-    }
-
-    // check if the rawCallback was triggered during scanning
-    if (!pwnInstance->pwnagotchiDetected) {
-        // only searches on your current channel and such afaik, 
-        // so this only applies for the current searching area
-        Serial.println("(;-;) No Pwnagotchi found.");
-        Serial.println(" ");
-    }
+    // set mode and callback
+    wifi_set_opmode(STATION_MODE);
+    wifi_promiscuous_enable(true);
+    wifi_set_promiscuous_rx_cb(&pwnagotchiCallback);
 }
 
-void Pwnagotchi::handle(const wifi_ieee80211_mac_hdr_t *hdr, int rssi, const unsigned char *buff, short unsigned int buff_len) {
+void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type) {
+    wifi_promiscuous_pkt_t* snifferPacket = (wifi_promiscuous_pkt_t*)buf;
+
     // check if it is a beacon frame
-    if (buff[0] == 0x80) {
+    if (snifferPacket->payload[0] == 0x80) {
         // extract mac
         char addr[] = "00:00:00:00:00:00";
-        String src = extractMAC(buff);
+        getMAC(addr, snifferPacket->payload, 10);
+        String src = addr;
 
-        // check if the source MAC matches "de:ad:be:ef:de:ad"
+        // Check if the source MAC matches the target
         if (src == "de:ad:be:ef:de:ad") {
             pwnagotchiDetected = true;
             Serial.println(" ");
@@ -98,7 +71,7 @@ void Pwnagotchi::handle(const wifi_ieee80211_mac_hdr_t *hdr, int rssi, const uns
             Serial.println(" ");
 
             // extract the ESSID from the beacon frame
-            String essid(reinterpret_cast<const char*>(&buff[36]));
+            String essid(reinterpret_cast<const char*>(&snifferPacket->payload[36]));
 
             Serial.print("ESSID: ");
             Serial.println(essid);
@@ -122,11 +95,11 @@ void Pwnagotchi::handle(const wifi_ieee80211_mac_hdr_t *hdr, int rssi, const uns
                 String pwndTot = jsonBuffer["pwnd_tot"].as<String>();
 
                 // print the info
-                Serial.println("(^-^) Pwnagotchi name: ");
+                Serial.print("(^-^) Pwnagotchi name: ");
                 Serial.println(name);
-                Serial.println("(^-^) Pwned Networks: ");
+                Serial.print("(^-^) Pwned Networks: ");
                 Serial.println(pwndTot);
-                Serial.println(" ");
+                Serial.print(" ");
             }
         }
     }
