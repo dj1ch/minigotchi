@@ -92,4 +92,12 @@ https://github.com/lacamera/ESPAsyncWebServer
 
 https://github.com/MilkyDeveloper
 
+- This is a set of projects, one of which was an ESP32 sniffer. 
+
+https://github.com/lpodkalicki/blog
+
+- esp8266-sniffer, an ESP8266 sniffer dedicated to finding probes from smartphones. 
+
+https://github.com/kalanda/esp8266-sniffer
+
 **Made with ❤️ by [@dj1ch](https://github.com/dj1ch) and the rest of the Pwnagotchi-Unofficial team!**
