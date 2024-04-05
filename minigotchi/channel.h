@@ -5,6 +5,7 @@
 #ifndef CHANNEL_H
 #define CHANNEL_H
 
+#include "minigotchi.h"
 #include "config.h"
 #include <ESP8266WiFi.h>
 

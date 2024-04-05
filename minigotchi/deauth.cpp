@@ -60,6 +60,8 @@ void Deauth::select() {
 
     delay(5000);
 
+    // stop and scan
+    Minigotchi::monStop();
     int apCount = WiFi.scanNetworks();
 
     if (apCount > 0) {

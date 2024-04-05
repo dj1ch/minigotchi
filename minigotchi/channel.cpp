@@ -23,13 +23,12 @@ void Channel::init(int initChannel) {
     Serial.println(" ");
     
     // switch channel
-    wifi_promiscuous_enable(0);
+    Minigotchi::monStop();
     wifi_set_channel(initChannel);
-    wifi_promiscuous_enable(1);
+    Minigotchi::monStart();
 
     Serial.print("('-') Currently on channel ");
     Serial.println(getChannel());
-    Serial.println(" ");
 }
 
 void Channel::cycle() { 
@@ -51,9 +50,9 @@ void Channel::switchC(int newChannel) {
     Serial.println(" ");
 
     // monitor this one channel
-    wifi_promiscuous_enable(0);
+    Minigotchi::monStop();
     wifi_set_channel(newChannel);
-    wifi_promiscuous_enable(1);
+    Minigotchi::monStart();
 
     // switched channel
     Serial.print("('-') Currently on channel ");

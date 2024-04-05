@@ -25,7 +25,7 @@ void Minigotchi::start() {
     delay(5000);
     Frame::start();
     Serial.println(" ");
-};
+}
 
 void Minigotchi::info() {
     Serial.println(" ");
@@ -34,12 +34,12 @@ void Minigotchi::info() {
     mem();
     cpu();
     Serial.println(" ");
-};
+}
 
 void Minigotchi::finish() {
     Serial.println("('-') Started successfully!");
     Serial.println(" ");
-};
+}
 
 void Minigotchi::version() {
     Serial.print("('-') Version: ");
@@ -50,10 +50,26 @@ void Minigotchi::mem() {
     Serial.print("('-') Heap: ");
     Serial.print(ESP.getFreeHeap());
     Serial.println(" bytes");
-};
+}
 
 void Minigotchi::cpu() {
     Serial.print("('-') CPU Frequency: ");
     Serial.print(ESP.getCpuFreqMHz());
     Serial.println(" MHz");
-};
+}
+
+/** developer note:
+ * 
+ * these functions are much like the pwnagotchi's monstart and monstop which start and stop monitor mode. neat!
+ * 
+ * obviously i like to keep things consistent with the pwnagotchi, this is one of those things.
+ * 
+*/
+
+void Minigotchi::monStart() {
+    wifi_promiscuous_enable(1);
+}
+
+void Minigotchi::monStop() {
+    wifi_promiscuous_enable(0);
+}
