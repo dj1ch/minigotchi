@@ -42,6 +42,81 @@ const uint8_t Frame::header[] = {
     0x00, 0x00                          // Sequence/Fragment number
 };
 
+/** developer note:
+ * 
+ * according to pack.go:
+ * we build the frame like so
+ * 
+ * func PackOneOf(from, to net.HardwareAddr, peerID []byte, signature []byte, streamID uint64, seqNum uint64, seqTot uint64, payload []byte, compress bool) (error, []byte) {
+ * 	stack := []gopacket.SerializableLayer{
+ *		&layers.RadioTap{},
+ *		&layers.Dot11{
+ *			Address1: to,
+ *			Address2: SignatureAddr,
+ *			Address3: from,
+ *			Type:     layers.Dot11TypeMgmtBeacon,
+ *		},
+ * 		&layers.Dot11MgmtBeacon{
+ *			Flags:    uint16(wpaFlags),
+ *			Interval: 100,
+ *		},
+ *	}
+ *
+ *	if peerID != nil {
+ *		stack = append(stack, Info(IDWhisperIdentity, peerID))
+ *	}
+ *
+ *	if signature != nil {
+ *		stack = append(stack, Info(IDWhisperSignature, signature))
+ *	}
+ *
+ *	if streamID > 0 {
+ *		streamBuf := new(bytes.Buffer)
+ *		if err := binary.Write(streamBuf, binary.LittleEndian, streamID); err != nil {
+ *			return err, nil
+ *		} else if err = binary.Write(streamBuf, binary.LittleEndian, seqNum); err != nil {
+ *			return err, nil
+ *		} else if err = binary.Write(streamBuf, binary.LittleEndian, seqTot); err != nil {
+ *			return err, nil
+ *		}
+ *		stack = append(stack, Info(IDWhisperStreamHeader, streamBuf.Bytes()))
+ *	}
+ *
+ *	if compress {
+ *		if didCompress, compressed, err := Compress(payload); err != nil {
+ *			return err, nil
+ *		} else if didCompress {
+ *			stack = append(stack, Info(IDWhisperCompression, []byte{1}))
+ *			payload = compressed
+ *		}
+ *	}
+ *
+ *	dataSize := len(payload)
+ *	dataLeft := dataSize
+ *	dataOff := 0
+ *	chunkSize := 0xff
+ *
+ *	for dataLeft > 0 {
+ *		sz := chunkSize
+ *		if dataLeft < chunkSize {
+ *			sz = dataLeft
+ *		}
+ *
+ *		chunk := payload[dataOff : dataOff+sz]
+ *		stack = append(stack, Info(IDWhisperPayload, chunk))
+ *
+ *		dataOff += sz
+ *		dataLeft -= sz
+ *	}
+ *
+ *	return Serialize(stack...)
+ * }
+ *
+ * ofc, when it comes to any new programming language such as Go, i am pretty clueless as how to interpret it
+ * so this is all my best try
+ *  
+*/
+
 void Frame::pack() {
     // clear frame before constructing
     frameControl.clear();
@@ -50,15 +125,15 @@ void Frame::pack() {
     // copy pre-defined header to beaconFrame
     beaconFrame.insert(beaconFrame.end(), Frame::header, Frame::header + sizeof(Frame::header));
 
-    // Parse and set the BSSID
-    std::string bssidStr = Config::bssid;
-    std::istringstream iss(bssidStr);
-    std::string byteStr;
+    // parse and set the BSSID (to)
+    const char* bssidStr = Config::bssid;
     uint8_t bssidBytes[6];
 
+    char *token = strtok((char*)bssidStr, ":");
     int i = 0;
-    while (std::getline(iss, byteStr, ':') && i < 6) {
-        bssidBytes[i++] = std::stoi(byteStr, nullptr, 16);
+    while (token != NULL && i < 6) {
+        bssidBytes[i++] = strtol(token, NULL, 16);
+        token = strtok(NULL, ":");
     }
 
     // set the BSSID in the frame header
@@ -71,6 +146,12 @@ void Frame::pack() {
     beaconFrame[13] = Frame::SignatureAddr[3];
     beaconFrame[14] = Frame::SignatureAddr[4];
     beaconFrame[15] = Frame::SignatureAddr[5];
+
+    // get mac addr (from)
+    uint8_t mac[6];
+    WiFi.macAddress(mac);
+    char macStr[18];
+    sprintf(macStr, "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 
     // dynamic construction
     size_t offset = 0;

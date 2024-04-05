@@ -10,6 +10,7 @@
 #include <vector>
 #include <string>
 #include <user_interface.h>
+#include <ESP8266WiFi.h>
 
 class Frame {
 public:
