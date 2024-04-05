@@ -51,6 +51,23 @@ void Pwnagotchi::detect() {
     wifi_set_opmode(STATION_MODE);
     wifi_promiscuous_enable(true);
     wifi_set_promiscuous_rx_cb(&pwnagotchiCallback);
+
+    if (pwnagotchiDetected) {
+        // send the advertisement if it is found
+        Serial.println(" ");
+        Serial.println("(^-^) Starting advertisement...");
+        Serial.println(" ");
+        delay(5000);
+        Frame::start();
+    }
+
+    // check if the pwnagotchiCallback wasn't triggered during scanning
+    if (!pwnagotchiDetected) {
+        // only searches on your current channel and such afaik, 
+        // so this only applies for the current searching area
+        Serial.println("(;-;) No Pwnagotchi found.");
+        Serial.println(" ");
+    }
 }
 
 void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type) {
@@ -102,5 +119,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
                 Serial.print(" ");
             }
         }
+    } else {
+
     }
 }
