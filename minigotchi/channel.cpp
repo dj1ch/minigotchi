@@ -17,9 +17,19 @@ int Channel::channelList[3] = {Config::channels[0], Config::channels[1], Config:
 
 void Channel::init(int initChannel) {
     // start on user specified channel
+    Serial.println(" ");
     Serial.print("(-.-) Initializing on channel ");
     Serial.println(initChannel);
-    switchC(initChannel);
+    Serial.println(" ");
+    
+    // switch channel
+    wifi_promiscuous_enable(0);
+    wifi_set_channel(initChannel);
+    wifi_promiscuous_enable(1);
+
+    Serial.print("('-') Currently on channel ");
+    Serial.println(getChannel());
+    Serial.println(" ");
 }
 
 void Channel::cycle() { 
@@ -47,7 +57,7 @@ void Channel::switchC(int newChannel) {
 
     // switched channel
     Serial.print("('-') Currently on channel ");
-    Serial.println(newChannel);
+    Serial.println(getChannel());
     Serial.println(" ");
 }
 
