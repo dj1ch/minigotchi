@@ -7,7 +7,6 @@
 #include "frame.h"
 #include "deauth.h"
 #include "channel.h"
-#include "raw80211.h"
 #include "config.h"
 
 Minigotchi minigotchi;
@@ -15,7 +14,6 @@ Pwnagotchi pwnagotchi;
 Frame frame;
 Deauth deauth;
 Channel channel;
-Raw80211 raw;
 Config config;
 
 /** developer note: 
@@ -29,8 +27,7 @@ void setup() {
     Serial.begin(config.baud);
     minigotchi.start();
     deauth.list();
-    raw.init(config.bssid, config.channel);
-    raw.start();
+    channel.init(1);
     minigotchi.info();
     minigotchi.finish();
 }

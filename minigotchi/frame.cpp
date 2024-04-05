@@ -183,11 +183,9 @@ void Frame::advertise() {
 }
 
 void Frame::start() {
-    Raw80211::start();
     Frame::running = true;
 }
 
 void Frame::stop() {
-    Raw80211::stop();
     Frame::running = false;
 }

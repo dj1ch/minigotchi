@@ -6,7 +6,6 @@
 #define FRAME_H
 
 #include "config.h"
-#include "raw80211.h"
 #include <sstream>
 #include <vector>
 #include <string>
