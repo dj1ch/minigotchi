@@ -11,18 +11,18 @@
 
 class Channel {
 public:
-    void init(int initChannel);
-    void cycle();
-    void switchC(int newChannel);
-    int getChannel();
-    int list();
+    static void init(int initChannel);
+    static void cycle();
+    static void switchC(int newChannel);
+    static int getChannel();
+    static int list();
     static int channelList[3]; // 3 channels 
 
 private:
-    int randomIndex; 
-    int numChannels; 
-    int currentChannel;
-    int newChannel;
+    static int randomIndex; 
+    static int numChannels; 
+    static int currentChannel;
+    static int newChannel;
 };
 
 #endif // CHANNEL_H

@@ -17,10 +17,12 @@ int Channel::channelList[3] = {Config::channels[0], Config::channels[1], Config:
 
 void Channel::init(int initChannel) {
     // start on user specified channel
+    delay(5000);
     Serial.println(" ");
     Serial.print("(-.-) Initializing on channel ");
     Serial.println(initChannel);
     Serial.println(" ");
+    delay(5000);
     
     // switch channel
     Minigotchi::monStop();
@@ -29,6 +31,7 @@ void Channel::init(int initChannel) {
 
     Serial.print("('-') Currently on channel ");
     Serial.println(getChannel());
+    delay(5000);
 }
 
 void Channel::cycle() { 
@@ -45,9 +48,11 @@ void Channel::cycle() {
 
 void Channel::switchC(int newChannel) {
     // switch to channel
+    delay(5000);
     Serial.print("(-.-) Switching to channel ");
     Serial.println(newChannel);
     Serial.println(" ");
+    delay(5000);
 
     // monitor this one channel
     Minigotchi::monStop();
@@ -58,6 +63,7 @@ void Channel::switchC(int newChannel) {
     Serial.print("('-') Currently on channel ");
     Serial.println(getChannel());
     Serial.println(" ");
+    delay(5000);
 }
 
 int Channel::getChannel() {
