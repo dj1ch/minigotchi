@@ -5,18 +5,27 @@
 #ifndef MINIGOTCHI_H
 #define MINIGOTCHI_H
 
-#include "config.h"
+#include "pwnagotchi.h"
 #include "frame.h"
+#include "deauth.h"
+#include "channel.h"
+#include "config.h"
 #include <Arduino.h>
+#include <ESP8266WiFi.h>
 
 class Minigotchi {
 public: 
-    void start();
-    void finish(); 
-    void info();
-    void version();
-    void mem();
-    void cpu();
+    static void boot();
+    static void finish(); 
+    static void info();
+    static void version();
+    static void mem();
+    static void cpu();
+    static void monStart();
+    static void monStop();
+    static void cycle();
+    static void detect();
+    static void deauth();
     
 };
 

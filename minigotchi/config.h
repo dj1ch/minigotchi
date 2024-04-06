@@ -8,6 +8,8 @@
 #include <Arduino.h>
 #include <string>
 #include <vector>
+#include <iostream>
+#include <random>
 
 class Config {
 public:
@@ -40,6 +42,10 @@ public:
     static std::string session_id;
     static int uptime;
     static std::string version;
+
+private:
+    static int random(int min, int max);
+    static int time();
 };
 
 #endif // CONFIG_H

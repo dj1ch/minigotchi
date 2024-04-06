@@ -7,14 +7,17 @@
 /** developer note: 
  *
  * when it comes to detecting a pwnagotchi, this is done with pwngrid/opwngrid.
- * essentially pwngrid looks for the numbers 222 and 223 in payloads, and if they aren't there, it ignores it.
+ * essentially pwngrid looks for the numbers 222-226 in payloads, and if they aren't there, it ignores it.
  * these need to be put into the frames!!!
  *
+ * note that these frames aren't just normal beacon frames, rather a modified one with data, additional ids, etc.
+ * frames are dynamically constructed, headers are included like a normal frame.
+ * by far this is the most memory heaviest part of the minigotchi, the reason is 
+ * 
 */
 
 // initializing
 bool Frame::running = false;
-bool Frame::framePrinted = false;
 
 // payload ID's according to pwngrid
 const uint8_t Frame::IDWhisperPayload = 0xDE;
@@ -23,30 +26,134 @@ const uint8_t Frame::IDWhisperIdentity = 0xE0;
 const uint8_t Frame::IDWhisperSignature = 0xE1;
 const uint8_t Frame::IDWhisperStreamHeader = 0xE2;
 
-// frame info
-const uint8_t Frame::FRAME_CONTROL = 0x80;
-const uint8_t Frame::CAPABILITIES_INFO = 0x31;
-const uint8_t Frame::BEACON_INTERVAL  = 100;
+// other addresses
+const uint8_t Frame::SignatureAddr[] = {0xde, 0xad, 0xbe, 0xef, 0xde, 0xad};
+const uint8_t Frame::BroadcastAddr[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
+const int Frame::wpaFlags = 1041;
+
+// frame control, etc
+const uint8_t Frame::header[] = {
+    0x80, 0x00,                         // Frame Control: Version 0, Type: Management, Subtype: Beacon
+    0x00, 0x00,                         // Duration/ID (will be overwritten)
+    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, // Destination address: Broadcast
+    0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, // Source address: Set in "init"
+    0xa0, 0xa0, 0xa0, 0xa0, 0xa0, 0xa0, // BSSID: Set in "init"
+    0x00, 0x00                          // Sequence/Fragment number
+};
+
+/** developer note:
+ * 
+ * according to pack.go:
+ * we build the frame like so
+ * 
+ * func PackOneOf(from, to net.HardwareAddr, peerID []byte, signature []byte, streamID uint64, seqNum uint64, seqTot uint64, payload []byte, compress bool) (error, []byte) {
+ * 	stack := []gopacket.SerializableLayer{
+ *		&layers.RadioTap{},
+ *		&layers.Dot11{
+ *			Address1: to,
+ *			Address2: SignatureAddr,
+ *			Address3: from,
+ *			Type:     layers.Dot11TypeMgmtBeacon,
+ *		},
+ * 		&layers.Dot11MgmtBeacon{
+ *			Flags:    uint16(wpaFlags),
+ *			Interval: 100,
+ *		},
+ *	}
+ *
+ *	if peerID != nil {
+ *		stack = append(stack, Info(IDWhisperIdentity, peerID))
+ *	}
+ *
+ *	if signature != nil {
+ *		stack = append(stack, Info(IDWhisperSignature, signature))
+ *	}
+ *
+ *	if streamID > 0 {
+ *		streamBuf := new(bytes.Buffer)
+ *		if err := binary.Write(streamBuf, binary.LittleEndian, streamID); err != nil {
+ *			return err, nil
+ *		} else if err = binary.Write(streamBuf, binary.LittleEndian, seqNum); err != nil {
+ *			return err, nil
+ *		} else if err = binary.Write(streamBuf, binary.LittleEndian, seqTot); err != nil {
+ *			return err, nil
+ *		}
+ *		stack = append(stack, Info(IDWhisperStreamHeader, streamBuf.Bytes()))
+ *	}
+ *
+ *	if compress {
+ *		if didCompress, compressed, err := Compress(payload); err != nil {
+ *			return err, nil
+ *		} else if didCompress {
+ *			stack = append(stack, Info(IDWhisperCompression, []byte{1}))
+ *			payload = compressed
+ *		}
+ *	}
+ *
+ *	dataSize := len(payload)
+ *	dataLeft := dataSize
+ *	dataOff := 0
+ *	chunkSize := 0xff
+ *
+ *	for dataLeft > 0 {
+ *		sz := chunkSize
+ *		if dataLeft < chunkSize {
+ *			sz = dataLeft
+ *		}
+ *
+ *		chunk := payload[dataOff : dataOff+sz]
+ *		stack = append(stack, Info(IDWhisperPayload, chunk))
+ *
+ *		dataOff += sz
+ *		dataLeft -= sz
+ *	}
+ *
+ *	return Serialize(stack...)
+ * }
+ *
+ * ofc, when it comes to any new programming language such as Go, i am pretty clueless as how to interpret it
+ * so this is all my best try
+ *  
+*/
 
 void Frame::pack() {
     // clear frame before constructing
     frameControl.clear();
     beaconFrame.clear();
 
+    // copy pre-defined header to beaconFrame
+    beaconFrame.insert(beaconFrame.end(), Frame::header, Frame::header + sizeof(Frame::header));
+
+    // parse and set the BSSID (to)
+    const char* bssidStr = Config::bssid;
+    uint8_t bssidBytes[6];
+
+    char *token = strtok((char*)bssidStr, ":");
+    int i = 0;
+    while (token != NULL && i < 6) {
+        bssidBytes[i++] = strtol(token, NULL, 16);
+        token = strtok(NULL, ":");
+    }
+
+    // set the BSSID in the frame header
+    std::copy(bssidBytes, bssidBytes + 6, beaconFrame.begin() + 10);
+
+    // set signature address
+    beaconFrame[10] = Frame::SignatureAddr[0];
+    beaconFrame[11] = Frame::SignatureAddr[1];
+    beaconFrame[12] = Frame::SignatureAddr[2];
+    beaconFrame[13] = Frame::SignatureAddr[3];
+    beaconFrame[14] = Frame::SignatureAddr[4];
+    beaconFrame[15] = Frame::SignatureAddr[5];
+
+    // get mac addr (from)
+    uint8_t mac[6];
+    WiFi.macAddress(mac);
+    char macStr[18];
+    sprintf(macStr, "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+
     // dynamic construction
     size_t offset = 0;
-
-    // frame control
-    frameControl.push_back(FRAME_CONTROL & 0xFF);
-    frameControl.push_back((FRAME_CONTROL >> 8) & 0xFF);
-
-    // send interval (this should match the delay in the advertise() function)
-    frameControl.push_back(BEACON_INTERVAL & 0xFF);
-    frameControl.push_back((BEACON_INTERVAL >> 8) & 0xFF);
-
-    // capabilities info
-    frameControl.push_back(CAPABILITIES_INFO & 0xFF);
-    frameControl.push_back((CAPABILITIES_INFO >> 8) & 0xFF);
 
     // id's
     beaconFrame.push_back(Frame::IDWhisperIdentity);
@@ -99,9 +206,6 @@ void Frame::pack() {
     // payload size
     const size_t payloadSize = beaconFrame.size();
 
-    // add into frame
-    beaconFrame.insert(beaconFrame.end(), frameControl.begin(), frameControl.end());
-
     // full frame size
     frameSize = beaconFrame.size();
 
@@ -122,28 +226,8 @@ void Frame::send() {
     // build frame
     Frame::pack();
 
-    String beaconFrameStr = "";
-    for (size_t i = 0; i < frameSize; ++i) {
-        char hex[3];
-        sprintf(hex, "%02X", beaconFrame[i]);
-        beaconFrameStr += hex;
-    }
-
-    // print info
-    static bool framePrinted = false;
-    if (!framePrinted) {
-        Serial.print("('-') Frame size: ");
-        Serial.print(frameSize);
-        Serial.println(" bytes");
-        Serial.println(" ");
-        Serial.println("('-') Current Frame: ");
-        Serial.println(" ");
-        Serial.println(beaconFrameStr);
-        Serial.println(" ");
-        framePrinted = true;
-    }
-
     // send full frame
+    // we dont use raw80211 since it sends a header(which we don't need), although we do use it for monitoring, etc.
     wifi_send_pkt_freedom(beaconFrame.data(), frameSize, 0);
 }
 
@@ -158,11 +242,9 @@ void Frame::advertise() {
 }
 
 void Frame::start() {
-    Raw80211::start();
-    bool running = true;
+    Frame::running = true;
 }
 
 void Frame::stop() {
-    Raw80211::stop();
-    bool running = false;
+    Frame::running = false;
 }

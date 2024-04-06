@@ -12,7 +12,12 @@
  *
 */
 
-uint8_t deauthFrame[26] = {
+// default values before we start
+bool Deauth::running = false;
+std::vector<String> Deauth::whitelist = {};
+String Deauth::randomAP = "";
+
+uint8_t Deauth::deauthFrame[26] = {
     /*  0 - 1  */ 0xC0, 0x00,                         // type, subtype c0: deauth (a0: disassociate)
     /*  2 - 3  */ 0x00, 0x00,                         // duration (SDK takes care of that)
     /*  4 - 9  */ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // receiver (target)
@@ -54,12 +59,15 @@ void Deauth::select() {
         Serial.println("(o-0) Scanning for APs..");
         delay(500);
         Serial.println("(0-o) Scanning for APs...");
+        delay(500);
         Serial.println(" ");
         delay(500);
     }
 
     delay(5000);
 
+    // stop and scan
+    Minigotchi::monStop();
     int apCount = WiFi.scanNetworks();
 
     if (apCount > 0) {
@@ -85,22 +93,25 @@ void Deauth::deauth() {
     if (Config::deauth) {
        // select AP
         Deauth::select();
-    
+        
         if (randomAP.length() > 0) {
             Serial.println("(>-<) Starting deauthentication attack on the selected AP...");
             Serial.println(" ");
+            delay(5000);
             // define the attack
             if (!running) {
                 start();
             } else {
                 Serial.println("('-') Attack is already running.");
                 Serial.println(" ");
+                delay(5000);
             }
         } else {
             // ok why did you modify the deauth function? i literally told you to not do that...
             Serial.println("(X-X) No access point selected. Use select() first.");
             Serial.println("('-') Told you so!");
             Serial.println(" ");
+            delay(5000);
         } 
     } else {
         // do nothing if deauthing is disabled

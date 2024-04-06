@@ -15,6 +15,25 @@
 // same channels in config
 int Channel::channelList[3] = {Config::channels[0], Config::channels[1], Config::channels[2]};
 
+void Channel::init(int initChannel) {
+    // start on user specified channel
+    delay(1000);
+    Serial.println(" ");
+    Serial.print("(-.-) Initializing on channel ");
+    Serial.println(initChannel);
+    Serial.println(" ");
+    delay(1000);
+    
+    // switch channel
+    Minigotchi::monStop();
+    wifi_set_channel(initChannel);
+    Minigotchi::monStart();
+
+    Serial.print("('-') Currently on channel ");
+    Serial.println(getChannel());
+    delay(1000);
+}
+
 void Channel::cycle() { 
     // get channels
     int numChannels = sizeof(channelList) / sizeof(channelList[0]);
@@ -28,21 +47,23 @@ void Channel::cycle() {
 }
 
 void Channel::switchC(int newChannel) {
-    // stop raw80211 from being on this one channe
+    // switch to channel
+    delay(1000);
     Serial.print("(-.-) Switching to channel ");
     Serial.println(newChannel);
     Serial.println(" ");
-    Raw80211::stop();
+    delay(1000);
 
     // monitor this one channel
-    wifi_promiscuous_enable(0);
+    Minigotchi::monStop();
     wifi_set_channel(newChannel);
-    wifi_promiscuous_enable(1);
+    Minigotchi::monStart();
 
     // switched channel
     Serial.print("('-') Currently on channel ");
-    Serial.println(newChannel);
+    Serial.println(getChannel());
     Serial.println(" ");
+    delay(1000);
 }
 
 int Channel::getChannel() {
