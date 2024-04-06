@@ -20,11 +20,13 @@ void Minigotchi::boot() {
     Serial.println("(^-^) Hi, I'm Minigotchi, your pwnagotchi's best friend!");
     Serial.println(" ");
     Serial.println("('-') You can edit my configuration parameters in config.cpp!");
-    delay(5000);
     Serial.println(" ");
+    delay(5000);
     Serial.println("(>-<) Starting now...");
     Serial.println(" ");
-    delay(5000);
+    delay(2500);
+    Serial.println("########################");
+    Serial.println(" ");
     Frame::start();
     Deauth::list();
     Channel::init(Config::channel);
@@ -33,19 +35,21 @@ void Minigotchi::boot() {
 }
 
 void Minigotchi::info() {
-    delay(5000);
+    delay(2500);
     Serial.println(" ");
     Serial.println("('-') Current Minigotchi Stats: ");
     version();
     mem();
     cpu();
     Serial.println(" ");
-    delay(5000);
+    delay(2500);
 }
 
 // if this can be printed, everything should have gone right...
 void Minigotchi::finish() {
-    delay(5000);
+    Serial.println("########################");
+    Serial.println(" ");
+    delay(2500);
     Serial.println("('-') Started successfully!");
     Serial.println(" ");
 }
