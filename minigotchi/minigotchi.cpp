@@ -24,7 +24,7 @@ void Minigotchi::boot() {
     delay(5000);
     Serial.println("(>-<) Starting now...");
     Serial.println(" ");
-    delay(2500);
+    delay(1000);
     Serial.println("########################");
     Serial.println(" ");
     Frame::start();
@@ -35,21 +35,21 @@ void Minigotchi::boot() {
 }
 
 void Minigotchi::info() {
-    delay(2500);
+    delay(1000);
     Serial.println(" ");
     Serial.println("('-') Current Minigotchi Stats: ");
     version();
     mem();
     cpu();
     Serial.println(" ");
-    delay(2500);
+    delay(1000);
 }
 
 // if this can be printed, everything should have gone right...
 void Minigotchi::finish() {
     Serial.println("########################");
     Serial.println(" ");
-    delay(2500);
+    delay(1000);
     Serial.println("('-') Started successfully!");
     Serial.println(" ");
 }
