@@ -12,7 +12,12 @@
  *
 */
 
-uint8_t deauthFrame[26] = {
+// default values before we start
+bool Deauth::running = false;
+std::vector<String> Deauth::whitelist = {};
+String Deauth::randomAP = "";
+
+uint8_t Deauth::deauthFrame[26] = {
     /*  0 - 1  */ 0xC0, 0x00,                         // type, subtype c0: deauth (a0: disassociate)
     /*  2 - 3  */ 0x00, 0x00,                         // duration (SDK takes care of that)
     /*  4 - 9  */ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // receiver (target)

@@ -18,15 +18,15 @@ public:
     static void deauth();
     static void list();
     static void add(const std::string& bssids);
+    static uint8_t deauthFrame[26];
 
 private:
+    static void select();
+    static void start();
+    static uint8_t bssid[6];
     static bool running;
     static std::vector<String> whitelist;
     static String randomAP;
-    static void select();
-    static void start();
-    static uint8_t deauthFrame[26];
-    static uint8_t bssid[6];
 };
 
 #endif // DEAUTH_H
