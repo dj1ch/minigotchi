@@ -18,7 +18,6 @@
 
 // initializing
 bool Frame::running = false;
-bool Frame::framePrinted = false;
 
 // payload ID's according to pwngrid
 const uint8_t Frame::IDWhisperPayload = 0xDE;
@@ -226,27 +225,6 @@ void Frame::pack() {
 void Frame::send() {
     // build frame
     Frame::pack();
-
-    String beaconFrameStr = "";
-    for (size_t i = 0; i < frameSize; ++i) {
-        char hex[3];
-        sprintf(hex, "%02X", beaconFrame[i]);
-        beaconFrameStr += hex;
-    }
-
-    // print info
-    static bool framePrinted = false;
-    if (!framePrinted) {
-        Serial.print("('-') Frame size: ");
-        Serial.print(frameSize);
-        Serial.println(" bytes");
-        Serial.println(" ");
-        Serial.println("('-') Current Frame: ");
-        Serial.println(" ");
-        Serial.println(beaconFrameStr);
-        Serial.println(" ");
-        framePrinted = true;
-    }
 
     // send full frame
     // we dont use raw80211 since it sends a header(which we don't need), although we do use it for monitoring, etc.

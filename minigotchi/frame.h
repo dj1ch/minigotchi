@@ -31,7 +31,6 @@ public:
     
 private:
     static bool running;
-    static bool framePrinted;
     static size_t frameSize;
     static std::vector<uint8_t> frameControl;
     static std::vector<uint8_t> beaconFrame;
