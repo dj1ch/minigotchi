@@ -87,7 +87,7 @@ void Deauth::select() {
         Serial.println("(;-;) No access points found.");
         Serial.println(" ");
     }
-};
+}
 
 void Deauth::deauth() {
     if (Config::deauth) {
@@ -116,7 +116,7 @@ void Deauth::deauth() {
     } else {
         // do nothing if deauthing is disabled
     }
-};
+}
 
 void Deauth::start() {
     running = true;
@@ -132,4 +132,4 @@ void Deauth::start() {
     Serial.println("(^-^) Attack finished!");
     Serial.println(" ");
     running = false;
-};
+}
