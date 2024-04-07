@@ -26,6 +26,8 @@ void Minigotchi::boot() {
     Serial.println(" ");
     delay(1000);
     Serial.println("################################################");
+    Serial.println("#                BOOTUP PROCESS                #");
+    Serial.println("################################################");
     Serial.println(" ");
     Frame::start();
     Deauth::list();
