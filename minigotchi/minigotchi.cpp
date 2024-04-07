@@ -25,7 +25,9 @@ void Minigotchi::boot() {
     Serial.println("(>-<) Starting now...");
     Serial.println(" ");
     delay(1000);
-    Serial.println("########################");
+    Serial.println("################################################");
+    Serial.println("#                BOOTUP PROCESS                #");
+    Serial.println("################################################");
     Serial.println(" ");
     Frame::start();
     Deauth::list();
@@ -47,7 +49,7 @@ void Minigotchi::info() {
 
 // if this can be printed, everything should have gone right...
 void Minigotchi::finish() {
-    Serial.println("########################");
+    Serial.println("################################################");
     Serial.println(" ");
     delay(1000);
     Serial.println("('-') Started successfully!");

@@ -29,9 +29,14 @@ void Channel::init(int initChannel) {
     wifi_set_channel(initChannel);
     Minigotchi::monStart();
 
-    Serial.print("('-') Currently on channel ");
-    Serial.println(getChannel());
-    delay(1000);
+    if (initChannel == getChannel()) {
+        Serial.print("('-') Successfully initialized on channel ");
+        Serial.println(getChannel());
+        delay(1000);
+    } else {
+        Serial.print("(X-X) Channel initialization failed, try again?");
+        delay(1000);
+    }
 }
 
 void Channel::cycle() { 

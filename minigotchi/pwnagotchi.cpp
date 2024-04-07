@@ -119,7 +119,5 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
                 Serial.print(" ");
             }
         }
-    } else {
-
-    }
+    } 
 }
