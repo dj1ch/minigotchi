@@ -13,7 +13,7 @@
 
 ### Intro
 
-This is a project meant to showcase the use of low-level Wi-Fi frame manipulation in a *Pwnagotchi-like* matter with an ESP8266. It can detect *Pwnagotchis*, and send "advertisements" for another *Pwnagotchi* to detect, along with deauthenticating devices connected to an AP. Originally meant to just befriend a local Pwnagotchi, I plan to improve it and extend its purpose, merely with an ESP8266 with 4 MB of memory. 
+This is a project meant to showcase the use of low-level Wi-Fi frame manipulation in a *Pwnagotchi-like* matter with an ESP8266/ESP32. It can detect *Pwnagotchis*, and send "advertisements" for another *Pwnagotchi* to detect, along with deauthenticating devices connected to an AP. Originally meant to just befriend a local Pwnagotchi, I plan to improve it and extend its purpose, merely with an ESP8266 with 4 MB of memory. 
 
 ### Install guide
 
@@ -31,7 +31,7 @@ Note that the *C++* in Arduino is slightly modified from what I have heard. See 
 
 - Arduino IDE
 - A good understanding of coding/programming
-- D1 Mini ESP8266 V4
+- D1 Mini ESP8266 V4(or any other supported hardware in the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Hardware))
 - A reliable and appropriate power source and supply for the hardware
 - Patience (a lot of it)
 
