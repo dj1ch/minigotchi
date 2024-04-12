@@ -21,7 +21,7 @@ public:
     static std::vector<std::string> whitelist;
     static int epoch;
     static std::string face;
-    static std::string identity;
+    static uint8_t identity;
     static std::string name;
     static bool associate;
     static int bored_num_epochs;
