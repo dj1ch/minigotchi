@@ -81,12 +81,26 @@ void Minigotchi::cpu() {
  * 
 */
 
+/** developer note:
+ * 
+ * to prevent issues we put the minigotchi back into client mode which is the "default"
+ * 
+*/
+
 void Minigotchi::monStart() {
+    // disconnect from WiFi if we were at all
+    WiFi.disconnect();
+
+    // revert to station mode
+    wifi_set_opmode(STATION_MODE);
     wifi_promiscuous_enable(1);
 }
 
 void Minigotchi::monStop() {
     wifi_promiscuous_enable(0);
+
+    // revert to station mode
+    wifi_set_opmode(STATION_MODE);
 }
 
 /** developer note:
