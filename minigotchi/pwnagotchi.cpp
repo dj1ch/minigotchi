@@ -48,13 +48,11 @@ void Pwnagotchi::detect() {
     delay(5000);
 
     // set mode and callback
-    wifi_set_opmode(STATION_MODE);
-    wifi_promiscuous_enable(true);
+    Minigotchi::monStart();
     wifi_set_promiscuous_rx_cb(&pwnagotchiCallback);
 
     if (pwnagotchiDetected) {
         // send the advertisement if it is found
-        Serial.println(" ");
         Serial.println("(^-^) Starting advertisement...");
         Serial.println(" ");
         delay(5000);
@@ -88,7 +86,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
             Serial.println(" ");
 
             // extract the ESSID from the beacon frame
-            String essid(reinterpret_cast<const char*>(&snifferPacket->payload[36]));
+            String essid(reinterpret_cast<const char*>(&snifferPacket->payload[1024]));
 
             Serial.print("ESSID: ");
             Serial.println(essid);
