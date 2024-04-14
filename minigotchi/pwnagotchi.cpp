@@ -11,7 +11,7 @@
  * if the minigotchi listens for a while it should find something
  * this is under the assumption that we put the minigotchi on the same channel as the pwnagotchi
  * or one of the channels that the pwnagotchi listens on
- * the JSON frame it sends out should have some magic id attached to it (222 or 223) so it is identified by pwngrid
+ * the JSON frame it sends out should have some magic id attached to it (numbers 222-226) so it is identified by pwngrid
  * however we don't need to search for such things
  *
 */
@@ -70,35 +70,60 @@ void Pwnagotchi::detect() {
 
 void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type) {
     wifi_promiscuous_pkt_t* snifferPacket = (wifi_promiscuous_pkt_t*)buf;
+    wifi_pkt_mgmt_t* mgmtPacket = (wifi_pkt_mgmt_t*)buf;
+    int len = mgmtPacket->len;
 
     // check if it is a beacon frame
-    if (snifferPacket->payload[0] == 0x80) {
+    if ((snifferPacket->payload[0] == 0x80) && (buf == 0)) {
         // extract mac
         char addr[] = "00:00:00:00:00:00";
         getMAC(addr, snifferPacket->payload, 10);
         String src = addr;
 
-        // Check if the source MAC matches the target
+        // check if the source MAC matches the target
         if (src == "de:ad:be:ef:de:ad") {
             pwnagotchiDetected = true;
-            Serial.println(" ");
             Serial.println("(^-^) Pwnagotchi detected!");
             Serial.println(" ");
 
             // extract the ESSID from the beacon frame
-            String essid(reinterpret_cast<const char*>(&snifferPacket->payload[1024]));
+            String essid;
+            int essidLength = len - 38;
 
-            Serial.print("ESSID: ");
+            // make sure essidLength does not exceed the maximum ESSID length
+            if (essidLength > 255) {
+                essidLength = 255;
+            }
+
+            for (int i = 0; i < essidLength; i++) {
+                char currentChar = (char)snifferPacket->payload[i + 38];
+                // Append character unless it's a null terminator
+                if (currentChar != '\0') {
+                    essid.concat(currentChar);
+                } else {
+                    break;
+                }
+            }
+
+            // network related info
+            Serial.print("(^-^) RSSI: ");
+            Serial.println(snifferPacket->rx_ctrl.rssi);
+            Serial.print("(^-^) Channel: ");
+            Serial.println(snifferPacket->rx_ctrl.channel);
+            Serial.print("(^-^) BSSID: ");
+            Serial.println(addr);
+            Serial.print("(^-^) ESSID: ");
             Serial.println(essid);
             Serial.println(" ");
 
-            // load json from the ESSID
+            // parse the ESSID as JSON
             DynamicJsonDocument jsonBuffer(1024);
             DeserializationError error = deserializeJson(jsonBuffer, essid);
 
             // check if json parsing is successful
             if (error) {
                 Serial.println(F("(X-X) Could not parse Pwnagotchi json: "));
+                Serial.print("(X-X) ");
                 Serial.println(error.c_str());
                 Serial.println(" ");
             } else {
