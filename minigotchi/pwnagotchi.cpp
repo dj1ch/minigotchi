@@ -65,7 +65,7 @@ void Pwnagotchi::detect() {
         // so this only applies for the current searching area
         Serial.println("(;-;) No Pwnagotchi found.");
         Serial.println(" ");
-    }
+    } 
 }
 
 void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type) {
@@ -95,14 +95,13 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
                 essidLength = 255;
             }
 
-            for (int i = 0; i < essidLength; i++) {
-                char currentChar = (char)snifferPacket->payload[i + 38];
-                // Append character unless it's a null terminator
-                if (currentChar != '\0') {
-                    essid.concat(currentChar);
-                } else {
-                    break;
-                }
+            // "borrowed" from ESP32 Marauder
+            for (int i = 0; i < len - 37; i++) {
+                Serial.print((char)snifferPacket->payload[i + 38]);
+                if (isAscii(snifferPacket->payload[i + 38]))
+                    essid.concat((char)snifferPacket->payload[i + 38]);
+                else
+                Serial.println("(^-^) Got null terminated character: " + (String)(char)snifferPacket->payload[i + 38]);
             }
 
             // network related info
@@ -142,5 +141,5 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
                 Serial.print(" ");
             }
         }
-    } 
+    }
 }

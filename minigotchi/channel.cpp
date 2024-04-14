@@ -48,10 +48,10 @@ void Channel::cycle() {
     int newChannel = channelList[randomIndex];
 
     // switch here
-    switchC(newChannel);
+    switchChannel(newChannel);
 }
 
-void Channel::switchC(int newChannel) {
+void Channel::switchChannel(int newChannel) {
     // switch to channel
     delay(1000);
     Serial.print("(-.-) Switching to channel ");
@@ -65,10 +65,27 @@ void Channel::switchC(int newChannel) {
     Minigotchi::monStart();
 
     // switched channel
-    Serial.print("('-') Currently on channel ");
-    Serial.println(getChannel());
-    Serial.println(" ");
-    delay(1000);
+    checkChannel(newChannel);
+}
+
+// check if the channel switch was successful
+void Channel::checkChannel(int channel) {
+    if (channel == getChannel()) {
+        Serial.print("('-') Currently on channel ");
+        Serial.println(getChannel());
+        Serial.println(" ");
+        delay(1000);
+    } else {
+        Serial.print("(X-X) Channel switch to channel ");
+        Serial.print(channel);
+        Serial.println(" has failed");
+        Serial.println(" ");
+        Serial.print("(X-X) Currently on channel ");
+        Serial.print(getChannel());
+        Serial.println(" instead");
+        Serial.println(" ");
+        delay(1000);
+    }
 }
 
 int Channel::getChannel() {
