@@ -51,14 +51,6 @@ void Pwnagotchi::detect() {
     Minigotchi::monStart();
     wifi_set_promiscuous_rx_cb(&pwnagotchiCallback);
 
-    if (pwnagotchiDetected) {
-        // send the advertisement if it is found
-        Serial.println("(^-^) Starting advertisement...");
-        Serial.println(" ");
-        delay(5000);
-        Frame::start();
-    }
-
     // check if the pwnagotchiCallback wasn't triggered during scanning
     if (!pwnagotchiDetected) {
         // only searches on your current channel and such afaik, 
@@ -74,7 +66,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
     int len = mgmtPacket->len;
 
     // check if it is a beacon frame
-    if ((snifferPacket->payload[0] == 0x80) && (buf == 0)) {
+    if (snifferPacket->payload[0] == 0x80) {
         // extract mac
         char addr[] = "00:00:00:00:00:00";
         getMAC(addr, snifferPacket->payload, 10);
@@ -101,7 +93,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
                 if (isAscii(snifferPacket->payload[i + 38]))
                     essid.concat((char)snifferPacket->payload[i + 38]);
                 else
-                Serial.println("(^-^) Got null terminated character: " + (String)(char)snifferPacket->payload[i + 38]);
+                    essid.concat("?");
             }
 
             // network related info
@@ -139,6 +131,11 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
                 Serial.print("(^-^) Pwned Networks: ");
                 Serial.println(pwndTot);
                 Serial.print(" ");
+
+                Serial.println("(^-^) Starting advertisement...");
+                Serial.println(" ");
+                delay(5000);
+                Frame::start();
             }
         }
     }
