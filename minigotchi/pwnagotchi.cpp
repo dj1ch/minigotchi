@@ -88,12 +88,13 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
             }
 
             // "borrowed" from ESP32 Marauder
-            for (int i = 0; i < len - 37; i++) {
-                Serial.print((char)snifferPacket->payload[i + 38]);
-                if (isAscii(snifferPacket->payload[i + 38]))
+            for (int i = 0; i < len - 37 && essidLength < 255; i++) {
+                if (isAscii(snifferPacket->payload[i + 38])) {
                     essid.concat((char)snifferPacket->payload[i + 38]);
-                else
+                    essidLength++;
+                } else {
                     essid.concat("?");
+                }
             }
 
             // network related info
