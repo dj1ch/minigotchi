@@ -1,4 +1,4 @@
-# minigotchi
+# minigotchi - ミニゴッチ
 
 <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/Pwnagotchi-Unofficial/minigotchi"></img>
 <img alt="GitHub license" src="https://img.shields.io/github/license/Pwnagotchi-Unofficial/minigotchi"></img>
