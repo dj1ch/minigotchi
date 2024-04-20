@@ -87,6 +87,12 @@ Usually this shouldn't be changed as these are the best channels for IOT boards 
 
 - You can click on the *Serial Monitor* button on the top bar to see the serial monitor output. Make sure the baud rate is `115200`. You can also use https://serial.huhn.me/ as a serial monitor, I also recommend using this! 
 
+- I also highly recommend doing the following: 
+
+1. Disabling AI on your Pwnagotchi so you can change your settings without AI changing them.
+
+2. Setting `personality.channels[]` to the channels `1`, `6`, `11` so that your Minigotchi has a higher chance of finding your Pwnagotchi.
+
 - Happy hacking!
 
 ###
