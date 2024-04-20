@@ -1,13 +1,12 @@
 # minigotchi
+
 <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/Pwnagotchi-Unofficial/minigotchi"></img>
 <img alt="GitHub license" src="https://img.shields.io/github/license/Pwnagotchi-Unofficial/minigotchi"></img>
 <a href="https://github.com/Pwnagotchi-Unofficial/minigotchi/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/Pwnagotchi-Unofficial/minigotchi"></a>
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/Pwnagotchi-Unofficial/minigotchi"></img>
 <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Pwnagotchi-Unofficial/minigotchi"></img>
 
-###
 ### An even smaller Pwnagotchi.
-###
 
 <img src="images/Desktop Screenshot 2024.04.07 - 15.29.59.03.png"></img>
 
@@ -20,6 +19,7 @@ This is a project meant to showcase the use of low-level Wi-Fi frame manipulatio
 See the [install guide](INSTALL.md).
 
 ### Languages
+
 The code is written in these languages.
 
 - *C*
@@ -44,6 +44,7 @@ See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/How-the-
 See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Hardware).
 
 ### To do
+
 See this [project](https://github.com/orgs/Pwnagotchi-Unofficial/projects/4).
 
 ### Contributing
@@ -58,7 +59,7 @@ See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/FAQ).
 
 See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Communication#communication).
 
-### Last but not least... Some thank you's!
+### Last but not least... Some thank you's
 
 **If you believe your project wasn't properly credited, please let me know ASAP! Here's how you can [communicate](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Communication#communication) with me.**
 
@@ -68,11 +69,11 @@ See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Communic
 
 https://github.com/evilsocket/pwngrid
 
-- Arduino, mostly just the repository containing libraries for the project so I can build this code. Many libraries were used in this core repository. 
+- Arduino, mostly just the repository containing libraries for the project so I can build this code. Many libraries were used in this core repository.
 
 https://github.com/esp8266/Arduino
 
-- 80211Raw allows raw arbritary frames to be received and sent through an ESP8266 or ESP32 using C and C++ in an interesting and useful POC. This is used to send the *Pwnagotchi-like* frames. Most of the Minigotchi is built around this library. 
+- 80211Raw allows raw arbritary frames to be received and sent through an ESP8266 or ESP32 using C and C++ in an interesting and useful POC. This is used to send the *Pwnagotchi-like* frames. Most of the Minigotchi is built around this library.
 
 https://github.com/tht/80211Raw
 
@@ -84,7 +85,7 @@ https://github.com/SpacehuhnTech/esp8266_deauther/
 
 https://github.com/justcallmekoko/ESP32Marauder
 
-- ESPAsyncWebServer, the library that allows a Web UI on the ESP8266, along with an AP. 
+- ESPAsyncWebServer, the library that allows a Web UI on the ESP8266, along with an AP.
 
 https://github.com/lacamera/ESPAsyncWebServer
 
@@ -92,11 +93,11 @@ https://github.com/lacamera/ESPAsyncWebServer
 
 https://github.com/MilkyDeveloper
 
-- This is a set of projects, one of which was an ESP32 sniffer. 
+- This is a set of projects, one of which was an ESP32 sniffer.
 
 https://github.com/lpodkalicki/blog
 
-- esp8266-sniffer, an ESP8266 sniffer dedicated to finding probes from smartphones. 
+- esp8266-sniffer, an ESP8266 sniffer dedicated to finding probes from smartphones.
 
 https://github.com/kalanda/esp8266-sniffer
 
