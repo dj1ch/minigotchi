@@ -55,7 +55,7 @@ void Pwnagotchi::detect() {
     if (!pwnagotchiDetected) {
         // only searches on your current channel and such afaik, 
         // so this only applies for the current searching area
-        Serial.println("(;-;) No Pwnagotchi found.");
+        Serial.println("(;-;) No Pwnagotchi found");
         Serial.println(" ");
     } 
 }

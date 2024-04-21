@@ -34,6 +34,6 @@ void loop() {
     // doing so will make the loop a lot faster. plus this might overheat the board and stuff but its worth a try.
 
     // deauth random access point
-    //minigotchi.deauth();
-    //delay(5000);
+    minigotchi.deauth();
+    delay(5000);
 }
