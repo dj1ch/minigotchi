@@ -6,7 +6,7 @@
 <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/Pwnagotchi-Unofficial/minigotchi"></img>
 <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/Pwnagotchi-Unofficial/minigotchi"></img>
 
-### An even smaller Pwnagotchi.
+## An even smaller Pwnagotchi.
 
 <img src="images/Desktop Screenshot 2024.04.07 - 15.29.59.03.png"></img>
 
