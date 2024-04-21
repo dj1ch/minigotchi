@@ -168,9 +168,8 @@ void Frame::pack() {
         beaconFrame.push_back(Config::face[i]);
     }
 
-    for (size_t i = 0; i < sizeof(Config::identity); ++i) {
-        beaconFrame.push_back(Config::identity[i]);
-    }
+    // blank
+    beaconFrame.push_back(Config::identity);
 
     for (size_t i = 0; i < sizeof(Config::name); ++i) {
         beaconFrame.push_back(Config::name[i]);

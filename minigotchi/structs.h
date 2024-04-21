@@ -1,4 +1,5 @@
 /**
+ * structs.h: valid IEEE 802.11 structures
  * source: https://github.com/tht/80211Raw/blob/master/structs.h
 */
 
