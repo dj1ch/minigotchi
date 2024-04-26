@@ -162,7 +162,6 @@ void Frame::init() {
 
 void Frame::pack() {
     // clear frame before constructing
-    frameControl.clear();
     beaconFrame.clear();
 
     // add the header
