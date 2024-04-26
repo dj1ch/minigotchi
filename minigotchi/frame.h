@@ -26,7 +26,7 @@ public:
     static const uint8_t header[];
     static const uint8_t SignatureAddr[];
     static const uint8_t BroadcastAddr[];
-    static const int wpaFlags;
+    static const uint16_t wpaFlags;
     
 private:
     static bool running;

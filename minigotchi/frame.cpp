@@ -29,16 +29,18 @@ const uint8_t Frame::IDWhisperStreamHeader = 0xE2;
 // other addresses
 const uint8_t Frame::SignatureAddr[] = {0xde, 0xad, 0xbe, 0xef, 0xde, 0xad};
 const uint8_t Frame::BroadcastAddr[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
-const int Frame::wpaFlags = 1041;
+const uint16_t Frame::wpaFlags = 0x0411;
 
 // frame control, etc
 const uint8_t Frame::header[] = {
-    0x80, 0x00,                         // Frame Control: Version 0, Type: Management, Subtype: Beacon
-    0x00, 0x00,                         // Duration/ID (will be overwritten)
-    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, // Destination address: Broadcast
-    0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, // Source address: Set in "init"
-    0xa0, 0xa0, 0xa0, 0xa0, 0xa0, 0xa0, // BSSID: Set in "init"
-    0x00, 0x00                          // Sequence/Fragment number
+    /*  0 - 1  */ 0x80, 0x00,                         // Frame Control: Version 0, Type: Management, Subtype: Beacon
+    /*  2 - 3  */ 0x00, 0x00,                         // Duration/ID (will be overwritten)
+    /*  4 - 9  */ 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, // Destination address: Broadcast
+    /* 10 - 15 */ 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, // Source address: Set in "init"
+    /* 16 - 21 */ 0xa0, 0xa0, 0xa0, 0xa0, 0xa0, 0xa0, // BSSID: Set in "init"
+    /* 22 - 23 */ 0x00, 0x00,                         // Sequence/Fragment number
+    /* 24 - 25 */ 0x00, 0x64,                         // Interval: 100 (0x0064 in hexadecimal)
+    /* 26 - 27 */ 0x04, 0x11                          // Flags: 1041
 };
 
 /** developer note:
@@ -145,12 +147,6 @@ void Frame::pack() {
     beaconFrame[13] = Frame::SignatureAddr[3];
     beaconFrame[14] = Frame::SignatureAddr[4];
     beaconFrame[15] = Frame::SignatureAddr[5];
-
-    // get mac addr (from)
-    uint8_t mac[6];
-    WiFi.macAddress(mac);
-    char macStr[18];
-    sprintf(macStr, "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 
     // dynamic construction
     size_t offset = 0;
