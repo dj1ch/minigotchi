@@ -227,11 +227,11 @@ void Frame::pack() {
     const size_t chunkSize = 0xff;
 
     for (size_t i = 0; i < frameSize; i += chunkSize) {
-    beaconFrame.push_back(IDWhisperPayload);
+        beaconFrame.push_back(IDWhisperPayload);
 
-    size_t chunkEnd = std::min(i + chunkSize, payloadSize);
-    for (size_t j = i; j < chunkEnd; ++j) {
-        beaconFrame.push_back(beaconFrame[j]);
+        size_t chunkEnd = std::min(i + chunkSize, payloadSize);
+        for (size_t j = i; j < chunkEnd; ++j) {
+            beaconFrame.push_back(beaconFrame[j]);
         }
     }
 }
