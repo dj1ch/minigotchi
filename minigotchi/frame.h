@@ -18,12 +18,16 @@ public:
     static void advertise();
     static void start();
     static void stop();
+    static void to();
+    static void signature();
+    static void from();
+    static void init();
     static const uint8_t IDWhisperPayload;
     static const uint8_t IDWhisperCompression;
     static const uint8_t IDWhisperIdentity;
     static const uint8_t IDWhisperSignature;
     static const uint8_t IDWhisperStreamHeader;
-    static const uint8_t header[];
+    static uint8_t header[];
     static const uint8_t SignatureAddr[];
     static const uint8_t BroadcastAddr[];
     static const uint16_t wpaFlags;

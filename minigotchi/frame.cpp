@@ -32,7 +32,7 @@ const uint8_t Frame::BroadcastAddr[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
 const uint16_t Frame::wpaFlags = 0x0411;
 
 // frame control, etc
-const uint8_t Frame::header[] = {
+uint8_t Frame::header[] = {
     /*  0 - 1  */ 0x80, 0x00,                         // Frame Control: Version 0, Type: Management, Subtype: Beacon
     /*  2 - 3  */ 0x00, 0x00,                         // Duration/ID (will be overwritten)
     /*  4 - 9  */ 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, // Destination address: Broadcast
@@ -118,14 +118,7 @@ const uint8_t Frame::header[] = {
  *  
 */
 
-void Frame::pack() {
-    // clear frame before constructing
-    frameControl.clear();
-    beaconFrame.clear();
-
-    // copy pre-defined header to beaconFrame
-    beaconFrame.insert(beaconFrame.end(), Frame::header, Frame::header + sizeof(Frame::header));
-
+void Frame::to() {
     // parse and set the BSSID (to)
     const char* bssidStr = Config::bssid;
     uint8_t bssidBytes[6];
@@ -136,17 +129,44 @@ void Frame::pack() {
         bssidBytes[i++] = strtol(token, NULL, 16);
         token = strtok(NULL, ":");
     }
-
+    
     // set the BSSID in the frame header
-    std::copy(bssidBytes, bssidBytes + 6, beaconFrame.begin() + 10);
+    std::copy(bssidBytes, bssidBytes + 6, header + 16);
+}
 
+void Frame::signature() {
     // set signature address
-    beaconFrame[10] = Frame::SignatureAddr[0];
-    beaconFrame[11] = Frame::SignatureAddr[1];
-    beaconFrame[12] = Frame::SignatureAddr[2];
-    beaconFrame[13] = Frame::SignatureAddr[3];
-    beaconFrame[14] = Frame::SignatureAddr[4];
-    beaconFrame[15] = Frame::SignatureAddr[5];
+    std::copy(Frame::SignatureAddr, Frame::SignatureAddr + 6, header + 22);
+}
+
+void Frame::from() {
+    // get mac addr (from)	
+    uint8_t mac[6];	
+    WiFi.macAddress(mac);	
+    char macStr[18];	
+    sprintf(macStr, "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+
+    // copy "from" part
+    std::copy(macStr, macStr + 6, header + 10);
+}
+
+void Frame::init() {
+    // writing values to frame
+    to();
+    signature();
+    from();
+
+    // copy pre-defined header to beaconFrame
+    beaconFrame.insert(beaconFrame.end(), Frame::header, Frame::header + sizeof(Frame::header));
+}
+
+void Frame::pack() {
+    // clear frame before constructing
+    frameControl.clear();
+    beaconFrame.clear();
+
+    // add the header
+    init();
 
     // dynamic construction
     size_t offset = 0;
