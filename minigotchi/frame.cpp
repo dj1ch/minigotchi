@@ -160,16 +160,7 @@ void Frame::init() {
     beaconFrame.insert(beaconFrame.end(), Frame::header, Frame::header + sizeof(Frame::header));
 }
 
-void Frame::pack() {
-    // clear frame before constructing
-    beaconFrame.clear();
-
-    // add the header
-    init();
-
-    // dynamic construction
-    size_t offset = 0;
-
+void Frame::essid() {
     // id's
     beaconFrame.push_back(Frame::IDWhisperIdentity);
     beaconFrame.push_back(Frame::IDWhisperSignature);
@@ -215,18 +206,40 @@ void Frame::pack() {
 
     for (size_t i = 0; i < sizeof(Config::version); ++i) {
         beaconFrame.push_back(Config::version[i]);
-    }
+    }    
+}
+
+/** developer note:
+ * 
+ * frame structure based on how it was built here
+ * 
+ * 1. header 
+ * 2. payload id's
+ * 3. (chunked) pwnagotchi data
+ * 
+*/
+
+void Frame::pack() {
+    // clear frame before constructing
+    beaconFrame.clear();
+
+    // add the header
+    init();
+
+    // dynamic construction
+    size_t offset = 0;
+
+    // put in essid
+    essid();
 
     // payload size
     const size_t payloadSize = beaconFrame.size();
-
-    // full frame size
     frameSize = beaconFrame.size();
 
     // add IDWhisperPayload for every chunk
     const size_t chunkSize = 0xff;
 
-    for (size_t i = 0; i < frameSize; i += chunkSize) {
+    for (size_t i = 0; i < payloadSize; i += chunkSize) {
         beaconFrame.push_back(IDWhisperPayload);
 
         size_t chunkEnd = std::min(i + chunkSize, payloadSize);

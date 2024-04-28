@@ -22,6 +22,7 @@ public:
     static void signature();
     static void from();
     static void init();
+    static void essid();
     static uint8_t header[];
     static const uint8_t IDWhisperPayload;
     static const uint8_t IDWhisperCompression;
