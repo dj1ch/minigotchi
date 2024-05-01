@@ -132,10 +132,12 @@ void Deauth::start() {
         float pps = packets / (float)(millis() - startTime) * 1000;
 
         // show pps
-        Serial.print("(>-<) Packets per second: ");
-        Serial.print(pps);
-        Serial.println(" pkt/s");
-        delay(100);
+        if (!isinf(pps)) {
+            Serial.print("(>-<) Packets per second: ");
+            Serial.print(pps);
+            Serial.println(" pkt/s");
+            delay(100);
+        }
     }
 
     Serial.println(" ");
