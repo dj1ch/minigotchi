@@ -96,6 +96,14 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
                     essid.concat("?");
                 }
             }
+            
+            DynamicJsonDocument jsonBuffer(1024);
+            String essidJson = "{\"essid\":\"" + essid + "\"}";
+
+            if (essidJson > jsonBuffer) {
+                Serial.print("(X-X) Warning: ");
+                Serial.println("(X-X) ESSID exceeds buffer!");
+            }
 
             // network related info
             Serial.print("(^-^) RSSI: ");
@@ -105,12 +113,11 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
             Serial.print("(^-^) BSSID: ");
             Serial.println(addr);
             Serial.print("(^-^) ESSID: ");
-            Serial.println(essid);
+            Serial.println(essidJson);
             Serial.println(" ");
 
             // parse the ESSID as JSON
-            DynamicJsonDocument jsonBuffer(1024);
-            DeserializationError error = deserializeJson(jsonBuffer, essid);
+            DeserializationError error = deserializeJson(jsonBuffer, essidJson);
 
             // check if json parsing is successful
             if (error) {
@@ -119,12 +126,20 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
                 Serial.println(error.c_str());
                 Serial.println(" ");
             } else {
-                Serial.println("(^-^) Successfully parsed json");
+                Serial.println("(^-^) Successfully parsed json!");
                 Serial.println(" ");
 
                 // find out some stats
                 String name = jsonBuffer["name"].as<String>();
                 String pwndTot = jsonBuffer["pwnd_tot"].as<String>();
+
+                if (name == "null") {
+                    name = "N/A";
+                }
+
+                if (pwndTot == "null") {
+                    pwndTot = "N/A";
+                }
 
                 // print the info
                 Serial.print("(^-^) Pwnagotchi name: ");
@@ -132,11 +147,6 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
                 Serial.print("(^-^) Pwned Networks: ");
                 Serial.println(pwndTot);
                 Serial.print(" ");
-
-                Serial.println("(^-^) Starting advertisement...");
-                Serial.println(" ");
-                delay(5000);
-                Frame::start();
             }
         }
     }
