@@ -12,10 +12,6 @@
 
 // Init screen
 #define OLED_RESET 0  // GPIO0
-#define NUMFLAKES 10
-#define XPOS 0
-#define YPOS 1
-#define DELTAY 2
 
 class Display{
   public:
