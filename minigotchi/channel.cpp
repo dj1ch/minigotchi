@@ -4,13 +4,13 @@
 
 #include "channel.h"
 
-/** developer note: 
+/** developer note:
  *
  * i am using the ideal 2.4 GHz channels, which are 1, 6, and 11.
  * the reason for that is so we don't interfere with other devices on our frequency.
  * there are probably plenty more reasons but this is a good practice for such iot devices.
  *
- */ 
+ */
 
 // same channels in config
 int Channel::channelList[3] = {Config::channels[0], Config::channels[1], Config::channels[2]};
@@ -22,8 +22,9 @@ void Channel::init(int initChannel) {
     Serial.print("(-.-) Initializing on channel ");
     Serial.println(initChannel);
     Serial.println(" ");
+    Display::cleanDisplayText("(-.-) Initializing on channel " + (String) initChannel);
     delay(1000);
-    
+
     // switch channel
     Minigotchi::monStop();
     wifi_set_channel(initChannel);
@@ -32,14 +33,16 @@ void Channel::init(int initChannel) {
     if (initChannel == getChannel()) {
         Serial.print("('-') Successfully initialized on channel ");
         Serial.println(getChannel());
+        Display::cleanDisplayText("('-') Successfully initialized on channel " + (String) getChannel());
         delay(1000);
     } else {
         Serial.print("(X-X) Channel initialization failed, try again?");
+        Display::cleanDisplayText("(X-X) Channel initialization failed, try again?");
         delay(1000);
     }
 }
 
-void Channel::cycle() { 
+void Channel::cycle() {
     // get channels
     int numChannels = sizeof(channelList) / sizeof(channelList[0]);
 
@@ -57,6 +60,7 @@ void Channel::switchChannel(int newChannel) {
     Serial.print("(-.-) Switching to channel ");
     Serial.println(newChannel);
     Serial.println(" ");
+    Display::cleanDisplayText("(-.-) Switching to channel " + (String) newChannel);
     delay(1000);
 
     // monitor this one channel
@@ -73,6 +77,7 @@ void Channel::checkChannel(int channel) {
     if (channel == getChannel()) {
         Serial.print("('-') Currently on channel ");
         Serial.println(getChannel());
+		Display::cleanDisplayText("('-') Currently on channel " + (String) getChannel());
         Serial.println(" ");
         delay(1000);
     } else {

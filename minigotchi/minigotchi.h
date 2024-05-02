@@ -10,13 +10,14 @@
 #include "deauth.h"
 #include "channel.h"
 #include "config.h"
+#include "display.h"
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 
 class Minigotchi {
-public: 
+public:
     static void boot();
-    static void finish(); 
+    static void finish();
     static void info();
     static void version();
     static void mem();
@@ -26,7 +27,7 @@ public:
     static void cycle();
     static void detect();
     static void deauth();
-    
+
 };
 
 #endif // MINIGOTCHI_H
