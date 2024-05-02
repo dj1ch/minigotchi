@@ -120,13 +120,26 @@ void Deauth::deauth() {
 void Deauth::start() {
     running = true;
     int frameSize = sizeof(deauthFrame);
+    int packets = 0;
+    unsigned long startTime = millis();
 
     // send the deauth 150 times(ur cooked if they find out)
     for (int i = 0; i < 150; ++i) {
         wifi_send_pkt_freedom(const_cast<uint8_t*>(deauthFrame), frameSize, 0);
-        Serial.println("(>-<) Sent Deauth Frame!");
-        delay(100);
+        packets++;
+
+        // calculate packets per second
+        float pps = packets / (float)(millis() - startTime) * 1000;
+
+        // show pps
+        if (!isinf(pps)) {
+            Serial.print("(>-<) Packets per second: ");
+            Serial.print(pps);
+            Serial.println(" pkt/s");
+            delay(100);
+        }
     }
+
     Serial.println(" ");
     Serial.println("(^-^) Attack finished!");
     Serial.println(" ");
