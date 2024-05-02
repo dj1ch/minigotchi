@@ -29,16 +29,18 @@ const uint8_t Frame::IDWhisperStreamHeader = 0xE2;
 // other addresses
 const uint8_t Frame::SignatureAddr[] = {0xde, 0xad, 0xbe, 0xef, 0xde, 0xad};
 const uint8_t Frame::BroadcastAddr[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
-const int Frame::wpaFlags = 1041;
+const uint16_t Frame::wpaFlags = 0x0411;
 
 // frame control, etc
-const uint8_t Frame::header[] = {
-    0x80, 0x00,                         // Frame Control: Version 0, Type: Management, Subtype: Beacon
-    0x00, 0x00,                         // Duration/ID (will be overwritten)
-    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, // Destination address: Broadcast
-    0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, // Source address: Set in "init"
-    0xa0, 0xa0, 0xa0, 0xa0, 0xa0, 0xa0, // BSSID: Set in "init"
-    0x00, 0x00                          // Sequence/Fragment number
+uint8_t Frame::header[] = {
+    /*  0 - 1  */ 0x80, 0x00,                         // Frame Control: Version 0, Type: Management, Subtype: Beacon
+    /*  2 - 3  */ 0x00, 0x00,                         // Duration/ID (will be overwritten)
+    /*  4 - 9  */ 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, // Destination address: Broadcast
+    /* 10 - 15 */ 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, // Source address: Set in "init"
+    /* 16 - 21 */ 0xa0, 0xa0, 0xa0, 0xa0, 0xa0, 0xa0, // BSSID: Set in "init"
+    /* 22 - 23 */ 0x00, 0x00,                         // Sequence/Fragment number
+    /* 24 - 25 */ 0x00, 0x64,                         // Interval: 100 (0x0064 in hexadecimal)
+    /* 26 - 27 */ 0x04, 0x11                          // Flags: 1041
 };
 
 /** developer note:
@@ -116,14 +118,7 @@ const uint8_t Frame::header[] = {
  *  
 */
 
-void Frame::pack() {
-    // clear frame before constructing
-    frameControl.clear();
-    beaconFrame.clear();
-
-    // copy pre-defined header to beaconFrame
-    beaconFrame.insert(beaconFrame.end(), Frame::header, Frame::header + sizeof(Frame::header));
-
+void Frame::to() {
     // parse and set the BSSID (to)
     const char* bssidStr = Config::bssid;
     uint8_t bssidBytes[6];
@@ -134,27 +129,38 @@ void Frame::pack() {
         bssidBytes[i++] = strtol(token, NULL, 16);
         token = strtok(NULL, ":");
     }
-
+    
     // set the BSSID in the frame header
-    std::copy(bssidBytes, bssidBytes + 6, beaconFrame.begin() + 10);
+    std::copy(bssidBytes, bssidBytes + 6, header + 16);
+}
 
+void Frame::signature() {
     // set signature address
-    beaconFrame[10] = Frame::SignatureAddr[0];
-    beaconFrame[11] = Frame::SignatureAddr[1];
-    beaconFrame[12] = Frame::SignatureAddr[2];
-    beaconFrame[13] = Frame::SignatureAddr[3];
-    beaconFrame[14] = Frame::SignatureAddr[4];
-    beaconFrame[15] = Frame::SignatureAddr[5];
+    std::copy(Frame::SignatureAddr, Frame::SignatureAddr + 6, header + 22);
+}
 
-    // get mac addr (from)
-    uint8_t mac[6];
-    WiFi.macAddress(mac);
-    char macStr[18];
+void Frame::from() {
+    // get mac addr (from)	
+    uint8_t mac[6];	
+    WiFi.macAddress(mac);	
+    char macStr[18];	
     sprintf(macStr, "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 
-    // dynamic construction
-    size_t offset = 0;
+    // copy "from" part
+    std::copy(macStr, macStr + 6, header + 10);
+}
 
+void Frame::init() {
+    // writing values to frame
+    to();
+    signature();
+    from();
+
+    // copy pre-defined header to beaconFrame
+    beaconFrame.insert(beaconFrame.end(), Frame::header, Frame::header + sizeof(Frame::header));
+}
+
+void Frame::essid() {
     // id's
     beaconFrame.push_back(Frame::IDWhisperIdentity);
     beaconFrame.push_back(Frame::IDWhisperSignature);
@@ -200,23 +206,45 @@ void Frame::pack() {
 
     for (size_t i = 0; i < sizeof(Config::version); ++i) {
         beaconFrame.push_back(Config::version[i]);
-    }
+    }    
+}
+
+/** developer note:
+ * 
+ * frame structure based on how it was built here
+ * 
+ * 1. header 
+ * 2. payload id's
+ * 3. (chunked) pwnagotchi data
+ * 
+*/
+
+void Frame::pack() {
+    // clear frame before constructing
+    beaconFrame.clear();
+
+    // add the header
+    init();
+
+    // dynamic construction
+    size_t offset = 0;
+
+    // put in essid
+    essid();
 
     // payload size
     const size_t payloadSize = beaconFrame.size();
-
-    // full frame size
     frameSize = beaconFrame.size();
 
     // add IDWhisperPayload for every chunk
     const size_t chunkSize = 0xff;
 
-    for (size_t i = 0; i < frameSize; i += chunkSize) {
-    beaconFrame.push_back(IDWhisperPayload);
+    for (size_t i = 0; i < payloadSize; i += chunkSize) {
+        beaconFrame.push_back(IDWhisperPayload);
 
-    size_t chunkEnd = std::min(i + chunkSize, payloadSize);
-    for (size_t j = i; j < chunkEnd; ++j) {
-        beaconFrame.push_back(beaconFrame[j]);
+        size_t chunkEnd = std::min(i + chunkSize, payloadSize);
+        for (size_t j = i; j < chunkEnd; ++j) {
+            beaconFrame.push_back(beaconFrame[j]);
         }
     }
 }
