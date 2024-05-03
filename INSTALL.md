@@ -72,7 +72,7 @@ Usually this shouldn't be changed as these are the best channels for IOT boards 
 
 - Open up the minigotchi folder through the IDE by pushing `Ctrl+O`, or by going to `File` > `Open`, then selecting the folder the .ino is in. If other tabs don't show up, along with `minigotchi.ino`, make sure to copy and paste the files into the same directory/folder as that lone `.ino` file. It won't be able to compile if that happens. 
 
-- Install the following dependancies with the library manager: `ArduinoJson`, etc with all with their dependancies(Please install all of them for them to work correctly).
+- Install the following dependancies with the library manager: `ArduinoJson`, `Adafruit GFX`, `Adafruit SSD1306` etc with all with their dependancies(Please install all of them for them to work correctly).
 
 - Select the board as `ESP8266 WEMOS(LOLIN) D1 mini Lite`, and select the port it is plugged into(if you haven't already, plug in the board)
 - Click on the upload button(arrow pointing to the left). 
