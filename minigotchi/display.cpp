@@ -1,3 +1,7 @@
+/**
+ * display.cpp: handles display support
+*/
+
 #include "display.h"
 
 Adafruit_SSD1306 adafruit_display(OLED_RESET);

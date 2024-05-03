@@ -17,7 +17,7 @@
 #define YPOS 1
 #define DELTAY 2
 
-class Display{
+class Display {
   public:
     static void startScreen();
     static void attachText(String text);
