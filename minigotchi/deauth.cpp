@@ -4,8 +4,8 @@
 
 #include "deauth.h"
 
-/** developer note: 
- * 
+/** developer note:
+ *
  * the deauth frame is defined here.
  * this is a raw frame(layer 2)
  * man i hate networking
@@ -41,6 +41,7 @@ void Deauth::add(const std::string& bssids) {
         Serial.print("('-') Adding ");
         Serial.print(token.c_str());
         Serial.println(" to the whitelist");
+        Display::cleanDisplayText("('-') Adding " + (String) + " to the whitelist");
         whitelist.push_back(token.c_str());
     }
 }
@@ -52,13 +53,16 @@ void Deauth::list() {
 }
 
 void Deauth::select() {
-    // cool animation 
+    // cool animation
     for (int i = 0; i < 5; ++i) {
         Serial.println("(0-o) Scanning for APs.");
+        Display::cleanDisplayText("(0-o) Scanning for APs.");
         delay(500);
         Serial.println("(o-0) Scanning for APs..");
+        Display::cleanDisplayText("(o-0) Scanning for APs..");
         delay(500);
         Serial.println("(0-o) Scanning for APs...");
+        Display::cleanDisplayText("(0-o) Scanning for APs...");
         delay(500);
         Serial.println(" ");
         delay(500);
@@ -77,15 +81,18 @@ void Deauth::select() {
         // check for ap in whitelist
         if (std::find(whitelist.begin(), whitelist.end(), randomAP) != whitelist.end()) {
             Serial.println("('-') Selected AP is in the whitelist. Skipping deauthentication...");
+            Display::cleanDisplayText("('-') Selected AP is in the whitelist. Skipping deauthentication...");
             return;
         }
         Serial.print("('-') Selected random AP: ");
         Serial.println(randomAP.c_str());
+        Display::cleanDisplayText("('-') Selected random AP: " + (String) randomAP.c_str());
         Serial.println(" ");
     } else {
         // well ur fucked.
         Serial.println("(;-;) No access points found.");
         Serial.println(" ");
+        Display::cleanDisplayText("(;-;) No access points found.");
     }
 }
 
@@ -93,25 +100,30 @@ void Deauth::deauth() {
     if (Config::deauth) {
        // select AP
         Deauth::select();
-        
+
         if (randomAP.length() > 0) {
             Serial.println("(>-<) Starting deauthentication attack on the selected AP...");
             Serial.println(" ");
+            Display::cleanDisplayText("(>-<) Starting deauthentication attack on the selected AP...");
             delay(5000);
             // define the attack
             if (!running) {
                 start();
             } else {
-                Serial.println("(X-X) Attack is already running");
+                Serial.println("('-') Attack is already running.");
                 Serial.println(" ");
+                Display::cleanDisplayText("('-') Attack is already running.");
                 delay(5000);
             }
         } else {
             // ok why did you modify the deauth function? i literally told you to not do that...
-            Serial.println("(X-X) Unable to find access point");
+            Serial.println("(X-X) No access point selected. Use select() first.");
+            Serial.println("('-') Told you so!");
+            Display::cleanDisplayText("(X-X) No access point selected. Use select() first.");
+            Display::attachText("('-') Told you so!");
             Serial.println(" ");
             delay(5000);
-        } 
+        }
     } else {
         // do nothing if deauthing is disabled
     }
@@ -136,6 +148,7 @@ void Deauth::start() {
             Serial.print("(>-<) Packets per second: ");
             Serial.print(pps);
             Serial.println(" pkt/s");
+            Display::cleanDisplayText("(>-<) Packets per second: " + (String) pps + " pkt/s")
             delay(100);
         }
     }
@@ -143,5 +156,6 @@ void Deauth::start() {
     Serial.println(" ");
     Serial.println("(^-^) Attack finished!");
     Serial.println(" ");
+    Display::cleanDisplayText("(^-^) Attack finished!");
     running = false;
 }
