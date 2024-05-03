@@ -20,7 +20,7 @@ void Minigotchi::boot() {
     Serial.println(" ");
     Serial.println("(^-^) Hi, I'm Minigotchi, your pwnagotchi's best friend!");
 	Display::cleanDisplayText("(^-^)");
-	Display::attachText("Hi, I'm Minigotchi");
+	Display::attachText("Hi, I'm Minigotchi!");
     Serial.println(" ");
     Serial.println("('-') You can edit my configuration parameters in config.cpp!");
     Serial.println(" ");
