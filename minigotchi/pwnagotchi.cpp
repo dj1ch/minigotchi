@@ -35,13 +35,16 @@ void Pwnagotchi::detect() {
     // cool animation
     for (int i = 0; i < 5; ++i) {
         Serial.println("(0-o) Scanning for Pwnagotchi.");
-        Display::cleanDisplayText("(0-o) Scanning for Pwnagotchi.");
+		Display::cleanDisplayFace("(0-o)");
+        Display::attachSmallText("Scanning  for Pwnagotchi.");
         delay(500);
         Serial.println("(o-0) Scanning for Pwnagotchi..");
-        Display::cleanDisplayText("(o-0) Scanning for Pwnagotchi..");
+		Display::cleanDisplayFace("(o-0)");
+        Display::attachSmallText("Scanning  for Pwnagotchi..");
         delay(500);
         Serial.println("(0-o) Scanning for Pwnagotchi...");
-		Display::cleanDisplayText("(0-o) Scanning for Pwnagotchi...");
+		Display::cleanDisplayFace("(0-o)");
+		Display::attachSmallText("Scanning  for Pwnagotchi...");
         delay(500);
         Serial.println(" ");
         delay(500);
@@ -59,7 +62,8 @@ void Pwnagotchi::detect() {
         // only searches on your current channel and such afaik,
         // so this only applies for the current searching area
         Serial.println("(;-;) No Pwnagotchi found");
-		Display::cleanDisplayText("(;-;) No Pwnagotchi found.");
+		Display::cleanDisplayFace("(;-;)");
+		Display::attachSmallText("No Pwnagotchi found.");
         Serial.println(" ");
     }
 }
@@ -79,10 +83,10 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
         // check if the source MAC matches the target
         if (src == "de:ad:be:ef:de:ad") {
             pwnagotchiDetected = true;
-            String pwnagotchi_detected = "(^-^) Pwnagotchi detected!";
-            Serial.println(pwnagotchi_detected);
-            Display::cleanDisplayText(pwnagotchi_detected);
+            Serial.println("(^-^) Pwnagotchi detected!");
             Serial.println(" ");
+			Display::cleanDisplayFace("(^-^)");
+			Display::attachSmallText("Pwnagotchi detected!");
 
             // extract the ESSID from the beacon frame
             String essid;
@@ -102,7 +106,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
                     essid.concat("?");
                 }
             }
-            
+
             DynamicJsonDocument jsonBuffer(1024);
             String essidJson = "{\"essid\":\"" + essid + "\"}";
 
@@ -130,13 +134,14 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
                 Serial.println(F("(X-X) Could not parse Pwnagotchi json: "));
                 Serial.print("(X-X) ");
                 Serial.println(error.c_str());
-                Display::cleanDisplayText("(X-X) Could not parse Pwnagotchi json: ");
-                Display::cleanDisplayText("(X-X) " + (String) error.c_str());
+				Display::cleanDisplayFace("(X-X)");
+                Display::attachSmallText("Could not parse Pwnagotchi json: " + (String) error.c_str());
                 Serial.println(" ");
             } else {
                 Serial.println("(^-^) Successfully parsed json!");
                 Serial.println(" ");
-                Display::cleanDisplayText("(^-^) Successfully parsed json");
+				Display::cleanDisplayFace("(^-^)");
+                Display::attachSmallText("Successfully parsed json!");
                 // find out some stats
                 String name = jsonBuffer["name"].as<String>();
                 String pwndTot = jsonBuffer["pwnd_tot"].as<String>();
@@ -155,8 +160,9 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
                 Serial.print("(^-^) Pwned Networks: ");
                 Serial.println(pwndTot);
                 Serial.print(" ");
-                Display::cleanDisplayText("(^-^) Pwnagotchi name: " + (String) name);
-                Display::attachText("(^-^) Pwned Networks: " + (String) pwndTot);
+				Display::cleanDisplayFace("(^-^)");
+                Display::attachSmallText("Pwnagotchi name: " + (String) name);
+                Display::attachSmallText("Pwned Networks: " + (String) pwndTot);
             }
         }
     }
