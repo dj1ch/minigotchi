@@ -41,7 +41,7 @@ void Deauth::add(const std::string& bssids) {
         Serial.print("('-') Adding ");
         Serial.print(token.c_str());
         Serial.println(" to the whitelist");
-		Display::cleanDisplayFace("('-')");
+        Display::cleanDisplayFace("('-')");
         Display::attachSmallText("Adding " + (String) + " to the whitelist");
         whitelist.push_back(token.c_str());
     }
@@ -57,15 +57,15 @@ void Deauth::select() {
     // cool animation
     for (int i = 0; i < 5; ++i) {
         Serial.println("(0-o) Scanning for APs.");
-		Display::cleanDisplayFace("(0-o)");
+        Display::cleanDisplayFace("(0-o)");
         Display::attachSmallText("Scanning  for APs.");
         delay(500);
         Serial.println("(o-0) Scanning for APs..");
-		Display::cleanDisplayFace("(o-0)");
+        Display::cleanDisplayFace("(o-0)");
         Display::attachSmallText("Scanning  for APs..");
         delay(500);
         Serial.println("(0-o) Scanning for APs...");
-		Display::cleanDisplayFace("(0-o)");
+        Display::cleanDisplayFace("(0-o)");
         Display::attachSmallText("Scanning  for APs...");
         delay(500);
         Serial.println(" ");
@@ -85,20 +85,20 @@ void Deauth::select() {
         // check for ap in whitelist
         if (std::find(whitelist.begin(), whitelist.end(), randomAP) != whitelist.end()) {
             Serial.println("('-') Selected AP is in the whitelist. Skipping deauthentication...");
-			Display::cleanDisplayFace("('-')");
+            Display::cleanDisplayFace("('-')");
             Display::attachSmallText("Selected AP is in the whitelist. Skipping deauthentication...");
             return;
         }
         Serial.print("('-') Selected random AP: ");
         Serial.println(randomAP.c_str());
         Serial.println(" ");
-		Display::cleanDisplayFace("('-')");
+        Display::cleanDisplayFace("('-')");
         Display::attachSmallText("Selected random AP: " + (String) randomAP.c_str());
     } else {
         // well ur fucked.
         Serial.println("(;-;) No access points found.");
         Serial.println(" ");
-		Display::cleanDisplayFace("(;-;)");
+        Display::cleanDisplayFace("(;-;)");
         Display::attachSmallText("No access points found.");
     }
 }
@@ -111,7 +111,7 @@ void Deauth::deauth() {
         if (randomAP.length() > 0) {
             Serial.println("(>-<) Starting deauthentication attack on the selected AP...");
             Serial.println(" ");
-			Display::cleanDisplayFace("(>-<)");
+            Display::cleanDisplayFace("(>-<)");
             Display::attachSmallText("Begin deauth-attack on AP...");
             delay(5000);
             // define the attack
@@ -120,7 +120,7 @@ void Deauth::deauth() {
             } else {
                 Serial.println("('-') Attack is already running.");
                 Serial.println(" ");
-				Display::cleanDisplayFace("('-')");
+                Display::cleanDisplayFace("('-')");
                 Display::attachSmallText(" Attack is already running.");
                 delay(5000);
             }
@@ -129,10 +129,10 @@ void Deauth::deauth() {
             Serial.println("(X-X) No access point selected. Use select() first.");
             Serial.println("('-') Told you so!");
             Serial.println(" ");
-			Display::cleanDisplayFace("(X-X)");
+            Display::cleanDisplayFace("(X-X)");
             Display::attachSmallText("No access point selected. Use select() first.");
-			delay(2500);
-			Display::cleanDisplayFace("('-')");
+            delay(2500);
+            Display::cleanDisplayFace("('-')");
             Display::attachSmallText("Told you so!");
             delay(2500);
         }
@@ -160,7 +160,7 @@ void Deauth::start() {
             Serial.print("(>-<) Packets per second: ");
             Serial.print(pps);
             Serial.println(" pkt/s");
-			Display::cleanDisplayFace("(>-<)");
+            Display::cleanDisplayFace("(>-<)");
             Display::attachSmallText("Packets per second: " + (String) pps + " pkt/s");
             delay(100);
         }
@@ -169,7 +169,7 @@ void Deauth::start() {
     Serial.println(" ");
     Serial.println("(^-^) Attack finished!");
     Serial.println(" ");
-	Display::cleanDisplayFace("(^-^)");
+    Display::cleanDisplayFace("(^-^)");
     Display::attachSmallText("Attack finished!");
     running = false;
 }

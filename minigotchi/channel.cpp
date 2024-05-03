@@ -22,7 +22,7 @@ void Channel::init(int initChannel) {
     Serial.print("(-.-) Initializing on channel ");
     Serial.println(initChannel);
     Serial.println(" ");
-	Display::cleanDisplayFace("(-.-)");
+    Display::cleanDisplayFace("(-.-)");
     Display::attachSmallText("Initializing on channel " + (String) initChannel);
     delay(1000);
 
@@ -34,12 +34,12 @@ void Channel::init(int initChannel) {
     if (initChannel == getChannel()) {
         Serial.print("('-') Successfully initialized on channel ");
         Serial.println(getChannel());
-		Display::cleanDisplayFace("('-')");
+        Display::cleanDisplayFace("('-')");
         Display::attachSmallText("Successfully initialized on channel " + (String) getChannel());
         delay(1000);
     } else {
         Serial.print("(X-X) Channel initialization failed, try again?");
-		Display::cleanDisplayFace("(X-X)");
+        Display::cleanDisplayFace("(X-X)");
         Display::attachSmallText("Channel initialization failed, try again?");
         delay(1000);
     }
@@ -63,7 +63,7 @@ void Channel::switchChannel(int newChannel) {
     Serial.print("(-.-) Switching to channel ");
     Serial.println(newChannel);
     Serial.println(" ");
-	Display::cleanDisplayFace("(-.-)");
+    Display::cleanDisplayFace("(-.-)");
     Display::attachSmallText("Switching to channel " + (String) newChannel);
     delay(1000);
 
@@ -81,8 +81,8 @@ void Channel::checkChannel(int channel) {
     if (channel == getChannel()) {
         Serial.print("('-') Currently on channel ");
         Serial.println(getChannel());
-		Display::cleanDisplayFace("('-')");
-		Display::attachSmallText("Currently on channel " + (String) getChannel());
+        Display::cleanDisplayFace("('-')");
+        Display::attachSmallText("Currently on channel " + (String) getChannel());
         Serial.println(" ");
         delay(1000);
     } else {
@@ -94,8 +94,8 @@ void Channel::checkChannel(int channel) {
         Serial.print(getChannel());
         Serial.println(" instead");
         Serial.println(" ");
-		Display::cleanDisplayFace("(X-X)");
-		Display::attachSmallText("Channel switch to " + (String) channel + " has failed");
+        Display::cleanDisplayFace("(X-X)");
+        Display::attachSmallText("Channel switch to " + (String) channel + " has failed");
         delay(1000);
     }
 }
