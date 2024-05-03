@@ -148,7 +148,7 @@ void Deauth::start() {
             Serial.print("(>-<) Packets per second: ");
             Serial.print(pps);
             Serial.println(" pkt/s");
-            Display::cleanDisplayText("(>-<) Packets per second: " + (String) pps + " pkt/s")
+            Display::cleanDisplayText("(>-<) Packets per second: " + (String) pps + " pkt/s");
             delay(100);
         }
     }
