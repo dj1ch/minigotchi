@@ -69,7 +69,7 @@ See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Communic
 
 - [Arduino](https://github.com/esp8266/Arduino), mostly just the repository containing libraries for the project so I can build this code. Many libraries were used in this core repository.
 
-- [80211Raw](https://github.com/tht/80211Raw) allows raw arbritary frames to be received and sent through an ESP8266 or ESP32 using C and C++ in an interesting and useful POC. This is used to send the *Pwnagotchi-like* frames. Most of the Minigotchi is built around this library.
+- [80211Raw](https://github.com/tht/80211Raw) allows raw arbritary frames to be received and sent through an ESP8266 or ESP32 using C and C++ in an interesting and useful POC. This was used to send the *Pwnagotchi-like* frames. Most of the previous releases used this library, but now not anymore.
 
 - [ESP8266 Deauther](https://github.com/SpacehuhnTech/esp8266_deauther/), the POC that shows that an ESP8266 can deauth and attack local access points. Deauthing is based on this project and is done in a very similar fashion. Not only that, but it can also send probes and create fake AP's.
 
