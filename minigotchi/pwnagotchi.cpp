@@ -107,14 +107,6 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
                 }
             }
 
-            DynamicJsonDocument jsonBuffer(1024);
-            String essidJson = "{\"essid\":\"" + essid + "\"}";
-
-            if (essidJson > jsonBuffer) {
-                Serial.print("(X-X) Warning: ");
-                Serial.println("(X-X) ESSID exceeds buffer!");
-            }
-
             // network related info
             Serial.print("(^-^) RSSI: ");
             Serial.println(snifferPacket->rx_ctrl.rssi);
@@ -123,11 +115,12 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
             Serial.print("(^-^) BSSID: ");
             Serial.println(addr);
             Serial.print("(^-^) ESSID: ");
-            Serial.println(essidJson);
+            Serial.println(essid);
             Serial.println(" ");
 
             // parse the ESSID as JSON
-            DeserializationError error = deserializeJson(jsonBuffer, essidJson);
+            DynamicJsonDocument jsonBuffer(1024);
+            DeserializationError error = deserializeJson(jsonBuffer, essid);
 
             // check if json parsing is successful
             if (error) {
