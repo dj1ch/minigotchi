@@ -151,7 +151,7 @@ void Frame::init() {
     std::copy(Frame::SignatureAddr, Frame::SignatureAddr + 6, header.addr4);
 
     // copy pre-defined header to beaconFrame
-    beaconFrame.insert(beaconFrame.end(), Frame::header, Frame::header + sizeof(Frame::header));
+    beaconFrame.insert(beaconFrame.end(), reinterpret_cast<uint8_t*>(&header), reinterpret_cast<uint8_t*>(&header) + sizeof(header));
 }
 
 void Frame::essid() {
