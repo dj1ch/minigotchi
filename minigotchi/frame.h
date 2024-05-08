@@ -5,6 +5,7 @@
 #ifndef FRAME_H
 #define FRAME_H
 
+#include "structs.h"
 #include "config.h"
 #include <sstream>
 #include <vector>

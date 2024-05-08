@@ -118,7 +118,21 @@ uint8_t Frame::header[] = {
  *  
 */
 
-void Frame::to() {
+void Frame::signature() {
+    // set signature address
+    std::copy(Frame::SignatureAddr, Frame::SignatureAddr + 6, header + 22);
+}
+
+void Frame::init() {
+    // use structs.h
+    wifi_ieee80211_mac_hdr_t header;
+
+    // find mac
+    uint8_t mac[6];	
+    WiFi.macAddress(mac);
+
+    std::copy(mac, mac + 6, header.addr2);
+
     // parse and set the BSSID (to)
     const char* bssidStr = Config::bssid;
     uint8_t bssidBytes[6];
@@ -131,30 +145,10 @@ void Frame::to() {
     }
     
     // set the BSSID in the frame header
-    std::copy(bssidBytes, bssidBytes + 6, header + 16);
-}
+    std::copy(bssidBytes, bssidBytes + 6, header.addr3);
 
-void Frame::signature() {
-    // set signature address
-    std::copy(Frame::SignatureAddr, Frame::SignatureAddr + 6, header + 22);
-}
-
-void Frame::from() {
-    // get mac addr (from)	
-    uint8_t mac[6];	
-    WiFi.macAddress(mac);	
-    char macStr[18];	
-    sprintf(macStr, "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
-
-    // copy "from" part
-    std::copy(macStr, macStr + 6, header + 10);
-}
-
-void Frame::init() {
-    // writing values to frame
-    to();
-    signature();
-    from();
+    // copy signature
+    std::copy(Frame::SignatureAddr, Frame::SignatureAddr + 6, header.addr4);
 
     // copy pre-defined header to beaconFrame
     beaconFrame.insert(beaconFrame.end(), Frame::header, Frame::header + sizeof(Frame::header));
