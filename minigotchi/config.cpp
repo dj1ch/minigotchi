@@ -17,7 +17,7 @@ bool Config::deauth = true;
 bool Config::advertise = true;
 
 // screen configuration
-bool Config::display = true;
+bool Config::display = false;
 const char* screen = "";
 
 // define baud rate
