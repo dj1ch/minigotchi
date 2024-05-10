@@ -16,11 +16,15 @@
 bool Config::deauth = true;
 bool Config::advertise = true;
 
+// screen configuration
+bool Config::display = true;
+const char* screen = "";
+
 // define baud rate
 int Config::baud = 115200;
 
 // define init channel
-const char* bssid = "fo:od:ba:be:fo:od";
+const char* Config::bssid = "fo:od:ba:be:fo:od";
 int Config::channel = 1;
 
 // define whitelist 

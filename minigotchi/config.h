@@ -15,6 +15,8 @@ class Config {
 public:
     static bool deauth;
     static bool advertise;
+    static bool display;
+    static const char* screen;
     static int baud;
     static const char* bssid;
     static int channel;
