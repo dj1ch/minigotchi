@@ -18,7 +18,7 @@ bool Config::advertise = true;
 
 // screen configuration
 bool Config::display = false;
-const char* screen = "";
+std::string Config::screen = "";
 
 // define baud rate
 int Config::baud = 115200;
