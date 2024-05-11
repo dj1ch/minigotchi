@@ -19,9 +19,6 @@ public:
     static void advertise();
     static void start();
     static void stop();
-    static void to();
-    static void signature();
-    static void from();
     static void init();
     static void essid();
     static uint8_t header[];

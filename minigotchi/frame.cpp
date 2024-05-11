@@ -49,7 +49,7 @@ uint8_t Frame::header[] = {
  * we build the frame like so
  * 
  * func PackOneOf(from, to net.HardwareAddr, peerID []byte, signature []byte, streamID uint64, seqNum uint64, seqTot uint64, payload []byte, compress bool) (error, []byte) {
- * 	stack := []gopacket.SerializableLayer{
+ * 	 stack := []gopacket.SerializableLayer{
  *		&layers.RadioTap{},
  *		&layers.Dot11{
  *			Address1: to,
@@ -118,37 +118,55 @@ uint8_t Frame::header[] = {
  *  
 */
 
-void Frame::signature() {
-    // set signature address
-    std::copy(Frame::SignatureAddr, Frame::SignatureAddr + 6, header + 22);
-}
+/** developer note:
+ * 
+ * we're relying off of the frame structure from pack.go
+ * 
+ * func PackOneOf(from, to net.HardwareAddr, peerID []byte, signature []byte, streamID uint64, seqNum uint64, seqTot uint64, payload []byte, compress bool) (error, []byte) {
+ * 	 stack := []gopacket.SerializableLayer{
+ *		&layers.RadioTap{},
+ *		&layers.Dot11{
+ *			Address1: to,
+ *			Address2: SignatureAddr,
+ *			Address3: from,
+ *			Type:     layers.Dot11TypeMgmtBeacon,
+ *		},
+ * 		&layers.Dot11MgmtBeacon{
+ *			Flags:    uint16(wpaFlags),
+ *			Interval: 100,
+ *		},
+ *	}
+ * 
+ * see wifi_ieee80211_mac_hdr_t in structs.h for the frame structure...
+ * 
+*/
 
 void Frame::init() {
     // use structs.h
     wifi_ieee80211_mac_hdr_t header;
 
+    // copy signature
+    std::copy(Frame::SignatureAddr, Frame::SignatureAddr + 6, header.addr1);
+
+    // parse and set the BSSID (to)
+    const std::string bssidStr = Config::bssid;
+    uint8_t bssidBytes[6];
+
+    // conversion to uint8_t array
+    size_t pos = 0;
+    for (int i = 0; i < 6; ++i) {
+        bssidBytes[i] = std::stoi(bssidStr.substr(pos, 2), nullptr, 16);
+        pos += 3;
+    }
+    
+    // set the BSSID in the frame header
+    std::copy(bssidBytes, bssidBytes + 6, header.addr2);
+
     // find mac
     uint8_t mac[6];	
     WiFi.macAddress(mac);
 
-    std::copy(mac, mac + 6, header.addr2);
-
-    // parse and set the BSSID (to)
-    const char* bssidStr = Config::bssid;
-    uint8_t bssidBytes[6];
-
-    char *token = strtok((char*)bssidStr, ":");
-    int i = 0;
-    while (token != NULL && i < 6) {
-        bssidBytes[i++] = strtol(token, NULL, 16);
-        token = strtok(NULL, ":");
-    }
-    
-    // set the BSSID in the frame header
-    std::copy(bssidBytes, bssidBytes + 6, header.addr3);
-
-    // copy signature
-    std::copy(Frame::SignatureAddr, Frame::SignatureAddr + 6, header.addr4);
+    std::copy(mac, mac + 6, header.addr3);
 
     // copy pre-defined header to beaconFrame
     beaconFrame.insert(beaconFrame.end(), reinterpret_cast<uint8_t*>(&header), reinterpret_cast<uint8_t*>(&header) + sizeof(header));

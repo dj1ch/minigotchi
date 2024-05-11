@@ -18,13 +18,13 @@ bool Config::advertise = true;
 
 // screen configuration
 bool Config::display = false;
-std::string Config::screen = "";
+std::string Config::screen = ""; // still a work in progress...
 
 // define baud rate
 int Config::baud = 115200;
 
 // define init channel
-const char* Config::bssid = "fo:od:ba:be:fo:od";
+std::string Config::bssid = "fo:od:ba:be:fo:od";
 int Config::channel = 1;
 
 // define whitelist 

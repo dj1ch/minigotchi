@@ -18,7 +18,7 @@ public:
     static bool display;
     static std::string screen;
     static int baud;
-    static const char* bssid;
+    static std::string bssid;
     static int channel;
     static std::vector<std::string> whitelist;
     static int epoch;
