@@ -11,6 +11,10 @@
 #include <SPI.h>
 #include <Wire.h>
 
+// SSD1306 screen
+#define SSD1306_SCREEN_WIDTH 128
+#define SSD1306_SCREEN_HEIGHT 64 
+
 // Init screen
 #define OLED_RESET 0 // GPIO0
 

@@ -1,52 +1,56 @@
 /**
- * display.cpp: handles display support
+ * display->cpp: handles display support
 */
 
 #include "display.h"
 
-Adafruit_SSD1306 adafruit_display(OLED_RESET);
+Adafruit_SSD1306* adafruit_display;
 
 void Display::startScreen() {
   if (Config::display) {
-    adafruit_display.begin(
-    SSD1306_SWITCHCAPVCC,
-    0x3C); // initialize with the I2C addr 0x3C (for the 64x48)
+    if (Config::screen == "SSD1306") {
+      adafruit_display = new Adafruit_SSD1306(SSD1306_SCREEN_WIDTH, SSD1306_SCREEN_HEIGHT, &Wire, -1);
+      adafruit_display->begin(SSD1306_SWITCHCAPVCC, 0x3C); // for the 128x64 displays
+    } else {
+      adafruit_display = new Adafruit_SSD1306(OLED_RESET);
+      adafruit_display->begin(SSD1306_SWITCHCAPVCC, 0x3C); // initialize with the I2C addr 0x3C (for the 64x48)
+    }
 
     delay(5);
     // initialize w/ delays to prevent crash
-    adafruit_display.display();
+    adafruit_display->display();
     delay(5);
-    adafruit_display.clearDisplay();
+    adafruit_display->clearDisplay();
     delay(5);
-    adafruit_display.setTextColor(WHITE);
+    adafruit_display->setTextColor(WHITE);
     delay(5);
   }
 }
 
 void Display::cleanDisplayFace(String text) {
   if (Config::display) {
-    adafruit_display.setCursor(0, 0);
+    adafruit_display->setCursor(0, 0);
     delay(5);
-    adafruit_display.setTextSize(2);
+    adafruit_display->setTextSize(2);
     delay(5);
-    adafruit_display.clearDisplay();
+    adafruit_display->clearDisplay();
     delay(5);
-    adafruit_display.println(text);
+    adafruit_display->println(text);
     delay(5);
-    adafruit_display.display();
+    adafruit_display->display();
     delay(5);
   }
 }
 
 void Display::attachSmallText(String text) {
   if (Config::display) {
-    adafruit_display.setCursor(0, 20);
+    adafruit_display->setCursor(0, 20);
     delay(5);
-    adafruit_display.setTextSize(1);
+    adafruit_display->setTextSize(1);
     delay(5);
-    adafruit_display.println(text);
+    adafruit_display->println(text);
     delay(5);
-    adafruit_display.display();
+    adafruit_display->display();
     delay(5);
   }
 }

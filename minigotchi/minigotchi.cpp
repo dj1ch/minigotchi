@@ -142,24 +142,23 @@ void Minigotchi::monStop() {
  *
 */
 
-/** developer note:
- * 
- * we probably are going to rely off of the pwnagotchi session id parsed from the deauth frame,
- * so in this case we probably dont need to use Frame::start(); and Frame::stop();
- * 
-*/
-
 // channel cycling
 void Minigotchi::cycle() {
+    Frame::stop();
     Channel::cycle();
+    Frame::start();
 }
 
 // pwnagotchi detection
 void Minigotchi::detect() {
+    Frame::stop();
     Pwnagotchi::detect();
+    Frame::start();
 }
 
 // deauthing
 void Minigotchi::deauth() {
+    Frame::stop();
     Deauth::deauth();
+    Frame::start();
 }
