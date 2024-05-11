@@ -11,7 +11,11 @@ void Display::startScreen() {
     if (Config::screen == "SSD1306") {
       adafruit_display = new Adafruit_SSD1306(SSD1306_SCREEN_WIDTH, SSD1306_SCREEN_HEIGHT, &Wire, -1);
       adafruit_display->begin(SSD1306_SWITCHCAPVCC, 0x3C); // for the 128x64 displays
+    } else if(Config::screen == "WEMOS_OLED_SHIELD") {
+      adafruit_display = new Adafruit_SSD1306(OLED_RESET);
+      adafruit_display->begin(SSD1306_SWITCHCAPVCC, 0x3C); // initialize with the I2C addr 0x3C (for the 64x48)
     } else {
+      // use wemos shield by default
       adafruit_display = new Adafruit_SSD1306(OLED_RESET);
       adafruit_display->begin(SSD1306_SWITCHCAPVCC, 0x3C); // initialize with the I2C addr 0x3C (for the 64x48)
     }
