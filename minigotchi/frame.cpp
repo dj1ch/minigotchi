@@ -31,18 +31,6 @@ const uint8_t Frame::SignatureAddr[] = {0xde, 0xad, 0xbe, 0xef, 0xde, 0xad};
 const uint8_t Frame::BroadcastAddr[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
 const uint16_t Frame::wpaFlags = 0x0411;
 
-// frame control, etc
-uint8_t Frame::header[] = {
-    /*  0 - 1  */ 0x80, 0x00,                         // Frame Control: Version 0, Type: Management, Subtype: Beacon
-    /*  2 - 3  */ 0x00, 0x00,                         // Duration/ID (will be overwritten)
-    /*  4 - 9  */ 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, // Destination address: Broadcast
-    /* 10 - 15 */ 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, 0x0a, // Source address: Set in "init"
-    /* 16 - 21 */ 0xa0, 0xa0, 0xa0, 0xa0, 0xa0, 0xa0, // BSSID: Set in "init"
-    /* 22 - 23 */ 0x00, 0x00,                         // Sequence/Fragment number
-    /* 24 - 25 */ 0x00, 0x64,                         // Interval: 100 (0x0064 in hexadecimal)
-    /* 26 - 27 */ 0x04, 0x11                          // Flags: 1041
-};
-
 /** developer note:
  * 
  * according to pack.go:
