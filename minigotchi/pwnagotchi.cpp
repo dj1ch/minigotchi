@@ -103,18 +103,11 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
 
             // extract the ESSID from the beacon frame
             String essid;
-            int essidLength = len - 38;
-
-            // make sure essidLength does not exceed the maximum ESSID length
-            if (essidLength > 255) {
-                essidLength = 255;
-            }
 
             // "borrowed" from ESP32 Marauder
-            for (int i = 0; i < len - 37 && essidLength < 255; i++) {
-                if (isAscii(snifferPacket->payload[i + 38])) {
-                    essid.concat((char)snifferPacket->payload[i + 38]);
-                    essidLength++;
+            for (int i = 38; i < len; i++) {
+                if (isAscii(snifferPacket->payload[i])) {
+                    essid.concat((char)snifferPacket->payload[i]);
                 } else {
                     essid.concat("?");
                 }
@@ -132,7 +125,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
             Serial.println(" ");
 
             // parse the ESSID as JSON
-            DynamicJsonDocument jsonBuffer(essidLength);
+            DynamicJsonDocument jsonBuffer(2048);
             DeserializationError error = deserializeJson(jsonBuffer, essid);
 
             // check if json parsing is successful
