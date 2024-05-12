@@ -61,11 +61,24 @@ void Pwnagotchi::detect() {
     if (!pwnagotchiDetected) {
         // only searches on your current channel and such afaik,
         // so this only applies for the current searching area
+        Pwnagotchi::stopCallback();
         Serial.println("(;-;) No Pwnagotchi found");
         Display::cleanDisplayFace("(;-;)");
         Display::attachSmallText("No Pwnagotchi found.");
         Serial.println(" ");
+    } else if (pwnagotchiDetected) {
+        // stops callback after it finds a pwnagotchi
+        Pwnagotchi::stopCallback();
+    } else {
+        Serial.println("(X-X) How did this happen?");
+        Display::cleanDisplayFace("(X-X)");
+        Display::attachSmallText("How did this happen?");
     }
+}
+
+// patch for crashes
+void Pwnagotchi::stopCallback() {
+    wifi_set_promiscuous_rx_cb(nullptr);
 }
 
 void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type) {
@@ -119,7 +132,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
             Serial.println(" ");
 
             // parse the ESSID as JSON
-            DynamicJsonDocument jsonBuffer(1024);
+            DynamicJsonDocument jsonBuffer(essidLength);
             DeserializationError error = deserializeJson(jsonBuffer, essid);
 
             // check if json parsing is successful
