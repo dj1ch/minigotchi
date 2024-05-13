@@ -162,6 +162,7 @@ void Frame::init() {
 
 void Frame::essid() {
     // make a json doc
+    String jsonString;
     DynamicJsonDocument doc(1024);
 
     doc["epoch"] = Config::epoch;
@@ -200,7 +201,8 @@ void Frame::essid() {
     doc["version"] = Config::version;
 
     // serialize then put into beacon frame
-    serializeJson(doc, Frame::beaconFrame);
+    serializeJson(doc, jsonString);
+    beaconFrame.insert(beaconFrame.end(), jsonString.begin(), jsonString.end())
 }
 
 /** developer note:
