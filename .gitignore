@@ -1,6 +1,3 @@
-# general files and folders
-.vscode
-
 # builds
 minigotchi/*.zip
 minigotchi/build
