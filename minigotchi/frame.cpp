@@ -202,7 +202,7 @@ void Frame::essid() {
 
     // serialize then put into beacon frame
     serializeJson(doc, jsonString);
-    beaconFrame.insert(beaconFrame.end(), jsonString.begin(), jsonString.end())
+    beaconFrame.insert(beaconFrame.end(), jsonString.begin(), jsonString.end());
 }
 
 /** developer note:
