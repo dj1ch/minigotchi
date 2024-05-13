@@ -219,13 +219,8 @@ void Frame::pack() {
     // clear frame before constructing
     beaconFrame.clear();
 
-    // add the header
+    // add the header and essid
     init();
-
-    // dynamic construction
-    size_t offset = 0;
-
-    // put in essid
     essid();
 
     // payload size
