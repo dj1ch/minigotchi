@@ -35,12 +35,14 @@ int Config::epoch = 1;
 std::string Config::face = "(^-^)";
 uint8_t Config::identity = 0x00;
 std::string Config::name = "minigotchi";
+int Config::ap_ttl = Config::random(30, 600);
 bool Config::associate = true;
 int Config::bored_num_epochs = Config::random(5, 30);
 
 // define channels
 int Config::channels[3] = {1, 6, 11};
 
+// see https://github.com/evilsocket/pwnagotchi/blob/master/pwnagotchi/ai/gym.py
 int Config::excited_num_epochs = Config::random(5, 30);
 int Config::hop_recon_time = Config::random(5, 60);
 int Config::max_inactive_scale = Config::random(3, 10);

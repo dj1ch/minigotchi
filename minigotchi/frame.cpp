@@ -161,52 +161,46 @@ void Frame::init() {
 }
 
 void Frame::essid() {
-    // id's
-    beaconFrame.push_back(Frame::IDWhisperIdentity);
-    beaconFrame.push_back(Frame::IDWhisperSignature);
-    beaconFrame.push_back(Frame::IDWhisperStreamHeader);
+    // make a json doc
+    DynamicJsonDocument doc(1024);
 
-    // other payload data
-    beaconFrame.push_back(Config::epoch);
-    
-    // all chars
-    for (size_t i = 0; i < sizeof(Config::face); ++i) {
-        beaconFrame.push_back(Config::face[i]);
+    doc["epoch"] = Config::epoch;
+    doc["face"] = Config::face;
+    doc["identity"] = Config::identity;
+    doc["name"] = Config::name;
+
+    JsonObject policy = doc.createNestedObject("policy");
+    policy["advertise"] = Config::advertise;
+    policy["ap_ttl"] = Config::ap_ttl;
+    policy["associate"] = Config::associate;
+    policy["bored_num_epochs"] = Config::bored_num_epochs;
+
+    JsonArray channels = policy.createNestedArray("channels");
+    for (size_t i = 0; i < sizeof(Config::channels) / sizeof(Config::channels[0]); ++i) {
+        channels.add(Config::channels[i]);
     }
 
-    // blank
-    beaconFrame.push_back(Config::identity);
+    policy["deauth"] = Config::deauth;
+    policy["excited_num_epochs"] = Config::excited_num_epochs;
+    policy["hop_recon_time"] = Config::hop_recon_time;
+    policy["max_inactive_scale"] = Config::max_inactive_scale;
+    policy["max_interactions"] = Config::max_interactions;
+    policy["max_misses_for_recon"] = Config::max_misses_for_recon;
+    policy["min_recon_time"] = Config::min_rssi;
+    policy["min_rssi"] = Config::min_rssi;
+    policy["recon_inactive_multiplier"] = Config::recon_inactive_multiplier;
+    policy["recon_time"] = Config::recon_time;
+    policy["sad_num_epochs"] = Config::sad_num_epochs;
+    policy["sta_ttl"] = Config::sta_ttl;
 
-    for (size_t i = 0; i < sizeof(Config::name); ++i) {
-        beaconFrame.push_back(Config::name[i]);
-    }
+    doc["pwnd_run"] = Config::pwnd_run;
+    doc["pwnd_tot"] = Config::pwnd_tot;
+    doc["session_id"] = Config::session_id;
+    doc["uptime"] = Config::uptime;
+    doc["version"] = Config::version;
 
-    beaconFrame.push_back(Config::associate);
-    
-    beaconFrame.push_back(Config::bored_num_epochs);
-    beaconFrame.push_back(Config::excited_num_epochs);
-    beaconFrame.push_back(Config::hop_recon_time);
-    beaconFrame.push_back(Config::max_inactive_scale);
-    beaconFrame.push_back(Config::max_interactions);
-    beaconFrame.push_back(Config::max_misses_for_recon);
-    beaconFrame.push_back(Config::min_recon_time);
-    beaconFrame.push_back(Config::min_rssi);
-    beaconFrame.push_back(Config::recon_inactive_multiplier);
-    beaconFrame.push_back(Config::recon_time);
-    beaconFrame.push_back(Config::sad_num_epochs);
-    beaconFrame.push_back(Config::sta_ttl);
-    beaconFrame.push_back(Config::pwnd_run);
-    beaconFrame.push_back(Config::pwnd_tot);
-
-    for (size_t i = 0; i < sizeof(Config::session_id); ++i) {
-        beaconFrame.push_back(Config::session_id[i]);
-    }
-
-    beaconFrame.push_back(Config::uptime);
-
-    for (size_t i = 0; i < sizeof(Config::version); ++i) {
-        beaconFrame.push_back(Config::version[i]);
-    }    
+    // serialize then put into beacon frame
+    serializeJson(doc, Frame::beaconFrame);
 }
 
 /** developer note:

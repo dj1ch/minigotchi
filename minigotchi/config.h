@@ -25,6 +25,7 @@ public:
     static std::string face;
     static uint8_t identity;
     static std::string name;
+    static int ap_ttl;
     static bool associate;
     static int bored_num_epochs;
     static int channels[3];
