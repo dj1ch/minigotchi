@@ -61,14 +61,12 @@ void Pwnagotchi::detect() {
     if (!pwnagotchiDetected) {
         // only searches on your current channel and such afaik,
         // so this only applies for the current searching area
-        Pwnagotchi::stopCallback();
         Serial.println("(;-;) No Pwnagotchi found");
         Display::cleanDisplayFace("(;-;)");
         Display::attachSmallText("No Pwnagotchi found.");
         Serial.println(" ");
     } else if (pwnagotchiDetected) {
-        // stops callback after it finds a pwnagotchi
-        Pwnagotchi::stopCallback();
+        
     } else {
         Serial.println("(X-X) How did this happen?");
         Display::cleanDisplayFace("(X-X)");
