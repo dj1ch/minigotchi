@@ -94,12 +94,14 @@ void Deauth::select() {
         Serial.println(" ");
         Display::cleanDisplayFace("('-')");
         Display::attachSmallText("Selected random AP: " + (String) randomAP.c_str());
+        delay(2500);
     } else {
         // well ur fucked.
         Serial.println("(;-;) No access points found.");
         Serial.println(" ");
         Display::cleanDisplayFace("(;-;)");
         Display::attachSmallText("No access points found.");
+        delay(2500);
     }
 }
 
