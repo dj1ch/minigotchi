@@ -252,6 +252,7 @@ void Frame::advertise() {
         Display::attachSmallText("Starting advertisment...");
         for (int i = 0; i < 150; ++i) {
             send();
+            delay(102);
             packets++;
 
             // calculate packets per second
@@ -264,7 +265,6 @@ void Frame::advertise() {
                 Serial.println(" pkt/s");
                 Display::cleanDisplayFace("(>-<)");
                 Display::attachSmallText("Packets per second: " + (String) pps + " pkt/s");
-                delay(102);
             }
         }
     
