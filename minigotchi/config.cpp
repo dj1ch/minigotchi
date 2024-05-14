@@ -13,7 +13,7 @@
  */
 
 // define whether or not these deauthing or advertising is turned on 
-bool Config::deauth = false;
+bool Config::deauth = true;
 bool Config::advertise = true;
 
 // screen configuration
