@@ -5,7 +5,7 @@
 #ifndef FRAME_H
 #define FRAME_H
 
-#include "structs.h"
+#include "display.h"
 #include "config.h"
 #include <sstream>
 #include <vector>
@@ -22,6 +22,7 @@ public:
     static void stop();
     static void init();
     static void essid();
+    static const uint8_t header[];
     static const uint8_t IDWhisperPayload;
     static const uint8_t IDWhisperCompression;
     static const uint8_t IDWhisperIdentity;
@@ -30,13 +31,13 @@ public:
     static const uint8_t SignatureAddr[];
     static const uint8_t BroadcastAddr[];
     static const uint16_t wpaFlags;
-    
-private:
-    static bool running;
     static size_t frameSize;
     static std::vector<uint8_t> beaconFrame;
-    static const size_t payloadSize;
+    static size_t payloadSize;
     static const size_t chunkSize;
+    
+private:
+
 };
 
 #endif // FRAME_H

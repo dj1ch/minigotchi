@@ -30,8 +30,9 @@ void loop() {
     minigotchi.detect();
     delay(5000);
 
-    // ugly hack: remove all these lines containing the words "delay(5000);" or comment them out with a "//" slash.
-    // doing so will make the loop a lot faster. plus this might overheat the board and stuff but its worth a try.
+    // advertise our presence with the help of pwngrid compatible beacon frames (probably the most confusing part lmao)
+    minigotchi.advertise();
+    delay(5000);
 
     // deauth random access point
     minigotchi.deauth();

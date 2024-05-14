@@ -23,7 +23,7 @@ public:
     static std::vector<std::string> whitelist;
     static int epoch;
     static std::string face;
-    static uint8_t identity;
+    static std::string identity;
     static std::string name;
     static int ap_ttl;
     static bool associate;

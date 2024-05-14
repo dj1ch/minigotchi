@@ -13,7 +13,7 @@
  */
 
 // define whether or not these deauthing or advertising is turned on 
-bool Config::deauth = true;
+bool Config::deauth = false;
 bool Config::advertise = true;
 
 // screen configuration
@@ -33,7 +33,7 @@ std::vector<std::string> Config::whitelist = {"fo:od:ba:be:fo:od", "fo:od:ba:be:
 // json config
 int Config::epoch = 1;
 std::string Config::face = "(^-^)";
-uint8_t Config::identity = 0x00;
+std::string Config::identity = "b9210077f7c14c0651aa338c55e820e93f90110ef679648001b1cecdbffc0090";
 std::string Config::name = "minigotchi";
 int Config::ap_ttl = Config::random(30, 600);
 bool Config::associate = true;

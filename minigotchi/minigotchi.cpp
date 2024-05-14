@@ -37,7 +37,6 @@ void Minigotchi::boot() {
     Serial.println("#                BOOTUP PROCESS                #");
     Serial.println("################################################");
     Serial.println(" ");
-    Frame::start();
     Deauth::list();
     Channel::init(Config::channel);
     Minigotchi::info();
@@ -144,21 +143,20 @@ void Minigotchi::monStop() {
 
 // channel cycling
 void Minigotchi::cycle() {
-    Frame::stop();
     Channel::cycle();
-    Frame::start();
 }
 
 // pwnagotchi detection
 void Minigotchi::detect() {
-    Frame::stop();
     Pwnagotchi::detect();
-    Frame::start();
 }
 
 // deauthing
 void Minigotchi::deauth() {
-    Frame::stop();
     Deauth::deauth();
-    Frame::start();
+}
+
+// advertising
+void Minigotchi::advertise() {
+    Frame::advertise();
 }
