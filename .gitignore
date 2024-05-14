@@ -1,6 +1,3 @@
-# ignore if on windows
-.vscode
-
 # builds
 minigotchi/*.zip
 minigotchi/build
