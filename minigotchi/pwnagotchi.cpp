@@ -61,11 +61,27 @@ void Pwnagotchi::detect() {
     if (!pwnagotchiDetected) {
         // only searches on your current channel and such afaik,
         // so this only applies for the current searching area
+        Minigotchi::monStop();
+        Pwnagotchi::stopCallback();
         Serial.println("(;-;) No Pwnagotchi found");
         Display::cleanDisplayFace("(;-;)");
         Display::attachSmallText("No Pwnagotchi found.");
         Serial.println(" ");
+    } else if (pwnagotchiDetected) {
+        Minigotchi::monStop();
+        Pwnagotchi::stopCallback();
+    } else {
+        Minigotchi::monStop();
+        Pwnagotchi::stopCallback();
+        Serial.println("(X-X) How did this happen?");
+        Display::cleanDisplayFace("(X-X)");
+        Display::attachSmallText("How did this happen?");
     }
+}
+
+// patch for crashes
+void Pwnagotchi::stopCallback() {
+    wifi_set_promiscuous_rx_cb(nullptr);
 }
 
 void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type) {
@@ -90,29 +106,14 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
 
             // extract the ESSID from the beacon frame
             String essid;
-            int essidLength = len - 38;
-
-            // make sure essidLength does not exceed the maximum ESSID length
-            if (essidLength > 255) {
-                essidLength = 255;
-            }
 
             // "borrowed" from ESP32 Marauder
-            for (int i = 0; i < len - 37 && essidLength < 255; i++) {
-                if (isAscii(snifferPacket->payload[i + 38])) {
-                    essid.concat((char)snifferPacket->payload[i + 38]);
-                    essidLength++;
+            for (int i = 38; i < len; i++) {
+                if (isAscii(snifferPacket->payload[i])) {
+                    essid.concat((char)snifferPacket->payload[i]);
                 } else {
                     essid.concat("?");
                 }
-            }
-
-            DynamicJsonDocument jsonBuffer(1024);
-            String essidJson = "{\"essid\":\"" + essid + "\"}";
-
-            if (essidJson > jsonBuffer) {
-                Serial.print("(X-X) Warning: ");
-                Serial.println("(X-X) ESSID exceeds buffer!");
             }
 
             // network related info
@@ -123,11 +124,12 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
             Serial.print("(^-^) BSSID: ");
             Serial.println(addr);
             Serial.print("(^-^) ESSID: ");
-            Serial.println(essidJson);
+            Serial.println(essid);
             Serial.println(" ");
 
             // parse the ESSID as JSON
-            DeserializationError error = deserializeJson(jsonBuffer, essidJson);
+            DynamicJsonDocument jsonBuffer(2048);
+            DeserializationError error = deserializeJson(jsonBuffer, essid);
 
             // check if json parsing is successful
             if (error) {

@@ -27,6 +27,7 @@ public:
     static void cycle();
     static void detect();
     static void deauth();
+    static void advertise();
 
 };
 

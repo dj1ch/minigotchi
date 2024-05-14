@@ -62,6 +62,17 @@ typedef struct { // Size: 128
     uint16_t len; //length of packet
 } wifi_pkt_mgmt_t;
 
+// https://github.com/justcallmekoko/ESP32Marauder/blob/master/esp32_marauder/WiFiScan.h
+typedef struct {
+    int16_t fctl;
+    int16_t duration;
+    uint8_t da;
+    uint8_t sa;
+    uint8_t bssid;
+    int16_t seqctl;
+    unsigned char payload[];
+} __attribute__((packed)) WifiMgmtHdr;
+
 typedef struct {
     uint16_t length;
     uint16_t seq;

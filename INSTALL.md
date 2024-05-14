@@ -36,11 +36,27 @@ Here, you can adjust the baud rate, which is of course optional. Make sure your 
 
 ```cpp
 // define init bssid, channel
-const char* Config::bssid = "fo:od:ba:be:fo:od";
+std::string Config::bssid = "fo:od:ba:be:fo:od";
 int Config::channel = 1;
 ```
 
 Replace the `"fo:od:ba:be:fo:od"` with your actual BSSID(in the quotations), and the `1` with the channel you prefer(not in quotations). Note that the WiFi network you're listening on should be on a specific WiFi channel anyway, each AP is on a specific one. The BSSID in question should be one of your own, assuming the pwnagotchi is in your home it should be able to associate to your home WiFi network.
+
+- After this, we can configure our screen
+
+```cpp
+// screen configuration
+bool Config::display = false;
+std::string Config::screen = "";
+```
+
+There are two different screen types available:
+
+- `SSD1306`
+
+- `WEMOS_OLED_SHIELD`
+
+Set `bool Config::display = false;` to true, and `std::string Config::screen = "<YOUR_SCREEN_TYPE>";` to one of those screen types if your screen is supported.
 
 - There should also be a line that says:
 

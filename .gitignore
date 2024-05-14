@@ -1,4 +1,4 @@
-# general files and folders
+# ignore if on windows
 .vscode
 
 # builds
