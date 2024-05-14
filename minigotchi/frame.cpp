@@ -194,6 +194,13 @@ void Frame::essid() {
     serializeJson(doc, jsonString);
     Frame::beaconFrame.reserve(Frame::beaconFrame.size() + jsonString.length());
     Frame::beaconFrame.insert(Frame::beaconFrame.end(), jsonString.begin(), jsonString.end());
+
+    /** developer note:
+     * 
+     * if you literally want to check the json everytime you send a packet(non serialized ofc)
+     *
+     * Serial.println(jsonString); 
+    */
 }
 
 /** developer note:
@@ -218,17 +225,27 @@ void Frame::pack() {
     Frame::payloadSize = Frame::beaconFrame.size();
     Frame::frameSize = Frame::beaconFrame.size();
 
-    // add IDWhisperPayload for every chunk
-    const size_t chunkSize = 0xff;
-
-    for (size_t i = 0; i < payloadSize; i += chunkSize) {
+    for (size_t i = 0; i < payloadSize; i += Frame::chunkSize) {
         Frame::beaconFrame.push_back(Frame::IDWhisperPayload);
 
-        size_t chunkEnd = std::min(i + chunkSize, payloadSize);
+        size_t chunkEnd = std::min(i + Frame::chunkSize, Frame::payloadSize);
         for (size_t j = i; j < chunkEnd; ++j) {
             Frame::beaconFrame.push_back(Frame::beaconFrame[j]);
         }
     }
+
+    /** developer note: 
+     * 
+     * we can print the beacon frame like so...
+     * 
+     * Serial.println("('-') Full Beacon Frame:");
+     * for (size_t i = 0; i < beaconFrame.size(); ++i) {
+     *     Serial.print(beaconFrame[i], HEX);
+     *     Serial.print(" ");
+     * }
+     * Serial.println(" ");
+     * 
+    */
 }
 
 void Frame::send() {
