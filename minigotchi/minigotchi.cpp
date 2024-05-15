@@ -72,7 +72,7 @@ void Minigotchi::version() {
     Serial.println(Config::version.c_str());
     Display::cleanDisplayFace("('-')");
     Display::attachSmallText("Version: " + (String) Config::version.c_str());
-    delay(300);
+    delay(500);
 }
 
 void Minigotchi::mem() {
@@ -81,7 +81,7 @@ void Minigotchi::mem() {
     Serial.println(" bytes");
     Display::cleanDisplayFace("('-')");
     Display::attachSmallText("Heap: " + (String) ESP.getFreeHeap() + " bytes");
-    delay(300);
+    delay(500);
 }
 
 void Minigotchi::cpu() {
@@ -90,7 +90,7 @@ void Minigotchi::cpu() {
     Serial.println(" MHz");
     Display::cleanDisplayFace("('-')");
     Display::attachSmallText("CPU Frequency: " + (String) ESP.getCpuFreqMHz() + " MHz");
-    delay(300);
+    delay(500);
 }
 
 /** developer note:

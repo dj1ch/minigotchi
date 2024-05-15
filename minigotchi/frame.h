@@ -31,6 +31,7 @@ public:
     static const uint8_t SignatureAddr[];
     static const uint8_t BroadcastAddr[];
     static const uint16_t wpaFlags;
+    static bool sent;
     static size_t frameSize;
     static std::vector<uint8_t> beaconFrame;
     static size_t payloadSize;
