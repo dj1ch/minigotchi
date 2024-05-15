@@ -24,10 +24,10 @@ void Minigotchi::boot() {
     Serial.println(" ");
     Serial.println("('-') You can edit my configuration parameters in config.cpp!");
     Serial.println(" ");
-    delay(2500);
+    delay(1000);
     Display::cleanDisplayFace("('-')");
     Display::attachSmallText("Edit my config.cpp!");
-    delay(2500);
+    delay(1000);
     Serial.println("(>-<) Starting now...");
     Serial.println(" ");
     Display::cleanDisplayFace("(>-<)");

@@ -72,7 +72,7 @@ void Deauth::select() {
         delay(500);
     }
 
-    delay(5000);
+    delay(1000);
 
     // stop and scan
     Minigotchi::monStop();
@@ -94,14 +94,14 @@ void Deauth::select() {
         Serial.println(" ");
         Display::cleanDisplayFace("('-')");
         Display::attachSmallText("Selected random AP: " + (String) randomAP.c_str());
-        delay(2500);
+        delay(1000);
     } else {
         // well ur fucked.
         Serial.println("(;-;) No access points found.");
         Serial.println(" ");
         Display::cleanDisplayFace("(;-;)");
         Display::attachSmallText("No access points found.");
-        delay(2500);
+        delay(1000);
     }
 }
 
@@ -115,7 +115,7 @@ void Deauth::deauth() {
             Serial.println(" ");
             Display::cleanDisplayFace("(>-<)");
             Display::attachSmallText("Begin deauth-attack on AP...");
-            delay(5000);
+            delay(1000);
             // define the attack
             if (!running) {
                 start();
@@ -124,7 +124,7 @@ void Deauth::deauth() {
                 Serial.println(" ");
                 Display::cleanDisplayFace("('-')");
                 Display::attachSmallText(" Attack is already running.");
-                delay(5000);
+                delay(1000);
             }
         } else {
             // ok why did you modify the deauth function? i literally told you to not do that...
@@ -133,10 +133,10 @@ void Deauth::deauth() {
             Serial.println(" ");
             Display::cleanDisplayFace("(X-X)");
             Display::attachSmallText("No access point selected. Use select() first.");
-            delay(2500);
+            delay(1000);
             Display::cleanDisplayFace("('-')");
             Display::attachSmallText("Told you so!");
-            delay(2500);
+            delay(1000);
         }
     } else {
         // do nothing if deauthing is disabled
