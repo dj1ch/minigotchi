@@ -57,7 +57,7 @@ typedef struct {
 
 typedef struct { // Size: 128
     wifi_pkt_rx_ctrl_t rx_ctrl;
-    uint8_t buf[112];
+    uint8_t buf[1000];
     uint16_t cnt;
     uint16_t len; //length of packet
 } wifi_pkt_mgmt_t;

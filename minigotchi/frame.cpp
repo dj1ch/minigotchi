@@ -21,6 +21,7 @@ size_t Frame::frameSize = 0;
 std::vector<uint8_t> Frame::beaconFrame;
 size_t Frame::payloadSize = 0;
 const size_t Frame::chunkSize = 0xFF;
+bool Frame::sent = false;
 
 // payload ID's according to pwngrid
 const uint8_t Frame::IDWhisperPayload = 0xDE;
@@ -254,11 +255,12 @@ void Frame::send() {
 
     // send full frame
     // we dont use raw80211 since it sends a header(which we don't need), although we do use it for monitoring, etc.
-    wifi_send_pkt_freedom(Frame::beaconFrame.data(), Frame::frameSize, 0);
+    Frame::sent = wifi_send_pkt_freedom(Frame::beaconFrame.data(), Frame::frameSize, 0) == 0;
 }
 
 
 void Frame::advertise() {
+
     int packets = 0;
     unsigned long startTime = millis();
 
@@ -267,21 +269,27 @@ void Frame::advertise() {
         Serial.println(" ");
         Display::cleanDisplayFace("(>-<)");
         Display::attachSmallText("Starting advertisment...");
+        delay(1000);
         for (int i = 0; i < 150; ++i) {
             send();
             delay(102);
-            packets++;
 
-            // calculate packets per second
-            float pps = packets / (float)(millis() - startTime) * 1000;
+            if (Frame::sent) {
+                packets++;
 
-            // show pps
-            if (!isinf(pps)) {
-                Serial.print("(>-<) Packets per second: ");
-                Serial.print(pps);
-                Serial.println(" pkt/s");
-                Display::cleanDisplayFace("(>-<)");
-                Display::attachSmallText("Packets per second: " + (String) pps + " pkt/s");
+                // calculate packets per second
+                float pps = packets / (float)(millis() - startTime) * 1000;
+
+                // show pps
+                if (!isinf(pps)) {
+                    Serial.print("(>-<) Packets per second: ");
+                    Serial.print(pps);
+                    Serial.println(" pkt/s");
+                    Display::cleanDisplayFace("(>-<)");
+                    Display::attachSmallText("Packets per second: " + (String) pps + " pkt/s");
+                }
+            } else {
+                Serial.println("(X-X) Advertisment failed to send!");
             }
         }
     

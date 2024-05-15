@@ -51,7 +51,7 @@ void Pwnagotchi::detect() {
     }
 
     // delay for scanning
-    delay(5000);
+    delay(1000);
 
     // set mode and callback
     Minigotchi::monStart();
