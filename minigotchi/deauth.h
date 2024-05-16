@@ -8,10 +8,11 @@
 #include "config.h"
 #include "minigotchi.h"
 #include <Arduino.h>
+#include <ESP8266WiFi.h>
 #include <vector>
 #include <string>
 #include <sstream>
-#include <ESP8266WiFi.h>
+#include <algorithm>
 
 class Deauth {
 public:
@@ -27,6 +28,7 @@ private:
     static bool running;
     static std::vector<String> whitelist;
     static String randomAP;
+    static uint8_t broadcastAddr[6];
 };
 
 #endif // DEAUTH_H

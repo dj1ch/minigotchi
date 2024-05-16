@@ -13,6 +13,8 @@ Here you can find out how to install minigotchi on the ESP8266. Installing on th
 
 - Navigate to the `config.cpp` file in the unzipped folder, and open it up with the text editor of your choice. Configurations are always controlled here. 
 
+**If any of these lines are not in your config, such as screens, do not add them. That information is for testers on the development branch. Only modify the config values you have. Some of the data types for these values have changed, keep them as is in your config.**
+
 - At the set of lines that says:
 
 ```cpp
@@ -36,13 +38,13 @@ Here, you can adjust the baud rate, which is of course optional. Make sure your 
 
 ```cpp
 // define init bssid, channel
-std::string Config::bssid = "fo:od:ba:be:fo:od";
+std::string Config::bssid = "fo:od:ba:be:fo:od"; // note: this used to be const* char Config::bssid = "fo:od:ba:be:fo:od";
 int Config::channel = 1;
 ```
 
 Replace the `"fo:od:ba:be:fo:od"` with your actual BSSID(in the quotations), and the `1` with the channel you prefer(not in quotations). Note that the WiFi network you're listening on should be on a specific WiFi channel anyway, each AP is on a specific one. The BSSID in question should be one of your own, assuming the pwnagotchi is in your home it should be able to associate to your home WiFi network.
 
-- After this, we can configure our screen
+- After this, we can configure our screen (Not in 3.0.1)
 
 ```cpp
 // screen configuration
