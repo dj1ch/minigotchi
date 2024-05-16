@@ -5,21 +5,20 @@
 #ifndef DEAUTH_H
 #define DEAUTH_H
 
-#include "structs.h"
 #include "config.h"
 #include "minigotchi.h"
 #include <Arduino.h>
+#include <ESP8266WiFi.h>
 #include <vector>
 #include <string>
 #include <sstream>
-#include <ESP8266WiFi.h>
+#include <algorithm>
 
 class Deauth {
 public:
     static void deauth();
     static void list();
     static void add(const std::string& bssids);
-    static void construct(wifi_ieee80211_mac_hdr_t& header, uint8_t* frame);
     static uint8_t deauthFrame[26];
 
 private:
