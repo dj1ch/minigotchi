@@ -13,7 +13,7 @@
  */
 
 // same channels in config
-int Channel::channelList[3] = {Config::channels[0], Config::channels[1], Config::channels[2]};
+int Channel::channelList[14] = {Config::channels[0], Config::channels[1], Config::channels[2], Config::channels[3], Config::channels[4], Config::channels[5], Config::channels[6], Config::channels[7], Config::channels[8], Config::channels[9], Config::channels[10], Config::channels[11], Config::channels[12], Config::channels[13]};
 
 void Channel::init(int initChannel) {
     // start on user specified channel

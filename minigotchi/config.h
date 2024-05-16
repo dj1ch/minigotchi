@@ -28,7 +28,7 @@ public:
     static int ap_ttl;
     static bool associate;
     static int bored_num_epochs;
-    static int channels[3];
+    static int channels[14];
     static int excited_num_epochs;
     static int hop_recon_time;
     static int max_inactive_scale;
