@@ -17,7 +17,7 @@ public:
     static int getChannel();
     static void checkChannel(int channel);
     static int list();
-    static int channelList[3]; // 3 channels 
+    static int channelList[14]; // 14 channels 
 
 private:
     static int randomIndex; 
