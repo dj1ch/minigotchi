@@ -13,11 +13,11 @@
  */
 
 // same channels in config
-int Channel::channelList[14] = {
+int Channel::channelList[13] = {
     Config::channels[0], Config::channels[1], Config::channels[2], Config::channels[3],
     Config::channels[4], Config::channels[5], Config::channels[6], Config::channels[7],
     Config::channels[8], Config::channels[9], Config::channels[10], Config::channels[11],
-    Config::channels[12], Config::channels[13]
+    Config::channels[12]
 };
 
 void Channel::init(int initChannel) {
@@ -94,7 +94,6 @@ void Channel::checkChannel(int channel) {
         Serial.print("(X-X) Channel switch to channel ");
         Serial.print(channel);
         Serial.println(" has failed");
-        Serial.println(" ");
         Serial.print("(X-X) Currently on channel ");
         Serial.print(getChannel());
         Serial.println(" instead");

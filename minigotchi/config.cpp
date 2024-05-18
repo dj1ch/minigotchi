@@ -40,7 +40,7 @@ bool Config::associate = true;
 int Config::bored_num_epochs = Config::random(5, 30);
 
 // define channels
-int Config::channels[14] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
+int Config::channels[13] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 
 // see https://github.com/evilsocket/pwnagotchi/blob/master/pwnagotchi/ai/gym.py
 int Config::excited_num_epochs = Config::random(5, 30);
