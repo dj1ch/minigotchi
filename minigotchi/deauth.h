@@ -20,8 +20,10 @@ public:
     static void list();
     static void add(const std::string& bssids);
     static uint8_t deauthFrame[26];
+    static uint8_t disassociateFrame[26];
 
 private:
+    static bool send(uint8 *buf, int len, bool sys_seq);
     static void select();
     static void start();
     static uint8_t bssid[6];

