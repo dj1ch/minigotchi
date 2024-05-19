@@ -314,12 +314,20 @@ void Deauth::start() {
             } 
         } else if (!Deauth::send(const_cast<uint8_t*>(deauthFrame), deauthFrameSize, 0) || !Deauth::send(const_cast<uint8_t*>(disassociateFrame), disassociateFrameSize, 0)){
             Serial.println("(X-X) Both packets failed to send!");
+            Display::cleanDisplayFace("(X-X)");
+            Display::attachSmallText("Both packets failed to send!");
         } else if (!Deauth::send(const_cast<uint8_t*>(deauthFrame), deauthFrameSize, 0) && Deauth::send(const_cast<uint8_t*>(disassociateFrame), disassociateFrameSize, 0)){
             Serial.println("(X-X) Deauthentication failed to send!");
+            Display::cleanDisplayFace("(X-X)");
+            Display::attachSmallText("Deauth failed to send!");
         } else if (Deauth::send(const_cast<uint8_t*>(deauthFrame), deauthFrameSize, 0) && !Deauth::send(const_cast<uint8_t*>(disassociateFrame), disassociateFrameSize, 0)){
             Serial.println("(X-X) Disassociation failed to send!");
+            Display::cleanDisplayFace("(X-X)");
+            Display::attachSmallText("Disassoc failed to send!");
         } else {
-            Serial.println("(X-X) Unable to calculate pkt/s");
+            Serial.println("(X-X) Unable to calculate pkt/s!");
+            Display::cleanDisplayFace("(X-X)");
+            Display::attachSmallText("Unable to calculate pkt/s!");
         }
     }
 
