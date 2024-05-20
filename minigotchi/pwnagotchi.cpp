@@ -37,21 +37,21 @@ void Pwnagotchi::detect() {
         Serial.println("(0-o) Scanning for Pwnagotchi.");
         Display::cleanDisplayFace("(0-o)");
         Display::attachSmallText("Scanning  for Pwnagotchi.");
-        delay(500);
+        delay(250);
         Serial.println("(o-0) Scanning for Pwnagotchi..");
         Display::cleanDisplayFace("(o-0)");
         Display::attachSmallText("Scanning  for Pwnagotchi..");
-        delay(500);
+        delay(250);
         Serial.println("(0-o) Scanning for Pwnagotchi...");
         Display::cleanDisplayFace("(0-o)");
         Display::attachSmallText("Scanning  for Pwnagotchi...");
-        delay(500);
+        delay(250);
         Serial.println(" ");
-        delay(500);
+        delay(250);
     }
 
     // delay for scanning
-    delay(1000);
+    delay(250);
 
     // set mode and callback
     Minigotchi::monStart();

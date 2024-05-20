@@ -22,14 +22,14 @@ int Channel::channelList[13] = {
 
 void Channel::init(int initChannel) {
     // start on user specified channel
-    delay(1000);
+    delay(250);
     Serial.println(" ");
     Serial.print("(-.-) Initializing on channel ");
     Serial.println(initChannel);
     Serial.println(" ");
     Display::cleanDisplayFace("(-.-)");
     Display::attachSmallText("Initializing on channel " + (String) initChannel);
-    delay(1000);
+    delay(250);
 
     // switch channel
     Minigotchi::monStop();
@@ -41,12 +41,12 @@ void Channel::init(int initChannel) {
         Serial.println(getChannel());
         Display::cleanDisplayFace("('-')");
         Display::attachSmallText("Successfully initialized on channel " + (String) getChannel());
-        delay(1000);
+        delay(250);
     } else {
         Serial.print("(X-X) Channel initialization failed, try again?");
         Display::cleanDisplayFace("(X-X)");
         Display::attachSmallText("Channel initialization failed, try again?");
-        delay(1000);
+        delay(250);
     }
 }
 
@@ -64,13 +64,13 @@ void Channel::cycle() {
 
 void Channel::switchChannel(int newChannel) {
     // switch to channel
-    delay(1000);
+    delay(250);
     Serial.print("(-.-) Switching to channel ");
     Serial.println(newChannel);
     Serial.println(" ");
     Display::cleanDisplayFace("(-.-)");
     Display::attachSmallText("Switching to channel " + (String) newChannel);
-    delay(1000);
+    delay(250);
 
     // monitor this one channel
     Minigotchi::monStop();
@@ -89,7 +89,7 @@ void Channel::checkChannel(int channel) {
         Display::cleanDisplayFace("('-')");
         Display::attachSmallText("Currently on channel " + (String) getChannel());
         Serial.println(" ");
-        delay(1000);
+        delay(250);
     } else {
         Serial.print("(X-X) Channel switch to channel ");
         Serial.print(channel);
@@ -100,7 +100,7 @@ void Channel::checkChannel(int channel) {
         Serial.println(" ");
         Display::cleanDisplayFace("(X-X)");
         Display::attachSmallText("Channel switch to " + (String) channel + " has failed");
-        delay(1000);
+        delay(250);
     }
 }
 

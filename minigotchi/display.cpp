@@ -1,5 +1,5 @@
 /**
- * display->cpp: handles display support
+ * display.cpp: handles display support
 */
 
 #include "display.h"
