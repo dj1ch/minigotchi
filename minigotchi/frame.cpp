@@ -260,7 +260,6 @@ void Frame::send() {
 
 
 void Frame::advertise() {
-
     int packets = 0;
     unsigned long startTime = millis();
 
