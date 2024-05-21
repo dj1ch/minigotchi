@@ -93,6 +93,19 @@ void Deauth::printMac(uint8_t* mac) {
     Serial.println();
 }
 
+String Deauth::printHidden(int network) {
+    String hidden;
+    bool check = WiFi.channel(network);
+
+    if (check == 0) {
+        hidden = "False";
+    } else {
+        hidden = "True";
+    }
+
+    return hidden;
+}
+
 String Deauth::printMacStr(uint8_t* mac) {
     String macStr = "";
     for (int i = 0; i < 6; i++) {
@@ -264,9 +277,9 @@ void Deauth::select() {
     Display::attachSmallText("AP Channel: " + (String) WiFi.channel(Deauth::randomIndex));
 
     Serial.print("('-') AP Hidden?: ");
-    Serial.println(WiFi.isHidden(Deauth::randomIndex));
+    Serial.println(Deauth::printHidden(Deauth::randomIndex));
     Display::cleanDisplayFace("('-')");
-    Display::attachSmallText("AP Hidden?: " + (String) WiFi.isHidden(Deauth::randomIndex));
+    Display::attachSmallText("AP Hidden?: " + (String) Deauth::printHidden(Deauth::randomIndex));
     Serial.println(" ");
     delay(250);
 }
