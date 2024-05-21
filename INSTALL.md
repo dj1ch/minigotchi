@@ -73,7 +73,7 @@ This defines our whitelist. The minigotchi will not deauth these access points. 
 
 ```cpp
 // define channels
-int Config::channels[3] = {1, 6, 11};
+int Config::channels[13] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 ```
 
 Usually this shouldn't be changed as these are the best channels for IOT boards such as an ESP8266.
