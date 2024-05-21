@@ -13,18 +13,23 @@
  */
 
 // same channels in config
-int Channel::channelList[3] = {Config::channels[0], Config::channels[1], Config::channels[2]};
+int Channel::channelList[13] = {
+    Config::channels[0], Config::channels[1], Config::channels[2], Config::channels[3],
+    Config::channels[4], Config::channels[5], Config::channels[6], Config::channels[7],
+    Config::channels[8], Config::channels[9], Config::channels[10], Config::channels[11],
+    Config::channels[12]
+};
 
 void Channel::init(int initChannel) {
     // start on user specified channel
-    delay(1000);
+    delay(250);
     Serial.println(" ");
     Serial.print("(-.-) Initializing on channel ");
     Serial.println(initChannel);
     Serial.println(" ");
     Display::cleanDisplayFace("(-.-)");
     Display::attachSmallText("Initializing on channel " + (String) initChannel);
-    delay(1000);
+    delay(250);
 
     // switch channel
     Minigotchi::monStop();
@@ -36,12 +41,12 @@ void Channel::init(int initChannel) {
         Serial.println(getChannel());
         Display::cleanDisplayFace("('-')");
         Display::attachSmallText("Successfully initialized on channel " + (String) getChannel());
-        delay(1000);
+        delay(250);
     } else {
         Serial.print("(X-X) Channel initialization failed, try again?");
         Display::cleanDisplayFace("(X-X)");
         Display::attachSmallText("Channel initialization failed, try again?");
-        delay(1000);
+        delay(250);
     }
 }
 
@@ -59,13 +64,13 @@ void Channel::cycle() {
 
 void Channel::switchChannel(int newChannel) {
     // switch to channel
-    delay(1000);
+    delay(250);
     Serial.print("(-.-) Switching to channel ");
     Serial.println(newChannel);
     Serial.println(" ");
     Display::cleanDisplayFace("(-.-)");
     Display::attachSmallText("Switching to channel " + (String) newChannel);
-    delay(1000);
+    delay(250);
 
     // monitor this one channel
     Minigotchi::monStop();
@@ -84,19 +89,18 @@ void Channel::checkChannel(int channel) {
         Display::cleanDisplayFace("('-')");
         Display::attachSmallText("Currently on channel " + (String) getChannel());
         Serial.println(" ");
-        delay(1000);
+        delay(250);
     } else {
         Serial.print("(X-X) Channel switch to channel ");
         Serial.print(channel);
         Serial.println(" has failed");
-        Serial.println(" ");
         Serial.print("(X-X) Currently on channel ");
         Serial.print(getChannel());
         Serial.println(" instead");
         Serial.println(" ");
         Display::cleanDisplayFace("(X-X)");
         Display::attachSmallText("Channel switch to " + (String) channel + " has failed");
-        delay(1000);
+        delay(250);
     }
 }
 

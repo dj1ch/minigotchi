@@ -260,7 +260,6 @@ void Frame::send() {
 
 
 void Frame::advertise() {
-
     int packets = 0;
     unsigned long startTime = millis();
 
@@ -269,7 +268,7 @@ void Frame::advertise() {
         Serial.println(" ");
         Display::cleanDisplayFace("(>-<)");
         Display::attachSmallText("Starting advertisment...");
-        delay(1000);
+        delay(250);
         for (int i = 0; i < 150; ++i) {
             send();
             delay(102);

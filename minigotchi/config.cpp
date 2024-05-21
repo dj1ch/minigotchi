@@ -28,7 +28,7 @@ std::string Config::bssid = "fo:od:ba:be:fo:od";
 int Config::channel = 1;
 
 // define whitelist 
-std::vector<std::string> Config::whitelist = {"fo:od:ba:be:fo:od", "fo:od:ba:be:fo:od", "fo:od:ba:be:fo:od"};
+std::vector<std::string> Config::whitelist = {"SSID", "SSID", "SSID"};
 
 // json config
 int Config::epoch = 1;
@@ -40,7 +40,7 @@ bool Config::associate = true;
 int Config::bored_num_epochs = Config::random(5, 30);
 
 // define channels
-int Config::channels[3] = {1, 6, 11};
+int Config::channels[13] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 
 // see https://github.com/evilsocket/pwnagotchi/blob/master/pwnagotchi/ai/gym.py
 int Config::excited_num_epochs = Config::random(5, 30);

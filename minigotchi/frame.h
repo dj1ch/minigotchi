@@ -18,10 +18,6 @@ public:
     static void pack();
     static void send();
     static void advertise();
-    static void start();
-    static void stop();
-    static void init();
-    static void essid();
     static const uint8_t header[];
     static const uint8_t IDWhisperPayload;
     static const uint8_t IDWhisperCompression;
@@ -38,6 +34,8 @@ public:
     static const size_t chunkSize;
     
 private:
+    static void init();
+    static void essid();
 
 };
 
