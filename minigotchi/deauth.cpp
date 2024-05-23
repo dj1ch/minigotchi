@@ -65,8 +65,8 @@ void Deauth::list() {
 }
 
 bool Deauth::send(uint8_t* buf, uint16_t len, bool sys_seq) {
-    // apparently will not work with 0
-    bool sent = wifi_send_pkt_freedom(buf, len, sys_seq) == -1;
+    // apparently will not work with 0 on regular, fixed on spacehuhn
+    bool sent = wifi_send_pkt_freedom(buf, len, sys_seq) == 0;
     delay(102);
 
     return sent;

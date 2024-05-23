@@ -86,7 +86,9 @@ Usually, this shouldn't be changed as these are the only channels we can access 
 
 - Download the [Arduino IDE](https://https://www.arduino.cc/en/software), preferably the latest version.
 
-- In the IDE, go to `File` > `Preferences`, then in the `Additional board manager URLS`, paste the link `https://arduino.esp8266.com/stable/package_esp8266com_index.json` to add the ESP8266 board(s) to the board manager
+- In the IDE, go to `File` > `Preferences`, then in the `Additional board manager URLS`, paste the link `https://raw.githubusercontent.com/SpacehuhnTech/arduino/main/package_spacehuhn_index.json` to add the ESP8266 board(s) to the board manager.
+
+- Now go to `Tools` > `Board` > `Boards Manager` and search `deauther` and click `Install` on `Deauther ESP8266 Boards`
 
 - Click `Ok` and plug the board into your computer. It should blink, and make sure it is receiving the correct amount of voltage, too much will burn it(I learned that the hard way)
 
@@ -94,7 +96,10 @@ Usually, this shouldn't be changed as these are the only channels we can access 
 
 - Install the following dependencies with the library manager: `ArduinoJson`, `Adafruit GFX`, `Adafruit SSD1306 Wemos Mini OLED`, etc with all their dependencies (Please install all of them for them to work correctly).
 
-- Select the board as `ESP8266 WEMOS(LOLIN) D1 mini Lite`, and select the port it is plugged into(if you haven't already, plug in the board)
+- Go to `Tools` > `Board` and use one of the boards in the `Deauther ESP8266 Boards` section. (Example: `LOLIN(WEMOS) D1 mini`)
+
+- Select your COM port/Serial port through `Tools` > `Port` where the ESP8266 is plugged in
+
 - Click on the upload button(arrow pointing to the left). 
 
 **OR**
