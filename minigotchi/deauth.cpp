@@ -351,9 +351,10 @@ void Deauth::start() {
             if (!isinf(pps)) {
                 Serial.print("(>-<) Packets per second: ");
                 Serial.print(pps);
-                Serial.println(" pkt/s");
+                Serial.print(" pkt/s");
+                Serial.println(" (AP:" + (String) randomAP.c_str() + ")");
                 Display::cleanDisplayFace("(>-<)");
-                Display::attachSmallText("Packets per second: " + (String) pps + " pkt/s"); 
+                Display::attachSmallText("Packets per second: " + (String) pps + " pkt/s" + "(AP:" + (String) randomAP.c_str() + ")"); 
             } 
         } else if (!Deauth::send(deauthFrame, deauthFrameSize, 0) || !Deauth::send(disassociateFrame, disassociateFrameSize, 0)) {
             Serial.println("(X-X) Both packets failed to send!");
