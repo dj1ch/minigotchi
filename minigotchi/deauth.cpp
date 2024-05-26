@@ -110,7 +110,7 @@ String Deauth::printMacStr(uint8_t* mac) {
     String macStr = "";
     for (int i = 0; i < 6; i++) {
         if (mac[i] < 16) {
-            macStr += "0"; // Add leading zero for single-digit hex values
+            macStr += "0";
         }
         macStr += String(mac[i], HEX);
         if (i < 5) {
