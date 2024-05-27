@@ -94,7 +94,13 @@ Usually, this shouldn't be changed as these are the only channels we can access 
 
 - Open up the Minigotchi folder through the IDE by pushing `Ctrl+O`, or by going to `File` > `Open`, then selecting the folder the .ino is in. If other tabs don't show up, along with `minigotchi.ino`, make sure to copy and paste the files into the same directory/folder as that lone `.ino` file. It won't be able to compile if that happens. 
 
-- Install the following dependencies with the library manager: `ArduinoJson`, `Adafruit GFX`, `Adafruit SSD1306 Wemos Mini OLED`, etc with all their dependencies (Please install all of them for them to work correctly).
+- Install the following dependencies with the library manager: `ArduinoJson`, `Adafruit GFX`, and your screen library(see below), etc with all their dependencies (Please install all of them for them to work correctly).
+
+| `SSD1306`                                                                  | `WEMOS_OLED_SHIELD`                                                        |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `Adafruit SSD1306`, remove `Adafruit SSD1306 Wemos Mini OLED` if installed | `Adafruit SSD1306 Wemos Mini OLED`, remove `Adafruit SSD1306` if installed |
+
+Make sure you install the correct library, they aren't the same library and if you install the wrong one it will result in the compilation failing.
 
 - Go to `Tools` > `Board` and use one of the boards in the `Deauther ESP8266 Boards` section. (Example: `LOLIN(WEMOS) D1 mini`)
 
