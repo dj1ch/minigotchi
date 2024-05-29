@@ -95,7 +95,7 @@ void Deauth::printMac(uint8_t* mac) {
 
 String Deauth::printHidden(int network) {
     String hidden;
-    bool check = WiFi.channel(network);
+    bool check = WiFi.isHidden(network);
 
     if (check == 0) {
         hidden = "False";
