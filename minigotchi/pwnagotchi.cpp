@@ -165,6 +165,9 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
                 Display::cleanDisplayFace("(^-^)");
                 Display::attachSmallText("Pwnagotchi name: " + (String) name);
                 Display::attachSmallText("Pwned Networks: " + (String) pwndTot);
+
+                // reset
+                pwnagotchiDetected = false;
             }
         }
     }
