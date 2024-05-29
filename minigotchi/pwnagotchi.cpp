@@ -89,6 +89,9 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
     wifi_pkt_mgmt_t* mgmtPacket = (wifi_pkt_mgmt_t*)buf;
     int len = mgmtPacket->len;
 
+    // reset
+    pwnagotchiDetected = false;
+
     // check if it is a beacon frame
     if (snifferPacket->payload[0] == 0x80) {
         // extract mac
@@ -165,9 +168,6 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type)
                 Display::cleanDisplayFace("(^-^)");
                 Display::attachSmallText("Pwnagotchi name: " + (String) name);
                 Display::attachSmallText("Pwned Networks: " + (String) pwndTot);
-
-                // reset
-                pwnagotchiDetected = false;
             }
         }
     }
