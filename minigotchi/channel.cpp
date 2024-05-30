@@ -107,7 +107,3 @@ void Channel::checkChannel(int channel) {
 int Channel::getChannel() {
     return wifi_get_channel();
 }
-
-int Channel::list() {
-    return channelList[3];
-}
