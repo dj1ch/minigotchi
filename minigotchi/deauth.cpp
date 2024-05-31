@@ -120,7 +120,7 @@ String Deauth::printMacStr(uint8_t* mac) {
     return macStr;
 }
 
-void Deauth::select() {
+bool Deauth::select() {
     // reset values
     Deauth::randomAP = "";
     Deauth::randomIndex = -1;
@@ -165,7 +165,7 @@ void Deauth::select() {
             Serial.println("('-') Selected AP is not encrypted. Skipping deauthentication...");
             Display::cleanDisplayFace("('-')");
             Display::attachSmallText("Selected AP is not encrypted. Skipping deauthentication...");
-            return;
+            return false;
         }
 
         // check for ap in whitelist
@@ -173,7 +173,7 @@ void Deauth::select() {
             Serial.println("('-') Selected AP is in the whitelist. Skipping deauthentication...");
             Display::cleanDisplayFace("('-')");
             Display::attachSmallText("Selected AP is in the whitelist. Skipping deauthentication...");
-            return;
+            return false;
         }
 
         /** developer note:
@@ -234,7 +234,7 @@ void Deauth::select() {
 
             // reason
             Deauth::deauthFrame[24] = 0x01; // reason: unspecified
-
+    
             std::copy(apBssid, apBssid + sizeof(apBssid), Deauth::deauthFrame + 4);
             std::copy(Deauth::broadcastAddr, Deauth::broadcastAddr + sizeof(Deauth::broadcastAddr), Deauth::deauthFrame + 10);
             std::copy(Deauth::broadcastAddr, Deauth::broadcastAddr + sizeof(Deauth::broadcastAddr), Deauth::deauthFrame + 16);
@@ -281,13 +281,14 @@ void Deauth::select() {
         Display::attachSmallText("AP Hidden?: " + (String) Deauth::printHidden(Deauth::randomIndex));
         Serial.println(" ");
         delay(250);
+
+        return true;
     } else if (apCount < 0) {
         Serial.println("(;-;) I don't know what you did, but you screwed up!");
         Serial.println(" ");
         Display::cleanDisplayFace("(;-;)");
         Display::attachSmallText("You screwed up somehow!");
         delay(250);
-        return;
     } else {
         // well ur fucked.
         Serial.println("(;-;) No access points found.");
@@ -295,43 +296,43 @@ void Deauth::select() {
         Display::cleanDisplayFace("(;-;)");
         Display::attachSmallText("No access points found.");
         delay(250);
-        return;
     }
+    return false;
 }
 
 void Deauth::deauth() {
     if (Config::deauth) {
-       // select AP
-        Deauth::select();
-
-        if (randomAP.length() > 0) {
-            Serial.println("(>-<) Starting deauthentication attack on the selected AP...");
-            Serial.println(" ");
-            Display::cleanDisplayFace("(>-<)");
-            Display::attachSmallText("Begin deauth-attack on AP...");
-            delay(250);
-            // define the attack
-            if (!running) {
-                start();
-            } else {
-                Serial.println("('-') Attack is already running.");
+       // select AP{
+        if (Deauth::select()) {
+            if (randomAP.length() > 0) {
+                Serial.println("(>-<) Starting deauthentication attack on the selected AP...");
                 Serial.println(" ");
-                Display::cleanDisplayFace("('-')");
-                Display::attachSmallText(" Attack is already running.");
+                Display::cleanDisplayFace("(>-<)");
+                Display::attachSmallText("Begin deauth-attack on AP...");
                 delay(250);
+                // define the attack
+                if (!running) {
+                    start();
+                } else {
+                    Serial.println("('-') Attack is already running.");
+                    Serial.println(" ");
+                    Display::cleanDisplayFace("('-')");
+                    Display::attachSmallText(" Attack is already running.");
+                    delay(250);
+                }
+            } else {
+                // ok why did you modify the deauth function? i literally told you to not do that...
+                Serial.println("(X-X) No access point selected. Use select() first.");
+                Serial.println("('-') Told you so!");
+                Serial.println(" ");
+                Display::cleanDisplayFace("(X-X)");
+                Display::attachSmallText("No access point selected. Use select() first.");
+                delay(250);
+                Display::cleanDisplayFace("('-')");
+                Display::attachSmallText("Told you so!");
+                delay(250);
+                return;
             }
-        } else {
-            // ok why did you modify the deauth function? i literally told you to not do that...
-            Serial.println("(X-X) No access point selected. Use select() first.");
-            Serial.println("('-') Told you so!");
-            Serial.println(" ");
-            Display::cleanDisplayFace("(X-X)");
-            Display::attachSmallText("No access point selected. Use select() first.");
-            delay(250);
-            Display::cleanDisplayFace("('-')");
-            Display::attachSmallText("Told you so!");
-            delay(250);
-            return;
         }
     } else {
         // do nothing if deauthing is disabled
