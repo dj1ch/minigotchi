@@ -121,6 +121,10 @@ String Deauth::printMacStr(uint8_t* mac) {
 }
 
 void Deauth::select() {
+    // reset values
+    Deauth::randomAP = "";
+    Deauth::randomIndex = -1;
+
     // cool animation
     for (int i = 0; i < 5; ++i) {
         Serial.println("(0-o) Scanning for APs.");
@@ -145,7 +149,7 @@ void Deauth::select() {
     Minigotchi::monStop();
     int apCount = WiFi.scanNetworks();
 
-    if (apCount > 0) {
+    if (apCount > 0 && Deauth::randomIndex == -1) {
         Deauth::randomIndex = random(apCount);
         Deauth::randomAP = WiFi.SSID(Deauth::randomIndex);
 
