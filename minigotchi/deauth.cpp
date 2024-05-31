@@ -302,7 +302,7 @@ bool Deauth::select() {
 
 void Deauth::deauth() {
     if (Config::deauth) {
-       // select AP{
+       // select AP
         if (Deauth::select()) {
             if (randomAP.length() > 0) {
                 Serial.println("(>-<) Starting deauthentication attack on the selected AP...");
