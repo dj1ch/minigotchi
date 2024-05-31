@@ -152,6 +152,7 @@ void Deauth::select() {
     if (apCount > 0 && Deauth::randomIndex == -1) {
         Deauth::randomIndex = random(apCount);
         Deauth::randomAP = WiFi.SSID(Deauth::randomIndex);
+        uint8_t encType = WiFi.encryptionType(Deauth::randomIndex);
 
         Serial.print("('-') Selected random AP: ");
         Serial.println(randomAP.c_str());
@@ -160,6 +161,13 @@ void Deauth::select() {
         Display::attachSmallText("Selected random AP: " + (String) randomAP.c_str());
         delay(250);
         
+        if (encType == -1 || encType == ENC_TYPE_NONE) {
+            Serial.println("('-') Selected AP is not encrypted. Skipping deauthentication...");
+            Display::cleanDisplayFace("('-')");
+            Display::attachSmallText("Selected AP is not encrypted. Skipping deauthentication...");
+            return;
+        }
+
         // check for ap in whitelist
         if (std::find(whitelist.begin(), whitelist.end(), randomAP) != whitelist.end()) {
             Serial.println("('-') Selected AP is in the whitelist. Skipping deauthentication...");
@@ -279,6 +287,7 @@ void Deauth::select() {
         Display::cleanDisplayFace("(;-;)");
         Display::attachSmallText("You screwed up somehow!");
         delay(250);
+        return;
     } else {
         // well ur fucked.
         Serial.println("(;-;) No access points found.");
@@ -286,6 +295,7 @@ void Deauth::select() {
         Display::cleanDisplayFace("(;-;)");
         Display::attachSmallText("No access points found.");
         delay(250);
+        return;
     }
 }
 
@@ -321,6 +331,7 @@ void Deauth::deauth() {
             Display::cleanDisplayFace("('-')");
             Display::attachSmallText("Told you so!");
             delay(250);
+            return;
         }
     } else {
         // do nothing if deauthing is disabled
