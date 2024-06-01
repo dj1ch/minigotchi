@@ -268,6 +268,7 @@ void Frame::advertise() {
         Serial.println(" ");
         Display::cleanDisplayFace("(>-<)");
         Display::attachSmallText("Starting advertisment...");
+        Minigotchi::monStart();
         delay(250);
         for (int i = 0; i < 150; ++i) {
             send();
@@ -283,9 +284,11 @@ void Frame::advertise() {
                 if (!isinf(pps)) {
                     Serial.print("(>-<) Packets per second: ");
                     Serial.print(pps);
-                    Serial.println(" pkt/s");
+                    Serial.print(" pkt/s (Channel: ");
+                    Serial.print(Channel::getChannel());
+                    Serial.println(")");
                     Display::cleanDisplayFace("(>-<)");
-                    Display::attachSmallText("Packets per second: " + (String) pps + " pkt/s");
+                    Display::attachSmallText("Packets per second: " + (String) pps + " pkt/s" + "(Channel: " + (String) Channel::getChannel() + ")");
                 }
             } else {
                 Serial.println("(X-X) Advertisment failed to send!");

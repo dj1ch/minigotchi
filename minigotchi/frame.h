@@ -5,6 +5,8 @@
 #ifndef FRAME_H
 #define FRAME_H
 
+#include "minigotchi.h"
+#include "channel.h"
 #include "display.h"
 #include "config.h"
 #include <sstream>
