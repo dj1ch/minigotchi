@@ -20,7 +20,7 @@ extern "C" {
 class Pwnagotchi {
 public:
     static void detect();
-    static void pwnagotchiCallback(unsigned char* buf, short unsigned int len);
+    static void pwnagotchiCallback(unsigned char* buf, short unsigned int type);
     static void stopCallback();
 
 private:

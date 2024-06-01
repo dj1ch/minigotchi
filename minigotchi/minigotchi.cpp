@@ -108,16 +108,13 @@ void Minigotchi::cpu() {
 */
 
 void Minigotchi::monStart() {
-    // disconnect from WiFi if we were at all
-    WiFi.disconnect();
-
     // revert to station mode
     wifi_set_opmode(STATION_MODE);
-    wifi_promiscuous_enable(1);
+    wifi_promiscuous_enable(true);
 }
 
 void Minigotchi::monStop() {
-    wifi_promiscuous_enable(0);
+    wifi_promiscuous_enable(false);
 
     // revert to station mode
     wifi_set_opmode(STATION_MODE);
