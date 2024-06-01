@@ -55,7 +55,7 @@ void Pwnagotchi::detect() {
 
     // set mode and callback
     Minigotchi::monStart();
-    wifi_set_promiscuous_rx_cb(&pwnagotchiCallback);
+    wifi_set_promiscuous_rx_cb(pwnagotchiCallback);
 
     // check if the pwnagotchiCallback wasn't triggered during scanning
     if (!pwnagotchiDetected) {
@@ -84,13 +84,16 @@ void Pwnagotchi::stopCallback() {
     wifi_set_promiscuous_rx_cb(nullptr);
 }
 
-void Pwnagotchi::pwnagotchiCallback(unsigned char *buf, short unsigned int type) {
-    wifi_promiscuous_pkt_t* snifferPacket = (wifi_promiscuous_pkt_t*)buf;
-    wifi_pkt_mgmt_t* mgmtPacket = (wifi_pkt_mgmt_t*)buf;
-    int len = mgmtPacket->len;
+void Pwnagotchi::pwnagotchiCallback(unsigned char* buf, short unsigned int len) {
+    wifi_promiscuous_pkt_t *snifferPacket = (wifi_promiscuous_pkt_t*)buf;
+    pwn_wifi_ieee80211_packet_t *ipkt = (pwn_wifi_ieee80211_packet_t*)snifferPacket->payload;
+    WifiMgmtHdr *hdr = &ipkt->hdr;
+    wifi_pkt_rx_ctrl_t ctrl = snifferPacket->rx_ctrl;
 
     // reset
     pwnagotchiDetected = false;
+
+    len -= 4;
 
     // check if it is a beacon frame
     if (snifferPacket->payload[0] == 0x80) {

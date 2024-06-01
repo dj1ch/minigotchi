@@ -47,6 +47,9 @@ typedef struct {
     unsigned channel:4;       //< which channel this packet in
     unsigned :4;              //< reserve
     signed noise_floor:8;
+    unsigned sig_len: 12;         /**< length of packet including Frame Check Sequence(FCS) */
+    unsigned : 12;                /**< reserved */
+    unsigned rx_state: 8;         /**< state of the packet. 0: no error; others: error numbers which are not public */
 } wifi_pkt_rx_ctrl_t;
 
 typedef struct {
@@ -156,5 +159,11 @@ typedef struct {
     wifi_ieee80211_mac_hdr_t hdr;
     uint8_t payload[2]; /* network data ended with 4 bytes csum (CRC32) */
 } wifi_ieee80211_packet_t;
+
+// source: https://github.com/justcallmekoko/ESP32Marauder/blob/c0554b95ceb379d29b9a8925d27cc2c0377764a9/esp32_marauder/WiFiScan.h#L213
+typedef struct {
+    uint8_t payload[0];
+    WifiMgmtHdr hdr;
+} pwn_wifi_ieee80211_packet_t;
 
 #endif
