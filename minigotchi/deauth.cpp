@@ -143,7 +143,7 @@ bool Deauth::select() {
         delay(250);
     }
 
-    delay(250);
+    delay(2500);
 
     // stop and scan
     Minigotchi::monStop();
@@ -280,7 +280,7 @@ bool Deauth::select() {
         Display::cleanDisplayFace("('-')");
         Display::attachSmallText("AP Hidden?: " + (String) Deauth::printHidden(Deauth::randomIndex));
         Serial.println(" ");
-        delay(250);
+        delay(2500);
 
         return true;
     } else if (apCount < 0) {
