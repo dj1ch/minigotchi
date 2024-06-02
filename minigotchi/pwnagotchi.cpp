@@ -51,11 +51,11 @@ void Pwnagotchi::detect() {
     }
 
     // delay for scanning
-    delay(250);
+    delay(2500);
 
     // set mode and callback
     Minigotchi::monStart();
-    wifi_set_promiscuous_rx_cb(&pwnagotchiCallback);
+    wifi_set_promiscuous_rx_cb(pwnagotchiCallback);
 
     // check if the pwnagotchiCallback wasn't triggered during scanning
     if (!pwnagotchiDetected) {
@@ -84,9 +84,9 @@ void Pwnagotchi::stopCallback() {
     wifi_set_promiscuous_rx_cb(nullptr);
 }
 
-void Pwnagotchi::pwnagotchiCallback(unsigned char* buf, short unsigned int type) {
+void Pwnagotchi::pwnagotchiCallback(unsigned char* buf, short unsigned int len) {
     wifi_promiscuous_pkt_t* snifferPacket = (wifi_promiscuous_pkt_t*)buf;
-    int len = 1024; // don't expect a pwnagotchi packet to be that long
+    WifiMgmtHdr *frameControl = (WifiMgmtHdr *)snifferPacket->payload;
 
     // reset
     pwnagotchiDetected = false;
@@ -113,8 +113,6 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char* buf, short unsigned int type)
             for (int i = 38; i < len; i++) {
                 if (isAscii(snifferPacket->payload[i])) {
                     essid.concat((char)snifferPacket->payload[i]);
-                } else {
-                    essid.concat("?");
                 }
             }
 
@@ -135,39 +133,59 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char* buf, short unsigned int type)
 
             // check if json parsing is successful
             if (error) {
-                Serial.println(F("(X-X) Could not parse Pwnagotchi json: "));
-                Serial.print("(X-X) ");
-                Serial.println(error.c_str());
-                Display::cleanDisplayFace("(X-X)");
-                Display::attachSmallText("Could not parse Pwnagotchi json: " + (String) error.c_str());
-                Serial.println(" ");
+                // fix the json if incomplete
+                if (error == DeserializationError::IncompleteInput) {
+                    Serial.println("(^-^) Cleaning ESSID...");
+                    Serial.println(" ");
+                    Display::cleanDisplayFace("(^-^)");
+                    Display::attachSmallText("Cleaning ESSID...");
+                    String newEssid = "{" + essid + "}";
+                    error = deserializeJson(jsonBuffer, newEssid);
+                }
+
+                // check after fixing
+                if (error) {
+                    Serial.println(F("(X-X) Could not parse Pwnagotchi json: "));
+                    Serial.print("(X-X) ");
+                    Serial.println(error.c_str());
+                    Display::cleanDisplayFace("(X-X)");
+                    Display::attachSmallText("Could not parse Pwnagotchi json: " + (String) error.c_str());
+                    Serial.println(" ");
+                } else {
+                    processJson(jsonBuffer);
+                }
             } else {
-                Serial.println("(^-^) Successfully parsed json!");
-                Serial.println(" ");
-                Display::cleanDisplayFace("(^-^)");
-                Display::attachSmallText("Successfully parsed json!");
-                // find out some stats
-                String name = jsonBuffer["name"].as<String>();
-                String pwndTot = jsonBuffer["pwnd_tot"].as<String>();
-
-                if (name == "null") {
-                    name = "N/A";
-                }
-
-                if (pwndTot == "null") {
-                    pwndTot = "N/A";
-                }
-
-                // print the info
-                Serial.print("(^-^) Pwnagotchi name: ");
-                Serial.println(name);
-                Serial.print("(^-^) Pwned Networks: ");
-                Serial.println(pwndTot);
-                Serial.print(" ");
-                Display::cleanDisplayFace("(^-^)");
-                Display::attachSmallText("Pwnagotchi name: " + (String) name);
-                Display::attachSmallText("Pwned Networks: " + (String) pwndTot);
+                processJson(jsonBuffer);
             }
         }
     }
+}
+
+void Pwnagotchi::processJson(DynamicJsonDocument& jsonBuffer) {
+    Serial.println("(^-^) Successfully parsed json!");
+    Serial.println(" ");
+    Display::cleanDisplayFace("(^-^)");
+    Display::attachSmallText("Successfully parsed json!");
+
+    // find out some stats
+    String name = jsonBuffer["name"].as<String>();
+    String pwndTot = jsonBuffer["pwnd_tot"].as<String>();
+
+    if (name == "null") {
+        name = "N/A";
+    }
+
+    if (pwndTot == "null") {
+        pwndTot = "N/A";
+    }
+
+    // print the info
+    Serial.print("(^-^) Pwnagotchi name: ");
+    Serial.println(name);
+    Serial.print("(^-^) Pwned Networks: ");
+    Serial.println(pwndTot);
+    Serial.print(" ");
+    Display::cleanDisplayFace("(^-^)");
+    Display::attachSmallText("Pwnagotchi name: " + name);
+    Display::attachSmallText("Pwned Networks: " + pwndTot);
 }
