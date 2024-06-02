@@ -83,11 +83,12 @@ void Channel::switchChannel(int newChannel) {
 
 // check if the channel switch was successful
 void Channel::checkChannel(int channel) {
+    int currentChannel = Channel::getChannel();
     if (channel == getChannel()) {
         Serial.print("('-') Currently on channel ");
-        Serial.println(getChannel());
+        Serial.println(currentChannel);
         Display::cleanDisplayFace("('-')");
-        Display::attachSmallText("Currently on channel " + (String) getChannel());
+        Display::attachSmallText("Currently on channel " + (String) currentChannel);
         Serial.println(" ");
         delay(250);
     } else {
@@ -95,7 +96,7 @@ void Channel::checkChannel(int channel) {
         Serial.print(channel);
         Serial.println(" has failed");
         Serial.print("(X-X) Currently on channel ");
-        Serial.print(getChannel());
+        Serial.print(currentChannel);
         Serial.println(" instead");
         Serial.println(" ");
         Display::cleanDisplayFace("(X-X)");
