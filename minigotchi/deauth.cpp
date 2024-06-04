@@ -125,29 +125,40 @@ bool Deauth::select() {
     Deauth::randomAP = "";
     Deauth::randomIndex = -1;
 
-    // cool animation
-    for (int i = 0; i < 5; ++i) {
-        Serial.println("(0-o) Scanning for APs.");
-        Display::cleanDisplayFace("(0-o)");
-        Display::attachSmallText("Scanning  for APs.");
-        delay(250);
-        Serial.println("(o-0) Scanning for APs..");
-        Display::cleanDisplayFace("(o-0)");
-        Display::attachSmallText("Scanning  for APs..");
-        delay(250);
-        Serial.println("(0-o) Scanning for APs...");
-        Display::cleanDisplayFace("(0-o)");
-        Display::attachSmallText("Scanning  for APs...");
-        delay(250);
-        Serial.println(" ");
-        delay(250);
-    }
+    Parasite::sendDeauthStatus(START_SCAN);
 
-    delay(2500);
+    // cool animation, skip if parasite mode
+    if (!Config::parasite) {
+        for (int i = 0; i < 5; ++i) {
+            Serial.println("(0-o) Scanning for APs.");
+            Display::cleanDisplayFace("(0-o)");
+            Display::attachSmallText("Scanning  for APs.");
+            delay(250);
+            Serial.println("(o-0) Scanning for APs..");
+            Display::cleanDisplayFace("(o-0)");
+            Display::attachSmallText("Scanning  for APs..");
+            delay(250);
+            Serial.println("(0-o) Scanning for APs...");
+            Display::cleanDisplayFace("(0-o)");
+            Display::attachSmallText("Scanning  for APs...");
+            delay(250);
+            Serial.println(" ");
+            delay(250);
+        }
+        delay(2500);
+    }
 
     // stop and scan
     Minigotchi::monStop();
-    int apCount = WiFi.scanNetworks();
+
+    int apCount = 0;
+    // If a parasite channel is set, then we want to focus on that channel
+    // Otherwise go off on our own and scan for whatever is out there
+    if (Parasite::channel > 0) {
+        apCount = WiFi.scanNetworks(false, false, Parasite::channel);
+    } else {
+        apCount = WiFi.scanNetworks();
+    }
 
     if (apCount > 0 && Deauth::randomIndex == -1) {
         Deauth::randomIndex = random(apCount);
@@ -165,6 +176,7 @@ bool Deauth::select() {
             Serial.println("('-') Selected AP is not encrypted. Skipping deauthentication...");
             Display::cleanDisplayFace("('-')");
             Display::attachSmallText("Selected AP is not encrypted. Skipping deauthentication...");
+            Parasite::sendDeauthStatus(SKIPPING_UNENCRYPTED);
             return false;
         }
 
@@ -173,6 +185,7 @@ bool Deauth::select() {
             Serial.println("('-') Selected AP is in the whitelist. Skipping deauthentication...");
             Display::cleanDisplayFace("('-')");
             Display::attachSmallText("Selected AP is in the whitelist. Skipping deauthentication...");
+            Parasite::sendDeauthStatus(SKIPPING_WHITELIST);
             return false;
         }
 
@@ -282,12 +295,17 @@ bool Deauth::select() {
         Serial.println(" ");
         delay(2500);
 
+        Parasite::sendDeauthStatus(PICKED_AP, Deauth::randomAP.c_str(), WiFi.channel(Deauth::randomIndex));
+
         return true;
     } else if (apCount < 0) {
         Serial.println("(;-;) I don't know what you did, but you screwed up!");
         Serial.println(" ");
         Display::cleanDisplayFace("(;-;)");
         Display::attachSmallText("You screwed up somehow!");
+
+        Parasite::sendDeauthStatus(DEAUTH_SCAN_ERROR);
+
         delay(250);
     } else {
         // well ur fucked.
@@ -295,6 +313,9 @@ bool Deauth::select() {
         Serial.println(" ");
         Display::cleanDisplayFace("(;-;)");
         Display::attachSmallText("No access points found.");
+
+        Parasite::sendDeauthStatus(NO_APS);
+
         delay(250);
     }
     return false;
@@ -357,6 +378,8 @@ void Deauth::start() {
     } else if (rssi < -80) {
         packetCount *= 2;  // weak signal
     }
+
+    Parasite::sendDeauthStatus(START_DEAUTH, Deauth::randomAP.c_str(), WiFi.channel(Deauth::randomIndex));
 
     // send the deauth 150 times(ur cooked if they find out)
     for (int i = 0; i < packetCount; ++i) {

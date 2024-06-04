@@ -271,6 +271,7 @@ void Frame::advertise() {
         Display::cleanDisplayFace("(>-<)");
         Display::attachSmallText("Starting advertisment...");
         Minigotchi::monStart();
+        Parasite::sendAdvertising();
         delay(250);
         for (int i = 0; i < 150; ++i) {
             if (Frame::send()) {

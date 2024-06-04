@@ -7,6 +7,7 @@
 
 #include "minigotchi.h"
 #include "config.h"
+#include "parasite.h"
 #include <ESP8266WiFi.h>
 
 class Channel {
@@ -16,7 +17,8 @@ public:
     static void switchChannel(int newChannel);
     static int getChannel();
     static void checkChannel(int channel);
-    static int channelList[13]; // 13 channels 
+    static bool isValidChannel(int channel);
+    static int channelList[13]; // 13 channels
 
 private:
     static int randomIndex; 

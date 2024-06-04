@@ -9,6 +9,7 @@
 #include "channel.h"
 #include "display.h"
 #include "config.h"
+#include "parasite.h"
 #include <sstream>
 #include <vector>
 #include <string>

@@ -16,6 +16,7 @@ class Config {
 public:
     static bool deauth;
     static bool advertise;
+    static bool parasite;
     static bool display;
     static std::string screen;
     static int baud;

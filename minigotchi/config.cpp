@@ -16,6 +16,9 @@
 bool Config::deauth = true;
 bool Config::advertise = true;
 
+// Defines if this is running in parasite mode where it hooks up directly to a Pwnagotchi
+bool Config::parasite = false;
+
 // screen configuration
 bool Config::display = false;
 std::string Config::screen = "";
