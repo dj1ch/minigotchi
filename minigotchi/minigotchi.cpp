@@ -14,7 +14,6 @@
 
 // this code is pretty disgusting and shitty but it makes minigotchi.ino less cluttered!!!
 
-
 // current epoch val
 int Minigotchi::currentEpoch = 0;
 
