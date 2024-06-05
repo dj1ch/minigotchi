@@ -7,7 +7,6 @@
 
 #include "minigotchi.h"
 #include "config.h"
-#include "parasite.h"
 #include <ESP8266WiFi.h>
 
 class Channel {
