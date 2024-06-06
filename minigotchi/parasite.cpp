@@ -22,6 +22,9 @@ void Parasite::readData() {
                 Parasite::sendName();
             }
         }
+
+        // If parasite channel is set and is different than what was there before, notify that we're synced
+        // Otherwise if parasite channel is not set but was before, notify we've unsynced
         if (Parasite::channel > 0 && Parasite::channel != curChan) {
             Parasite::sendChannelStatus(SYNCED_CHANNEL);
         } else if (Parasite::channel == 0 && curChan > 0) {
@@ -37,11 +40,11 @@ void Parasite::sendChannelStatus(parasite_channel_status_type_t status) {
 }
 
 void Parasite::sendName() {
-    Parasite::sendData("nme", 0, Config::name.c_str());
+    Parasite::sendData("nme", 200, Config::name.c_str());
 }
 
 void Parasite::sendAdvertising() {
-    Parasite::sendData("adv", 0, nullptr);
+    Parasite::sendData("adv", 200, nullptr);
 }
 
 void Parasite::sendPwnagotchiStatus(parasite_pwnagotchi_scan_type_t status) {
@@ -74,9 +77,9 @@ void Parasite::sendDeauthStatus(parasite_deauth_status_type_t status, const char
 void Parasite::sendData(const char *command, uint8 status, const char *data) {
     if (Config::parasite) {
         JsonDocument doc;
-        char nBuf[4] = {0};
-        char buf[129] = {0};
-        char fullCmd[135] = {0};
+        char nBuf[4] = {0}; // Up to 3 digits + null terminator
+        char buf[129] = {0}; // Up to 128 characters + null terminator
+        char fullCmd[135] = {0}; // Data buffer (128) + command (3) + delimiter (3) + null terminator
         snprintf(nBuf, 4, "%d", status);
         doc["status"] = nBuf;
         if (data != nullptr) {
