@@ -35,7 +35,7 @@ public:
     static std::vector<uint8_t> beaconFrame;
     static size_t payloadSize;
     static const size_t chunkSize;
-    
+
 private:
     static void init();
     static void essid();

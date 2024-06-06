@@ -20,8 +20,8 @@ public:
     static int channelList[13]; // 13 channels
 
 private:
-    static int randomIndex; 
-    static int numChannels; 
+    static int randomIndex;
+    static int numChannels;
     static int currentChannel;
     static int newChannel;
 };

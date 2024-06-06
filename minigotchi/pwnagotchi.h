@@ -15,7 +15,7 @@
 #include <string>
 
 extern "C" {
-    #include "structs.h"
+#include "structs.h"
 }
 
 class Pwnagotchi {
