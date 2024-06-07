@@ -130,7 +130,7 @@ void Parasite::sendData(const char *command, uint8 status, const char *data) {
   Serial.println(fullCmd);
 }
 
-void Parasite::formatData(char* buf, const char *data, int bufSize) {
+void Parasite::formatData(char* buf, const char *data, size_t bufSize) {
   buf[0] = '\0';
   strncat(buf, data, bufSize - 4);
   strncat(buf, "...", bufSize - strlen(buf) - 1);

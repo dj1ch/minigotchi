@@ -51,7 +51,7 @@ public:
 
 private:
   static void sendData(const char *cmd, uint8 status, const char *data);
-  static void formatData(char* buf, const char *data, int bufSize);
+  static void formatData(char* buf, const char *data, size_t bufSize);
 
 };
 
