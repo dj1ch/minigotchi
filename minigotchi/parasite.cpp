@@ -86,12 +86,9 @@ void Parasite::sendData(const char *command, uint8 status, const char *data) {
             doc["data"] = data;
         }
         serializeJson(doc, buf);
-        strncat(fullCmd, command, 3);
-        strncat(fullCmd, ":::", 3);
-        strncat(fullCmd, buf, 128);
+        strncpy(fullCmd, command, sizeof(fullCmd) - 1);
+        strncat(fullCmd, ":::", sizeof(fullCmd) - strlen(fullCmd) - 1);
+        strncat(fullCmd, buf, sizeof(fullCmd) - strlen(fullCmd) - 1);
         Serial.println(fullCmd);
     }
 }
-
-
-
