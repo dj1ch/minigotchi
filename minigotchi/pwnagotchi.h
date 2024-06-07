@@ -7,6 +7,7 @@
 
 #include "frame.h"
 #include "minigotchi.h"
+#include "parasite.h"
 #include <ArduinoJson.h>
 #include <ESP8266WiFi.h>
 #include <Arduino.h>
@@ -14,7 +15,7 @@
 #include <string>
 
 extern "C" {
-    #include "structs.h"
+#include "structs.h"
 }
 
 class Pwnagotchi {
