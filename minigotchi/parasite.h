@@ -2,8 +2,6 @@
  * parasite.h: header files for parasite.cpp
 */
 
-
-
 #ifndef PARASITE_H
 #define PARASITE_H
 
