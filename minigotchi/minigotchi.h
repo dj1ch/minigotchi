@@ -11,6 +11,7 @@
 #include "channel.h"
 #include "config.h"
 #include "display.h"
+#include "parasite.h"
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 

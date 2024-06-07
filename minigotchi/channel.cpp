@@ -105,6 +105,17 @@ void Channel::checkChannel(int channel) {
     }
 }
 
+bool Channel::isValidChannel(int channel) {
+    bool isValidChannel = false;
+    for (int i = 0; i < sizeof(channelList) / sizeof(channelList[0]); i++) {
+        if (channelList[i] == channel) {
+            isValidChannel = true;
+            break;
+        }
+    }
+    return isValidChannel;
+}
+
 int Channel::getChannel() {
     return wifi_get_channel();
 }

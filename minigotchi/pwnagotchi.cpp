@@ -32,26 +32,30 @@ std::string Pwnagotchi::extractMAC(const unsigned char *buff) {
 }
 
 void Pwnagotchi::detect() {
-    // cool animation
-    for (int i = 0; i < 5; ++i) {
-        Serial.println("(0-o) Scanning for Pwnagotchi.");
-        Display::cleanDisplayFace("(0-o)");
-        Display::attachSmallText("Scanning  for Pwnagotchi.");
-        delay(250);
-        Serial.println("(o-0) Scanning for Pwnagotchi..");
-        Display::cleanDisplayFace("(o-0)");
-        Display::attachSmallText("Scanning  for Pwnagotchi..");
-        delay(250);
-        Serial.println("(0-o) Scanning for Pwnagotchi...");
-        Display::cleanDisplayFace("(0-o)");
-        Display::attachSmallText("Scanning  for Pwnagotchi...");
-        delay(250);
-        Serial.println(" ");
-        delay(250);
-    }
 
-    // delay for scanning
-    delay(2500);
+    Parasite::sendPwnagotchiStatus(SCANNING);
+
+    // cool animation, skip if parasite mode
+    if (!Config::parasite) {
+        for (int i = 0; i < 5; ++i) {
+            Serial.println("(0-o) Scanning for Pwnagotchi.");
+            Display::cleanDisplayFace("(0-o)");
+            Display::attachSmallText("Scanning  for Pwnagotchi.");
+            delay(250);
+            Serial.println("(o-0) Scanning for Pwnagotchi..");
+            Display::cleanDisplayFace("(o-0)");
+            Display::attachSmallText("Scanning  for Pwnagotchi..");
+            delay(250);
+            Serial.println("(0-o) Scanning for Pwnagotchi...");
+            Display::cleanDisplayFace("(0-o)");
+            Display::attachSmallText("Scanning  for Pwnagotchi...");
+            delay(250);
+            Serial.println(" ");
+            delay(250);
+        }
+        // delay for scanning
+        delay(2500);
+    }
 
     // set mode and callback
     Minigotchi::monStart();
@@ -67,6 +71,7 @@ void Pwnagotchi::detect() {
         Display::cleanDisplayFace("(;-;)");
         Display::attachSmallText("No Pwnagotchi found.");
         Serial.println(" ");
+        Parasite::sendPwnagotchiStatus(NO_FRIEND_FOUND);
     } else if (pwnagotchiDetected) {
         Minigotchi::monStop();
         Pwnagotchi::stopCallback();
@@ -76,6 +81,7 @@ void Pwnagotchi::detect() {
         Serial.println("(X-X) How did this happen?");
         Display::cleanDisplayFace("(X-X)");
         Display::attachSmallText("How did this happen?");
+        Parasite::sendPwnagotchiStatus(FRIEND_SCAN_ERROR);
     }
 }
 
@@ -188,4 +194,5 @@ void Pwnagotchi::processJson(DynamicJsonDocument& jsonBuffer) {
     Display::cleanDisplayFace("(^-^)");
     Display::attachSmallText("Pwnagotchi name: " + name);
     Display::attachSmallText("Pwned Networks: " + pwndTot);
+    Parasite::sendPwnagotchiStatus(FRIEND_FOUND, name.c_str());
 }

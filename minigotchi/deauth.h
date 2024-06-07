@@ -7,6 +7,7 @@
 
 #include "config.h"
 #include "minigotchi.h"
+#include "parasite.h"
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <vector>

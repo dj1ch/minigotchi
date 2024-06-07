@@ -12,9 +12,12 @@
  *
  */
 
-// define whether or not these deauthing or advertising is turned on 
+// define whether or not these deauthing or advertising is turned on
 bool Config::deauth = true;
 bool Config::advertise = true;
+
+// Defines if this is running in parasite mode where it hooks up directly to a Pwnagotchi
+bool Config::parasite = false;
 
 // screen configuration
 bool Config::display = false;
@@ -26,7 +29,7 @@ int Config::baud = 115200;
 // define init channel
 int Config::channel = 1;
 
-// define whitelist 
+// define whitelist
 std::vector<std::string> Config::whitelist = {"SSID", "SSID", "SSID"};
 
 // json config
@@ -62,10 +65,10 @@ int Config::uptime = Config::time();
 std::string Config::version = "3.1.2-beta";
 
 /** developer note:
- * 
+ *
  * these are meant to provide valid values for the frame's data to be almost identical to a pwnagotchi's.
  * they must be within a certain range to be valid.
- * 
+ *
 */
 
 // randomize config values
