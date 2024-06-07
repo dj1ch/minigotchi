@@ -13,10 +13,10 @@
 
 // SSD1306 screen
 #define SSD1306_SCREEN_WIDTH 128
-#define SSD1306_SCREEN_HEIGHT 64 
+#define SSD1306_SCREEN_HEIGHT 64
 
 // Init screen
-#define SSD1306_OLED_RESET -1 
+#define SSD1306_OLED_RESET -1
 #define WEMOS_OLED_SHIELD_OLED_RESET 0 // GPIO0
 
 class Display {
