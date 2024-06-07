@@ -49,4 +49,5 @@ public:
 private:
     static void sendData(const char *cmd, uint8 status, const char *data);
 };
+
 #endif // PARASITE_H
