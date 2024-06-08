@@ -12,9 +12,13 @@
  *
  */
 
-// define whether or not these deauthing or advertising is turned on
+// define whether or not deauthing or advertising is turned on
 bool Config::deauth = true;
 bool Config::advertise = true;
+
+// define universal delays
+int Config::shortDelay = 500;
+int Config::longDelay = 5000;
 
 // Defines if this is running in parasite mode where it hooks up directly to a
 // Pwnagotchi

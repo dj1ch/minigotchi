@@ -42,15 +42,15 @@ void Minigotchi::boot() {
   Serial.println(
       "('-') You can edit my configuration parameters in config.cpp!");
   Serial.println(" ");
-  delay(250);
+  delay(Config::shortDelay);
   Display::cleanDisplayFace("('-')");
   Display::attachSmallText("Edit my config.cpp!");
-  delay(250);
+  delay(Config::shortDelay);
   Serial.println("(>-<) Starting now...");
   Serial.println(" ");
   Display::cleanDisplayFace("(>-<)");
   Display::attachSmallText("Starting  now");
-  delay(250);
+  delay(Config::shortDelay);
   Serial.println("################################################");
   Serial.println("#                BOOTUP PROCESS                #");
   Serial.println("################################################");
@@ -63,7 +63,7 @@ void Minigotchi::boot() {
 }
 
 void Minigotchi::info() {
-  delay(250);
+  delay(Config::shortDelay);
   Serial.println(" ");
   Serial.println("('-') Current Minigotchi Stats: ");
   Display::cleanDisplayFace("('-')");
@@ -72,7 +72,7 @@ void Minigotchi::info() {
   mem();
   cpu();
   Serial.println(" ");
-  delay(250);
+  delay(Config::shortDelay);
 }
 
 // if this can be printed, everything should have gone right...
@@ -83,7 +83,7 @@ void Minigotchi::finish() {
   Serial.println(" ");
   Display::cleanDisplayFace("('-')");
   Display::attachSmallText("Started sucessfully");
-  delay(250);
+  delay(Config::shortDelay);
 }
 
 void Minigotchi::version() {
@@ -91,7 +91,7 @@ void Minigotchi::version() {
   Serial.println(Config::version.c_str());
   Display::cleanDisplayFace("('-')");
   Display::attachSmallText("Version: " + (String)Config::version.c_str());
-  delay(250);
+  delay(Config::shortDelay);
 }
 
 void Minigotchi::mem() {
@@ -100,7 +100,7 @@ void Minigotchi::mem() {
   Serial.println(" bytes");
   Display::cleanDisplayFace("('-')");
   Display::attachSmallText("Heap: " + (String)ESP.getFreeHeap() + " bytes");
-  delay(250);
+  delay(Config::shortDelay);
 }
 
 void Minigotchi::cpu() {
@@ -110,7 +110,7 @@ void Minigotchi::cpu() {
   Display::cleanDisplayFace("('-')");
   Display::attachSmallText("CPU Frequency: " + (String)ESP.getCpuFreqMHz() +
                            " MHz");
-  delay(250);
+  delay(Config::shortDelay);
 }
 
 /** developer note:

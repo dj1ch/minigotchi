@@ -155,19 +155,19 @@ bool Deauth::select() {
       Serial.println("(0-o) Scanning for APs.");
       Display::cleanDisplayFace("(0-o)");
       Display::attachSmallText("Scanning  for APs.");
-      delay(250);
+      delay(Config::shortDelay);
       Serial.println("(o-0) Scanning for APs..");
       Display::cleanDisplayFace("(o-0)");
       Display::attachSmallText("Scanning  for APs..");
-      delay(250);
+      delay(Config::shortDelay);
       Serial.println("(0-o) Scanning for APs...");
       Display::cleanDisplayFace("(0-o)");
       Display::attachSmallText("Scanning  for APs...");
-      delay(250);
+      delay(Config::shortDelay);
       Serial.println(" ");
-      delay(250);
+      delay(Config::shortDelay);
     }
-    delay(2500);
+    delay(Config::longDelay);
   }
 
   // stop and scan
@@ -192,7 +192,7 @@ bool Deauth::select() {
     Serial.println(" ");
     Display::cleanDisplayFace("('-')");
     Display::attachSmallText("Selected random AP: " + (String)randomAP.c_str());
-    delay(250);
+    delay(Config::shortDelay);
 
     if (encType == -1 || encType == ENC_TYPE_NONE) {
       Serial.println(
@@ -348,7 +348,7 @@ bool Deauth::select() {
     Display::attachSmallText("AP Hidden?: " +
                              (String)Deauth::printHidden(Deauth::randomIndex));
     Serial.println(" ");
-    delay(2500);
+    delay(Config::longDelay);
 
     Parasite::sendDeauthStatus(PICKED_AP, Deauth::randomAP.c_str(),
                                WiFi.channel(Deauth::randomIndex));
@@ -362,7 +362,7 @@ bool Deauth::select() {
 
     Parasite::sendDeauthStatus(DEAUTH_SCAN_ERROR);
 
-    delay(250);
+    delay(Config::shortDelay);
   } else {
     // well ur fucked.
     Serial.println("(;-;) No access points found.");
@@ -372,7 +372,7 @@ bool Deauth::select() {
 
     Parasite::sendDeauthStatus(NO_APS);
 
-    delay(250);
+    delay(Config::shortDelay);
   }
   return false;
 }
@@ -387,7 +387,7 @@ void Deauth::deauth() {
         Serial.println(" ");
         Display::cleanDisplayFace("(>-<)");
         Display::attachSmallText("Begin deauth-attack on AP...");
-        delay(250);
+        delay(Config::shortDelay);
         // define the attack
         if (!running) {
           start();
@@ -396,7 +396,7 @@ void Deauth::deauth() {
           Serial.println(" ");
           Display::cleanDisplayFace("('-')");
           Display::attachSmallText(" Attack is already running.");
-          delay(250);
+          delay(Config::shortDelay);
         }
       } else {
         // ok why did you modify the deauth function? i literally told you to
@@ -407,10 +407,10 @@ void Deauth::deauth() {
         Display::cleanDisplayFace("(X-X)");
         Display::attachSmallText(
             "No access point selected. Use select() first.");
-        delay(250);
+        delay(Config::shortDelay);
         Display::cleanDisplayFace("('-')");
         Display::attachSmallText("Told you so!");
-        delay(250);
+        delay(Config::shortDelay);
         return;
       }
     }

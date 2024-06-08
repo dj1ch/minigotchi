@@ -23,14 +23,14 @@ int Channel::channelList[13] = {
 
 void Channel::init(int initChannel) {
   // start on user specified channel
-  delay(250);
+  delay(Config::shortDelay);
   Serial.println(" ");
   Serial.print("(-.-) Initializing on channel ");
   Serial.println(initChannel);
   Serial.println(" ");
   Display::cleanDisplayFace("(-.-)");
   Display::attachSmallText("Initializing on channel " + (String)initChannel);
-  delay(250);
+  delay(Config::shortDelay);
 
   // switch channel
   Minigotchi::monStop();
@@ -43,12 +43,12 @@ void Channel::init(int initChannel) {
     Display::cleanDisplayFace("('-')");
     Display::attachSmallText("Successfully initialized on channel " +
                              (String)getChannel());
-    delay(250);
+    delay(Config::shortDelay);
   } else {
     Serial.print("(X-X) Channel initialization failed, try again?");
     Display::cleanDisplayFace("(X-X)");
     Display::attachSmallText("Channel initialization failed, try again?");
-    delay(250);
+    delay(Config::shortDelay);
   }
 }
 
@@ -66,13 +66,13 @@ void Channel::cycle() {
 
 void Channel::switchChannel(int newChannel) {
   // switch to channel
-  delay(250);
+  delay(Config::shortDelay);
   Serial.print("(-.-) Switching to channel ");
   Serial.println(newChannel);
   Serial.println(" ");
   Display::cleanDisplayFace("(-.-)");
   Display::attachSmallText("Switching to channel " + (String)newChannel);
-  delay(250);
+  delay(Config::shortDelay);
 
   // monitor this one channel
   Minigotchi::monStop();
@@ -92,7 +92,7 @@ void Channel::checkChannel(int channel) {
     Display::cleanDisplayFace("('-')");
     Display::attachSmallText("Currently on channel " + (String)currentChannel);
     Serial.println(" ");
-    delay(250);
+    delay(Config::shortDelay);
   } else {
     Serial.print("(X-X) Channel switch to channel ");
     Serial.print(channel);
@@ -104,7 +104,7 @@ void Channel::checkChannel(int channel) {
     Display::cleanDisplayFace("(X-X)");
     Display::attachSmallText("Channel switch to " + (String)channel +
                              " has failed");
-    delay(250);
+    delay(Config::shortDelay);
   }
 }
 
