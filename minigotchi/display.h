@@ -21,9 +21,9 @@
 
 class Display {
 public:
-  static void startScreen();
-  static void cleanDisplayFace(String text);
-  static void attachSmallText(String text);
+    static void startScreen();
+    static void cleanDisplayFace(String text);
+    static void attachSmallText(String text);
 };
 
 #endif // DISPLAY_H
