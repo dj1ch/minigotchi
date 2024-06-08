@@ -459,7 +459,7 @@ void Deauth::start() {
                                  " pkt/s" + "(AP:" + (String)randomAP.c_str() +
                                  ")");
       }
-    } else if (!Deauth::send(deauthFrame, deauthFrameSize, 0) ||
+    } else if (!Deauth::send(deauthFrame, deauthFrameSize, 0) &&
                !Deauth::send(disassociateFrame, disassociateFrameSize, 0)) {
       Serial.println("(X-X) Both packets failed to send!");
       Display::cleanDisplayFace("(X-X)");
