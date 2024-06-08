@@ -1,6 +1,6 @@
 /**
  * config.cpp: configuration for minigotchi
-*/
+ */
 
 #include "config.h"
 
@@ -12,9 +12,17 @@
  *
  */
 
-// define whether or not these deauthing or advertising is turned on 
+// define whether or not deauthing or advertising is turned on
 bool Config::deauth = true;
 bool Config::advertise = true;
+
+// define universal delays
+int Config::shortDelay = 500;
+int Config::longDelay = 5000;
+
+// Defines if this is running in parasite mode where it hooks up directly to a
+// Pwnagotchi
+bool Config::parasite = false;
 
 // screen configuration
 bool Config::display = false;
@@ -24,16 +32,16 @@ std::string Config::screen = "";
 int Config::baud = 115200;
 
 // define init channel
-std::string Config::bssid = "fo:od:ba:be:fo:od";
 int Config::channel = 1;
 
-// define whitelist 
+// define whitelist
 std::vector<std::string> Config::whitelist = {"SSID", "SSID", "SSID"};
 
 // json config
-int Config::epoch = 1;
+int Config::epoch = Minigotchi::currentEpoch;
 std::string Config::face = "(^-^)";
-std::string Config::identity = "b9210077f7c14c0651aa338c55e820e93f90110ef679648001b1cecdbffc0090";
+std::string Config::identity =
+    "b9210077f7c14c0651aa338c55e820e93f90110ef679648001b1cecdbffc0090";
 std::string Config::name = "minigotchi";
 int Config::ap_ttl = Config::random(30, 600);
 bool Config::associate = true;
@@ -63,17 +71,15 @@ int Config::uptime = Config::time();
 std::string Config::version = "3.1.2-beta";
 
 /** developer note:
- * 
- * these are meant to provide valid values for the frame's data to be almost identical to a pwnagotchi's.
- * they must be within a certain range to be valid.
- * 
-*/
+ *
+ * these are meant to provide valid values for the frame's data to be almost
+ * identical to a pwnagotchi's. they must be within a certain range to be valid.
+ *
+ */
 
 // randomize config values
-int Config::random(int min, int max) {
-    return min + rand() % (max - min + 1);
-}
+int Config::random(int min, int max) { return min + rand() % (max - min + 1); }
 
 int Config::time() {
-    return millis() / 1000; // convert to seconds
+  return millis() / 1000; // convert to seconds
 }
