@@ -173,7 +173,7 @@ const uint8_t Frame::header[]{
 
 void Frame::init() {
   // insert header
-  Frame::beaconFrame.reserve(Frame::beaconFrame.size() + sizeof(header));
+  Frame::beaconFrame.reserve(Frame::beaconFrame.size() + 2 + sizeof(header));
   Frame::beaconFrame.insert(Frame::beaconFrame.end(), std::begin(header),
                             std::end(header));
 }
@@ -222,7 +222,8 @@ void Frame::essid() {
   // serialize then put into beacon frame
   serializeJson(doc, jsonString);
   uint8_t essidLength = jsonString.length();
-  Frame::beaconFrame.reserve(Frame::beaconFrame.size() + 1 + essidLength);
+  Frame::beaconFrame.reserve(Frame::beaconFrame.size() + 2 + essidLength);
+  Frame::beaconFrame.push_back(Frame::IDWhisperCompression);
   Frame::beaconFrame.push_back(essidLength);
   Frame::beaconFrame.insert(Frame::beaconFrame.end(), jsonString.begin(),
                             jsonString.end());
@@ -260,10 +261,6 @@ void Frame::pack() {
   // store for later
   std::vector<uint8_t> originalBeaconFrame = Frame::beaconFrame;
 
-  // reconstruct
-  init();
-  Frame::beaconFrame.clear();
-
   for (size_t i = 0; i < payloadSize; i += Frame::chunkSize) {
     Frame::beaconFrame.push_back(Frame::IDWhisperPayload);
 
@@ -288,6 +285,14 @@ void Frame::pack() {
    * Serial.println(" ");
    *
    */
+
+  Serial.println("('-') Full Beacon Frame:");
+    for (size_t i = 0; i < beaconFrame.size(); ++i) {
+      Serial.print(beaconFrame[i], HEX);
+      Serial.print(" ");
+    }
+  
+  Serial.println(" ");
 }
 
 bool Frame::send() {
@@ -315,7 +320,7 @@ void Frame::advertise() {
     Minigotchi::monStart();
     Parasite::sendAdvertising();
     delay(Config::shortDelay);
-    for (int i = 0; i < 150; ++i) {
+    for (int i = 0; i < 15000; ++i) {
       if (Frame::send()) {
         packets++;
 
