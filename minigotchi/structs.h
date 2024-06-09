@@ -29,7 +29,7 @@ typedef struct {
   unsigned bssidmatch0 : 1;    /**< usually not used */
   unsigned bssidmatch1 : 1;    /**< usually not used */
   unsigned mcs : 7; /**< if is 11n packet, shows the modulation(range from 0 to
-                       76) */
+                     76) */
   unsigned cwb : 1; /**< if is 11n packet, shows if is HT40 packet or not */
   unsigned HT_length : 16;   /**< Length of 11n mode packet */
   unsigned smoothing : 1;    /**< reserve */
@@ -49,8 +49,8 @@ typedef struct {
 typedef struct {
   wifi_pkt_rx_ctrl_t rx_ctrl; //< metadata header
   uint8_t payload[0]; //< Data or management payload. Length of payload is
-                      //described by rx_ctrl.sig_len. Type of content determined
-                      //by packet type argument of callback.
+  // described by rx_ctrl.sig_len. Type of content determined
+  // by packet type argument of callback.
 } wifi_promiscuous_pkt_t;
 
 typedef struct { // Size: 128
