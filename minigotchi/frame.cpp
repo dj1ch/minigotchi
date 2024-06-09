@@ -285,14 +285,6 @@ void Frame::pack() {
    * Serial.println(" ");
    *
    */
-
-  Serial.println("('-') Full Beacon Frame:");
-    for (size_t i = 0; i < beaconFrame.size(); ++i) {
-      Serial.print(beaconFrame[i], HEX);
-      Serial.print(" ");
-    }
-  
-  Serial.println(" ");
 }
 
 bool Frame::send() {
