@@ -29,7 +29,7 @@ typedef struct {
   unsigned bssidmatch0 : 1;    /**< usually not used */
   unsigned bssidmatch1 : 1;    /**< usually not used */
   unsigned mcs : 7; /**< if is 11n packet, shows the modulation(range from 0 to
-    76) */
+76) */
   unsigned cwb : 1; /**< if is 11n packet, shows if is HT40 packet or not */
   unsigned HT_length : 16;   /**< Length of 11n mode packet */
   unsigned smoothing : 1;    /**< reserve */
