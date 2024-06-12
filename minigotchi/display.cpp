@@ -16,22 +16,23 @@ void Display::startScreen() {
                                &Wire, SSD1306_OLED_RESET);
       delay(100);
       ssd1306_adafruit_display->begin(SSD1306_SWITCHCAPVCC,
-                              0x3C); // for the 128x64 displays
+                                      0x3C); // for the 128x64 displays
       delay(100);
     } else if (Config::screen == "WEMOS_OLED_SHIELD") {
-      ssd1306_adafruit_display = new Adafruit_SSD1306(WEMOS_OLED_SHIELD_OLED_RESET);
+      ssd1306_adafruit_display =
+          new Adafruit_SSD1306(WEMOS_OLED_SHIELD_OLED_RESET);
       delay(100);
       ssd1306_adafruit_display->begin(
           SSD1306_SWITCHCAPVCC,
           0x3C); // initialize with the I2C addr 0x3C (for the 64x48)
       delay(100);
     } else if (Config::screen == "SSD1305") {
-      ssd1305_adafruit_display = 
-          new Adafruit_SSD1305(SSD1305_SCREEN_WIDTH, SSD1305_SCREEN_HEIGHT, &SPI, SSD1305_OLED_DC, SSD1305_OLED_RESET, 
-                                              SSD1305_OLED_CS, 7000000UL);
-      ssd1305_adafruit_display->begin(SSD1305_I2C_ADDRESS, 
-                              0x3c);  // initialize with the 
-                                      // I2C addr 0x3C (for the 64x48)
+      ssd1305_adafruit_display = new Adafruit_SSD1305(
+          SSD1305_SCREEN_WIDTH, SSD1305_SCREEN_HEIGHT, &SPI, SSD1305_OLED_DC,
+          SSD1305_OLED_RESET, SSD1305_OLED_CS, 7000000UL);
+      ssd1305_adafruit_display->begin(SSD1305_I2C_ADDRESS,
+                                      0x3c); // initialize with the
+      // I2C addr 0x3C (for the 64x48)
       delay(100);
     } else if (Config::screen == "IDEASPARK_SSD1306") {
       ssd1306_ideaspark_display = new U8G2_SSD1306_128X64_NONAME_F_SW_I2C(U8G2_R0, IDEASPARK_SSD1306_SCL, IDEASPARK_SSD1306_SDA, U8X8_PIN_NONE);
@@ -40,7 +41,8 @@ void Display::startScreen() {
       delay(100);
     } else {
       // use wemos shield by default
-      ssd1306_adafruit_display = new Adafruit_SSD1306(WEMOS_OLED_SHIELD_OLED_RESET);
+      ssd1306_adafruit_display =
+          new Adafruit_SSD1306(WEMOS_OLED_SHIELD_OLED_RESET);
       delay(100);
       ssd1306_adafruit_display->begin(
           SSD1306_SWITCHCAPVCC,
@@ -73,7 +75,7 @@ void Display::startScreen() {
 }
 
 /** developer note:
- * 
+ *
  * ssd1305 handling is a lot more different than ssd1306,
  * the screen height is half the expected ssd1306 size.
  *
