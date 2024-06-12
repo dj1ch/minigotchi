@@ -312,7 +312,7 @@ void Frame::advertise() {
     Minigotchi::monStart();
     Parasite::sendAdvertising();
     delay(Config::shortDelay);
-    for (int i = 0; i < 15000; ++i) {
+    for (int i = 0; i < 150; ++i) {
       if (Frame::send()) {
         packets++;
 
