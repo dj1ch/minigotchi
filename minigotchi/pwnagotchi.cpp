@@ -40,16 +40,13 @@ void Pwnagotchi::detect() {
   if (!Config::parasite) {
     for (int i = 0; i < 5; ++i) {
       Serial.println("(0-o) Scanning for Pwnagotchi.");
-      Display::cleanDisplayFace("(0-o)");
-      Display::attachSmallText("Scanning  for Pwnagotchi.");
+      Display::updateDisplay("(0-o)", "Scanning  for Pwnagotchi.");
       delay(Config::shortDelay);
       Serial.println("(o-0) Scanning for Pwnagotchi..");
-      Display::cleanDisplayFace("(o-0)");
-      Display::attachSmallText("Scanning  for Pwnagotchi..");
+      Display::updateDisplay("(o-0)", "Scanning  for Pwnagotchi..");
       delay(Config::shortDelay);
       Serial.println("(0-o) Scanning for Pwnagotchi...");
-      Display::cleanDisplayFace("(0-o)");
-      Display::attachSmallText("Scanning  for Pwnagotchi...");
+      Display::updateDisplay("(0-o)", "Scanning  for Pwnagotchi...");
       delay(Config::shortDelay);
       Serial.println(" ");
       delay(Config::shortDelay);
@@ -69,8 +66,7 @@ void Pwnagotchi::detect() {
     Minigotchi::monStop();
     Pwnagotchi::stopCallback();
     Serial.println("(;-;) No Pwnagotchi found");
-    Display::cleanDisplayFace("(;-;)");
-    Display::attachSmallText("No Pwnagotchi found.");
+    Display::updateDisplay("(;-;)", "No Pwnagotchi found.");
     Serial.println(" ");
     Parasite::sendPwnagotchiStatus(NO_FRIEND_FOUND);
   } else if (pwnagotchiDetected) {
@@ -80,8 +76,7 @@ void Pwnagotchi::detect() {
     Minigotchi::monStop();
     Pwnagotchi::stopCallback();
     Serial.println("(X-X) How did this happen?");
-    Display::cleanDisplayFace("(X-X)");
-    Display::attachSmallText("How did this happen?");
+    Display::updateDisplay("(X-X)", "How did this happen?");
     Parasite::sendPwnagotchiStatus(FRIEND_SCAN_ERROR);
   }
 }
@@ -109,8 +104,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
       pwnagotchiDetected = true;
       Serial.println("(^-^) Pwnagotchi detected!");
       Serial.println(" ");
-      Display::cleanDisplayFace("(^-^)");
-      Display::attachSmallText("Pwnagotchi detected!");
+      Display::updateDisplay("(^-^)", "Pwnagotchi detected!");
 
       // extract the ESSID from the beacon frame
       String essid;
@@ -143,8 +137,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
         if (error == DeserializationError::IncompleteInput) {
           Serial.println("(^-^) Cleaning ESSID...");
           Serial.println(" ");
-          Display::cleanDisplayFace("(^-^)");
-          Display::attachSmallText("Cleaning ESSID...");
+          Display::updateDisplay("(^-^)", "Cleaning ESSID...");
           String newEssid = "{" + essid + "}";
           error = deserializeJson(jsonBuffer, newEssid);
         }
@@ -154,8 +147,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
           Serial.println(F("(X-X) Could not parse Pwnagotchi json: "));
           Serial.print("(X-X) ");
           Serial.println(error.c_str());
-          Display::cleanDisplayFace("(X-X)");
-          Display::attachSmallText("Could not parse Pwnagotchi json: " +
+          Display::updateDisplay("(X-X)", "Could not parse Pwnagotchi json: " +
                                    (String)error.c_str());
           Serial.println(" ");
         } else {
@@ -171,8 +163,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
 void Pwnagotchi::processJson(DynamicJsonDocument &jsonBuffer) {
   Serial.println("(^-^) Successfully parsed json!");
   Serial.println(" ");
-  Display::cleanDisplayFace("(^-^)");
-  Display::attachSmallText("Successfully parsed json!");
+  Display::updateDisplay("(^-^)", "Successfully parsed json!");
 
   // find out some stats
   String name = jsonBuffer["name"].as<String>();
@@ -192,8 +183,6 @@ void Pwnagotchi::processJson(DynamicJsonDocument &jsonBuffer) {
   Serial.print("(^-^) Pwned Networks: ");
   Serial.println(pwndTot);
   Serial.print(" ");
-  Display::cleanDisplayFace("(^-^)");
-  Display::attachSmallText("Pwnagotchi name: " + name);
-  Display::attachSmallText("Pwned Networks: " + pwndTot);
+  Display::updateDisplay("(^-^)", "Pwnagotchi name: " + name + "\n" + "Pwned Networks: " + pwndTot);
   Parasite::sendPwnagotchiStatus(FRIEND_FOUND, name.c_str());
 }

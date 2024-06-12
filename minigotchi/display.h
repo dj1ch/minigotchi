@@ -26,6 +26,9 @@
 #define SSD1305_OLED_DC 4
 #define SSD1305_OLED_RESET 5
 
+#define IDEASPARK_SSD1306_SCL 14
+#define IDEASPARK_SSD1306_SDA 12
+
 // Init screen
 #define SSD1306_OLED_RESET -1
 #define WEMOS_OLED_SHIELD_OLED_RESET 0 // GPIO0
@@ -33,8 +36,10 @@
 class Display {
 public:
   static void startScreen();
-  static void cleanDisplayFace(String text);
-  static void attachSmallText(String text);
+  static void updateDisplay(String face);
+  static void updateDisplay(String face, String text);
+private:
+  static void printU8G2Data(int x, int y, const char *data);
 };
 
 #endif // DISPLAY_H

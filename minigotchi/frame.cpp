@@ -307,8 +307,7 @@ void Frame::advertise() {
   if (Config::advertise) {
     Serial.println("(>-<) Starting advertisment...");
     Serial.println(" ");
-    Display::cleanDisplayFace("(>-<)");
-    Display::attachSmallText("Starting advertisment...");
+    Display::updateDisplay("(>-<)", "Starting advertisment...");
     Minigotchi::monStart();
     Parasite::sendAdvertising();
     delay(Config::shortDelay);
@@ -326,9 +325,7 @@ void Frame::advertise() {
           Serial.print(" pkt/s (Channel: ");
           Serial.print(Channel::getChannel());
           Serial.println(")");
-          Display::cleanDisplayFace("(>-<)");
-          Display::attachSmallText(
-              "Packets per second: " + (String)pps + " pkt/s" +
+          Display::updateDisplay("(>-<)", "Packets per second: " + (String)pps + " pkt/s" +
               "(Channel: " + (String)Channel::getChannel() + ")");
         }
       } else {
@@ -339,8 +336,7 @@ void Frame::advertise() {
     Serial.println(" ");
     Serial.println("(^-^) Advertisment finished!");
     Serial.println(" ");
-    Display::cleanDisplayFace("(^-^)");
-    Display::attachSmallText("Advertisment finished!");
+    Display::updateDisplay("(^-^)", "Advertisment finished!");
   } else {
     // do nothing but still idle
   }
