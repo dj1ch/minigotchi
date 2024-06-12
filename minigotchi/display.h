@@ -8,9 +8,9 @@
 #include "config.h"
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1305.h>
-#include <U8g2lib.h>
 #include <Adafruit_SSD1306.h>
 #include <SPI.h>
+#include <U8g2lib.h>
 #include <Wire.h>
 
 // SSD1306 screen
@@ -32,9 +32,9 @@
 
 class Display {
 public:
-    static void startScreen();
-    static void cleanDisplayFace(String text);
-    static void attachSmallText(String text);
+  static void startScreen();
+  static void cleanDisplayFace(String text);
+  static void attachSmallText(String text);
 };
 
 #endif // DISPLAY_H
