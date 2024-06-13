@@ -146,7 +146,7 @@ void Display::updateDisplay(String face, String text) {
 }
 
 // If using the U8G2 library, it does not handle wrapping if text is too long to fit on the screen
-// So will print text for screens using that library via this method
+// So will print text for screens using that library via this method to handle line-breaking
 void Display::printU8G2Data(int x, int y, const char *data) {
   int numCharPerLine = ssd1306_ideaspark_display->getWidth() / ssd1306_ideaspark_display->getMaxCharWidth();
   if (strlen(data) <= numCharPerLine && ssd1306_ideaspark_display->getStrWidth(data) <= ssd1306_ideaspark_display->getWidth() - ssd1306_ideaspark_display->getMaxCharWidth()) {
