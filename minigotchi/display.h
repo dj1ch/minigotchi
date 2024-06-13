@@ -29,7 +29,7 @@
 #define IDEASPARK_SSD1306_SCL 14
 #define IDEASPARK_SSD1306_SDA 12
 
-// Init screen
+// Init screen info
 #define SSD1306_OLED_RESET -1
 #define WEMOS_OLED_SHIELD_OLED_RESET 0 // GPIO0
 
