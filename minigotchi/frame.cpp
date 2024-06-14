@@ -223,8 +223,11 @@ void Frame::essid() {
   serializeJson(doc, jsonString);
   uint8_t essidLength = jsonString.length();
   Frame::beaconFrame.reserve(Frame::beaconFrame.size() + 2 + essidLength);
-  Frame::beaconFrame.push_back(Frame::IDWhisperCompression);
+  Frame::beaconFrame.push_back(0x00);
   Frame::beaconFrame.push_back(essidLength);
+  // save for later maybe?
+  // Frame::beaconFrame.push_back(Frame::IDWhisperCompression);
+  // Frame::beaconFrame.push_back(essidLength);
   Frame::beaconFrame.insert(Frame::beaconFrame.end(), jsonString.begin(),
                             jsonString.end());
 
@@ -265,6 +268,8 @@ void Frame::pack() {
     Frame::beaconFrame.push_back(Frame::IDWhisperPayload);
 
     size_t chunkEnd = std::min(i + Frame::chunkSize, Frame::payloadSize);
+    Frame::beaconFrame.push_back(chunkEnd - i);
+
     for (size_t j = i; j < chunkEnd; ++j) {
       Frame::beaconFrame.push_back(originalBeaconFrame[j]);
     }
