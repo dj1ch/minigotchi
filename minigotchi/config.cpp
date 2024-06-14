@@ -43,6 +43,7 @@ std::string Config::face = "(^-^)";
 std::string Config::identity =
     "b9210077f7c14c0651aa338c55e820e93f90110ef679648001b1cecdbffc0090";
 std::string Config::name = "minigotchi";
+std::string Config::grid_version = "1.11.1";
 int Config::ap_ttl = Config::random(30, 600);
 bool Config::associate = true;
 int Config::bored_num_epochs = Config::random(5, 30);
