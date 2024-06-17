@@ -50,9 +50,8 @@ uint8_t Deauth::deauthTemp[26] = {
     0xCC, // BSSID MAC (From)
     /* 22 - 23 */ 0x00,
     0x00, // Fragment & squence number
-    /* 24 - 25 */ 0x02,
-    0x00 // Reason code (2 = INVALID_AUTHENTICATION (Previous authentication no
-         // longer valid))
+    /* 24 - 25 */ 0x01,
+    0x00 // Reason code (1 = unspecified reason)
 };
 
 uint8_t Deauth::deauthFrame[26];
@@ -104,7 +103,11 @@ bool Deauth::broadcast(uint8_t *mac) {
   return true;
 }
 
-void Deauth::printMac(uint8_t *mac) { Serial.println(printMacStr(mac)); }
+void Deauth::printMac(uint8_t *mac) {
+  String macStr = printMacStr(mac);
+  Serial.println(macStr); 
+  Display::updateDisplay("('-')", "AP BSSID: " + macStr);
+}
 
 String Deauth::printHidden(int network) {
   String hidden;
@@ -270,8 +273,6 @@ bool Deauth::select() {
 
     Serial.print("('-') AP BSSID: ");
     printMac(apBssid);
-    Display::updateDisplay("('-')",
-                           "AP BSSID: " + Deauth::printMacStr(apBssid));
 
     Serial.print("('-') AP Channel: ");
     Serial.println(WiFi.channel(Deauth::randomIndex));
