@@ -18,6 +18,8 @@
 
 class Frame {
 public:
+  ~Frame();
+
   static void pack();
   static bool send();
   static void advertise();
@@ -30,15 +32,18 @@ public:
   static const uint8_t SignatureAddr[];
   static const uint8_t BroadcastAddr[];
   static const uint16_t wpaFlags;
-  static bool sent;
-  static size_t frameSize;
-  static std::vector<uint8_t> beaconFrame;
+
+  static uint8_t beaconFrame[2048];
+  static const int pwngridHeaderLength;
+  static size_t essidLength;
+  static uint8_t headerLength;
+
   static size_t payloadSize;
   static const size_t chunkSize;
 
+  static bool sent;
+
 private:
-  static void init();
-  static void essid();
 };
 
 #endif // FRAME_H
