@@ -36,28 +36,26 @@ void Pwnagotchi::detect() {
 
   Parasite::sendPwnagotchiStatus(SCANNING);
 
-  // cool animation, skip if parasite mode
-  if (!Config::parasite) {
-    for (int i = 0; i < 5; ++i) {
-      Serial.println("(0-o) Scanning for Pwnagotchi.");
-      Display::updateDisplay("(0-o)", "Scanning  for Pwnagotchi.");
-      delay(Config::shortDelay);
-      Serial.println("(o-0) Scanning for Pwnagotchi..");
-      Display::updateDisplay("(o-0)", "Scanning  for Pwnagotchi..");
-      delay(Config::shortDelay);
-      Serial.println("(0-o) Scanning for Pwnagotchi...");
-      Display::updateDisplay("(0-o)", "Scanning  for Pwnagotchi...");
-      delay(Config::shortDelay);
-      Serial.println(" ");
-      delay(Config::shortDelay);
-    }
-    // delay for scanning
-    delay(Config::longDelay);
-  }
-
   // set mode and callback
   Minigotchi::monStart();
   wifi_set_promiscuous_rx_cb(pwnagotchiCallback);
+
+  // cool animation, skip if parasite mode
+  for (int i = 0; i < 5; ++i) {
+    Serial.println("(0-o) Scanning for Pwnagotchi.");
+    Display::updateDisplay("(0-o)", "Scanning  for Pwnagotchi.");
+    delay(Config::shortDelay);
+    Serial.println("(o-0) Scanning for Pwnagotchi..");
+    Display::updateDisplay("(o-0)", "Scanning  for Pwnagotchi..");
+    delay(Config::shortDelay);
+    Serial.println("(0-o) Scanning for Pwnagotchi...");
+    Display::updateDisplay("(0-o)", "Scanning  for Pwnagotchi...");
+    delay(Config::shortDelay);
+    Serial.println(" ");
+    delay(Config::shortDelay);   
+  }
+    // delay for scanning
+  delay(Config::longDelay);
 
   // check if the pwnagotchiCallback wasn't triggered during scanning
   if (!pwnagotchiDetected) {
