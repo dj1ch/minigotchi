@@ -96,6 +96,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
     char addr[] = "00:00:00:00:00:00";
     getMAC(addr, snifferPacket->payload, 10);
     String src = addr;
+    // Serial.println("'" + src + "'");
 
     // check if the source MAC matches the target
     if (src == "de:ad:be:ef:de:ad") {
