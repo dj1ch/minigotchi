@@ -81,13 +81,6 @@ const uint8_t Frame::header[]{
 // get header length
 const int Frame::pwngridHeaderLength = sizeof(Frame::header);
 
-// remove frame when done to allow rebuilding
-Frame::~Frame() {
-  if (Frame::beaconFrame != nullptr) {
-    delete[] Frame::beaconFrame;
-  }
-}
-
 /** developer note:
  *
  * frame structure based on how it was built here
