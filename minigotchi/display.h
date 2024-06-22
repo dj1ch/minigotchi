@@ -35,12 +35,12 @@
 
 class Display {
 public:
-  static void startScreen();
-  static void updateDisplay(String face);
-  static void updateDisplay(String face, String text);
+    static void startScreen();
+    static void updateDisplay(String face);
+    static void updateDisplay(String face, String text);
 
 private:
-  static void printU8G2Data(int x, int y, const char *data);
+    static void printU8G2Data(int x, int y, const char *data);
 };
 
 #endif // DISPLAY_H
