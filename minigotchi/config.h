@@ -25,6 +25,7 @@ public:
   static int channel;
   static std::vector<std::string> whitelist;
   static int epoch;
+  static std::string grid_version;
   static std::string face;
   static std::string identity;
   static std::string name;
@@ -46,6 +47,7 @@ public:
   static int pwnd_run;
   static int pwnd_tot;
   static std::string session_id;
+  static int timestamp;
   static int uptime;
   static std::string version;
 
