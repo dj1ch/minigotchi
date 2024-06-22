@@ -23,7 +23,7 @@ const size_t Frame::chunkSize = 0xFF;
 bool Frame::sent = false;
 
 // beacon stuff
-uint8_t Frame::beaconFrame[2048];
+uint8_t* Frame::beaconFrame = nullptr;
 size_t Frame::essidLength = 0;
 uint8_t Frame::headerLength = 0;
 
@@ -99,7 +99,7 @@ const int Frame::pwngridHeaderLength = sizeof(Frame::header);
  * 
  */
 
-void Frame::pack() {
+uint8_t* Frame::pack() {
   // make a json doc
   String jsonString = "";
   DynamicJsonDocument doc(2048);
@@ -144,9 +144,9 @@ void Frame::pack() {
   serializeJson(doc, jsonString);
   Frame::essidLength = measureJson(doc);
   Frame::headerLength = 2 + ((uint8_t)(essidLength / 255) * 2);
-
-  size_t newLength = Frame::pwngridHeaderLength + Frame::essidLength + Frame::headerLength;
-  memcpy(Frame::beaconFrame, Frame::header, Frame::pwngridHeaderLength);
+  Frame::beaconFrame = new uint8_t[Frame::pwngridHeaderLength +
+                                   Frame::essidLength + Frame::headerLength];
+  memcpy(Frame::beaconFrame, Frame::header, Frame::essidLength);
 
   /** developer note:
    *
@@ -175,6 +175,7 @@ void Frame::pack() {
     Frame::beaconFrame[currentByte++] = nextByte;
   }
 
+  return Frame::beaconFrame;
   /* Uncomment if you want to test beacon frames
 
   Serial.println("('-') Full Beacon Frame:");
@@ -189,14 +190,13 @@ void Frame::pack() {
 
 bool Frame::send() {
   // build frame
-  Frame::pack();
-  size_t totalLength = Frame::pwngridHeaderLength + Frame::essidLength + Frame::headerLength;
+  uint8_t *frame = Frame::pack();
 
   // send full frame
   // we dont use raw80211 since it sends a header(which we don't need), although
   // we do use it for monitoring, etc.
   Frame::sent =
-      wifi_send_pkt_freedom(Frame::beaconFrame, totalLength, 0);
+      wifi_send_pkt_freedom(frame, sizeof(frame), 0);
   delay(102);
   return (Frame::sent == 0);
 }
