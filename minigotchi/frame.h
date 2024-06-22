@@ -20,7 +20,7 @@ class Frame {
 public:
   ~Frame();
 
-  static uint8_t* pack();
+  static void pack();
   static bool send();
   static void advertise();
   static const uint8_t header[];
@@ -33,7 +33,7 @@ public:
   static const uint8_t BroadcastAddr[];
   static const uint16_t wpaFlags;
 
-  static uint8_t* beaconFrame;
+  static uint8_t beaconFrame[2048];
   static const int pwngridHeaderLength;
   static size_t essidLength;
   static uint8_t headerLength;
