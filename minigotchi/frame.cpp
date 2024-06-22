@@ -92,11 +92,11 @@ const int Frame::pwngridHeaderLength = sizeof(Frame::header);
  */
 
 /** developer note:
- * 
+ *
  * referenced the following for packing-related function:
- * 
+ *
  * https://github.com/evilsocket/pwngrid/blob/master/wifi/pack.go
- * 
+ *
  */
 
 void Frame::pack() {
@@ -145,7 +145,8 @@ void Frame::pack() {
   Frame::essidLength = measureJson(doc);
   Frame::headerLength = 2 + ((uint8_t)(essidLength / 255) * 2);
 
-  size_t newLength = Frame::pwngridHeaderLength + Frame::essidLength + Frame::headerLength;
+  size_t newLength =
+      Frame::pwngridHeaderLength + Frame::essidLength + Frame::headerLength;
   memcpy(Frame::beaconFrame, Frame::header, Frame::pwngridHeaderLength);
 
   /** developer note:
@@ -190,13 +191,13 @@ void Frame::pack() {
 bool Frame::send() {
   // build frame
   Frame::pack();
-  size_t totalLength = Frame::pwngridHeaderLength + Frame::essidLength + Frame::headerLength;
+  size_t totalLength =
+      Frame::pwngridHeaderLength + Frame::essidLength + Frame::headerLength;
 
   // send full frame
   // we dont use raw80211 since it sends a header(which we don't need), although
   // we do use it for monitoring, etc.
-  Frame::sent =
-      wifi_send_pkt_freedom(Frame::beaconFrame, totalLength, 0);
+  Frame::sent = wifi_send_pkt_freedom(Frame::beaconFrame, totalLength, 0);
   delay(102);
   return (Frame::sent == 0);
 }

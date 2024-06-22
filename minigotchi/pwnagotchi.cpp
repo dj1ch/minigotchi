@@ -52,9 +52,9 @@ void Pwnagotchi::detect() {
     Display::updateDisplay("(0-o)", "Scanning  for Pwnagotchi...");
     delay(Config::shortDelay);
     Serial.println(" ");
-    delay(Config::shortDelay);   
+    delay(Config::shortDelay);
   }
-    // delay for scanning
+  // delay for scanning
   delay(Config::longDelay);
 
   // check if the pwnagotchiCallback wasn't triggered during scanning
