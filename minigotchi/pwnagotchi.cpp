@@ -86,6 +86,16 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
                                     short unsigned int len) {
   wifi_promiscuous_pkt_t *snifferPacket = (wifi_promiscuous_pkt_t *)buf;
   WifiMgmtHdr *frameControl = (WifiMgmtHdr *)snifferPacket->payload;
+  
+  // see https://github.com/espressif/ESP8266_RTOS_SDK/issues/311
+  len = snifferPacket->rx_ctrl.sig_mode ? snifferPacket->rx_ctrl.HT_length : snifferPacket->rx_ctrl.legacy_length;
+
+  // other definitions
+  len -= 4;
+  int fctl = ntohs(frameControl->fctl);
+  const wifi_ieee80211_packet_t *ipkt =
+      (wifi_ieee80211_packet_t *)snifferPacket->payload;
+  const WifiMgmtHdr *hdr = &ipkt->hdr;
 
   // reset
   pwnagotchiDetected = false;
