@@ -8,6 +8,24 @@ Adafruit_SSD1306 *ssd1306_adafruit_display;
 Adafruit_SSD1305 *ssd1305_adafruit_display;
 U8G2_SSD1306_128X64_NONAME_F_SW_I2C *ssd1306_ideaspark_display;
 
+/**
+ * Deletes any pointers if used
+ */
+Display::~Display() {
+  if (ssd1306_adafruit_display) {
+    delete ssd1306_adafruit_display;
+  }
+  if (ssd1305_adafruit_display) {
+    delete ssd1305_adafruit_display;
+  }
+  if (ssd1306_ideaspark_display) {
+    delete ssd1306_ideaspark_display;
+  }
+}
+
+/**
+ * Function to initialize the screen ONLY.
+ */
 void Display::startScreen() {
   if (Config::display) {
     if (Config::screen == "SSD1306") {
@@ -85,8 +103,17 @@ void Display::startScreen() {
  *
  */
 
+/**
+ * Updates the face ONLY
+ * @param face Face to use
+ */
 void Display::updateDisplay(String face) { Display::updateDisplay(face, ""); }
 
+/**
+ * Updates the display with both face and text
+ * @param face Face to use
+ * @param text Additional text under the face
+ */
 void Display::updateDisplay(String face, String text) {
   if (Config::display) {
     if (ssd1306_adafruit_display != nullptr) {
@@ -147,6 +174,14 @@ void Display::updateDisplay(String face, String text) {
 // If using the U8G2 library, it does not handle wrapping if text is too long to
 // fit on the screen So will print text for screens using that library via this
 // method to handle line-breaking
+
+/**
+ * Handles U8G2 screen formatting.
+ * This will only be used if the UG82 related screens are used and applied within the config
+ * @param x X value to print data
+ * @param y Y value to print data
+ * @param data Text to print
+ */
 void Display::printU8G2Data(int x, int y, const char *data) {
   int numCharPerLine = ssd1306_ideaspark_display->getWidth() /
                        ssd1306_ideaspark_display->getMaxCharWidth();

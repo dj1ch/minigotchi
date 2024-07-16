@@ -72,6 +72,10 @@ const int Frame::pwngridHeaderLength = sizeof(Frame::header);
  *
  */
 
+/**
+ * Replicates pwngrid's pack() function from pack.go
+ * https://github.com/evilsocket/pwngrid/blob/master/wifi/pack.go
+ */
 uint8_t *Frame::pack() {
   // make a json doc
   String jsonString = "";
@@ -151,6 +155,9 @@ uint8_t *Frame::pack() {
   return beaconFrame;
 }
 
+/**
+ * Sends a pwnagotchi packet in AP mode
+ */
 bool Frame::send() {
   // build frame
   WiFi.mode(WIFI_AP);
@@ -168,6 +175,9 @@ bool Frame::send() {
   return (Frame::sent == 0);
 }
 
+/**
+ * Full usage of Pwnagotchi's advertisments on the Minigotchi.
+ */
 void Frame::advertise() {
   int packets = 0;
   unsigned long startTime = millis();

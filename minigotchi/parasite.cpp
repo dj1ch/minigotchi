@@ -1,3 +1,21 @@
+/*
+ * Minigotchi: An even smaller Pwnagotchi
+ * Copyright (C) 2024 dj1ch
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 /**
  * parasite.cpp: handles running parasite mode related tasks
  */
@@ -6,6 +24,9 @@
 
 int Parasite::channel = 0;
 
+/**
+ * Reads data from Parasite mode on the Minigotchi
+ */
 void Parasite::readData() {
   if (Config::parasite) {
     int curChan = Parasite::channel;
@@ -34,14 +55,21 @@ void Parasite::readData() {
   }
 }
 
+/**
+ * Shows current channel
+ * @param status Channel, either synced or unsynced
+ */
 void Parasite::sendChannelStatus(parasite_channel_status_type_t status) {
   if (Config::parasite) {
     char chnBuf[4];
     snprintf(chnBuf, sizeof(chnBuf), "%d", Parasite::channel);
-    Parasite::sendData("chn", (uint8)status, chnBuf);
+    Parasite::sendData("chn", static_cast<uint8_t>(status), chnBuf);
   }
 }
 
+/**
+ * Send the Minigotchi's name to serial
+ */
 void Parasite::sendName() {
   if (Config::parasite) {
     if (Config::name.length() > 25) {
@@ -57,16 +85,28 @@ void Parasite::sendName() {
   }
 }
 
+/**
+ * Send current status (Advertising)
+ */
 void Parasite::sendAdvertising() {
   if (Config::parasite) {
     Parasite::sendData("adv", 200, nullptr);
   }
 }
 
+/**
+ * Send current Pwnagotchi scanning status, in this case no friend
+ * @param status Current scanning status
+ */
 void Parasite::sendPwnagotchiStatus(parasite_pwnagotchi_scan_type_t status) {
   Parasite::sendPwnagotchiStatus(status, nullptr);
 }
 
+/**
+ * Send current Pwnagotchi scanning status
+ * @param status Current scanning status
+ * @param frd Found Pwnagotchi's name
+ */
 void Parasite::sendPwnagotchiStatus(parasite_pwnagotchi_scan_type_t status,
                                     const char *frd) {
   if (Config::parasite) {
@@ -75,17 +115,27 @@ void Parasite::sendPwnagotchiStatus(parasite_pwnagotchi_scan_type_t status,
       // Will truncate it to 22 characters + "..." if it exceeds 25 somehow
       char buf[26];
       Parasite::formatData(buf, frd, sizeof(buf));
-      Parasite::sendData("pwn", (uint8)status, buf);
+      Parasite::sendData("pwn", static_cast<uint8_t>(status), buf);
     } else {
-      Parasite::sendData("pwn", (uint8)status, frd);
+      Parasite::sendData("pwn", static_cast<uint8_t>(status), frd);
     }
   }
 }
 
+/**
+ * Sends current deauthing status, blank for the most part
+ * @param status Current deauthing status
+ */
 void Parasite::sendDeauthStatus(parasite_deauth_status_type_t status) {
   Parasite::sendDeauthStatus(status, nullptr, 0);
 }
 
+/**
+ * Sends deauth status
+ * @param status Current status
+ * @param target AP that is being deauthed
+ * @param channel Current channel
+ */
 void Parasite::sendDeauthStatus(parasite_deauth_status_type_t status,
                                 const char *target, int channel) {
   if (Config::parasite) {
@@ -107,14 +157,20 @@ void Parasite::sendDeauthStatus(parasite_deauth_status_type_t status,
       }
       doc["channel"] = chnBuf;
       serializeJson(doc, buf);
-      Parasite::sendData("atk", (uint8)status, buf);
+      Parasite::sendData("atk", static_cast<uint8_t>(status), buf);
     } else {
-      Parasite::sendData("atk", (uint8)status, nullptr);
+      Parasite::sendData("atk", static_cast<uint8_t>(status), nullptr);
     }
   }
 }
 
-void Parasite::sendData(const char *command, uint8 status, const char *data) {
+/**
+ * Algorithm to send serial data
+ * @param command Current command
+ * @param status Current status
+ * @param data Data to use
+ */
+void Parasite::sendData(const char *command, uint8_t status, const char *data) {
   JsonDocument doc;
   char nBuf[4];  // Up to 3 digits + null terminator
   char buf[129]; // Up to 128 characters + null terminator
@@ -132,6 +188,12 @@ void Parasite::sendData(const char *command, uint8 status, const char *data) {
   Serial.println(fullCmd);
 }
 
+/**
+ * Formats data to be sent over serial
+ * @param buf Buffer to use
+ * @param data Full data that's used
+ * @param bufSize The size of the buffer
+ */
 void Parasite::formatData(char *buf, const char *data, size_t bufSize) {
   buf[0] = '\0';
   strncat(buf, data, bufSize - 4);

