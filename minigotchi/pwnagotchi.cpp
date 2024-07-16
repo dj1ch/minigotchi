@@ -20,72 +20,104 @@
 // start off false
 bool Pwnagotchi::pwnagotchiDetected = false;
 
+/**
+ * Get's the mac based on source address
+ * @param addr Address to use
+ * @param buff Buffer to use
+ * @param offset Data offset
+ */
 void Pwnagotchi::getMAC(char *addr, const unsigned char *buff, int offset) {
   snprintf(addr, 18, "%02x:%02x:%02x:%02x:%02x:%02x", buff[offset],
            buff[offset + 1], buff[offset + 2], buff[offset + 3],
            buff[offset + 4], buff[offset + 5]);
 }
 
+/**
+ * Extract Mac Address using getMac()
+ * @param buff Buffer to use
+ */
 std::string Pwnagotchi::extractMAC(const unsigned char *buff) {
   char addr[] = "00:00:00:00:00:00";
   getMAC(addr, buff, 10);
   return std::string(addr);
 }
 
+/**
+ * Detect a Pwnagotchi
+ */
 void Pwnagotchi::detect() {
+  if (Config::scan) {
+    Parasite::sendPwnagotchiStatus(SCANNING);
 
-  Parasite::sendPwnagotchiStatus(SCANNING);
+    // set mode and callback
+    Minigotchi::monStart();
+    wifi_set_promiscuous_rx_cb(pwnagotchiCallback);
 
-  // set mode and callback
-  Minigotchi::monStart();
-  wifi_set_promiscuous_rx_cb(pwnagotchiCallback);
+    // cool animation, skip if parasite mode
+    for (int i = 0; i < 5; ++i) {
+      Serial.println("(0-o) Scanning for Pwnagotchi.");
+      Display::updateDisplay("(0-o)", "Scanning  for Pwnagotchi.");
+      delay(Config::shortDelay);
+      Serial.println("(o-0) Scanning for Pwnagotchi..");
+      Display::updateDisplay("(o-0)", "Scanning  for Pwnagotchi..");
+      delay(Config::shortDelay);
+      Serial.println("(0-o) Scanning for Pwnagotchi...");
+      Display::updateDisplay("(0-o)", "Scanning  for Pwnagotchi...");
+      delay(Config::shortDelay);
+      Serial.println(" ");
+      delay(Config::shortDelay);
+    }
+    // delay for scanning
+    delay(Config::longDelay);
 
-  // cool animation, skip if parasite mode
-  for (int i = 0; i < 5; ++i) {
-    Serial.println("(0-o) Scanning for Pwnagotchi.");
-    Display::updateDisplay("(0-o)", "Scanning  for Pwnagotchi.");
-    delay(Config::shortDelay);
-    Serial.println("(o-0) Scanning for Pwnagotchi..");
-    Display::updateDisplay("(o-0)", "Scanning  for Pwnagotchi..");
-    delay(Config::shortDelay);
-    Serial.println("(0-o) Scanning for Pwnagotchi...");
-    Display::updateDisplay("(0-o)", "Scanning  for Pwnagotchi...");
-    delay(Config::shortDelay);
-    Serial.println(" ");
-    delay(Config::shortDelay);
-  }
-  // delay for scanning
-  delay(Config::longDelay);
-
-  // check if the pwnagotchiCallback wasn't triggered during scanning
-  if (!pwnagotchiDetected) {
-    // only searches on your current channel and such afaik,
-    // so this only applies for the current searching area
-    Minigotchi::monStop();
-    Pwnagotchi::stopCallback();
-    Serial.println("(;-;) No Pwnagotchi found");
-    Display::updateDisplay("(;-;)", "No Pwnagotchi found.");
-    Serial.println(" ");
-    Parasite::sendPwnagotchiStatus(NO_FRIEND_FOUND);
-  } else if (pwnagotchiDetected) {
-    Minigotchi::monStop();
-    Pwnagotchi::stopCallback();
-  } else {
-    Minigotchi::monStop();
-    Pwnagotchi::stopCallback();
-    Serial.println("(X-X) How did this happen?");
-    Display::updateDisplay("(X-X)", "How did this happen?");
-    Parasite::sendPwnagotchiStatus(FRIEND_SCAN_ERROR);
+    // check if the pwnagotchiCallback wasn't triggered during scanning
+    if (!pwnagotchiDetected) {
+      // only searches on your current channel and such afaik,
+      // so this only applies for the current searching area
+      Minigotchi::monStop();
+      Pwnagotchi::stopCallback();
+      Serial.println("(;-;) No Pwnagotchi found");
+      Display::updateDisplay("(;-;)", "No Pwnagotchi found.");
+      Serial.println(" ");
+      Parasite::sendPwnagotchiStatus(NO_FRIEND_FOUND);
+    } else if (pwnagotchiDetected) {
+      Minigotchi::monStop();
+      Pwnagotchi::stopCallback();
+    } else {
+      Minigotchi::monStop();
+      Pwnagotchi::stopCallback();
+      Serial.println("(X-X) How did this happen?");
+      Display::updateDisplay("(X-X)", "How did this happen?");
+      Parasite::sendPwnagotchiStatus(FRIEND_SCAN_ERROR);
+    }
   }
 }
 
-// patch for crashes
+/**
+ * Stops Pwnagotchi scan
+ */
 void Pwnagotchi::stopCallback() { wifi_set_promiscuous_rx_cb(nullptr); }
 
+/**
+ * Pwnagotchi Scanning callback
+ * Source:
+ * https://github.com/justcallmekoko/ESP32Marauder/blob/master/esp32_marauder/WiFiScan.cpp#L2439
+ */
 void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
                                     short unsigned int len) {
   wifi_promiscuous_pkt_t *snifferPacket = (wifi_promiscuous_pkt_t *)buf;
   WifiMgmtHdr *frameControl = (WifiMgmtHdr *)snifferPacket->payload;
+
+  // see https://github.com/espressif/ESP8266_RTOS_SDK/issues/311
+  len = snifferPacket->rx_ctrl.sig_mode ? snifferPacket->rx_ctrl.HT_length
+                                        : snifferPacket->rx_ctrl.legacy_length;
+
+  // other definitions
+  len -= 4;
+  int fctl = ntohs(frameControl->fctl);
+  const wifi_ieee80211_packet_t *ipkt =
+      (wifi_ieee80211_packet_t *)snifferPacket->payload;
+  const WifiMgmtHdr *hdr = &ipkt->hdr;
 
   // reset
   pwnagotchiDetected = false;
@@ -158,6 +190,11 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
   }
 }
 
+/**
+ * Function to process and show Pwnagotchi's JSON
+ * to allow the Minigotchi to "fix" the JSON
+ * @param jsonBuffer JSON buffer to use
+ */
 void Pwnagotchi::processJson(DynamicJsonDocument &jsonBuffer) {
   Serial.println("(^-^) Successfully parsed json!");
   Serial.println(" ");
@@ -181,7 +218,9 @@ void Pwnagotchi::processJson(DynamicJsonDocument &jsonBuffer) {
   Serial.print("(^-^) Pwned Networks: ");
   Serial.println(pwndTot);
   Serial.print(" ");
-  Display::updateDisplay("(^-^)", "Pwnagotchi name: " + name + "\n" +
-                                      "Pwned Networks: " + pwndTot);
+  Display::updateDisplay("(^-^)", "Pwnagotchi name: " + (String)name);
+  delay(Config::shortDelay);
+  Display::updateDisplay("(^-^)", "Pwned Networks: " + (String)pwndTot);
+  delay(Config::shortDelay);
   Parasite::sendPwnagotchiStatus(FRIEND_FOUND, name.c_str());
 }

@@ -35,6 +35,7 @@
 
 class Display {
 public:
+  ~Display();
   static void startScreen();
   static void updateDisplay(String face);
   static void updateDisplay(String face, String text);
