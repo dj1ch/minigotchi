@@ -39,7 +39,7 @@ const uint8_t Frame::BroadcastAddr[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
 const uint16_t Frame::wpaFlags = 0x0411;
 
 // Don't even dare restyle!
-const uint8_t Frame::header[]{
+const uint8_t Frame::header[] {
     /*  0 - 1  */ 0x80, 0x00, // frame control, beacon frame
     /*  2 - 3  */ 0x00, 0x00, // duration
     /*  4 - 9  */ 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, // broadcast address
@@ -77,146 +77,146 @@ const int Frame::pwngridHeaderLength = sizeof(Frame::header);
  * https://github.com/evilsocket/pwngrid/blob/master/wifi/pack.go
  */
 uint8_t *Frame::pack() {
-  // make a json doc
-  String jsonString = "";
-  DynamicJsonDocument doc(2048);
+    // make a json doc
+    String jsonString = "";
+    DynamicJsonDocument doc(2048);
 
-  doc["epoch"] = Config::epoch;
-  doc["face"] = Config::face;
-  doc["identity"] = Config::identity;
-  doc["name"] = Config::name;
+    doc["epoch"] = Config::epoch;
+    doc["face"] = Config::face;
+    doc["identity"] = Config::identity;
+    doc["name"] = Config::name;
 
-  doc["policy"]["advertise"] = Config::advertise;
-  doc["policy"]["ap_ttl"] = Config::ap_ttl;
-  doc["policy"]["associate"] = Config::associate;
-  doc["policy"]["bored_num_epochs"] = Config::bored_num_epochs;
+    doc["policy"]["advertise"] = Config::advertise;
+    doc["policy"]["ap_ttl"] = Config::ap_ttl;
+    doc["policy"]["associate"] = Config::associate;
+    doc["policy"]["bored_num_epochs"] = Config::bored_num_epochs;
 
-  doc["policy"]["deauth"] = Config::deauth;
-  doc["policy"]["excited_num_epochs"] = Config::excited_num_epochs;
-  doc["policy"]["hop_recon_time"] = Config::hop_recon_time;
-  doc["policy"]["max_inactive_scale"] = Config::max_inactive_scale;
-  doc["policy"]["max_interactions"] = Config::max_interactions;
-  doc["policy"]["max_misses_for_recon"] = Config::max_misses_for_recon;
-  doc["policy"]["min_recon_time"] = Config::min_rssi;
-  doc["policy"]["min_rssi"] = Config::min_rssi;
-  doc["policy"]["recon_inactive_multiplier"] =
-      Config::recon_inactive_multiplier;
-  doc["policy"]["recon_time"] = Config::recon_time;
-  doc["policy"]["sad_num_epochs"] = Config::sad_num_epochs;
-  doc["policy"]["sta_ttl"] = Config::sta_ttl;
+    doc["policy"]["deauth"] = Config::deauth;
+    doc["policy"]["excited_num_epochs"] = Config::excited_num_epochs;
+    doc["policy"]["hop_recon_time"] = Config::hop_recon_time;
+    doc["policy"]["max_inactive_scale"] = Config::max_inactive_scale;
+    doc["policy"]["max_interactions"] = Config::max_interactions;
+    doc["policy"]["max_misses_for_recon"] = Config::max_misses_for_recon;
+    doc["policy"]["min_recon_time"] = Config::min_rssi;
+    doc["policy"]["min_rssi"] = Config::min_rssi;
+    doc["policy"]["recon_inactive_multiplier"] =
+        Config::recon_inactive_multiplier;
+    doc["policy"]["recon_time"] = Config::recon_time;
+    doc["policy"]["sad_num_epochs"] = Config::sad_num_epochs;
+    doc["policy"]["sta_ttl"] = Config::sta_ttl;
 
-  doc["pwnd_run"] = Config::pwnd_run;
-  doc["pwnd_tot"] = Config::pwnd_tot;
-  doc["session_id"] = Config::session_id;
-  doc["uptime"] = Config::uptime;
-  doc["version"] = Config::version;
+    doc["pwnd_run"] = Config::pwnd_run;
+    doc["pwnd_tot"] = Config::pwnd_tot;
+    doc["session_id"] = Config::session_id;
+    doc["uptime"] = Config::uptime;
+    doc["version"] = Config::version;
 
-  // serialize then put into beacon frame
-  serializeJson(doc, jsonString);
-  Frame::essidLength = measureJson(doc);
-  Frame::headerLength = 2 + ((uint8_t)(essidLength / 255) * 2);
+    // serialize then put into beacon frame
+    serializeJson(doc, jsonString);
+    Frame::essidLength = measureJson(doc);
+    Frame::headerLength = 2 + ((uint8_t)(essidLength / 255) * 2);
 
-  uint8_t *beaconFrame = new uint8_t[Frame::pwngridHeaderLength +
-                                     Frame::essidLength + Frame::headerLength];
-  memcpy(beaconFrame, Frame::header, Frame::pwngridHeaderLength);
+    uint8_t *beaconFrame = new uint8_t[Frame::pwngridHeaderLength +
+                                                                  Frame::essidLength + Frame::headerLength];
+    memcpy(beaconFrame, Frame::header, Frame::pwngridHeaderLength);
 
-  /** developer note:
-   *
-   * if you literally want to check the json everytime you send a packet(non
-   * serialized ofc)
-   *
-   * Serial.println(jsonString);
-   */
+    /** developer note:
+     *
+     * if you literally want to check the json everytime you send a packet(non
+     * serialized ofc)
+     *
+     * Serial.println(jsonString);
+     */
 
-  int frameByte = pwngridHeaderLength;
-  for (int i = 0; i < essidLength; i++) {
-    if (i == 0 || i % 255 == 0) {
-      beaconFrame[frameByte++] = Frame::IDWhisperPayload;
-      uint8_t newPayloadLength = 255;
-      if (essidLength - i < Frame::chunkSize) {
-        newPayloadLength = essidLength - i;
-      }
-      beaconFrame[frameByte++] = newPayloadLength;
+    int frameByte = pwngridHeaderLength;
+    for (int i = 0; i < essidLength; i++) {
+        if (i == 0 || i % 255 == 0) {
+            beaconFrame[frameByte++] = Frame::IDWhisperPayload;
+            uint8_t newPayloadLength = 255;
+            if (essidLength - i < Frame::chunkSize) {
+                newPayloadLength = essidLength - i;
+            }
+            beaconFrame[frameByte++] = newPayloadLength;
+        }
+        beaconFrame[frameByte++] = (uint8_t)jsonString[i];
     }
-    beaconFrame[frameByte++] = (uint8_t)jsonString[i];
-  }
 
-  /* Uncomment if you want to test beacon frames
+    /* Uncomment if you want to test beacon frames
 
-  Serial.println("('-') Full Beacon Frame:");
-  for (size_t i = 0; i < sizeof(beaconFrame); ++i) {
-    Serial.print(beaconFrame[i], HEX);
-    Serial.print(" ");
-  }
-  Serial.println(" ");
+    Serial.println("('-') Full Beacon Frame:");
+    for (size_t i = 0; i < sizeof(beaconFrame); ++i) {
+      Serial.print(beaconFrame[i], HEX);
+      Serial.print(" ");
+    }
+    Serial.println(" ");
 
-  */
+    */
 
-  return beaconFrame;
+    return beaconFrame;
 }
 
 /**
  * Sends a pwnagotchi packet in AP mode
  */
 bool Frame::send() {
-  // build frame
-  WiFi.mode(WIFI_AP);
-  uint8_t *frame = Frame::pack();
-  size_t frameSize = Frame::pwngridHeaderLength + Frame::essidLength +
-                     Frame::headerLength; // actually disgusting but it works
-  
-  // send full frame
-  // we dont use raw80211 since it sends a header(which we don't need), although
-  // we do use it for monitoring, etc.
-  Frame::sent = wifi_send_pkt_freedom(frame, frameSize, 0);
-  delay(102);
+    // build frame
+    WiFi.mode(WIFI_AP);
+    uint8_t *frame = Frame::pack();
+    size_t frameSize = Frame::pwngridHeaderLength + Frame::essidLength +
+                       Frame::headerLength; // actually disgusting but it works
 
-  delete[] frame;
-  return (Frame::sent == 0);
+    // send full frame
+    // we dont use raw80211 since it sends a header(which we don't need), although
+    // we do use it for monitoring, etc.
+    Frame::sent = wifi_send_pkt_freedom(frame, frameSize, 0);
+    delay(102);
+
+    delete[] frame;
+    return (Frame::sent == 0);
 }
 
 /**
  * Full usage of Pwnagotchi's advertisments on the Minigotchi.
  */
 void Frame::advertise() {
-  int packets = 0;
-  unsigned long startTime = millis();
+    int packets = 0;
+    unsigned long startTime = millis();
 
-  if (Config::advertise) {
-    Serial.println("(>-<) Starting advertisment...");
-    Serial.println(" ");
-    Display::updateDisplay("(>-<)", "Starting advertisment...");
-    Minigotchi::monStart();
-    Parasite::sendAdvertising();
-    delay(Config::shortDelay);
-    for (int i = 0; i < 150; ++i) {
-      if (Frame::send()) {
-        packets++;
+    if (Config::advertise) {
+        Serial.println("(>-<) Starting advertisment...");
+        Serial.println(" ");
+        Display::updateDisplay("(>-<)", "Starting advertisment...");
+        Minigotchi::monStart();
+        Parasite::sendAdvertising();
+        delay(Config::shortDelay);
+        for (int i = 0; i < 150; ++i) {
+            if (Frame::send()) {
+                packets++;
 
-        // calculate packets per second
-        float pps = packets / (float)(millis() - startTime) * 1000;
+                // calculate packets per second
+                float pps = packets / (float)(millis() - startTime) * 1000;
 
-        // show pps
-        if (!isinf(pps)) {
-          Serial.print("(>-<) Packets per second: ");
-          Serial.print(pps);
-          Serial.print(" pkt/s (Channel: ");
-          Serial.print(Channel::getChannel());
-          Serial.println(")");
-          Display::updateDisplay(
-              "(>-<)", "Packets per second: " + (String)pps + " pkt/s" +
-                           "(Channel: " + (String)Channel::getChannel() + ")");
+                // show pps
+                if (!isinf(pps)) {
+                    Serial.print("(>-<) Packets per second: ");
+                    Serial.print(pps);
+                    Serial.print(" pkt/s (Channel: ");
+                    Serial.print(Channel::getChannel());
+                    Serial.println(")");
+                    Display::updateDisplay(
+                        "(>-<)", "Packets per second: " + (String)pps + " pkt/s" +
+                        "(Channel: " + (String)Channel::getChannel() + ")");
+                }
+            } else {
+                Serial.println("(X-X) Advertisment failed to send!");
+            }
         }
-      } else {
-        Serial.println("(X-X) Advertisment failed to send!");
-      }
-    }
 
-    Serial.println(" ");
-    Serial.println("(^-^) Advertisment finished!");
-    Serial.println(" ");
-    Display::updateDisplay("(^-^)", "Advertisment finished!");
-  } else {
-    // do nothing but still idle
-  }
+        Serial.println(" ");
+        Serial.println("(^-^) Advertisment finished!");
+        Serial.println(" ");
+        Display::updateDisplay("(^-^)", "Advertisment finished!");
+    } else {
+        // do nothing but still idle
+    }
 }
