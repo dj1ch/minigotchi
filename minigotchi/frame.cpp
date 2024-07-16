@@ -40,15 +40,42 @@ const uint16_t Frame::wpaFlags = 0x0411;
 
 // Don't even dare restyle!
 const uint8_t Frame::header[]{
-    /*  0 - 1  */ 0x80, 0x00, // frame control, beacon frame
-    /*  2 - 3  */ 0x00, 0x00, // duration
-    /*  4 - 9  */ 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, // broadcast address
-    /* 10 - 15 */ 0xde, 0xad, 0xbe, 0xef, 0xde, 0xad, // source address
-    /* 16 - 21 */ 0xde, 0xad, 0xbe, 0xef, 0xde, 0xad, // bssid
-    /* 22 - 23 */ 0x00, 0x00, // fragment and sequence number
-    /* 24 - 32 */ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // timestamp
-    /* 33 - 34 */ 0x64, 0x00, // interval
-    /* 35 - 36 */ 0x11, 0x04, // capability info
+    /*  0 - 1  */ 0x80,
+    0x00, // frame control, beacon frame
+    /*  2 - 3  */ 0x00,
+    0x00, // duration
+    /*  4 - 9  */ 0xff,
+    0xff,
+    0xff,
+    0xff,
+    0xff,
+    0xff, // broadcast address
+    /* 10 - 15 */ 0xde,
+    0xad,
+    0xbe,
+    0xef,
+    0xde,
+    0xad, // source address
+    /* 16 - 21 */ 0xde,
+    0xad,
+    0xbe,
+    0xef,
+    0xde,
+    0xad, // bssid
+    /* 22 - 23 */ 0x00,
+    0x00, // fragment and sequence number
+    /* 24 - 32 */ 0x00,
+    0x00,
+    0x00,
+    0x00,
+    0x00,
+    0x00,
+    0x00,
+    0x00, // timestamp
+    /* 33 - 34 */ 0x64,
+    0x00, // interval
+    /* 35 - 36 */ 0x11,
+    0x04, // capability info
 };
 
 // get header length
@@ -164,7 +191,7 @@ bool Frame::send() {
   uint8_t *frame = Frame::pack();
   size_t frameSize = Frame::pwngridHeaderLength + Frame::essidLength +
                      Frame::headerLength; // actually disgusting but it works
-  
+
   // send full frame
   // we dont use raw80211 since it sends a header(which we don't need), although
   // we do use it for monitoring, etc.

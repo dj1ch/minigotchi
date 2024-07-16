@@ -100,15 +100,17 @@ void Pwnagotchi::stopCallback() { wifi_set_promiscuous_rx_cb(nullptr); }
 
 /**
  * Pwnagotchi Scanning callback
- * Source: https://github.com/justcallmekoko/ESP32Marauder/blob/master/esp32_marauder/WiFiScan.cpp#L2439
+ * Source:
+ * https://github.com/justcallmekoko/ESP32Marauder/blob/master/esp32_marauder/WiFiScan.cpp#L2439
  */
 void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
                                     short unsigned int len) {
   wifi_promiscuous_pkt_t *snifferPacket = (wifi_promiscuous_pkt_t *)buf;
   WifiMgmtHdr *frameControl = (WifiMgmtHdr *)snifferPacket->payload;
-  
+
   // see https://github.com/espressif/ESP8266_RTOS_SDK/issues/311
-  len = snifferPacket->rx_ctrl.sig_mode ? snifferPacket->rx_ctrl.HT_length : snifferPacket->rx_ctrl.legacy_length;
+  len = snifferPacket->rx_ctrl.sig_mode ? snifferPacket->rx_ctrl.HT_length
+                                        : snifferPacket->rx_ctrl.legacy_length;
 
   // other definitions
   len -= 4;
