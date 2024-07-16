@@ -8,7 +8,7 @@
 
 ## An even smaller Pwnagotchi.
 
-<img src="images/Desktop Screenshot 2024.04.07 - 15.29.59.03.png"></img>
+<img src="images/IMG_1198.jpeg"></img>
 
 ### Intro
 
@@ -36,6 +36,7 @@ Note that the *C++* in Arduino is slightly modified from what I have heard. See 
 - D1 Mini ESP8266 V4(or any other supported hardware in the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Hardware))
 - A reliable and appropriate power source and supply for the hardware
 - Patience (a lot of it)
+- The ability to read
 
 ### How it operates/works
 
