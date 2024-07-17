@@ -1,3 +1,4 @@
+#include "WString.h"
 /**
  * pwnagotchi.cpp: sniffs for pwnagotchi beacon frames
  * source: https://github.com/justcallmekoko/ESP32Marauder
@@ -114,6 +115,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
 
   // other definitions
   len -= 4;
+  Serial.println("Len: " + len);
   int fctl = ntohs(frameControl->fctl);
   const wifi_ieee80211_packet_t *ipkt =
       (wifi_ieee80211_packet_t *)snifferPacket->payload;
@@ -136,13 +138,11 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
       Serial.println(" ");
       Display::updateDisplay("(^-^)", "Pwnagotchi detected!");
 
-      // extract the ESSID from the beacon frame
-      String essid;
-
-      // "borrowed" from ESP32 Marauder
+      // you don't wanna know how much pain std::string has put me through
+      String essid = "";
       for (int i = 38; i < len; i++) {
         if (isAscii(snifferPacket->payload[i])) {
-          essid.concat((char)snifferPacket->payload[i]);
+          essid = essid.concat((char)snifferPacket->payload[i]); // yeah thanks a lot arduinoJson you're very helpful.
         }
       }
 
@@ -168,8 +168,28 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
           Serial.println("(^-^) Cleaning ESSID...");
           Serial.println(" ");
           Display::updateDisplay("(^-^)", "Cleaning ESSID...");
-          String newEssid = "{" + essid + "}";
-          error = deserializeJson(jsonBuffer, newEssid);
+          size_t idx = essid.indexOf("\"identity");
+          if (idx != -1) {
+            essid = essid.substring(0, idx + 9) + "\":\"0\"}";
+            error = deserializeJson(jsonBuffer, essid);
+          } else {
+            essid = "{" + essid + "}";
+            error = deserializeJson(jsonBuffer, essid);
+          }
+
+          if (error == DeserializationError::IncompleteInput) {
+            if (idx != -1) {
+              Serial.println("(^-^) Trying again...");
+              Serial.println(" ");
+              Display::updateDisplay("(^-^)", "Trying again...");
+              essid += "\"}";
+              error = deserializeJson(jsonBuffer, essid);
+            } else {
+              Serial.println("(^-^) Can't do it...");
+              Serial.println(" ");
+              Display::updateDisplay("(^-^)", "Can't do it...");
+            }
+          }
         }
 
         // check after fixing
@@ -202,7 +222,9 @@ void Pwnagotchi::processJson(DynamicJsonDocument &jsonBuffer) {
 
   // find out some stats
   String name = jsonBuffer["name"].as<String>();
+  delay(Config::shortDelay);
   String pwndTot = jsonBuffer["pwnd_tot"].as<String>();
+  delay(Config::shortDelay);
 
   if (name == "null") {
     name = "N/A";
@@ -224,3 +246,4 @@ void Pwnagotchi::processJson(DynamicJsonDocument &jsonBuffer) {
   delay(Config::shortDelay);
   Parasite::sendPwnagotchiStatus(FRIEND_FOUND, name.c_str());
 }
+

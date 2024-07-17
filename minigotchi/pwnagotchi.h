@@ -13,6 +13,7 @@
 #include <ESP8266WiFi.h>
 #include <stdint.h>
 #include <string>
+#include <WString.h>
 
 extern "C" {
 #include "structs.h"
