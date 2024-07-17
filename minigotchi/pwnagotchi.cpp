@@ -37,10 +37,10 @@ void Pwnagotchi::getMAC(char *addr, const unsigned char *buff, int offset) {
  * Extract Mac Address using getMac()
  * @param buff Buffer to use
  */
-std::string Pwnagotchi::extractMAC(const unsigned char *buff) {
+String Pwnagotchi::extractMAC(const unsigned char *buff) {
   char addr[] = "00:00:00:00:00:00";
   getMAC(addr, buff, 10);
-  return std::string(addr);
+  return String(addr);
 }
 
 /**
@@ -115,7 +115,8 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
 
   // other definitions
   len -= 4;
-  Serial.println("Len: " + len);
+  // i hate you printf
+  // Serial.printf("Len: %hu\n", len);
   int fctl = ntohs(frameControl->fctl);
   const wifi_ieee80211_packet_t *ipkt =
       (wifi_ieee80211_packet_t *)snifferPacket->payload;
@@ -142,7 +143,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
       String essid = "";
       for (int i = 38; i < len; i++) {
         if (isAscii(snifferPacket->payload[i])) {
-          essid = essid.concat((char)snifferPacket->payload[i]); // yeah thanks a lot arduinoJson you're very helpful.
+          essid.concat((char)snifferPacket->payload[i]); // yeah thanks a lot arduinoJson you're very helpful.
         }
       }
 
@@ -162,6 +163,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
       DeserializationError error = deserializeJson(jsonBuffer, essid);
 
       // check if json parsing is successful
+      String newEssid = "";
       if (error) {
         // fix the json if incomplete
         if (error == DeserializationError::IncompleteInput) {
@@ -169,27 +171,77 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
           Serial.println(" ");
           Display::updateDisplay("(^-^)", "Cleaning ESSID...");
           size_t idx = essid.indexOf("\"identity");
+          size_t otherIdx = essid.indexOf("\"identity\"");
+          size_t anotherIdx = essid.indexOf("\"identity\":");
+          size_t lastIdx = essid.indexOf("\"identity\":\"");
+
+          /**
+           * Stupidest algorithm ever, I wish AI would do this for me
+           */
+          
+          // add finishing quotation mark, fake identity, and curly brace
           if (idx != -1) {
-            essid = essid.substring(0, idx + 9) + "\":\"0\"}";
-            error = deserializeJson(jsonBuffer, essid);
-          } else {
-            essid = "{" + essid + "}";
-            error = deserializeJson(jsonBuffer, essid);
+            newEssid = essid + "\":\"0\"}";
+            Serial.println("(^-^) Cleaned ESSID Retry 1: " + newEssid);
+            Serial.println(" ");
+            Display::updateDisplay("(^-^)", "Cleaned ESSID Retry 1: " + newEssid);
+            error = deserializeJson(jsonBuffer, newEssid);
+            newEssid = "";
+          } 
+
+          // add colon, fake identity, and curly brace
+          if (otherIdx != -1) {
+            newEssid = essid + ":\"0\"}";
+            Serial.println("(^-^) Cleaned ESSID Retry 2: " + newEssid);
+            Serial.println(" ");
+            Display::updateDisplay("(^-^)", "Cleaned ESSID Retry 2: " + newEssid);
+            error = deserializeJson(jsonBuffer, newEssid);
+            newEssid = "";
+          } 
+
+          // add fake identity plus curly brace
+          if (anotherIdx != -1) {
+            newEssid = essid + "\"0\"}";
+            Serial.println("(^-^) Cleaned ESSID Retry 3: " + newEssid);
+            Serial.println(" ");
+            Display::updateDisplay("(^-^)", "Cleaned ESSID Retry 3: " + newEssid);
+            error = deserializeJson(jsonBuffer, newEssid);
+            newEssid = "";
+          } 
+
+          // add quotation and curly brace
+          if (lastIdx != -1) {
+            newEssid = essid + "\"}";
+            Serial.println("(^-^) Cleaned ESSID Retry 4: " + newEssid);
+            Serial.println(" ");
+            Display::updateDisplay("(^-^)", "Cleaned ESSID Retry 4: " + newEssid);
+            error = deserializeJson(jsonBuffer, newEssid);
+            newEssid = "";
           }
 
-          if (error == DeserializationError::IncompleteInput) {
-            if (idx != -1) {
-              Serial.println("(^-^) Trying again...");
+          // essid isn't correct for some dumb reason
+          if (((idx == -1) && (otherIdx == -1) && (anotherIdx == -1) && (lastIdx == -1))) {
+            newEssid = "{" + essid + "}";
+            Serial.println("(^-^) Cleaned ESSID Retry 5: " + newEssid);
+            Serial.println(" ");
+            Display::updateDisplay("(^-^)", "Cleaned ESSID Retry 5: " + newEssid);
+            error = deserializeJson(jsonBuffer, newEssid);
+            newEssid = "";
+
+            // try again?
+            if (error == DeserializationError::IncompleteInput) {
+              newEssid = essid + "}";
+              Serial.println("(^-^) Cleaned ESSID Retry 6: " + newEssid);
               Serial.println(" ");
-              Display::updateDisplay("(^-^)", "Trying again...");
-              essid += "\"}";
-              error = deserializeJson(jsonBuffer, essid);
-            } else {
-              Serial.println("(^-^) Can't do it...");
-              Serial.println(" ");
-              Display::updateDisplay("(^-^)", "Can't do it...");
+              Display::updateDisplay("(^-^)", "Cleaned ESSID Retry 6: " + newEssid);
+              error = deserializeJson(jsonBuffer, newEssid);
+              newEssid = "";
             }
-          }
+          } 
+        } else {
+          Serial.println("(^-^) Can't do it...");
+          Serial.println(" ");
+          Display::updateDisplay("(^-^)", "Can't do it...");
         }
 
         // check after fixing
