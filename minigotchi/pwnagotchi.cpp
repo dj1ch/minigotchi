@@ -103,6 +103,8 @@ void Pwnagotchi::stopCallback() { wifi_set_promiscuous_rx_cb(nullptr); }
  * Pwnagotchi Scanning callback
  * Source:
  * https://github.com/justcallmekoko/ESP32Marauder/blob/master/esp32_marauder/WiFiScan.cpp#L2439
+ * @param buf Packet recieved to use as a buffer
+ * @param len Length of the buffer
  */
 void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
                                     short unsigned int len) {
@@ -141,11 +143,17 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
 
       // you don't wanna know how much pain std::string has put me through
       String essid = "";
+      String raw = "";
       for (int i = 38; i < len; i++) {
         if (isAscii(snifferPacket->payload[i])) {
-          essid.concat((char)snifferPacket->payload[i]); // yeah thanks a lot arduinoJson you're very helpful.
+          raw.concat((char)snifferPacket->payload[i]); // yeah thanks a lot arduinoJson you're very helpful.
         }
       }
+
+      // truncate at the second starting curly brace
+      int firstIdx = raw.indexOf("{");
+      int secondIdx = raw.indexOf("{", firstIdx + 1);
+      essid = (secondIdx != -1) ? raw.substring(0, secondIdx) : raw;
 
       // network related info
       Serial.print("(^-^) RSSI: ");
@@ -187,40 +195,28 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
             Display::updateDisplay("(^-^)", "Cleaned ESSID Retry 1: " + newEssid);
             error = deserializeJson(jsonBuffer, newEssid);
             newEssid = "";
-          } 
-
-          // add colon, fake identity, and curly brace
-          if (otherIdx != -1) {
+          } else if (otherIdx != -1) { // add colon, fake identity, and curly brace
             newEssid = essid + ":\"0\"}";
             Serial.println("(^-^) Cleaned ESSID Retry 2: " + newEssid);
             Serial.println(" ");
             Display::updateDisplay("(^-^)", "Cleaned ESSID Retry 2: " + newEssid);
             error = deserializeJson(jsonBuffer, newEssid);
             newEssid = "";
-          } 
-
-          // add fake identity plus curly brace
-          if (anotherIdx != -1) {
+          } else if (anotherIdx != -1) { // add fake identity plus curly brace
             newEssid = essid + "\"0\"}";
             Serial.println("(^-^) Cleaned ESSID Retry 3: " + newEssid);
             Serial.println(" ");
             Display::updateDisplay("(^-^)", "Cleaned ESSID Retry 3: " + newEssid);
             error = deserializeJson(jsonBuffer, newEssid);
             newEssid = "";
-          } 
-
-          // add quotation and curly brace
-          if (lastIdx != -1) {
+          } else if (lastIdx != -1) { // add quotation and curly brace
             newEssid = essid + "\"}";
             Serial.println("(^-^) Cleaned ESSID Retry 4: " + newEssid);
             Serial.println(" ");
             Display::updateDisplay("(^-^)", "Cleaned ESSID Retry 4: " + newEssid);
             error = deserializeJson(jsonBuffer, newEssid);
             newEssid = "";
-          }
-
-          // essid isn't correct for some dumb reason
-          if (((idx == -1) && (otherIdx == -1) && (anotherIdx == -1) && (lastIdx == -1))) {
+          } else if (((idx == -1) && (otherIdx == -1) && (anotherIdx == -1) && (lastIdx == -1))) { // essid isn't correct for some dumb reason
             newEssid = "{" + essid + "}";
             Serial.println("(^-^) Cleaned ESSID Retry 5: " + newEssid);
             Serial.println(" ");
@@ -237,7 +233,14 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
               error = deserializeJson(jsonBuffer, newEssid);
               newEssid = "";
             }
-          } 
+          } else {
+            newEssid = "{" + essid + "}";
+            Serial.println("(^-^) Final Cleaned ESSID Retry: " + newEssid);
+            Serial.println(" ");
+            Display::updateDisplay("(^-^)", "Final Cleaned ESSID Retry: " + newEssid);
+            error = deserializeJson(jsonBuffer, newEssid);
+            newEssid = "";
+          }
         } else {
           Serial.println("(^-^) Can't do it...");
           Serial.println(" ");
