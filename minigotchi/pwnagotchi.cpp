@@ -21,10 +21,6 @@
 bool Pwnagotchi::pwnagotchiDetected = false;
 bool Pwnagotchi::parsed = false;
 
-// essid related stuff
-String Pwnagotchi::essid = "";
-String Pwnagotchi::raw = "";
-
 /**
  * Get's the mac based on source address
  * @param addr Address to use
@@ -149,9 +145,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
   // check if it is a beacon frame
   if (snifferPacket->payload[0] == 0x80) {
     // extract mac
-    char addr[] = "00:00:00:00:00:00";
-    getMAC(addr, snifferPacket->payload, 10);
-    String src = addr;
+    String src = extractMAC(snifferPacket->payload);
 
     // check if the source MAC matches the target
     if (src == "de:ad:be:ef:de:ad") {
@@ -160,9 +154,9 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
       Serial.println(" ");
       Display::updateDisplay("(^-^)", "Pwnagotchi detected!");
 
+      String raw;
+
       // you don't wanna know how much pain std::string has put me through
-      essid = "";
-      String raw = "";
       for (int i = 0; i < len - 37; i++) {
         if (isAscii(snifferPacket->payload[i + 38])) {
           raw.concat((char)snifferPacket->payload[i + 38]); // yeah thanks a lot arduinoJson you're very helpful.
@@ -170,7 +164,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
       }
 
       // truncate at the second starting curly brace
-      essid = findCopy(raw);
+      String essid = findCopy(raw);
 
       /* developer note: this should allow the findCopy() object to work normally...
 
@@ -186,7 +180,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
       Serial.print("(^-^) Channel: ");
       Serial.println(snifferPacket->rx_ctrl.channel);
       Serial.print("(^-^) BSSID: ");
-      Serial.println(addr);
+      Serial.println(src);
       Serial.print("(^-^) ESSID: ");
       Serial.println(essid);
       Serial.println(" ");
@@ -195,37 +189,21 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
       DynamicJsonDocument jsonBuffer(2048);
       DeserializationError error = deserializeJson(jsonBuffer, essid);
 
-      // check if json parsing is successful
       if (error == DeserializationError::IncompleteInput) {
         Serial.println("(^-^) Cleaning ESSID...");
         Serial.println(" ");
         Display::updateDisplay("(^-^)", "Cleaning ESSID...");
 
-        size_t idx = essid.indexOf("\"identity");
-        size_t otherIdx = essid.indexOf("\"identity\"");
-        size_t anotherIdx = essid.indexOf("\"identity\":");
-        size_t lastIdx = essid.indexOf("\"identity\":\"");
-
         // peak cpp gameplay
-        String fixes[6] = {
-          essid + "\":\"0\"}",
-          essid + ":\"0\"}",
-          essid + "\"0\"}",
-          essid + "\"}",
-          "{" + essid + "}",
-          essid + "}"
-        };
+        essid.concat("\"}");
+        error = deserializeJson(jsonBuffer, essid);
 
-        for (int i = 0; i < 6; i++) {
-          error = deserializeJson(jsonBuffer, fixes[i]);
-          if (!error) {
-            Serial.println("(^-^) Successfully cleaned ESSID: " + fixes[i]);
-            Display::updateDisplay("(^-^)", "Successfully cleaned ESSID: " + fixes[i]);
-            essid = fixes[i];
-            processJson(jsonBuffer);
-            parsed = true;
-            break;
-          }
+        if (!error) {
+          Serial.println("(^-^) Successfully cleaned ESSID: " + essid);
+          Display::updateDisplay("(^-^)", "Successfully cleaned ESSID: " + essid);
+          essid = "";
+          processJson(jsonBuffer);
+          parsed = true;
         }
 
         if (!parsed) {
@@ -235,6 +213,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
           Display::updateDisplay("(X-X)", "Could not parse Pwnagotchi json: " +
                                               String(error.c_str()));
           Serial.println(" ");
+          essid = "";
         }
       } else {
         processJson(jsonBuffer);
@@ -255,9 +234,7 @@ void Pwnagotchi::processJson(DynamicJsonDocument &jsonBuffer) {
 
   // find out some stats
   String name = jsonBuffer["name"].as<String>();
-  delay(Config::shortDelay);
   String pwndTot = jsonBuffer["pwnd_tot"].as<String>();
-  delay(Config::shortDelay);
 
   if (name == "null") {
     name = "N/A";
@@ -274,8 +251,6 @@ void Pwnagotchi::processJson(DynamicJsonDocument &jsonBuffer) {
   Serial.println(pwndTot);
   Serial.print(" ");
   Display::updateDisplay("(^-^)", "Pwnagotchi name: " + (String)name);
-  delay(Config::shortDelay);
   Display::updateDisplay("(^-^)", "Pwned Networks: " + (String)pwndTot);
-  delay(Config::shortDelay);
   Parasite::sendPwnagotchiStatus(FRIEND_FOUND, name.c_str());
 }

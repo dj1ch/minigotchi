@@ -30,8 +30,6 @@ private:
   static String findCopy(const String& buf);
   static String extractMAC(const unsigned char *buff);
   static void getMAC(char *addr, const unsigned char *buff, int offset);
-  static String essid;
-  static String raw;
   static bool parsed;
   static bool pwnagotchiDetected;
 };
