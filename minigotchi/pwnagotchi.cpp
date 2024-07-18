@@ -1,4 +1,3 @@
-#include "WString.h"
 /**
  * pwnagotchi.cpp: sniffs for pwnagotchi beacon frames
  * source: https://github.com/justcallmekoko/ESP32Marauder
@@ -20,6 +19,11 @@
 
 // start off false
 bool Pwnagotchi::pwnagotchiDetected = false;
+bool Pwnagotchi::parsed = false;
+
+// essid related stuff
+String Pwnagotchi::essid = "";
+String Pwnagotchi::raw = "";
 
 /**
  * Get's the mac based on source address
@@ -44,6 +48,19 @@ String Pwnagotchi::extractMAC(const unsigned char *buff) {
 }
 
 /**
+ * Finds copy of a character in a string
+ * and deletes everything up until that point
+ * @param buf String to use
+ */
+String Pwnagotchi::findCopy(const String& buf) {
+  int firstPos = 0;
+  int secondPos = buf.indexOf('{', 1);
+
+  return buf.substring(0, secondPos);
+}
+
+
+/**
  * Detect a Pwnagotchi
  */
 void Pwnagotchi::detect() {
@@ -52,6 +69,7 @@ void Pwnagotchi::detect() {
 
     // set mode and callback
     Minigotchi::monStart();
+
     wifi_set_promiscuous_rx_cb(pwnagotchiCallback);
 
     // cool animation, skip if parasite mode
@@ -126,6 +144,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
 
   // reset
   pwnagotchiDetected = false;
+  parsed = false;
 
   // check if it is a beacon frame
   if (snifferPacket->payload[0] == 0x80) {
@@ -142,18 +161,24 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
       Display::updateDisplay("(^-^)", "Pwnagotchi detected!");
 
       // you don't wanna know how much pain std::string has put me through
-      String essid = "";
+      essid = "";
       String raw = "";
-      for (int i = 38; i < len; i++) {
-        if (isAscii(snifferPacket->payload[i])) {
-          raw.concat((char)snifferPacket->payload[i]); // yeah thanks a lot arduinoJson you're very helpful.
+      for (int i = 0; i < len - 37; i++) {
+        if (isAscii(snifferPacket->payload[i + 38])) {
+          raw.concat((char)snifferPacket->payload[i + 38]); // yeah thanks a lot arduinoJson you're very helpful.
         }
       }
 
       // truncate at the second starting curly brace
-      int firstIdx = raw.indexOf("{");
-      int secondIdx = raw.indexOf("{", firstIdx + 1);
-      essid = (secondIdx != -1) ? raw.substring(0, secondIdx) : raw;
+      essid = findCopy(raw);
+
+      /* developer note: this should allow the findCopy() object to work normally...
+
+      String test = "{wjdiopawjdB&{wdwywd9898";
+      test = findCopy(test);
+      Serial.println(test);
+
+      */
 
       // network related info
       Serial.print("(^-^) RSSI: ");
@@ -171,92 +196,45 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
       DeserializationError error = deserializeJson(jsonBuffer, essid);
 
       // check if json parsing is successful
-      String newEssid = "";
-      if (error) {
-        // fix the json if incomplete
-        if (error == DeserializationError::IncompleteInput) {
-          Serial.println("(^-^) Cleaning ESSID...");
-          Serial.println(" ");
-          Display::updateDisplay("(^-^)", "Cleaning ESSID...");
-          size_t idx = essid.indexOf("\"identity");
-          size_t otherIdx = essid.indexOf("\"identity\"");
-          size_t anotherIdx = essid.indexOf("\"identity\":");
-          size_t lastIdx = essid.indexOf("\"identity\":\"");
+      if (error == DeserializationError::IncompleteInput) {
+        Serial.println("(^-^) Cleaning ESSID...");
+        Serial.println(" ");
+        Display::updateDisplay("(^-^)", "Cleaning ESSID...");
 
-          /**
-           * Stupidest algorithm ever, I wish AI would do this for me
-           */
-          
-          // add finishing quotation mark, fake identity, and curly brace
-          if (idx != -1) {
-            newEssid = essid + "\":\"0\"}";
-            Serial.println("(^-^) Cleaned ESSID Retry 1: " + newEssid);
-            Serial.println(" ");
-            Display::updateDisplay("(^-^)", "Cleaned ESSID Retry 1: " + newEssid);
-            error = deserializeJson(jsonBuffer, newEssid);
-            newEssid = "";
-          } else if (otherIdx != -1) { // add colon, fake identity, and curly brace
-            newEssid = essid + ":\"0\"}";
-            Serial.println("(^-^) Cleaned ESSID Retry 2: " + newEssid);
-            Serial.println(" ");
-            Display::updateDisplay("(^-^)", "Cleaned ESSID Retry 2: " + newEssid);
-            error = deserializeJson(jsonBuffer, newEssid);
-            newEssid = "";
-          } else if (anotherIdx != -1) { // add fake identity plus curly brace
-            newEssid = essid + "\"0\"}";
-            Serial.println("(^-^) Cleaned ESSID Retry 3: " + newEssid);
-            Serial.println(" ");
-            Display::updateDisplay("(^-^)", "Cleaned ESSID Retry 3: " + newEssid);
-            error = deserializeJson(jsonBuffer, newEssid);
-            newEssid = "";
-          } else if (lastIdx != -1) { // add quotation and curly brace
-            newEssid = essid + "\"}";
-            Serial.println("(^-^) Cleaned ESSID Retry 4: " + newEssid);
-            Serial.println(" ");
-            Display::updateDisplay("(^-^)", "Cleaned ESSID Retry 4: " + newEssid);
-            error = deserializeJson(jsonBuffer, newEssid);
-            newEssid = "";
-          } else if (((idx == -1) && (otherIdx == -1) && (anotherIdx == -1) && (lastIdx == -1))) { // essid isn't correct for some dumb reason
-            newEssid = "{" + essid + "}";
-            Serial.println("(^-^) Cleaned ESSID Retry 5: " + newEssid);
-            Serial.println(" ");
-            Display::updateDisplay("(^-^)", "Cleaned ESSID Retry 5: " + newEssid);
-            error = deserializeJson(jsonBuffer, newEssid);
-            newEssid = "";
+        size_t idx = essid.indexOf("\"identity");
+        size_t otherIdx = essid.indexOf("\"identity\"");
+        size_t anotherIdx = essid.indexOf("\"identity\":");
+        size_t lastIdx = essid.indexOf("\"identity\":\"");
 
-            // try again?
-            if (error == DeserializationError::IncompleteInput) {
-              newEssid = essid + "}";
-              Serial.println("(^-^) Cleaned ESSID Retry 6: " + newEssid);
-              Serial.println(" ");
-              Display::updateDisplay("(^-^)", "Cleaned ESSID Retry 6: " + newEssid);
-              error = deserializeJson(jsonBuffer, newEssid);
-              newEssid = "";
-            }
-          } else {
-            newEssid = "{" + essid + "}";
-            Serial.println("(^-^) Final Cleaned ESSID Retry: " + newEssid);
-            Serial.println(" ");
-            Display::updateDisplay("(^-^)", "Final Cleaned ESSID Retry: " + newEssid);
-            error = deserializeJson(jsonBuffer, newEssid);
-            newEssid = "";
+        // peak cpp gameplay
+        String fixes[6] = {
+          essid + "\":\"0\"}",
+          essid + ":\"0\"}",
+          essid + "\"0\"}",
+          essid + "\"}",
+          "{" + essid + "}",
+          essid + "}"
+        };
+
+        for (int i = 0; i < 6; i++) {
+          error = deserializeJson(jsonBuffer, fixes[i]);
+          if (!error) {
+            Serial.println("(^-^) Successfully cleaned ESSID: " + fixes[i]);
+            Display::updateDisplay("(^-^)", "Successfully cleaned ESSID: " + fixes[i]);
+            essid = fixes[i];
+            processJson(jsonBuffer);
+            parsed = true;
+            break;
           }
-        } else {
-          Serial.println("(^-^) Can't do it...");
-          Serial.println(" ");
-          Display::updateDisplay("(^-^)", "Can't do it...");
         }
 
-        // check after fixing
-        if (error) {
+        if (!parsed) {
           Serial.println(F("(X-X) Could not parse Pwnagotchi json: "));
           Serial.print("(X-X) ");
           Serial.println(error.c_str());
           Display::updateDisplay("(X-X)", "Could not parse Pwnagotchi json: " +
-                                              (String)error.c_str());
+                                              String(error.c_str()));
           Serial.println(" ");
-        } else {
-          processJson(jsonBuffer);
         }
       } else {
         processJson(jsonBuffer);
@@ -301,4 +279,3 @@ void Pwnagotchi::processJson(DynamicJsonDocument &jsonBuffer) {
   delay(Config::shortDelay);
   Parasite::sendPwnagotchiStatus(FRIEND_FOUND, name.c_str());
 }
-
