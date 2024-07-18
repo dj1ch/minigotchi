@@ -14,7 +14,6 @@
 #include <U8g2lib.h>
 #include <Wire.h>
 
-// SSD1306 screen
 #define SSD1306_SCREEN_WIDTH 128
 #define SSD1306_SCREEN_HEIGHT 64
 
@@ -29,6 +28,13 @@
 
 #define IDEASPARK_SSD1306_SCL 14
 #define IDEASPARK_SSD1306_SDA 12
+
+#define SH1106_SCREEN_WIDTH 128
+#define SH1106_SCREEN_HEIGHT 64
+#define SH1106_OLED_RESET -1
+
+#define SH1106_SCL 0
+#define SH1106_SDA 2
 
 // Init screen info
 #define SSD1306_OLED_RESET -1
