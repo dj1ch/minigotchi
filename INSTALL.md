@@ -35,7 +35,7 @@ int Config::shortDelay = 500;
 int Config::longDelay = 5000;
 ```
 
-A `Config::shortDelay` is a shorter delay used in between doing tasks, though sometimes too many of them can be problematic. A `Config::longDelay` is a longer delay which isn't used as much but it often used before and/or after something major, to allow the user to read serial/screen output. I put down the recommended default values but you can also change them to whatever you like. 
+A `Config::shortDelay` is a shorter delay used in between doing tasks, though sometimes too many of them can be problematic. A `Config::longDelay` is a longer delay which isn't used as much but it often used before and/or after something major, to allow the user to read serial/screen output. I put down the recommended default values but you can also change them to whatever you like.
 
 - We can also enable parasite mode, which requires the [minigotchi plugin](https://github.com/matrix224/pwnagotchi_plugins/tree/main). This will allow our Minigotchi to communicate with a Pwnagotchi over serial connection to the Pwnagotchi.
 
