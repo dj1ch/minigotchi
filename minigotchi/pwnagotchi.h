@@ -11,6 +11,7 @@
 #include <Arduino.h>
 #include <ArduinoJson.h>
 #include <ESP8266WiFi.h>
+#include <WString.h>
 #include <stdint.h>
 #include <string>
 
@@ -26,9 +27,10 @@ public:
   static void stopCallback();
 
 private:
-  static std::string extractMAC(const unsigned char *buff);
+  static String findCopy(const String &buf);
+  static String extractMAC(const unsigned char *buff);
   static void getMAC(char *addr, const unsigned char *buff, int offset);
-  static std::string essid;
+  static bool parsed;
   static bool pwnagotchiDetected;
 };
 
