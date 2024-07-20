@@ -7,9 +7,9 @@
 
 #include "config.h"
 #include <Adafruit_GFX.h>
+#include <Adafruit_SH110X.h>
 #include <Adafruit_SSD1305.h>
 #include <Adafruit_SSD1306.h>
-#include <Adafruit_SH110X.h>
 #include <SPI.h>
 #include <U8g2lib.h>
 #include <Wire.h>

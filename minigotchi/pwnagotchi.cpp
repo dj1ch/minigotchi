@@ -48,13 +48,12 @@ String Pwnagotchi::extractMAC(const unsigned char *buff) {
  * and deletes everything up until that point
  * @param buf String to use
  */
-String Pwnagotchi::findCopy(const String& buf) {
+String Pwnagotchi::findCopy(const String &buf) {
   int firstPos = 0;
   int secondPos = buf.indexOf('{', 1);
 
   return buf.substring(0, secondPos);
 }
-
 
 /**
  * Detect a Pwnagotchi
@@ -159,14 +158,17 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
       // you don't wanna know how much pain std::string has put me through
       for (int i = 0; i < len - 37; i++) {
         if (isAscii(snifferPacket->payload[i + 38])) {
-          raw.concat((char)snifferPacket->payload[i + 38]); // yeah thanks a lot arduinoJson you're very helpful.
+          raw.concat((char)snifferPacket
+                         ->payload[i + 38]); // yeah thanks a lot arduinoJson
+                                             // you're very helpful.
         }
       }
 
       // truncate at the second starting curly brace
       String essid = findCopy(raw);
 
-      /* developer note: this should allow the findCopy() object to work normally...
+      /* developer note: this should allow the findCopy() object to work
+      normally...
 
       String test = "{wjdiopawjdB&{wdwywd9898";
       test = findCopy(test);
@@ -200,7 +202,8 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
 
         if (!error) {
           Serial.println("(^-^) Successfully cleaned ESSID: " + essid);
-          Display::updateDisplay("(^-^)", "Successfully cleaned ESSID: " + essid);
+          Display::updateDisplay("(^-^)",
+                                 "Successfully cleaned ESSID: " + essid);
           essid = "";
           processJson(jsonBuffer);
           parsed = true;
