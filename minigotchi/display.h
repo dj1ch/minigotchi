@@ -7,9 +7,9 @@
 
 #include "config.h"
 #include <Adafruit_GFX.h>
+#include <Adafruit_SH110X.h>
 #include <Adafruit_SSD1305.h>
 #include <Adafruit_SSD1306.h>
-#include <Adafruit_SH110X.h>
 #include <SPI.h>
 #include <U8g2lib.h>
 #include <Wire.h>
@@ -42,13 +42,13 @@
 
 class Display {
 public:
-    ~Display();
-    static void startScreen();
-    static void updateDisplay(String face);
-    static void updateDisplay(String face, String text);
+  ~Display();
+  static void startScreen();
+  static void updateDisplay(String face);
+  static void updateDisplay(String face, String text);
 
 private:
-    static void printU8G2Data(int x, int y, const char *data);
+  static void printU8G2Data(int x, int y, const char *data);
 };
 
 #endif // DISPLAY_H
