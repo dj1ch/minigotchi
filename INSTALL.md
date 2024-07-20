@@ -2,7 +2,7 @@
 
 Here you can find out how to install Minigotchi on the ESP8266. Installing on the Pico is not possible as the code is meant for the ESP8266. 
 
-**For building on an ESP32, see [this](https://github.com/Pwnagotchi-Unofficial/minigotchi-ESP32/blob/development/INSTALL.md). Don't use this repository for the ESP32. The Wio terminal is still a WIP.**
+**For building on an ESP32, see [this](https://github.com/Pwnagotchi-Unofficial/minigotchi-ESP32/blob/development/INSTALL.md). Don't use this repository for the ESP32. The Wio Terminal is still a WIP.**
 
 ## Building using Arduino IDE
 
@@ -18,12 +18,12 @@ Here you can find out how to install Minigotchi on the ESP8266. Installing on th
 - At the set of lines that says:
 
 ```cpp
-// set to true normally 
 bool Config::deauth = true;
 bool Config::advertise = true;
+bool Config::scan = true;
 ```
 
-From here, you can turn off deauthing or advertising. Since this is the main feature of the minigotchi, I highly recommend you don't turn either of these off. 
+From here, you can turn off deauthing, advertising, or Pwnagotchi scanning. Since these are the main features of the minigotchi, I highly recommend you don't turn any of these off. 
 
 - After that, there should be a line that states the baud rate. 
 
