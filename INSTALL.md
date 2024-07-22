@@ -74,7 +74,9 @@ These screen types are available:
 - `SSD1306`
 
 - `WEMOS_OLED_SHIELD`
+
 - `IDEASPARK_SSD1306`
+
 - `SSD1305`
 
 - `SH1106`
@@ -113,7 +115,14 @@ Usually, this shouldn't be changed as these are the only channels we can access 
 
 - Open up the Minigotchi folder through the IDE by pushing `Ctrl+O`, or by going to `File` > `Open`, then selecting the folder the .ino is in. If other tabs don't show up, along with `minigotchi.ino`, make sure to copy and paste the files into the same directory/folder as that lone `.ino` file. It won't be able to compile if that happens.
 
-- Install the following dependencies with the library manager: `ArduinoJson`, `Adafruit GFX`, and the following screen libraries(see below), etc with all their dependencies through the library manager or the repository owner's preferred method of installation. (Please install all of them for them to have your installation compile correctly).
+- Install the following dependencies (with their dependencies as well) with the library manager:
+  - `ArduinoJson`
+  - `Adafruit GFX`
+  - `Adafruit SSD1306`
+  - `Adafruit SSD1305`
+  - `u8g2`
+  - Remove/uninstall/modify your screen library depending on your display for `Config::screen` below, some of these dependencies may have already been installed previously.
+  - Sometimes the repository owner of certain libraries may require you to install it a certain way, be sure to follow their guides if needed/included.
 
 | `SSD1306`                                                                          | `WEMOS_OLED_SHIELD`                                                                | `IDEASPARK_SSD1306`        | `SSD1305`                  | `SH1106`                   |
 | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | -------------------------- | -------------------------- | -------------------------- |
