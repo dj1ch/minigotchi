@@ -16,6 +16,8 @@ This is a project meant to showcase the use of low-level Wi-Fi frame manipulatio
 
 The Minigotchi can detect _Pwnagotchis_, and send "advertisements" for another _Pwnagotchi_ to detect, along with deauthenticating devices connected to an AP. Originally meant to just befriend a local Pwnagotchi, I plan to improve it and extend its purpose, merely with an ESP8266 with 4 MB of memory.
 
+We just made a [discord server](https://discord.gg/EhTAr7PwVP)! Feel free to join!
+
 ### Install guide
 
 See the [install guide](INSTALL.md).
