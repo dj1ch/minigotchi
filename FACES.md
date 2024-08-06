@@ -40,3 +40,4 @@ The Minigotchi has multiple faces, similar to that of the Pwnagotchi. I tried my
 ### (-.-) Sleeping
 
 - switching channel
+

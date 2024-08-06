@@ -89,3 +89,4 @@ See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Communic
 - [esp8266-sniffer](https://github.com/kalanda/esp8266-sniffer), an ESP8266 sniffer dedicated to finding probes from smartphones.
 
 **Made with ❤️ by [@dj1ch](https://github.com/dj1ch) and the rest of the Pwnagotchi-Unofficial team!**
+

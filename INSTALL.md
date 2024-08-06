@@ -153,3 +153,4 @@ Usually, this shouldn't be changed as these are the only channels we can access 
 2. Setting `personality.channels[]` in your Pwnagotchi's `/etc/pwnagotchi/config.toml` to match your `Config::channels[13]` so that your Minigotchi has a higher chance of finding your Pwnagotchi.
 
 - Happy hacking!
+
