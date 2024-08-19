@@ -90,54 +90,51 @@ std::string Config::version = "3.3.2-beta";
 bool Config::configured = false;
 
 /**
- * Loads configuration values from NVS
+ * Loads configuration values from EEPROM
  */
 void Config::loadConfig() {
-  Preferences prefs;
-  prefs.begin("storage", true);
+    EEPROM.begin(512);  // Initialize EEPROM with size 512 bytes
 
-  // load Config::configured
-  Config::configured = prefs.getBool("configured", false);
+    // load Config::configured
+    Config::configured = EEPROM.read(0) == 1;
 
-  // load Config::whitelist
-  String whitelistStr = prefs.getString("whitelist", "");
-  if (whitelistStr.length() > 0) {
-    Config::whitelist.clear();
-    int start = 0;
-    int end = whitelistStr.indexOf(',');
-    while (end != -1) {
-      Config::whitelist.push_back(whitelistStr.substring(start, end).c_str());
-      start = end + 1;
-      end = whitelistStr.indexOf(',', start);
+    // load Config::whitelist
+    for (int i = 0; i < 10; ++i) {
+        char ssid[33] = {0};
+        for (int j = 0; j < 32; ++j) {
+            ssid[j] = EEPROM.read(1 + i * 32 + j);
+        }
+        if (ssid[0] != '\0') {
+            whitelist.push_back(ssid);
+        }
     }
-    Config::whitelist.push_back(whitelistStr.substring(start).c_str());
-  }
-
-  prefs.end();
+    EEPROM.end();
 }
 
 /**
- * Saves configuration to NVS
+ * Saves configuration to EEPROM
  */
-
 void Config::saveConfig() {
-  Preferences prefs;
-  prefs.begin("storage", false);  // Read-write mode
+    EEPROM.begin(512);
 
-  // save Config::configured
-  prefs.putBool("configured", Config::configured);
+    // save Config::configured
+    EEPROM.write(0, Config::configured ? 1 : 0);
 
-  // save Config::whitelist
-  String whitelistStr;
-  for (size_t i = 0; i < Config::whitelist.size(); ++i) {
-    whitelistStr += Config::whitelist[i].c_str();
-    if (i < Config::whitelist.size() - 1) {
-      whitelistStr += ",";
+    // save Config::whitelist
+    for (int i = 0; i < 10; ++i) {
+        if (i < whitelist.size()) {
+            const char* ssid = whitelist[i].c_str();
+            for (int j = 0; j < 32; ++j) {
+                EEPROM.write(1 + i * 32 + j, ssid[j]);
+            }
+        } else {
+            for (int j = 0; j < 32; ++j) {
+                EEPROM.write(1 + i * 32 + j, 0);
+            }
+        }
     }
-  }
-  prefs.putString("whitelist", whitelistStr);
-
-  prefs.end();
+    EEPROM.commit();
+    EEPROM.end();
 }
 
 /** developer note:

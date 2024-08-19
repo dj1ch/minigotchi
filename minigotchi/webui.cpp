@@ -147,10 +147,20 @@ WebUI::WebUI() {
 }
 
 WebUI::~WebUI() {
-  // debugging
-  Serial.println("WebUI Destructor called");
-
   // nah fuck it
+  dnsServer.stop();
+  server.end();
+  WiFi.softAPdisconnect(true);
+
+  running = false;
+}
+
+/**
+ * Destroys/stops Web Server
+ * 
+ * This is essentially the destructor of this class that can manually be called
+ */
+void WebUI::stopServer() {
   dnsServer.stop();
   server.end();
   WiFi.softAPdisconnect(true);

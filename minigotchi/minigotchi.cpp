@@ -24,34 +24,15 @@ WebUI *Minigotchi::web = nullptr;
 int Minigotchi::currentEpoch = 0;
 
 /**
- * WebUI task for freeRTOS
- */
-void Minigotchi::WebUITask(void *pvParameters) {
-  WebUI *web = new WebUI();
-
-  while (!Config::configured) {
-    delay(1);
-  }
-
-  // clean up when done
-  delete web;
-  web = nullptr; // clean up memory
-
-  // exit task function
-  return;
-}
-
-/**
  * Wait for WebUI to get input that the configuration is done
  */
 void Minigotchi::waitForInput() {
-  if (!Config::configured) {
-    WebUITask(nullptr); 
-  }
-
-  while (!Config::configured) {
-    delay(1);
-  }
+    if (!Config::configured) {
+        while (!Config::configured) {
+          delay(1);
+        }
+    }
+    web->stopServer();
 }
 
 /**
@@ -106,6 +87,11 @@ void Minigotchi::boot() {
 
   // load configuration
   Config::loadConfig();
+
+  // create server
+  if (!Config::configured) {
+    WebUI *web = new WebUI();
+  }
 
   // wait for the webui configuration
   if (!Config::configured) {

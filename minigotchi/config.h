@@ -7,7 +7,7 @@
 
 #include "minigotchi.h"
 #include <Arduino.h>
-#include <Preferences.h>
+#include <EEPROM.h>
 #include <iostream>
 #include <random>
 #include <string>

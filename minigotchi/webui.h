@@ -22,6 +22,7 @@ class WebUI {
 public:
   WebUI();
   ~WebUI();
+  static void stopServer();
   static void setupServer();
   static void updateWhitelist(String newWhitelist);
   static const char html[] PROGMEM;

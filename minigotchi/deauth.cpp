@@ -21,7 +21,7 @@ int Deauth::randomIndex;
 /**
  * Gets first instance of mood class
  */
-Mood &Channel::mood = Mood::getInstance();
+Mood &Deauth::mood = Mood::getInstance();
 
 /** developer note:
  *
