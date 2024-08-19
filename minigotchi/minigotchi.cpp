@@ -15,6 +15,11 @@
 // this code is pretty disgusting and shitty but it makes minigotchi.ino less
 // cluttered!!!
 
+// initializing values
+Mood &Minigotchi::mood = Mood::getInstance();
+WebUI *Minigotchi::web = nullptr;
+
+
 // current epoch val
 int Minigotchi::currentEpoch = 0;
 

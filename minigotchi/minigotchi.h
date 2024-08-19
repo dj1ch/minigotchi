@@ -5,6 +5,8 @@
 #ifndef MINIGOTCHI_H
 #define MINIGOTCHI_H
 
+#include "mood.h"
+#include "webui.h"
 #include "channel.h"
 #include "config.h"
 #include "deauth.h"
@@ -14,6 +16,8 @@
 #include "pwnagotchi.h"
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
+
+class Mood;
 
 class Minigotchi {
 public:
@@ -32,6 +36,9 @@ public:
   static void epoch();
   static int addEpoch();
   static int currentEpoch;
+private:
+  static Mood &mood;
+  static WebUI *web;
 };
 
 #endif // MINIGOTCHI_H

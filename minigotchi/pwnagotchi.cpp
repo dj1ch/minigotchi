@@ -235,6 +235,10 @@ void Pwnagotchi::processJson(DynamicJsonDocument &jsonBuffer) {
   Serial.println(" ");
   Display::updateDisplay("(^-^)", "Successfully parsed json!");
 
+  // find minigotchi/palnagotchi
+  bool pal = jsonBuffer["pal"].as<bool>();
+  bool minigotchi = jsonBuffer["minigotchi"].as<bool>();
+  
   // find out some stats
   String name = jsonBuffer["name"].as<String>();
   String pwndTot = jsonBuffer["pwnd_tot"].as<String>();
@@ -247,13 +251,18 @@ void Pwnagotchi::processJson(DynamicJsonDocument &jsonBuffer) {
     pwndTot = "N/A";
   }
 
+  String deviceType = "";
+
   // print the info
-  Serial.print("(^-^) Pwnagotchi name: ");
+  Serial.print(mood.getHappy() + " " + deviceType + " name: ");
   Serial.println(name);
-  Serial.print("(^-^) Pwned Networks: ");
+  Serial.print(mood.getHappy() + " Pwned Networks: ");
   Serial.println(pwndTot);
   Serial.print(" ");
-  Display::updateDisplay("(^-^)", "Pwnagotchi name: " + (String)name);
-  Display::updateDisplay("(^-^)", "Pwned Networks: " + (String)pwndTot);
+  Display::updateDisplay(mood.getHappy(),
+                        deviceType + " name: " + (String)name);
+  Display::updateDisplay(mood.getHappy(),
+                        "Pwned Networks: " + (String)pwndTot);
+
   Parasite::sendPwnagotchiStatus(FRIEND_FOUND, name.c_str());
 }

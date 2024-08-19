@@ -5,6 +5,7 @@
 #ifndef DEAUTH_H
 #define DEAUTH_H
 
+#include "mood.h"
 #include "config.h"
 #include "minigotchi.h"
 #include "parasite.h"
@@ -14,6 +15,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
+
+class Mood;
 
 class Deauth {
 public:

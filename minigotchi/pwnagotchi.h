@@ -5,6 +5,7 @@
 #ifndef PWNAGOTCHI_H
 #define PWNAGOTCHI_H
 
+#include "mood.h"
 #include "frame.h"
 #include "minigotchi.h"
 #include "parasite.h"
@@ -18,6 +19,8 @@
 extern "C" {
 #include "structs.h"
 }
+
+class Mood;
 
 class Pwnagotchi {
 public:
