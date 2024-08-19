@@ -30,6 +30,7 @@ public:
   static void stopCallback();
 
 private:
+  static Mood &mood;
   static String findCopy(const String &buf);
   static String extractMAC(const unsigned char *buff);
   static void getMAC(char *addr, const unsigned char *buff, int offset);

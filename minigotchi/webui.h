@@ -5,13 +5,14 @@
 #ifndef WEBUI_H
 #define WEBUI_H
 
+#include "mood.h"
 #include "config.h"
 #include "minigotchi.h"
 #include <Arduino.h>
-#include <AsyncTCP.h>
+#include <ESPAsyncTCP.h>
 #include <DNSServer.h>
 #include <ESPAsyncWebServer.h> // using https://github.com/bmorcelli/ESPAsyncWebServer pirata is the GOAT!!!
-#include <WiFi.h>
+#include <ESP8266WiFi.h>
 
 // forward declaration of mood class
 class Mood;

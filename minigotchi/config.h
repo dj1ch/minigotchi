@@ -7,6 +7,7 @@
 
 #include "minigotchi.h"
 #include <Arduino.h>
+#include <Preferences.h>
 #include <iostream>
 #include <random>
 #include <string>
@@ -17,6 +18,8 @@ public:
   static bool deauth;
   static bool advertise;
   static bool scan;
+  static const char *ssid;
+  static const char *pass;
   static int shortDelay;
   static int longDelay;
   static bool parasite;
@@ -25,6 +28,14 @@ public:
   static int baud;
   static int channel;
   static std::vector<std::string> whitelist;
+  static String happy;
+  static String sad;
+  static String broken;
+  static String intense;
+  static String looking1;
+  static String looking2;
+  static String neutral;
+  static String sleeping;
   static int epoch;
   static std::string grid_version;
   static std::string face;
@@ -51,6 +62,9 @@ public:
   static int timestamp;
   static int uptime;
   static std::string version;
+  static bool configured;
+  static void loadConfig();
+  static void saveConfig();
 
 private:
   static int random(int min, int max);

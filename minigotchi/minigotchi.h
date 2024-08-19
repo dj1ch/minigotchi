@@ -18,6 +18,7 @@
 #include <ESP8266WiFi.h>
 
 class Mood;
+class WebUI;
 
 class Minigotchi {
 public:
@@ -37,6 +38,8 @@ public:
   static int addEpoch();
   static int currentEpoch;
 private:
+  static void WebUITask(void *pvParameters);
+  static void waitForInput();
   static Mood &mood;
   static WebUI *web;
 };

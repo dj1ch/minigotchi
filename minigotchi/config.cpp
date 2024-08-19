@@ -17,6 +17,10 @@ bool Config::deauth = true;
 bool Config::advertise = true;
 bool Config::scan = true;
 
+// define access point ssid and password
+const char *Config::ssid = "minigotchi";
+const char *Config::pass = "dj1ch-minigotchi";
+
 // define universal delays
 int Config::shortDelay = 500;
 int Config::longDelay = 5000;
@@ -37,6 +41,16 @@ int Config::channel = 1;
 
 // define whitelist
 std::vector<std::string> Config::whitelist = {"SSID", "SSID", "SSID"};
+
+// define faces
+String Config::happy = "(^-^)";
+String Config::sad = "(;-;)";
+String Config::broken = "(X-X)";
+String Config::intense = "(>-<)";
+String Config::looking1 = "(0-o)";
+String Config::looking2 = "(o-0)";
+String Config::neutral = "('-')";
+String Config::sleeping = "(-.-)";
 
 // json config
 int Config::epoch = Minigotchi::currentEpoch;
@@ -70,7 +84,61 @@ std::string Config::session_id = "84:f3:eb:58:95:bd";
 int Config::uptime = Config::time();
 
 // define version(please do not change, this should not be changed)
-std::string Config::version = "3.2.2-beta";
+std::string Config::version = "3.3.2-beta";
+
+// configured flag which only the WebUI changes
+bool Config::configured = false;
+
+/**
+ * Loads configuration values from NVS
+ */
+void Config::loadConfig() {
+  Preferences prefs;
+  prefs.begin("storage", true);
+
+  // load Config::configured
+  Config::configured = prefs.getBool("configured", false);
+
+  // load Config::whitelist
+  String whitelistStr = prefs.getString("whitelist", "");
+  if (whitelistStr.length() > 0) {
+    Config::whitelist.clear();
+    int start = 0;
+    int end = whitelistStr.indexOf(',');
+    while (end != -1) {
+      Config::whitelist.push_back(whitelistStr.substring(start, end).c_str());
+      start = end + 1;
+      end = whitelistStr.indexOf(',', start);
+    }
+    Config::whitelist.push_back(whitelistStr.substring(start).c_str());
+  }
+
+  prefs.end();
+}
+
+/**
+ * Saves configuration to NVS
+ */
+
+void Config::saveConfig() {
+  Preferences prefs;
+  prefs.begin("storage", false);  // Read-write mode
+
+  // save Config::configured
+  prefs.putBool("configured", Config::configured);
+
+  // save Config::whitelist
+  String whitelistStr;
+  for (size_t i = 0; i < Config::whitelist.size(); ++i) {
+    whitelistStr += Config::whitelist[i].c_str();
+    if (i < Config::whitelist.size() - 1) {
+      whitelistStr += ",";
+    }
+  }
+  prefs.putString("whitelist", whitelistStr);
+
+  prefs.end();
+}
 
 /** developer note:
  *

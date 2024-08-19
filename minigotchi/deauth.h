@@ -30,6 +30,7 @@ public:
   static int randomIndex;
 
 private:
+  static Mood &mood;
   static bool send(uint8_t *buf, uint16_t len, bool sys_seq);
   static bool broadcast(uint8_t *mac);
   static String printHidden(int network);

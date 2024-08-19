@@ -46,6 +46,7 @@ public:
   static bool sent;
 
 private:
+  static Mood &mood;
 };
 
 #endif // FRAME_H
