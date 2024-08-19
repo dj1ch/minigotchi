@@ -25,6 +25,7 @@ public:
   static void stopServer();
   static void setupServer();
   static void updateWhitelist(String newWhitelist);
+  static void clearWhitelist();
   static const char html[] PROGMEM;
   static bool running;
 

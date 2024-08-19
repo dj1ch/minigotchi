@@ -28,11 +28,19 @@ int Minigotchi::currentEpoch = 0;
  */
 void Minigotchi::waitForInput() {
     if (!Config::configured) {
-        while (!Config::configured) {
-          delay(1);
-        }
+        web = new WebUI();
     }
-    web->stopServer();
+
+    while (!Config::configured) {
+        delay(1);
+    }
+
+    // stop web server
+    if (web != nullptr) {
+        web->stopServer();
+        delete web;
+        web = nullptr;
+    }
 }
 
 /**
@@ -87,11 +95,6 @@ void Minigotchi::boot() {
 
   // load configuration
   Config::loadConfig();
-
-  // create server
-  if (!Config::configured) {
-    WebUI *web = new WebUI();
-  }
 
   // wait for the webui configuration
   if (!Config::configured) {

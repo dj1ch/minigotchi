@@ -177,6 +177,7 @@ void WebUI::setupServer() {
   // handle whitelist
   server.on("/get", HTTP_GET, [](AsyncWebServerRequest *request) {
     if (request->hasParam("whitelist")) {
+      WebUI::clearWhitelist();
       String newWhitelist = request->getParam("whitelist")->value();
       updateWhitelist(newWhitelist);
       request->send(200, "text/html",
@@ -228,4 +229,13 @@ void WebUI::updateWhitelist(String newWhitelist) {
     Serial.println(entry.c_str());
   }
   */
+}
+
+/**
+ * Clears whitelist before being saved
+ */
+void WebUI::clearWhitelist() {
+  Config::whitelist.clear();
+
+  Config::saveConfig();
 }

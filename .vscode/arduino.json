@@ -1,6 +1,6 @@
 {
-    "configuration": "xtal=80,vt=flash,exception=disabled,stacksmash=disabled,ssl=all,mmu=3232,non32xfer=fast,FlashMode=dout,FlashFreq=40,eesz=4M2M,ip=lm2f,dbg=Disabled,lvl=None____,wipe=none,baud=921600",
-    "board": "esp8266:esp8266:d1_mini_clone",
+    "configuration": "deauther_config=d1mini,eesz=1M64,wipe=all,baud=921600",
+    "board": "deauther:esp8266:d1_mini",
     "sketch": "minigotchi\\minigotchi.ino",
-    "port": "COM9"
+    "port": "COM11"
 }
