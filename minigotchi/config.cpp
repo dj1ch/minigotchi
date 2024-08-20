@@ -93,64 +93,64 @@ bool Config::configured = false;
  * Erases EEPROM
  */
 void Config::clearConfig() {
-    EEPROM.begin(512);
+  EEPROM.begin(512);
 
-    // write zeroes
-    for (int i = 0; i < 512; i++) {
-        EEPROM.write(i, 0);
-    }
+  // write zeroes
+  for (int i = 0; i < 512; i++) {
+    EEPROM.write(i, 0);
+  }
 
-    // write
-    EEPROM.commit();
-    EEPROM.end();
+  // write
+  EEPROM.commit();
+  EEPROM.end();
 }
 
 /**
  * Loads configuration values from EEPROM
  */
 void Config::loadConfig() {
-    EEPROM.begin(512); // 512 bytes for EEPROM
+  EEPROM.begin(512); // 512 bytes for EEPROM
 
-    // load Config::configured
-    Config::configured = EEPROM.read(0) == 1;
+  // load Config::configured
+  Config::configured = EEPROM.read(0) == 1;
 
-    // load Config::whitelist
-    for (int i = 0; i < 10; ++i) {
-        char ssid[33] = {0};
-        for (int j = 0; j < 32; ++j) {
-            ssid[j] = EEPROM.read(1 + i * 32 + j);
-        }
-        if (ssid[0] != '\0') {
-            whitelist.push_back(ssid);
-        }
+  // load Config::whitelist
+  for (int i = 0; i < 10; ++i) {
+    char ssid[33] = {0};
+    for (int j = 0; j < 32; ++j) {
+      ssid[j] = EEPROM.read(1 + i * 32 + j);
     }
-    EEPROM.end();
+    if (ssid[0] != '\0') {
+      whitelist.push_back(ssid);
+    }
+  }
+  EEPROM.end();
 }
 
 /**
  * Saves configuration to EEPROM
  */
 void Config::saveConfig() {
-    EEPROM.begin(512);
+  EEPROM.begin(512);
 
-    // save Config::configured
-    EEPROM.write(0, Config::configured ? 1 : 0);
+  // save Config::configured
+  EEPROM.write(0, Config::configured ? 1 : 0);
 
-    // save Config::whitelist
-    for (int i = 0; i < 10; ++i) {
-        if (i < whitelist.size()) {
-            const char *ssid = whitelist[i].c_str();
-            for (int j = 0; j < 32; ++j) {
-                EEPROM.write(1 + i * 32 + j, ssid[j]);
-            }
-        } else {
-            for (int j = 0; j < 32; ++j) {
-                EEPROM.write(1 + i * 32 + j, 0);
-            }
-        }
+  // save Config::whitelist
+  for (int i = 0; i < 10; ++i) {
+    if (i < whitelist.size()) {
+      const char *ssid = whitelist[i].c_str();
+      for (int j = 0; j < 32; ++j) {
+        EEPROM.write(1 + i * 32 + j, ssid[j]);
+      }
+    } else {
+      for (int j = 0; j < 32; ++j) {
+        EEPROM.write(1 + i * 32 + j, 0);
+      }
     }
-    EEPROM.commit();
-    EEPROM.end();
+  }
+  EEPROM.commit();
+  EEPROM.end();
 }
 
 /** developer note:
@@ -161,10 +161,8 @@ void Config::saveConfig() {
  */
 
 // randomize config values
-int Config::random(int min, int max) {
-    return min + rand() % (max - min + 1);
-}
+int Config::random(int min, int max) { return min + rand() % (max - min + 1); }
 
 int Config::time() {
-    return millis() / 1000; // convert to seconds
+  return millis() / 1000; // convert to seconds
 }
