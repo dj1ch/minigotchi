@@ -39,7 +39,6 @@ public:
   static int currentEpoch;
 
 private:
-  static void WebUITask(void *pvParameters);
   static void waitForInput();
   static Mood &mood;
   static WebUI *web;

@@ -93,7 +93,7 @@ bool Config::configured = false;
  * Loads configuration values from EEPROM
  */
 void Config::loadConfig() {
-  EEPROM.begin(512); // Initialize EEPROM with size 512 bytes
+  EEPROM.begin(512); // 512 bytes for EEPROM
 
   // load Config::configured
   Config::configured = EEPROM.read(0) == 1;
