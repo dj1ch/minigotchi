@@ -121,6 +121,7 @@ Usually, this shouldn't be changed as these are the only channels we can access 
   - `Adafruit SSD1306`
   - `Adafruit SSD1305`
   - `u8g2`
+  - `ESPAsyncTCP`
   - Remove/uninstall/modify your screen library depending on your display for `Config::screen` below, some of these dependencies may have already been installed previously.
   - Sometimes the repository owner of certain libraries may require you to install it a certain way, be sure to follow their guides if needed/included.
 
@@ -128,11 +129,19 @@ Usually, this shouldn't be changed as these are the only channels we can access 
 | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | -------------------------- | -------------------------- | -------------------------- |
 | Install `Adafruit SSD1306`, remove `Adafruit SSD1306 Wemos Mini OLED` if installed | Install `Adafruit SSD1306 Wemos Mini OLED`, remove `Adafruit SSD1306` if installed | Install the `u8g2` library | Install `Adafruit SSD1305` | Install the `u8g2` library |
 
+- You'll also need to install this fork of [`ESPAsyncWebServer`](https://github.com/bmorcelli/ESPAsyncWebServer) by downloading a ZIP of that repository through `<img> Code` > `Download ZIP`. If you already have `ESPAsyncWebServer` installed please **remove it** and follow this guide.
+
+<img src="images/download (20).png"> </img>
+
+- After doing that you'll need to go back to Arduino IDE then add the library by going to `Sketch` > `Include Library` > `Add .ZIP library...`, then selecting the `.ZIP` file of the repository that was just downloaded. This will add the library to Arduino IDE.
+
 **Note: You will need to install all of these libraries, but I put them in a table here to organize the screens.**
 
 - Go to `Tools` > `Board` and use one of the boards in the `Deauther ESP8266 Boards` section. (Example: `LOLIN(WEMOS) D1 mini`)
 
 - Select your COM port/Serial port through `Tools` > `Port` where the ESP8266 is plugged in
+
+- Enable the erasing of your entire flash by going to `Tools` > `Erase Flash` > `Erase All Flash Contents` then enabling that setting
 
 - Click on the upload button(arrow pointing to the left). If you see any errors that you cannot solve, feel free to make an [issue](https://github.com/dj1ch/minigotchi/issues).
 
@@ -143,6 +152,20 @@ Usually, this shouldn't be changed as these are the only channels we can access 
 **Note: if you get any errors, let me know ASAP with a GitHub issue, sending me a discord message, or perhaps even messaging me through my portfolio site.**
 
 ### Step 3: Post Install
+
+- After plugging in your Minigotchi, it should tell you that it's starting a Web Server. In order to use it, you have to:
+
+1. Connect to the access point `minigotchi` or `minigotchi 2` (sometimes `minigotchi 2` pops up)
+2. Go to the website http://192.168.4.1
+3. Add your whitelist in the first input box in a format like this. Click `Submit` after you're done
+
+```sh
+SSID,SSID,SSID
+```
+
+4. Make sure to turn off the WebUI going to the last text box and typing `true` so that your Minigotchi knows your configuration is done. Click `Submit` to proceed.
+5. Due to a lack of freeRTOS support for the deauther boards, you'll need to restart your ESP8266 by clicking on the `Restart` button.
+6. Exit the tab and disconnect from the `minigotchi` AP if it hasn't been done for you already.
 
 - You can click the _Serial Monitor_ button on the top bar to see the serial monitor output. Make sure the baud rate is `115200`. You can also use https://serial.huhn.me/ as a serial monitor, I also recommend using this!
 
