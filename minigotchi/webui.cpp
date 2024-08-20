@@ -178,6 +178,7 @@ void WebUI::setupServer() {
   server.on("/get", HTTP_GET, [](AsyncWebServerRequest *request) {
     if (request->hasParam("whitelist")) {
       WebUI::clearWhitelist();
+      delay(100);
       String newWhitelist = request->getParam("whitelist")->value();
       updateWhitelist(newWhitelist);
       request->send(200, "text/html",
@@ -224,6 +225,8 @@ void WebUI::setupServer() {
  */
 void WebUI::updateWhitelist(String newWhitelist) {
   Config::whitelist.clear(); // clear existing values
+  delay(100);
+
   int start = 0;
   int end = newWhitelist.indexOf(',');
 
@@ -251,4 +254,10 @@ void WebUI::clearWhitelist() {
   Config::whitelist.clear();
 
   Config::saveConfig();
+
+  // this should be 0 no?
+  /*
+  Config::loadConfig();
+  Serial.println("Whitelist size after save: " + String(Config::whitelist.size()));
+  */
 }

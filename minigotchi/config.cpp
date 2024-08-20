@@ -90,6 +90,22 @@ std::string Config::version = "3.3.2-beta";
 bool Config::configured = false;
 
 /**
+ * Erases EEPROM
+ */
+void Config::clearConfig() {
+  EEPROM.begin(512);
+
+  // write zeroes
+  for (int i = 0; i < 512; i++) {
+    EEPROM.write(i, 0);
+  }
+
+  // write
+  EEPROM.commit();
+  EEPROM.end();
+}
+
+/**
  * Loads configuration values from EEPROM
  */
 void Config::loadConfig() {

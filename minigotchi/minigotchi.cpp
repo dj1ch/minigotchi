@@ -64,6 +64,9 @@ void Minigotchi::epoch() {
  * Things to do on startup
  */
 void Minigotchi::boot() {
+  // clear list
+  Config::whitelist.clear();
+
   // configure moods
   Mood::init(Config::happy, Config::sad, Config::broken, Config::intense,
              Config::looking1, Config::looking2, Config::neutral,
@@ -82,7 +85,7 @@ void Minigotchi::boot() {
   delay(Config::shortDelay);
   Serial.println(mood.getIntense() + " Starting now...");
   Serial.println(" ");
-  Display::updateDisplay(mood.getIntense(), "Starting  now");
+  Display::updateDisplay(mood.getIntense(), "Starting now");
   delay(Config::shortDelay);
   Serial.println("################################################");
   Serial.println("#                BOOTUP PROCESS                #");
@@ -91,6 +94,12 @@ void Minigotchi::boot() {
 
   // load configuration
   Config::loadConfig();
+
+  if (!Config::configured) {
+    // erases default values if any
+    Config::whitelist.clear();
+    Config::clearConfig();
+  }
 
   // wait for the webui configuration
   while (!Config::configured) {
