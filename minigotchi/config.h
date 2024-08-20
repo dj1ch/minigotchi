@@ -63,6 +63,7 @@ public:
   static int uptime;
   static std::string version;
   static bool configured;
+  static void clearConfig();
   static void loadConfig();
   static void saveConfig();
 

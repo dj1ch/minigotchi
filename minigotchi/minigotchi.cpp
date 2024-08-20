@@ -19,25 +19,24 @@
 Mood &Minigotchi::mood = Mood::getInstance();
 WebUI *Minigotchi::web = nullptr;
 
-
 // current epoch val
 int Minigotchi::currentEpoch = 0;
 
 /**
  * Wait for WebUI to get input that the configuration is done
- * 
+ *
  * Keep in mind this runs in a loop
  */
 void Minigotchi::waitForInput() {
-    if (!Config::configured) {
-      web = new WebUI();
-    }
+  if (!Config::configured) {
+    web = new WebUI();
+  }
 
-    // stop web server
-    if (Config::configured && (web != nullptr)) {
-      delete web;
-      web = nullptr;
-    }
+  // stop web server
+  if (Config::configured && (web != nullptr)) {
+    delete web;
+    web = nullptr;
+  }
 }
 
 /**
@@ -65,6 +64,9 @@ void Minigotchi::epoch() {
  * Things to do on startup
  */
 void Minigotchi::boot() {
+  // clear list
+  Config::whitelist.clear();
+
   // configure moods
   Mood::init(Config::happy, Config::sad, Config::broken, Config::intense,
              Config::looking1, Config::looking2, Config::neutral,
@@ -83,7 +85,7 @@ void Minigotchi::boot() {
   delay(Config::shortDelay);
   Serial.println(mood.getIntense() + " Starting now...");
   Serial.println(" ");
-  Display::updateDisplay(mood.getIntense(), "Starting  now");
+  Display::updateDisplay(mood.getIntense(), "Starting now");
   delay(Config::shortDelay);
   Serial.println("################################################");
   Serial.println("#                BOOTUP PROCESS                #");
@@ -92,6 +94,12 @@ void Minigotchi::boot() {
 
   // load configuration
   Config::loadConfig();
+
+  if (!Config::configured) {
+    // erases default values if any
+    Config::whitelist.clear();
+    Config::clearConfig();
+  }
 
   // wait for the webui configuration
   while (!Config::configured) {
@@ -119,7 +127,6 @@ void Minigotchi::info() {
   Serial.println(" ");
   delay(Config::shortDelay);
 }
-
 
 /**
  * This is printed after everything is done in the bootup process
@@ -168,7 +175,6 @@ void Minigotchi::cpu() {
                              " MHz");
   delay(Config::shortDelay);
 }
-
 
 /** developer note:
  *

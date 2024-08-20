@@ -157,7 +157,7 @@ WebUI::~WebUI() {
 
 /**
  * Destroys/stops Web Server
- * 
+ *
  * This is essentially the destructor of this class that can manually be called
  */
 void WebUI::stopServer() {
@@ -178,6 +178,7 @@ void WebUI::setupServer() {
   server.on("/get", HTTP_GET, [](AsyncWebServerRequest *request) {
     if (request->hasParam("whitelist")) {
       WebUI::clearWhitelist();
+      delay(100);
       String newWhitelist = request->getParam("whitelist")->value();
       updateWhitelist(newWhitelist);
       request->send(200, "text/html",
@@ -189,11 +190,15 @@ void WebUI::setupServer() {
       Config::saveConfig();
       // Serial.println("Config check: " + String(Config::configured ? "true" :
       // "false"));
-      
+
       // COD warzone???
-      request->send(200, "text/html",
-                    mood.getHappy() + " Configuration updated! Update requires restart. This web interface will shut down."
-                                      "<br><button onclick=\"window.location.href='/restart'\">Restart</button>");
+      request->send(
+          200, "text/html",
+          mood.getHappy() +
+              " Configuration updated! Update requires restart. This web "
+              "interface will shut down."
+              "<br><button "
+              "onclick=\"window.location.href='/restart'\">Restart</button>");
 
     } else {
       request->send(200, "text/html",
@@ -209,7 +214,6 @@ void WebUI::setupServer() {
     ESP.restart();
   });
 
-
   server.onNotFound([&](AsyncWebServerRequest *request) {
     request->send(200, "text/html", html);
   });
@@ -221,6 +225,8 @@ void WebUI::setupServer() {
  */
 void WebUI::updateWhitelist(String newWhitelist) {
   Config::whitelist.clear(); // clear existing values
+  delay(100);
+
   int start = 0;
   int end = newWhitelist.indexOf(',');
 
@@ -248,4 +254,11 @@ void WebUI::clearWhitelist() {
   Config::whitelist.clear();
 
   Config::saveConfig();
+
+  // this should be 0 no?
+  /*
+  Config::loadConfig();
+  Serial.println("Whitelist size after save: " +
+  String(Config::whitelist.size()));
+  */
 }

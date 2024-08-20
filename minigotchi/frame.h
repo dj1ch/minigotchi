@@ -5,11 +5,11 @@
 #ifndef FRAME_H
 #define FRAME_H
 
-#include "mood.h"
 #include "channel.h"
 #include "config.h"
 #include "display.h"
 #include "minigotchi.h"
+#include "mood.h"
 #include "parasite.h"
 #include <ArduinoJson.h>
 #include <ESP8266WiFi.h>
