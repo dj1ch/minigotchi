@@ -24,18 +24,18 @@ class Mood;
 
 class Pwnagotchi {
 public:
-  static void detect();
-  static void pwnagotchiCallback(unsigned char *buf, short unsigned int len);
-  static void processJson(DynamicJsonDocument &jsonBuffer);
-  static void stopCallback();
+    static void detect();
+    static void pwnagotchiCallback(unsigned char *buf, short unsigned int len);
+    static void processJson(DynamicJsonDocument &jsonBuffer);
+    static void stopCallback();
 
 private:
-  static Mood &mood;
-  static String findCopy(const String &buf);
-  static String extractMAC(const unsigned char *buff);
-  static void getMAC(char *addr, const unsigned char *buff, int offset);
-  static bool parsed;
-  static bool pwnagotchiDetected;
+    static Mood &mood;
+    static String findCopy(const String &buf);
+    static String extractMAC(const unsigned char *buff);
+    static void getMAC(char *addr, const unsigned char *buff, int offset);
+    static bool parsed;
+    static bool pwnagotchiDetected;
 };
 
 #endif // PWNAGOTCHI_H
