@@ -189,16 +189,26 @@ void WebUI::setupServer() {
       Config::saveConfig();
       // Serial.println("Config check: " + String(Config::configured ? "true" :
       // "false"));
+      
+      // COD warzone???
       request->send(200, "text/html",
-                    mood.getHappy() +
-                        " Configuration updated! You may exit this tab and "
-                        "disconnect from the Wifi AP.<br>");
+                    mood.getHappy() + " Configuration updated! Update requires restart. This web interface will shut down."
+                                      "<br><button onclick=\"window.location.href='/restart'\">Restart</button>");
+
     } else {
       request->send(200, "text/html",
                     mood.getBroken() + " No <b>valid</b> input received.<br><a "
                                        "href=\"/\">Return to Home Page</a>");
     }
   });
+
+  // restart code
+  server.on("/restart", HTTP_GET, [](AsyncWebServerRequest *request) {
+    request->send(200, "text/plain", "Restarting...");
+    delay(1000);
+    ESP.restart();
+  });
+
 
   server.onNotFound([&](AsyncWebServerRequest *request) {
     request->send(200, "text/html", html);
