@@ -19,24 +19,25 @@
 Mood &Minigotchi::mood = Mood::getInstance();
 WebUI *Minigotchi::web = nullptr;
 
+
 // current epoch val
 int Minigotchi::currentEpoch = 0;
 
 /**
  * Wait for WebUI to get input that the configuration is done
- *
+ * 
  * Keep in mind this runs in a loop
  */
 void Minigotchi::waitForInput() {
-  if (!Config::configured) {
-    web = new WebUI();
-  }
+    if (!Config::configured) {
+      web = new WebUI();
+    }
 
-  // stop web server
-  if (Config::configured && (web != nullptr)) {
-    delete web;
-    web = nullptr;
-  }
+    // stop web server
+    if (Config::configured && (web != nullptr)) {
+      delete web;
+      web = nullptr;
+    }
 }
 
 /**
@@ -119,6 +120,7 @@ void Minigotchi::info() {
   delay(Config::shortDelay);
 }
 
+
 /**
  * This is printed after everything is done in the bootup process
  */
@@ -166,6 +168,7 @@ void Minigotchi::cpu() {
                              " MHz");
   delay(Config::shortDelay);
 }
+
 
 /** developer note:
  *

@@ -157,7 +157,7 @@ WebUI::~WebUI() {
 
 /**
  * Destroys/stops Web Server
- * 
+ *
  * This is essentially the destructor of this class that can manually be called
  */
 void WebUI::stopServer() {
@@ -189,11 +189,15 @@ void WebUI::setupServer() {
       Config::saveConfig();
       // Serial.println("Config check: " + String(Config::configured ? "true" :
       // "false"));
-      
+
       // COD warzone???
-      request->send(200, "text/html",
-                    mood.getHappy() + " Configuration updated! Update requires restart. This web interface will shut down."
-                                      "<br><button onclick=\"window.location.href='/restart'\">Restart</button>");
+      request->send(
+          200, "text/html",
+          mood.getHappy() +
+              " Configuration updated! Update requires restart. This web "
+              "interface will shut down."
+              "<br><button "
+              "onclick=\"window.location.href='/restart'\">Restart</button>");
 
     } else {
       request->send(200, "text/html",
@@ -208,7 +212,6 @@ void WebUI::setupServer() {
     delay(1000);
     ESP.restart();
   });
-
 
   server.onNotFound([&](AsyncWebServerRequest *request) {
     request->send(200, "text/html", html);

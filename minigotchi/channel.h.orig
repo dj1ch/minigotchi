@@ -5,9 +5,9 @@
 #ifndef CHANNEL_H
 #define CHANNEL_H
 
+#include "mood.h"
 #include "config.h"
 #include "minigotchi.h"
-#include "mood.h"
 #include <ESP8266WiFi.h>
 
 class Mood;

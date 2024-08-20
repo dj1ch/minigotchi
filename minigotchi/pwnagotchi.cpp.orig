@@ -207,8 +207,7 @@ void Pwnagotchi::pwnagotchiCallback(unsigned char *buf,
         error = deserializeJson(jsonBuffer, essid);
 
         if (!error) {
-          Serial.println(mood.getHappy() +
-                         " Successfully cleaned ESSID: " + essid);
+          Serial.println(mood.getHappy() + " Successfully cleaned ESSID: " + essid);
           Display::updateDisplay(mood.getHappy(),
                                  "Successfully cleaned ESSID: " + essid);
           essid = "";
@@ -247,7 +246,7 @@ void Pwnagotchi::processJson(DynamicJsonDocument &jsonBuffer) {
   // find minigotchi/palnagotchi
   bool pal = jsonBuffer["pal"].as<bool>();
   bool minigotchi = jsonBuffer["minigotchi"].as<bool>();
-
+  
   // find out some stats
   String name = jsonBuffer["name"].as<String>();
   String pwndTot = jsonBuffer["pwnd_tot"].as<String>();
@@ -269,8 +268,9 @@ void Pwnagotchi::processJson(DynamicJsonDocument &jsonBuffer) {
   Serial.println(pwndTot);
   Serial.print(" ");
   Display::updateDisplay(mood.getHappy(),
-                         deviceType + " name: " + (String)name);
-  Display::updateDisplay(mood.getHappy(), "Pwned Networks: " + (String)pwndTot);
+                        deviceType + " name: " + (String)name);
+  Display::updateDisplay(mood.getHappy(),
+                        "Pwned Networks: " + (String)pwndTot);
 
   Parasite::sendPwnagotchiStatus(FRIEND_FOUND, name.c_str());
 }
