@@ -22,26 +22,26 @@ class WebUI;
 
 class Minigotchi {
 public:
-    static void boot();
-    static void finish();
-    static void info();
-    static void version();
-    static void mem();
-    static void cpu();
-    static void monStart();
-    static void monStop();
-    static void cycle();
-    static void detect();
-    static void deauth();
-    static void advertise();
-    static void epoch();
-    static int addEpoch();
-    static int currentEpoch;
+  static void boot();
+  static void finish();
+  static void info();
+  static void version();
+  static void mem();
+  static void cpu();
+  static void monStart();
+  static void monStop();
+  static void cycle();
+  static void detect();
+  static void deauth();
+  static void advertise();
+  static void epoch();
+  static int addEpoch();
+  static int currentEpoch;
 
 private:
-    static void waitForInput();
-    static Mood &mood;
-    static WebUI *web;
+  static void waitForInput();
+  static Mood &mood;
+  static WebUI *web;
 };
 
 #endif // MINIGOTCHI_H

@@ -28,152 +28,152 @@ int Minigotchi::currentEpoch = 0;
  * Keep in mind this runs in a loop
  */
 void Minigotchi::waitForInput() {
-    if (!Config::configured) {
-        web = new WebUI();
-    }
+  if (!Config::configured) {
+    web = new WebUI();
+  }
 
-    // stop web server
-    if (Config::configured && (web != nullptr)) {
-        delete web;
-        web = nullptr;
-    }
+  // stop web server
+  if (Config::configured && (web != nullptr)) {
+    delete web;
+    web = nullptr;
+  }
 }
 
 /**
  * Increment/increase current epoch by one
  */
 int Minigotchi::addEpoch() {
-    Minigotchi::currentEpoch++;
-    return Minigotchi::currentEpoch;
+  Minigotchi::currentEpoch++;
+  return Minigotchi::currentEpoch;
 }
 
 /**
  * Show current Minigotchi epoch
  */
 void Minigotchi::epoch() {
-    Minigotchi::addEpoch();
-    Parasite::readData();
-    Serial.print(mood.getNeutral() + " Current Epoch: ");
-    Serial.println(Minigotchi::currentEpoch);
-    Serial.println(" ");
-    Display::updateDisplay(mood.getNeutral(),
-                           "Current Epoch: " + Minigotchi::currentEpoch);
+  Minigotchi::addEpoch();
+  Parasite::readData();
+  Serial.print(mood.getNeutral() + " Current Epoch: ");
+  Serial.println(Minigotchi::currentEpoch);
+  Serial.println(" ");
+  Display::updateDisplay(mood.getNeutral(),
+                         "Current Epoch: " + Minigotchi::currentEpoch);
 }
 
 /**
  * Things to do on startup
  */
 void Minigotchi::boot() {
-    // clear list
+  // clear list
+  Config::whitelist.clear();
+
+  // configure moods
+  Mood::init(Config::happy, Config::sad, Config::broken, Config::intense,
+             Config::looking1, Config::looking2, Config::neutral,
+             Config::sleeping);
+  Display::startScreen();
+  Serial.println(" ");
+  Serial.println(mood.getHappy() +
+                 " Hi, I'm Minigotchi, your pwnagotchi's best friend!");
+  Display::updateDisplay(mood.getHappy(), "Hi, I'm Minigotchi");
+  Serial.println(" ");
+  Serial.println(mood.getNeutral() +
+                 " You can edit my configuration parameters in config.cpp!");
+  Serial.println(" ");
+  delay(Config::shortDelay);
+  Display::updateDisplay(mood.getNeutral(), "Edit my config.cpp!");
+  delay(Config::shortDelay);
+  Serial.println(mood.getIntense() + " Starting now...");
+  Serial.println(" ");
+  Display::updateDisplay(mood.getIntense(), "Starting now");
+  delay(Config::shortDelay);
+  Serial.println("################################################");
+  Serial.println("#                BOOTUP PROCESS                #");
+  Serial.println("################################################");
+  Serial.println(" ");
+
+  // load configuration
+  Config::loadConfig();
+
+  if (!Config::configured) {
+    // erases default values if any
     Config::whitelist.clear();
+    Config::clearConfig();
+  }
 
-    // configure moods
-    Mood::init(Config::happy, Config::sad, Config::broken, Config::intense,
-               Config::looking1, Config::looking2, Config::neutral,
-               Config::sleeping);
-    Display::startScreen();
-    Serial.println(" ");
-    Serial.println(mood.getHappy() +
-                   " Hi, I'm Minigotchi, your pwnagotchi's best friend!");
-    Display::updateDisplay(mood.getHappy(), "Hi, I'm Minigotchi");
-    Serial.println(" ");
-    Serial.println(mood.getNeutral() +
-                   " You can edit my configuration parameters in config.cpp!");
-    Serial.println(" ");
-    delay(Config::shortDelay);
-    Display::updateDisplay(mood.getNeutral(), "Edit my config.cpp!");
-    delay(Config::shortDelay);
-    Serial.println(mood.getIntense() + " Starting now...");
-    Serial.println(" ");
-    Display::updateDisplay(mood.getIntense(), "Starting now");
-    delay(Config::shortDelay);
-    Serial.println("################################################");
-    Serial.println("#                BOOTUP PROCESS                #");
-    Serial.println("################################################");
-    Serial.println(" ");
+  // wait for the webui configuration
+  while (!Config::configured) {
+    waitForInput();
+  }
 
-    // load configuration
-    Config::loadConfig();
-
-    if (!Config::configured) {
-        // erases default values if any
-        Config::whitelist.clear();
-        Config::clearConfig();
-    }
-
-    // wait for the webui configuration
-    while (!Config::configured) {
-        waitForInput();
-    }
-
-    Deauth::list();
-    Channel::init(Config::channel);
-    Minigotchi::info();
-    Parasite::sendName();
-    Minigotchi::finish();
+  Deauth::list();
+  Channel::init(Config::channel);
+  Minigotchi::info();
+  Parasite::sendName();
+  Minigotchi::finish();
 }
 
 /**
  * Show current Minigotchi info/stats
  */
 void Minigotchi::info() {
-    delay(Config::shortDelay);
-    Serial.println(" ");
-    Serial.println(mood.getNeutral() + " Current Minigotchi Stats: ");
-    Display::updateDisplay(mood.getNeutral(), "Current Minigotchi Stats:");
-    version();
-    mem();
-    cpu();
-    Serial.println(" ");
-    delay(Config::shortDelay);
+  delay(Config::shortDelay);
+  Serial.println(" ");
+  Serial.println(mood.getNeutral() + " Current Minigotchi Stats: ");
+  Display::updateDisplay(mood.getNeutral(), "Current Minigotchi Stats:");
+  version();
+  mem();
+  cpu();
+  Serial.println(" ");
+  delay(Config::shortDelay);
 }
 
 /**
  * This is printed after everything is done in the bootup process
  */
 void Minigotchi::finish() {
-    Serial.println("################################################");
-    Serial.println(" ");
-    Serial.println(mood.getNeutral() + " Started successfully!");
-    Serial.println(" ");
-    Display::updateDisplay(mood.getNeutral(), "Started sucessfully");
-    delay(Config::shortDelay);
+  Serial.println("################################################");
+  Serial.println(" ");
+  Serial.println(mood.getNeutral() + " Started successfully!");
+  Serial.println(" ");
+  Display::updateDisplay(mood.getNeutral(), "Started sucessfully");
+  delay(Config::shortDelay);
 }
 
 /**
  * Shows current Minigotchi version
  */
 void Minigotchi::version() {
-    Serial.print(mood.getNeutral() + " Version: ");
-    Serial.println(Config::version.c_str());
-    Display::updateDisplay(mood.getNeutral(),
-                           "Version: " + (String)Config::version.c_str());
-    delay(Config::shortDelay);
+  Serial.print(mood.getNeutral() + " Version: ");
+  Serial.println(Config::version.c_str());
+  Display::updateDisplay(mood.getNeutral(),
+                         "Version: " + (String)Config::version.c_str());
+  delay(Config::shortDelay);
 }
 
 /**
  * Shows current Minigotchi memory usage
  */
 void Minigotchi::mem() {
-    Serial.print(mood.getNeutral() + " Heap: ");
-    Serial.print(ESP.getFreeHeap());
-    Serial.println(" bytes");
-    Display::updateDisplay(mood.getNeutral(),
-                           "Heap: " + (String)ESP.getFreeHeap() + " bytes");
-    delay(Config::shortDelay);
+  Serial.print(mood.getNeutral() + " Heap: ");
+  Serial.print(ESP.getFreeHeap());
+  Serial.println(" bytes");
+  Display::updateDisplay(mood.getNeutral(),
+                         "Heap: " + (String)ESP.getFreeHeap() + " bytes");
+  delay(Config::shortDelay);
 }
 
 /**
  * Shows current Minigotchi Frequency
  */
 void Minigotchi::cpu() {
-    Serial.print(mood.getNeutral() + " CPU Frequency: ");
-    Serial.print(ESP.getCpuFreqMHz());
-    Serial.println(" MHz");
-    Display::updateDisplay(mood.getNeutral(),
-                           "CPU Frequency: " + (String)ESP.getCpuFreqMHz() +
-                           " MHz");
-    delay(Config::shortDelay);
+  Serial.print(mood.getNeutral() + " CPU Frequency: ");
+  Serial.print(ESP.getCpuFreqMHz());
+  Serial.println(" MHz");
+  Display::updateDisplay(mood.getNeutral(),
+                         "CPU Frequency: " + (String)ESP.getCpuFreqMHz() +
+                             " MHz");
+  delay(Config::shortDelay);
 }
 
 /** developer note:
@@ -197,19 +197,19 @@ void Minigotchi::cpu() {
  * Puts Minigotchi in promiscuous mode
  */
 void Minigotchi::monStart() {
-    // revert to station mode
-    wifi_set_opmode(STATION_MODE);
-    wifi_promiscuous_enable(true);
+  // revert to station mode
+  wifi_set_opmode(STATION_MODE);
+  wifi_promiscuous_enable(true);
 }
 
 /**
  * Takes Minigotchi out of promiscuous mode
  */
 void Minigotchi::monStop() {
-    wifi_promiscuous_enable(false);
+  wifi_promiscuous_enable(false);
 
-    // revert to station mode
-    wifi_set_opmode(STATION_MODE);
+  // revert to station mode
+  wifi_set_opmode(STATION_MODE);
 }
 
 /** developer note:
@@ -235,30 +235,30 @@ void Minigotchi::monStop() {
  * Channel cycling
  */
 void Minigotchi::cycle() {
-    Parasite::readData();
-    Channel::cycle();
+  Parasite::readData();
+  Channel::cycle();
 }
 
 /**
  * Pwnagotchi detection
  */
 void Minigotchi::detect() {
-    Parasite::readData();
-    Pwnagotchi::detect();
+  Parasite::readData();
+  Pwnagotchi::detect();
 }
 
 /**
  * Deauthing
  */
 void Minigotchi::deauth() {
-    Parasite::readData();
-    Deauth::deauth();
+  Parasite::readData();
+  Deauth::deauth();
 }
 
 /**
  * Advertising
  */
 void Minigotchi::advertise() {
-    Parasite::readData();
-    Frame::advertise();
+  Parasite::readData();
+  Frame::advertise();
 }
