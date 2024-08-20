@@ -14,9 +14,13 @@
  */
 
 /**
+ * Gets first instance of mood class
+ */
+Mood &Channel::mood = Mood::getInstance();
+
+/**
  * Channels to use, matching the config
  */
-
 int Channel::channelList[13] = {
     Config::channels[0], Config::channels[1],  Config::channels[2],
     Config::channels[3], Config::channels[4],  Config::channels[5],
@@ -32,10 +36,10 @@ void Channel::init(int initChannel) {
   // start on user specified channel
   delay(Config::shortDelay);
   Serial.println(" ");
-  Serial.print("(-.-) Initializing on channel ");
+  Serial.print(mood.getSleeping() + " Initializing on channel ");
   Serial.println(initChannel);
   Serial.println(" ");
-  Display::updateDisplay("(-.-)",
+  Display::updateDisplay(mood.getSleeping(),
                          "Initializing on channel " + (String)initChannel);
   delay(Config::shortDelay);
 
@@ -45,14 +49,16 @@ void Channel::init(int initChannel) {
   Minigotchi::monStart();
 
   if (initChannel == getChannel()) {
-    Serial.print("('-') Successfully initialized on channel ");
+    Serial.print(mood.getNeutral() + " Successfully initialized on channel ");
     Serial.println(getChannel());
-    Display::updateDisplay("('-')", "Successfully initialized on channel " +
-                                        (String)getChannel());
+    Display::updateDisplay(mood.getNeutral(),
+                           "Successfully initialized on channel " +
+                               (String)getChannel());
     delay(Config::shortDelay);
   } else {
-    Serial.print("(X-X) Channel initialization failed, try again?");
-    Display::updateDisplay("(X-X)",
+    Serial.println(mood.getBroken() +
+                   " Channel initialization failed, try again?");
+    Display::updateDisplay(mood.getBroken(),
                            "Channel initialization failed, try again?");
     delay(Config::shortDelay);
   }

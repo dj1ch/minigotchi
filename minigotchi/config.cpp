@@ -17,6 +17,10 @@ bool Config::deauth = true;
 bool Config::advertise = true;
 bool Config::scan = true;
 
+// define access point ssid and password
+const char *Config::ssid = "minigotchi";
+const char *Config::pass = "dj1ch-minigotchi";
+
 // define universal delays
 int Config::shortDelay = 500;
 int Config::longDelay = 5000;
@@ -37,6 +41,16 @@ int Config::channel = 1;
 
 // define whitelist
 std::vector<std::string> Config::whitelist = {"SSID", "SSID", "SSID"};
+
+// define faces
+String Config::happy = "(^-^)";
+String Config::sad = "(;-;)";
+String Config::broken = "(X-X)";
+String Config::intense = "(>-<)";
+String Config::looking1 = "(0-o)";
+String Config::looking2 = "(o-0)";
+String Config::neutral = "('-')";
+String Config::sleeping = "(-.-)";
 
 // json config
 int Config::epoch = Minigotchi::currentEpoch;
@@ -70,7 +84,58 @@ std::string Config::session_id = "84:f3:eb:58:95:bd";
 int Config::uptime = Config::time();
 
 // define version(please do not change, this should not be changed)
-std::string Config::version = "3.2.2-beta";
+std::string Config::version = "3.3.2-beta";
+
+// configured flag which only the WebUI changes
+bool Config::configured = false;
+
+/**
+ * Loads configuration values from EEPROM
+ */
+void Config::loadConfig() {
+    EEPROM.begin(512);  // Initialize EEPROM with size 512 bytes
+
+    // load Config::configured
+    Config::configured = EEPROM.read(0) == 1;
+
+    // load Config::whitelist
+    for (int i = 0; i < 10; ++i) {
+        char ssid[33] = {0};
+        for (int j = 0; j < 32; ++j) {
+            ssid[j] = EEPROM.read(1 + i * 32 + j);
+        }
+        if (ssid[0] != '\0') {
+            whitelist.push_back(ssid);
+        }
+    }
+    EEPROM.end();
+}
+
+/**
+ * Saves configuration to EEPROM
+ */
+void Config::saveConfig() {
+    EEPROM.begin(512);
+
+    // save Config::configured
+    EEPROM.write(0, Config::configured ? 1 : 0);
+
+    // save Config::whitelist
+    for (int i = 0; i < 10; ++i) {
+        if (i < whitelist.size()) {
+            const char* ssid = whitelist[i].c_str();
+            for (int j = 0; j < 32; ++j) {
+                EEPROM.write(1 + i * 32 + j, ssid[j]);
+            }
+        } else {
+            for (int j = 0; j < 32; ++j) {
+                EEPROM.write(1 + i * 32 + j, 0);
+            }
+        }
+    }
+    EEPROM.commit();
+    EEPROM.end();
+}
 
 /** developer note:
  *
