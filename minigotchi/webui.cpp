@@ -258,6 +258,7 @@ void WebUI::clearWhitelist() {
   // this should be 0 no?
   /*
   Config::loadConfig();
-  Serial.println("Whitelist size after save: " + String(Config::whitelist.size()));
+  Serial.println("Whitelist size after save: " +
+  String(Config::whitelist.size()));
   */
 }
