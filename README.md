@@ -1,3 +1,11 @@
+# ⚠️ Project Archived
+
+> [!WARNING]
+> I will no longer continue development due to a lack of maintenance and time. Use at your own risk, any issue made will not be acknowledged. However, I may return to this project, although this is unlikely.
+
+<details>
+<summary>Old README.md</summary>
+
 # minigotchi - ミニゴッチ
 
 <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/Pwnagotchi-Unofficial/minigotchi"></img>
@@ -89,3 +97,5 @@ See the [wiki](https://github.com/Pwnagotchi-Unofficial/minigotchi/wiki/Communic
 - [esp8266-sniffer](https://github.com/kalanda/esp8266-sniffer), an ESP8266 sniffer dedicated to finding probes from smartphones.
 
 **Made with ❤️ by [@dj1ch](https://github.com/dj1ch) and the rest of the Pwnagotchi-Unofficial team!**
+
+</details>
